@@ -1,6 +1,11 @@
 import "server-only";
 import type {
   ChartRange,
+  MarketResponse,
+  Metric,
+  QuoteEntry,
+  QuoteLite,
+  QuotesResponse,
   ChartResponse,
   DataSource,
   HealthReport,
@@ -16,12 +21,22 @@ import {
   type CachePolicy,
   type CachedResult,
 } from "./cached";
-import { ProviderError } from "./errors";
+import { cachedBatch, type BatchOutcome } from "./cached-batch";
+import { ProviderError, safeMessage } from "./errors";
 import { composeStock } from "./normalize/compose";
-import { ok } from "./normalize/helpers";
+import { miss, ok } from "./normalize/helpers";
+import {
+  attachSparkline,
+  buildStatus,
+  indexItem,
+  liteFromCore,
+  MARKET_SYMBOLS,
+  MARKET_STRIP,
+  sparklineMetric,
+} from "./normalize/lite";
 import type { CoreBundle, DetailBundle, MarketDataProvider } from "./types";
 
-export const CONTRACT_VERSION = "0.2.0" as const;
+export const CONTRACT_VERSION = "0.3.0" as const;
 
 const MIN = 60;
 const HOUR = 3600;
@@ -33,6 +48,10 @@ const DAY = 86400;
  */
 export const TTL = {
   core: { softTtl: 45, staleTtl: 3 * DAY },
+  /** Index strip + status chips: one batch per ~60 s for the whole class. */
+  market: { softTtl: 60, staleTtl: 3 * DAY },
+  /** Dashboard sparklines: daily closes only change slowly, so much longer than the price. */
+  spark: { softTtl: 30 * MIN, staleTtl: 7 * DAY },
   detail: { softTtl: 12 * HOUR, staleTtl: 7 * DAY },
   search: { softTtl: DAY, staleTtl: 7 * DAY },
   chart: {
@@ -61,6 +80,20 @@ export interface ServiceDeps {
   sleep?: (ms: number) => Promise<void>;
   /** Overrides for tests (poll interval, wait). */
   cache?: Pick<CacheDeps, "waitMs" | "pollMs" | "lockTtlSeconds">;
+  /**
+   * Dashboard sparklines: at most this many chart calls run at once, and no NEW chart call starts
+   * after `sparklineBudgetMs` (those sparklines come back missing, never a slow page).
+   */
+  sparklineConcurrency?: number;
+  sparklineBudgetMs?: number;
+}
+
+/** One symbol of a dashboard batch, resolved. */
+interface LiteResult {
+  status: QuoteEntry["status"];
+  quote: Metric<QuoteLite>;
+  stale: boolean;
+  fetchedAt: number | null;
 }
 
 /** Orchestrates provider + cache + health and produces contract envelopes. */
@@ -173,6 +206,178 @@ export class DataService {
     };
   }
 
+  /**
+   * Dashboard batch: cached `core:SYMBOL` entries (shared with the stock page) for everything
+   * fresh, ONE batched quote() for the rest, then one daily `chart()` per symbol whose sparkline
+   * is not cached (30 min). Failures stay per symbol.
+   */
+  private async liteBatch(
+    symbols: string[],
+    policy: CachePolicy,
+  ): Promise<Map<string, LiteResult>> {
+    const deps = this.cacheDeps();
+    const asOf = new Date(this.now());
+    const cores = await cachedBatch<CoreBundle>(
+      deps,
+      symbols.map((s) => `core:${s}`),
+      policy,
+      async (keys) =>
+        this.provider
+          .getCores(keys.map((k) => k.slice("core:".length)))
+          .then(
+            (m) =>
+              new Map([...m].map(([sym, v]) => [`core:${sym}`, v] as const)),
+          ),
+    );
+
+    // Sparklines only for symbols that actually have a quote (no chart calls for unknown tickers).
+    const live = symbols.filter((s) => {
+      const o = cores.get(`core:${s}`);
+      return o?.ok && o.value.data.quote.value !== null;
+    });
+    const sparks = await cachedBatch<number[]>(
+      deps,
+      live.map((s) => `spark:${s}`),
+      TTL.spark,
+      (keys) => this.fetchSparklines(keys),
+    );
+
+    const out = new Map<string, LiteResult>();
+    for (const symbol of symbols) {
+      const c = cores.get(`core:${symbol}`);
+      if (!c || !c.ok) {
+        const notFound = c && !c.ok && c.error.kind === "not_found";
+        out.set(symbol, {
+          status: notFound ? "not_found" : "unavailable",
+          quote: miss(notFound ? "not_provided_by_source" : "provider_error"),
+          stale: false,
+          fetchedAt: null,
+        });
+        continue;
+      }
+      const base = liteFromCore(c.value.data, asOf);
+      if (base.value === null) {
+        out.set(symbol, {
+          status: "unavailable",
+          quote: miss(base.reason),
+          stale: c.value.stale,
+          fetchedAt: c.value.fetchedAt,
+        });
+        continue;
+      }
+      out.set(symbol, {
+        status: "ok",
+        quote: ok(
+          attachSparkline(
+            base.value,
+            sparkMetric(sparks.get(`spark:${symbol}`)),
+          ),
+        ),
+        stale: c.value.stale,
+        fetchedAt: c.value.fetchedAt,
+      });
+    }
+    return out;
+  }
+
+  private async fetchSparklines(
+    keys: string[],
+  ): Promise<Map<string, number[] | ProviderError>> {
+    const out = new Map<string, number[] | ProviderError>();
+    const limit = Math.max(1, this.deps.sparklineConcurrency ?? 6);
+    const cutoff = this.now() + (this.deps.sparklineBudgetMs ?? 4000);
+    const queue = [...keys];
+    const at = new Date(this.now());
+    const worker = async () => {
+      for (let key = queue.shift(); key; key = queue.shift()) {
+        if (this.now() > cutoff) {
+          out.set(
+            key,
+            new ProviderError("upstream", "sparkline time budget used up"),
+          );
+          continue;
+        }
+        try {
+          out.set(
+            key,
+            await this.provider.getSparkline(key.slice("spark:".length), at),
+          );
+        } catch (e) {
+          out.set(
+            key,
+            e instanceof ProviderError
+              ? e
+              : new ProviderError("upstream", safeMessage(e)),
+          );
+        }
+      }
+    };
+    await Promise.all(
+      Array.from({ length: Math.min(limit, keys.length) }, worker),
+    );
+    return out;
+  }
+
+  /**
+   * GET /api/quotes. `items` keeps the caller's order; invalid tickers are reported inline and
+   * never reach Yahoo.
+   */
+  async getQuotes(
+    items: Array<{ symbol: string; valid: boolean }>,
+  ): Promise<QuotesResponse> {
+    const lites = await this.liteBatch(
+      items.filter((i) => i.valid).map((i) => i.symbol),
+      TTL.core,
+    );
+    const entries: QuoteEntry[] = items.map((i) => {
+      const r = i.valid ? lites.get(i.symbol) : undefined;
+      return r
+        ? { symbol: i.symbol, status: r.status, quote: r.quote, stale: r.stale }
+        : {
+            symbol: i.symbol,
+            status: "invalid",
+            quote: miss("not_provided_by_source"),
+            stale: false,
+          };
+    });
+    const times = [...lites.values()].flatMap((r) =>
+      r.fetchedAt === null ? [] : [r.fetchedAt],
+    );
+    return {
+      meta: this.meta(
+        times.length ? Math.min(...times) : this.now(),
+        entries.some((e) => e.stale),
+      ),
+      entries,
+    };
+  }
+
+  /** GET /api/market: status chips + index strip from ONE cached batch (about 60 s). */
+  async getMarket(): Promise<MarketResponse> {
+    const lites = await this.liteBatch(MARKET_SYMBOLS, TTL.market);
+    const refs = new Map<
+      string,
+      { quote: Metric<QuoteLite>; stale: boolean }
+    >();
+    const indices = MARKET_STRIP.map((spec) => {
+      const r = lites.get(spec.symbol);
+      const quote = r?.quote ?? miss<QuoteLite>("provider_error");
+      refs.set(spec.symbol, { quote, stale: r?.stale ?? false });
+      return indexItem(spec, quote, r?.stale ?? false);
+    });
+    const times = [...lites.values()].flatMap((r) =>
+      r.fetchedAt === null ? [] : [r.fetchedAt],
+    );
+    return {
+      meta: this.meta(
+        times.length ? Math.min(...times) : this.now(),
+        indices.some((i) => i.stale),
+      ),
+      status: buildStatus(refs, new Date(this.now())),
+      indices,
+    };
+  }
+
   async getChart(symbol: string, range: ChartRange): Promise<ChartResponse> {
     const r = await cachedFetch(
       this.cacheDeps(),
@@ -235,6 +440,14 @@ export class DataService {
       providers,
     };
   }
+}
+
+function sparkMetric(o: BatchOutcome<number[]> | undefined): Metric<number[]> {
+  if (!o) return miss("provider_error");
+  if (o.ok) return sparklineMetric(o.value.data);
+  return miss(
+    o.error.kind === "not_found" ? "not_provided_by_source" : "provider_error",
+  );
 }
 
 export { ProviderError };

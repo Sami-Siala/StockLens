@@ -12,6 +12,10 @@ vi.mock("@upstash/redis", () => ({
       calls.push(["get", k]);
       return data.get(k) ?? null;
     }
+    async mget(...keys: string[]) {
+      calls.push(["mget", ...keys]);
+      return keys.map((k) => data.get(k) ?? null);
+    }
     async set(k: string, v: unknown, o?: { ex?: number; nx?: boolean }) {
       calls.push(["set", k, v, o]);
       if (o?.nx && data.has(k)) return null;
@@ -71,6 +75,21 @@ describe("UpstashStore command mapping", () => {
     expect(calls.filter((c) => c[0] === "expire")).toEqual([
       ["expire", "sl:v1:rl:ip:1", 65],
     ]);
+  });
+
+  it("getMany = ONE namespaced MGET for any number of keys (command count stays flat)", async () => {
+    const s = store();
+    await s.set("d:A", { a: 1 }, 60);
+    calls.length = 0;
+    expect(await s.getMany(["d:A", "d:B", "d:C"])).toEqual([
+      { a: 1 },
+      null,
+      null,
+    ]);
+    expect(calls).toEqual([["mget", "sl:v1:d:A", "sl:v1:d:B", "sl:v1:d:C"]]);
+    calls.length = 0;
+    expect(await s.getMany([])).toEqual([]);
+    expect(calls).toEqual([]); // nothing sent for an empty list
   });
 
   it("delete removes the key", async () => {

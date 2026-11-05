@@ -10,6 +10,12 @@ import "server-only";
 export interface KeyValueStore {
   readonly kind: "memory" | "upstash";
   get<T>(key: string): Promise<T | null>;
+  /**
+   * Batch read (one round-trip, ONE Redis command: MGET). Same order as `keys`; null = miss.
+   * Dashboards read ~25 symbols per request, so this keeps the command count (Upstash free tier
+   * is metered per command) flat instead of linear in the list size.
+   */
+  getMany<T>(keys: string[]): Promise<Array<T | null>>;
   /** ttlSeconds is mandatory: nothing in this app lives forever. */
   set(key: string, value: unknown, ttlSeconds: number): Promise<void>;
   /** SET NX with expiry. True when we created the key (we own the lock). */

@@ -111,6 +111,49 @@ ${renderMatrix(cols)}
 - **Next report date** is only shown when it is upcoming (a date more than 2 days in the past is dropped).
 - **Charts**: every range returns candles for tickers with price history. 1H/1D on a closed market return the last trading hour/day
   and set \`fallback\` plus \`marketClosed\`.
+
+## Home dashboard endpoints (contract v0.3.0)
+
+Two batch endpoints feed the home page (PLAN §4.3). Both read the same shared cache as the stock page.
+
+| Endpoint                         | Returns                                                                | Upstream cost (cold)                                      | Cache                                      |
+| -------------------------------- | ---------------------------------------------------------------------- | --------------------------------------------------------- | ------------------------------------------ |
+| \`GET /api/quotes?symbols=A,B,C\`  | \`QuotesResponse\`: one \`QuoteLite\` per symbol, failures inline per item | 1 batched \`quote()\` + 1 daily \`chart()\` per new symbol    | price 45 s, sparkline 30 min, stale 3-7 d  |
+| \`GET /api/market\`                | \`MarketResponse\`: 3 open/closed chips + 8 index items                  | 1 batched \`quote()\` + 8 daily \`chart()\`                   | price 60 s, sparkline 30 min, stale 3-7 d  |
+
+- \`symbols\`: 1 to 25 tickers, trimmed, upper-cased, de-duplicated, order kept. A bad ticker comes back as \`status: "invalid"\` and is never sent to Yahoo; an unknown one is \`not_found\` (remembered 5 min); a failed call is \`unavailable\` or, when an old copy exists, \`ok\` with \`stale: true\`. Only an empty or oversized list is a 400.
+- **Sparkline** = daily closes of the last ~6 weeks (about 30 trading days), thinned to at most 30 points, in the major currency unit. Daily bars were chosen over intraday because a 5-minute line is flat before the open and after the close and means something different in every time zone. The last point is the latest (possibly partial) session.
+- **Next report date** comes free with the batched \`quote()\` (no \`quoteSummary\` call): upcoming dates only, anything more than 2 days old is dropped (\`not_provided_by_source\`); ETFs, indices, FX and futures are \`not_applicable_for_type\`.
+- Price entries are shared with the stock page (\`core:SYMBOL\`): opening a company from the watchlist costs no extra \`quote()\`, and the reverse.
+- **Market chips** use Yahoo's \`marketState\` of a reference index (\`^GSPC\` for NYSE/Nasdaq, \`^FCHI\` for Euronext Paris, \`^N225\` for Tokyo), which knows about holidays. If that quote is missing or only a stale copy, the chip falls back to weekday plus regular hours in the exchange's time zone and says so (\`basis: "schedule"\`, no holiday calendar).
+
+### Index strip: every symbol verified live on 2026-11-05
+
+| Symbol      | Label            | \`kind\`   | Yahoo type / exchange | Yahoo currency | Delay | Notes                                                                                                   |
+| ----------- | ---------------- | -------- | --------------------- | -------------- | ----- | ------------------------------------------------------------------------------------------------------- |
+| \`^GSPC\`     | S&P 500          | \`index\`  | INDEX / SNP           | USD            | 0     | Points. \`priceCurrency\` is \`null\`.                                                                      |
+| \`^IXIC\`     | Nasdaq Composite | \`index\`  | INDEX / NIM           | USD            | 0     | Points.                                                                                                 |
+| \`^FCHI\`     | CAC 40           | \`index\`  | INDEX / PAR           | EUR            | 15    | Points.                                                                                                 |
+| \`^STOXX50E\` | Euro Stoxx 50    | \`index\`  | INDEX / ZRH           | EUR            | 0     | Yahoo pads the name with spaces and a stray "I"; the contract uses our own \`label\`.                     |
+| \`^N225\`     | Nikkei 225       | \`index\`  | INDEX / OSA           | JPY            | 20    | Points. Fewer sparkline points (Japanese holidays).                                                     |
+| \`EURUSD=X\`  | EUR/USD          | \`fx\`     | CURRENCY / CCY        | USD            | 0     | An exchange rate (1 EUR = 1.12 USD), not a price in dollars. Trades around the clock (\`REGULAR\`).       |
+| \`GC=F\`      | Gold             | \`future\` | FUTURE / CMX          | USD            | 10    | USD per troy ounce, but the **front-month contract** ("Gold Dec 26"): it rolls and is not the spot price. |
+| \`^TNX\`      | US 10-year yield | \`yield\`  | INDEX / CGI           | USD            | 15    | A percent LEVEL (4.84 = 4.84 %). Show \`change\` in percentage points; \`changePercent\` is a relative move of the rate and misleads. |
+
+All eight worked on the first try; none needs a substitute. For \`index\`, \`fx\` and \`yield\` the contract sets \`priceCurrency: null\` (a level, not money);
+only the gold future keeps \`USD\`.
+
+### \`QuoteLite\` fields across tickers (live, same day)
+
+| Field                          | AAPL | MC.PA                 | 7203.T | SPY             | TSM  | Indices / FX / gold / yield |
+| ------------------------------ | ---- | --------------------- | ------ | --------------- | ---- | --------------------------- |
+| price, change, change %        | ✅   | ✅                    | ✅     | ✅              | ✅   | ✅ (8/8)                    |
+| market state, delay, as-of     | ✅   | ✅                    | ✅     | ✅              | ✅   | ✅ (8/8)                    |
+| sparkline (<= 30 daily points) | ✅   | ✅                    | ✅ (27) | ✅              | ✅   | ✅ (7 x 30, \`^N225\` 27)     |
+| next report date               | ✅ (est.) | no source (stale July date dropped) | ✅ (today) | n/a (type) | ✅ (est.) | n/a (type)       |
+
+Cost of one dashboard load (market + a 5-symbol list) measured live: **2 batched \`quote()\` + 13 \`chart()\` = 15 upstream calls**, then **0** for the next
+45-60 s and **2 \`quote()\`** per minute afterwards (sparklines live 30 min). Every symbol is fetched at most once, however many students ask.
 `;
   // Same formatting as `npm run format`, so a regenerated file never shows up as a format diff.
   await writeFile(

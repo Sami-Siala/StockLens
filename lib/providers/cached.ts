@@ -31,10 +31,10 @@ export interface CacheDeps {
   onUpstream?: (ok: boolean, error?: string) => void;
 }
 
-const NOT_FOUND_TTL = 300; // an unknown ticker is remembered for 5 minutes
-const COOLDOWN_TTL = 10; // after an upstream failure, do not hammer Yahoo for 10 s
+export const NOT_FOUND_TTL = 300; // an unknown ticker is remembered for 5 minutes
+export const COOLDOWN_TTL = 10; // after an upstream failure, do not hammer Yahoo for 10 s
 
-interface FailMarker {
+export interface FailMarker {
   at: number;
   message: string;
 }

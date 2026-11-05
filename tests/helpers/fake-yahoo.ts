@@ -23,6 +23,16 @@ export async function readRaw<T = unknown>(
   return cache.get(key) as T;
 }
 
+export async function readDashboard<T = unknown>(name: string): Promise<T> {
+  const key = `_dashboard/${name}`;
+  if (!cache.has(key))
+    cache.set(
+      key,
+      JSON.parse(await readFile(join(RAW_DIR, `${key}.json`), "utf8")),
+    );
+  return cache.get(key) as T;
+}
+
 const CHART_FILE: Record<string, string> = {
   "1m": "chart-1m-1m",
   "5m": "chart-5d-5m",
@@ -36,12 +46,27 @@ const CHART_FILE: Record<string, string> = {
 export interface FakeOptions {
   /** Artificial latency per call, so concurrent callers really overlap. */
   delayMs?: number;
+  /** Make the sparkline/chart call fail for these symbols only. */
+  failChartFor?: string[];
+  /** Symbols a batched quote() silently leaves out (Yahoo omits what it cannot serve). */
+  omit?: string[];
   /** Make every call of this kind fail with this error. */
   fail?: Partial<Record<keyof FakeYahooClient["calls"], ProviderError>>;
 }
 
 export class FakeYahooClient implements YahooClient {
-  calls = { quote: 0, quoteSummary: 0, timeSeries: 0, chart: 0, search: 0 };
+  calls = {
+    quote: 0,
+    quotes: 0,
+    quoteSummary: 0,
+    timeSeries: 0,
+    chart: 0,
+    search: 0,
+  };
+  /** Symbols of every batched quote() call, in order (to assert how the batches were split). */
+  batches: string[][] = [];
+  /** Symbols of every chart() call. */
+  chartSymbols: string[] = [];
   constructor(public opts: FakeOptions = {}) {}
 
   get totalCalls() {
@@ -70,6 +95,21 @@ export class FakeYahooClient implements YahooClient {
     return "error" in q ? undefined : q;
   }
 
+  /** Replays the ONE recorded batch (tests/fixtures/raw/_dashboard/quotes.json); unknown symbols are omitted, like Yahoo. */
+  async quotes(symbols: string[]) {
+    await this.tick("quotes");
+    this.batches.push([...symbols]);
+    const rows = await readDashboard<Array<{ symbol?: string }>>("quotes");
+    const wanted = new Set(symbols.map((s) => s.toUpperCase()));
+    const omit = new Set((this.opts.omit ?? []).map((s) => s.toUpperCase()));
+    return rows.filter(
+      (r) =>
+        r.symbol &&
+        wanted.has(r.symbol.toUpperCase()) &&
+        !omit.has(r.symbol.toUpperCase()),
+    );
+  }
+
   async quoteSummary(symbol: string, modules: readonly string[]) {
     await this.tick("quoteSummary");
     const all = await this.load<Record<string, unknown>>(
@@ -96,8 +136,23 @@ export class FakeYahooClient implements YahooClient {
     return Array.isArray(rows) ? rows : [];
   }
 
-  async chart(symbol: string, o: { interval: string }) {
+  async chart(
+    symbol: string,
+    o: { interval: string; includePrePost?: boolean },
+  ) {
     await this.tick("chart");
+    this.chartSymbols.push(symbol);
+    if (this.opts.failChartFor?.includes(symbol))
+      throw new ProviderError("upstream", `chart failed for ${symbol}`);
+    // The dashboard sparkline is the only caller that asks for 1d bars WITHOUT pre/post bars
+    // (the 1Y chart range includes them): replay its own recording when there is one.
+    if (o.interval === "1d" && o.includePrePost === false) {
+      try {
+        return await readDashboard(`spark-${symbol}`);
+      } catch {
+        /* no sparkline recording for this symbol: fall through to the 1Y recording */
+      }
+    }
     const file = CHART_FILE[o.interval];
     if (!file)
       throw new ProviderError("upstream", `bad interval ${o.interval}`);

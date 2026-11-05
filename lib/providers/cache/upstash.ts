@@ -20,6 +20,14 @@ export class UpstashStore implements KeyValueStore {
     return (await this.redis.get<T>(this.prefix + key)) ?? null;
   }
 
+  async getMany<T>(keys: string[]): Promise<Array<T | null>> {
+    if (!keys.length) return [];
+    const rows = await this.redis.mget<Array<T | null>>(
+      ...keys.map((k) => this.prefix + k),
+    );
+    return rows.map((r) => r ?? null);
+  }
+
   async set(key: string, value: unknown, ttlSeconds: number): Promise<void> {
     await this.redis.set(this.prefix + key, value, { ex: ttlSeconds });
   }

@@ -347,3 +347,58 @@ export const SearchQuerySchema = z
       .trim(),
   )
   .pipe(z.string().min(1).max(60));
+
+/** Most symbols one /api/quotes call may carry (after de-duplication). */
+export const MAX_QUOTE_SYMBOLS = 25;
+
+export interface QuotesParamItem {
+  /** Upper-cased ticker (valid) or the cleaned, truncated text (invalid). */
+  symbol: string;
+  valid: boolean;
+}
+
+/**
+ * `?symbols=AAPL,mc.pa,7203.T`: comma-separated, trimmed, upper-cased, de-duplicated, order
+ * preserved. The LIST must be sane (1-25 items, < 800 chars) or the whole call is a 400; a single
+ * bad ticker is flagged `valid: false` and reported inline, so one stale entry in someone's
+ * saved watchlist never blanks the whole dashboard. Invalid tickers are never sent upstream.
+ */
+export const QuotesParamSchema = z
+  .string()
+  .max(800, "symbols is too long")
+  .transform((raw, ctx): QuotesParamItem[] => {
+    const seen = new Set<string>();
+    const items: QuotesParamItem[] = [];
+    for (const part of raw.split(",")) {
+      const t = part.trim();
+      if (!t) continue;
+      const parsed = SymbolSchema.safeParse(t);
+      const item: QuotesParamItem = parsed.success
+        ? { symbol: parsed.data, valid: true }
+        : {
+            symbol: t
+              .replace(/[^\x20-\x7e]/g, "?")
+              .slice(0, 20)
+              .toUpperCase(),
+            valid: false,
+          };
+      if (seen.has(item.symbol)) continue;
+      seen.add(item.symbol);
+      items.push(item);
+    }
+    if (items.length === 0) {
+      ctx.addIssue({
+        code: "custom",
+        message: "at least one symbol is required",
+      });
+      return z.NEVER;
+    }
+    if (items.length > MAX_QUOTE_SYMBOLS) {
+      ctx.addIssue({
+        code: "custom",
+        message: `at most ${MAX_QUOTE_SYMBOLS} symbols`,
+      });
+      return z.NEVER;
+    }
+    return items;
+  });

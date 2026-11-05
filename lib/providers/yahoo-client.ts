@@ -11,6 +11,11 @@ import { ProviderError, safeMessage } from "./errors";
  */
 export interface YahooClient {
   quote(symbol: string): Promise<unknown>;
+  /**
+   * ONE upstream call for many symbols (quote() accepts an array). Returns the raw array;
+   * Yahoo silently omits symbols it does not know.
+   */
+  quotes(symbols: string[]): Promise<unknown>;
   quoteSummary(symbol: string, modules: readonly string[]): Promise<unknown>;
   fundamentalsTimeSeries(
     symbol: string,
@@ -123,6 +128,8 @@ export function createYahooClient(
   return {
     quote: (symbol) =>
       call(() => yf.quote(symbol, {}, OPTS) as Promise<unknown>),
+    quotes: (symbols) =>
+      call(() => yf.quote(symbols, {}, OPTS) as Promise<unknown>),
     quoteSummary: (symbol, modules) =>
       call(
         () =>

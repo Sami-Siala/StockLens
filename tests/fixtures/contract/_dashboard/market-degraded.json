@@ -1,0 +1,480 @@
+{
+  "meta": {
+    "contractVersion": "0.3.0",
+    "source": "fixture",
+    "fetchedAt": "2026-11-05T21:30:00.000Z",
+    "stale": true
+  },
+  "status": [
+    {
+      "id": "us",
+      "label": "NYSE / Nasdaq",
+      "exchangeTimezone": "America/New_York",
+      "marketState": "POST",
+      "isOpen": false,
+      "basis": "yahoo",
+      "referenceSymbol": "^GSPC"
+    },
+    {
+      "id": "paris",
+      "label": "Euronext Paris",
+      "exchangeTimezone": "Europe/Paris",
+      "marketState": "CLOSED",
+      "isOpen": false,
+      "basis": "yahoo",
+      "referenceSymbol": "^FCHI"
+    },
+    {
+      "id": "tokyo",
+      "label": "Tokyo (TSE)",
+      "exchangeTimezone": "Asia/Tokyo",
+      "marketState": "CLOSED",
+      "isOpen": false,
+      "basis": "yahoo",
+      "referenceSymbol": "^N225"
+    }
+  ],
+  "indices": [
+    {
+      "symbol": "^GSPC",
+      "label": "S&P 500",
+      "kind": "index",
+      "quote": {
+        "value": {
+          "symbol": "^GSPC",
+          "name": "S&P 500",
+          "exchange": "SNP",
+          "quoteType": "INDEX",
+          "priceCurrency": null,
+          "priceSubunit": null,
+          "price": 7353.73,
+          "change": -334.89014,
+          "changePercent": -0.0435566,
+          "marketState": "POST",
+          "delayMinutes": 0,
+          "asOf": "2026-11-05T21:20:01.000Z",
+          "nextEarnings": {
+            "value": null,
+            "reason": "not_applicable_for_type"
+          },
+          "sparkline": {
+            "value": [
+              7704.1298828125,
+              7743.41015625,
+              7683.68994140625,
+              7670.83984375,
+              7651.5400390625,
+              7666.4501953125,
+              7722.72021484375,
+              7773.9501953125,
+              7818.93017578125,
+              7801.77001953125,
+              7765.35986328125,
+              7811.5400390625,
+              7807.240234375,
+              7805.4501953125,
+              7718.93994140625,
+              7659.43994140625,
+              7690.72998046875,
+              7712.56982421875,
+              7757.169921875,
+              7663.43017578125,
+              7623.68017578125,
+              7676.77001953125,
+              7722.60009765625,
+              7743.97998046875,
+              7720.39013671875,
+              7580.06982421875,
+              7541.39990234375,
+              7568.919921875,
+              7688.6201171875,
+              7353.72998046875
+            ],
+            "reason": null
+          }
+        },
+        "reason": null
+      },
+      "stale": false
+    },
+    {
+      "symbol": "^IXIC",
+      "label": "Nasdaq Composite",
+      "kind": "index",
+      "quote": {
+        "value": {
+          "symbol": "^IXIC",
+          "name": "NASDAQ Composite",
+          "exchange": "Nasdaq GIDS",
+          "quoteType": "INDEX",
+          "priceCurrency": null,
+          "priceSubunit": null,
+          "price": 24314.998,
+          "change": -1421.5156,
+          "changePercent": -0.055233417,
+          "marketState": "POST",
+          "delayMinutes": 0,
+          "asOf": "2026-11-05T21:22:48.000Z",
+          "nextEarnings": {
+            "value": null,
+            "reason": "not_applicable_for_type"
+          },
+          "sparkline": {
+            "value": [
+              26939.369140625,
+              27068.720703125,
+              26820.380859375,
+              26797.5390625,
+              26861.060546875,
+              26871.599609375,
+              27190.859375,
+              27477.310546875,
+              27599.7890625,
+              27538.689453125,
+              27193.33984375,
+              27366.169921875,
+              27245.900390625,
+              27204.380859375,
+              26692.869140625,
+              26140.029296875,
+              26430.890625,
+              26424.8203125,
+              26702.859375,
+              26008.859375,
+              25955.33984375,
+              26169.380859375,
+              26477.810546875,
+              26549.849609375,
+              26184.720703125,
+              25437,
+              25164.310546875,
+              25372.009765625,
+              25736.509765625,
+              24314.998046875
+            ],
+            "reason": null
+          }
+        },
+        "reason": null
+      },
+      "stale": false
+    },
+    {
+      "symbol": "^FCHI",
+      "label": "CAC 40",
+      "kind": "index",
+      "quote": {
+        "value": {
+          "symbol": "^FCHI",
+          "name": "CAC 40",
+          "exchange": "Paris",
+          "quoteType": "INDEX",
+          "priceCurrency": null,
+          "priceSubunit": null,
+          "price": 8205.37,
+          "change": 27.47998,
+          "changePercent": 0.0033602774,
+          "marketState": "CLOSED",
+          "delayMinutes": 15,
+          "asOf": "2026-11-05T17:05:02.000Z",
+          "nextEarnings": {
+            "value": null,
+            "reason": "not_applicable_for_type"
+          },
+          "sparkline": {
+            "value": [
+              8081.43017578125,
+              8077.7998046875,
+              8078.47998046875,
+              8035.8701171875,
+              7964.509765625,
+              7835.31005859375,
+              7897.18994140625,
+              7834.10009765625,
+              7865.06982421875,
+              7769.2099609375,
+              7729.68994140625,
+              7803.330078125,
+              7832.8798828125,
+              7827.6298828125,
+              7873.10986328125,
+              7956.7001953125,
+              7868.0498046875,
+              7838.490234375,
+              7921.68017578125,
+              7811.259765625,
+              7782.81982421875,
+              7847.31982421875,
+              7887.14013671875,
+              7886.9599609375,
+              7970,
+              7969.419921875,
+              8047.68994140625,
+              8020.31005859375,
+              8177.89013671875,
+              8205.3701171875
+            ],
+            "reason": null
+          }
+        },
+        "reason": null
+      },
+      "stale": false
+    },
+    {
+      "symbol": "^STOXX50E",
+      "label": "Euro Stoxx 50",
+      "kind": "index",
+      "quote": {
+        "value": null,
+        "reason": "provider_error"
+      },
+      "stale": false
+    },
+    {
+      "symbol": "^N225",
+      "label": "Nikkei 225",
+      "kind": "index",
+      "quote": {
+        "value": {
+          "symbol": "^N225",
+          "name": "Nikkei 225",
+          "exchange": "Osaka",
+          "quoteType": "INDEX",
+          "priceCurrency": null,
+          "priceSubunit": null,
+          "price": 61077.9,
+          "change": -1110.7305,
+          "changePercent": -0.017860668,
+          "marketState": "CLOSED",
+          "delayMinutes": 20,
+          "asOf": "2026-11-05T06:45:03.000Z",
+          "nextEarnings": {
+            "value": null,
+            "reason": "not_applicable_for_type"
+          },
+          "sparkline": {
+            "value": [
+              66364.203125,
+              65877.6171875,
+              65481.26953125,
+              66753.71875,
+              68956.71875,
+              68309.4609375,
+              69946.859375,
+              70683.9765625,
+              70035.7109375,
+              69042.109375,
+              69030.921875,
+              67777.5234375,
+              67744.2890625,
+              64425.94921875,
+              65324.2890625,
+              64916.69921875,
+              64075.421875,
+              64621.23828125,
+              62907.83984375,
+              62693.16015625,
+              62189.6484375,
+              63268.37109375,
+              63954.19140625,
+              64659.46875,
+              63290.109375,
+              63081.859375,
+              62188.62890625
+            ],
+            "reason": null
+          }
+        },
+        "reason": null
+      },
+      "stale": false
+    },
+    {
+      "symbol": "EURUSD=X",
+      "label": "EUR/USD",
+      "kind": "fx",
+      "quote": {
+        "value": {
+          "symbol": "EURUSD=X",
+          "name": "EUR/USD",
+          "exchange": "CCY",
+          "quoteType": "CURRENCY",
+          "priceCurrency": null,
+          "priceSubunit": null,
+          "price": 1.1220826,
+          "change": -0.0013866425,
+          "changePercent": -0.0012344335,
+          "marketState": "REGULAR",
+          "delayMinutes": 0,
+          "asOf": "2026-11-05T21:22:29.000Z",
+          "nextEarnings": {
+            "value": null,
+            "reason": "not_applicable_for_type"
+          },
+          "sparkline": {
+            "value": [
+              1.138187289237976,
+              1.1374752521514893,
+              1.13779878616333,
+              1.137268304824829,
+              1.134082555770874,
+              1.1327208280563354,
+              1.124985933303833,
+              1.1254544258117676,
+              1.1217050552368164,
+              1.1253530979156494,
+              1.1201343536376953,
+              1.1213024854660034,
+              1.1204732656478882,
+              1.1160216331481934,
+              1.1204482316970825,
+              1.1213151216506958,
+              1.1225486993789673,
+              1.1215791702270508,
+              1.122674584388733,
+              1.1234692335128784,
+              1.1221455335617065,
+              1.1217553615570068,
+              1.1173808574676514,
+              1.1129660606384277,
+              1.1155734062194824,
+              1.1182805299758911,
+              1.1156854629516602,
+              1.1192066669464111,
+              1.1207244396209717,
+              1.1220825910568237
+            ],
+            "reason": null
+          }
+        },
+        "reason": null
+      },
+      "stale": false
+    },
+    {
+      "symbol": "GC=F",
+      "label": "Gold",
+      "kind": "future",
+      "quote": {
+        "value": {
+          "symbol": "GC=F",
+          "name": "Gold Dec 26",
+          "exchange": "COMEX",
+          "quoteType": "FUTURE",
+          "priceCurrency": "USD",
+          "priceSubunit": null,
+          "price": 4097.4,
+          "change": 24.399902,
+          "changePercent": 0.0059906465,
+          "marketState": "REGULAR",
+          "delayMinutes": 10,
+          "asOf": "2026-11-05T21:12:44.000Z",
+          "nextEarnings": {
+            "value": null,
+            "reason": "not_applicable_for_type"
+          },
+          "sparkline": {
+            "value": [
+              4298,
+              4321.2001953125,
+              4168.39990234375,
+              4179.7001953125,
+              4186.7001953125,
+              4202.2998046875,
+              4162.2998046875,
+              4156.7998046875,
+              4187.10009765625,
+              4140.7001953125,
+              4157,
+              4216.2998046875,
+              4190.60009765625,
+              4177.2998046875,
+              4107.89990234375,
+              4181.10009765625,
+              4160.10009765625,
+              4142.60009765625,
+              4150,
+              4060.39990234375,
+              4007.89990234375,
+              4038.39990234375,
+              4074.60009765625,
+              4051.60009765625,
+              4031.39990234375,
+              3898.89990234375,
+              3969.60009765625,
+              3940.39990234375,
+              4073,
+              4097.39990234375
+            ],
+            "reason": null
+          }
+        },
+        "reason": null
+      },
+      "stale": false
+    },
+    {
+      "symbol": "^TNX",
+      "label": "US 10-year yield",
+      "kind": "yield",
+      "quote": {
+        "value": {
+          "symbol": "^TNX",
+          "name": "CBOE Interest Rate 10 Year T Note",
+          "exchange": "Cboe Indices",
+          "quoteType": "INDEX",
+          "priceCurrency": null,
+          "priceSubunit": null,
+          "price": 4.837,
+          "change": -0.05700016,
+          "changePercent": -0.011646947,
+          "marketState": "CLOSED",
+          "delayMinutes": 15,
+          "asOf": "2026-11-05T19:59:54.000Z",
+          "nextEarnings": {
+            "value": null,
+            "reason": "not_applicable_for_type"
+          },
+          "sparkline": {
+            "value": [
+              5.1620001792907715,
+              5.184000015258789,
+              5.239999771118164,
+              5.255000114440918,
+              5.293000221252441,
+              5.236999988555908,
+              5.2769999504089355,
+              5.310999870300293,
+              5.269000053405762,
+              5.2769999504089355,
+              5.230999946594238,
+              5.24399995803833,
+              5.239999771118164,
+              5.2170000076293945,
+              5.190000057220459,
+              5.0980000495910645,
+              5.136000156402588,
+              5.117000102996826,
+              5.145999908447266,
+              4.953000068664551,
+              4.98799991607666,
+              4.986000061035156,
+              4.993000030517578,
+              5.045000076293945,
+              4.988999843597412,
+              4.928999900817871,
+              4.894000053405762,
+              4.952000141143799,
+              4.894000053405762,
+              4.836999893188477
+            ],
+            "reason": null
+          }
+        },
+        "reason": null
+      },
+      "stale": true
+    }
+  ]
+}

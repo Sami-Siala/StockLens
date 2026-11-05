@@ -32,6 +32,13 @@ export class MemoryStore implements KeyValueStore {
     return it ? (JSON.parse(it.value) as T) : null;
   }
 
+  async getMany<T>(keys: string[]): Promise<Array<T | null>> {
+    return keys.map((k) => {
+      const it = this.live(k);
+      return it ? (JSON.parse(it.value) as T) : null;
+    });
+  }
+
   async set(key: string, value: unknown, ttlSeconds: number): Promise<void> {
     this.items.set(key, {
       value: JSON.stringify(value),

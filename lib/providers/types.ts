@@ -1,4 +1,5 @@
 import "server-only";
+import type { ProviderError } from "./errors";
 import type {
   AnalystView,
   ChartRange,
@@ -29,6 +30,17 @@ export interface MarketDataProvider {
   readonly name: "yahoo" | "snapshot";
   search(query: string): Promise<SearchHit[]>;
   getCore(symbol: string): Promise<CoreBundle>;
+  /**
+   * Many core bundles in ONE upstream call (dashboard batch). Every requested symbol appears in
+   * the map: either its bundle, or the `ProviderError` explaining why not (`not_found` when Yahoo
+   * omitted it, `invalid_payload` when its row was unusable). A failed CALL throws instead.
+   */
+  getCores(symbols: string[]): Promise<Map<string, CoreBundle | ProviderError>>;
+  /**
+   * Daily closes for a dashboard sparkline (last ~6 weeks, thinned to <= 30 points, major unit).
+   * May return fewer than 2 points for very young listings; the service reports that as missing.
+   */
+  getSparkline(symbol: string, now?: Date): Promise<number[]>;
   getDetail(symbol: string): Promise<DetailBundle>;
   getChart(symbol: string, range: ChartRange, now?: Date): Promise<ChartSeries>;
 }

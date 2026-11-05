@@ -142,6 +142,9 @@ describe("cachedFetch", () => {
       get: async () => {
         throw new Error("ECONNREFUSED");
       },
+      getMany: async () => {
+        throw new Error("ECONNREFUSED");
+      },
       set: async () => {
         throw new Error("ECONNREFUSED");
       },

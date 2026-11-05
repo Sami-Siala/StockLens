@@ -1,0 +1,537 @@
+{
+  "meta": {
+    "contractVersion": "0.3.0",
+    "source": "fixture",
+    "fetchedAt": "2026-11-05T21:30:00.000Z",
+    "stale": true
+  },
+  "entries": [
+    {
+      "symbol": "AAPL",
+      "status": "ok",
+      "quote": {
+        "value": {
+          "symbol": "AAPL",
+          "name": "Apple Inc.",
+          "exchange": "NasdaqGS",
+          "quoteType": "EQUITY",
+          "priceCurrency": "USD",
+          "priceSubunit": null,
+          "price": 344.17,
+          "change": -5.3399963,
+          "changePercent": -0.015278522,
+          "marketState": "POST",
+          "delayMinutes": 15,
+          "asOf": "2026-11-05T21:00:01.000Z",
+          "nextEarnings": {
+            "value": {
+              "date": "2027-01-28T21:00:00.000Z",
+              "isEstimate": true
+            },
+            "reason": null
+          },
+          "sparkline": {
+            "value": [
+              335.9200134277344,
+              341.07000732421875,
+              338.3999938964844,
+              329.3999938964844,
+              333.0199890136719,
+              330.32000732421875,
+              333.69000244140625,
+              332.8900146484375,
+              333.6300048828125,
+              336.6700134277344,
+              340.4200134277344,
+              336.6400146484375,
+              340.9700012207031,
+              341.2699890136719,
+              342.9599914550781,
+              343.4599914550781,
+              342.94000244140625,
+              339.5,
+              343.989990234375,
+              348.2200012207031,
+              347.7300109863281,
+              343.9100036621094,
+              347.1000061035156,
+              343.8299865722656,
+              348.9100036621094,
+              344.6300048828125,
+              338.32000732421875,
+              331.8999938964844,
+              349.510009765625,
+              344.1700134277344
+            ],
+            "reason": null
+          }
+        },
+        "reason": null
+      },
+      "stale": true
+    },
+    {
+      "symbol": "MC.PA",
+      "status": "ok",
+      "quote": {
+        "value": {
+          "symbol": "MC.PA",
+          "name": "LVMH Moët Hennessy - Louis Vuitton, Société Européenne",
+          "exchange": "Paris",
+          "quoteType": "EQUITY",
+          "priceCurrency": "EUR",
+          "priceSubunit": null,
+          "price": 418.65,
+          "change": 2.399994,
+          "changePercent": 0.005765751,
+          "marketState": "CLOSED",
+          "delayMinutes": 15,
+          "asOf": "2026-11-05T16:35:41.000Z",
+          "nextEarnings": {
+            "value": null,
+            "reason": "not_provided_by_source"
+          },
+          "sparkline": {
+            "value": [
+              397.1000061035156,
+              396.8500061035156,
+              398.79998779296875,
+              394.6000061035156,
+              390,
+              379.5,
+              378.54998779296875,
+              380.8999938964844,
+              385.6000061035156,
+              388.45001220703125,
+              380.8999938964844,
+              380,
+              384.5,
+              384.04998779296875,
+              389.54998779296875,
+              397,
+              390,
+              386.75,
+              388.6000061035156,
+              387.79998779296875,
+              383,
+              385.3999938964844,
+              388.25,
+              385,
+              383.8500061035156,
+              387,
+              393.6499938964844,
+              401.5,
+              416.25,
+              418.6499938964844
+            ],
+            "reason": null
+          }
+        },
+        "reason": null
+      },
+      "stale": false
+    },
+    {
+      "symbol": "7203.T",
+      "status": "ok",
+      "quote": {
+        "value": {
+          "symbol": "7203.T",
+          "name": "Toyota Motor Corporation",
+          "exchange": "Tokyo",
+          "quoteType": "EQUITY",
+          "priceCurrency": "JPY",
+          "priceSubunit": null,
+          "price": 3533,
+          "change": 505,
+          "changePercent": 0.16677675,
+          "marketState": "CLOSED",
+          "delayMinutes": 20,
+          "asOf": "2026-11-05T06:30:00.000Z",
+          "nextEarnings": {
+            "value": {
+              "date": "2026-11-05T06:30:00.000Z",
+              "isEstimate": false
+            },
+            "reason": null
+          },
+          "sparkline": {
+            "value": [
+              2989.5,
+              2986.5,
+              2881.5,
+              2920,
+              2925,
+              2856.5,
+              2893.5,
+              2930.5,
+              2900.5,
+              2902,
+              2910.5,
+              2984,
+              3011,
+              3029,
+              3094,
+              3102,
+              3102,
+              3094,
+              3084,
+              3105,
+              3117,
+              3102,
+              3051,
+              3077,
+              3070,
+              3051,
+              3028
+            ],
+            "reason": null
+          }
+        },
+        "reason": null
+      },
+      "stale": false
+    },
+    {
+      "symbol": "SPY",
+      "status": "ok",
+      "quote": {
+        "value": {
+          "symbol": "SPY",
+          "name": "State Street SPDR S&P 500 ETF Trust",
+          "exchange": "NYSEArca",
+          "quoteType": "ETF",
+          "priceCurrency": "USD",
+          "priceSubunit": null,
+          "price": 733,
+          "change": -33.81,
+          "changePercent": -0.0440918,
+          "marketState": "POST",
+          "delayMinutes": 0,
+          "asOf": "2026-11-05T21:00:00.000Z",
+          "nextEarnings": {
+            "value": null,
+            "reason": "not_applicable_for_type"
+          },
+          "sparkline": {
+            "value": [
+              767.1799926757812,
+              771.3499755859375,
+              765.6099853515625,
+              764.2000122070312,
+              762.6300048828125,
+              763.989990234375,
+              769.6400146484375,
+              774.8300170898438,
+              779.0900268554688,
+              777.219970703125,
+              773.9299926757812,
+              778.5700073242188,
+              778.0999755859375,
+              778.010009765625,
+              769.5999755859375,
+              763.25,
+              766.47998046875,
+              769.0499877929688,
+              773.0900268554688,
+              763.9600219726562,
+              759.969970703125,
+              765.3699951171875,
+              769.6599731445312,
+              772.3099975585938,
+              769.3599853515625,
+              755.719970703125,
+              752.0999755859375,
+              754.3499755859375,
+              766.8099975585938,
+              733
+            ],
+            "reason": null
+          }
+        },
+        "reason": null
+      },
+      "stale": false
+    },
+    {
+      "symbol": "TSM",
+      "status": "ok",
+      "quote": {
+        "value": {
+          "symbol": "TSM",
+          "name": "Taiwan Semiconductor Manufacturing Company Limited",
+          "exchange": "NYSE",
+          "quoteType": "EQUITY",
+          "priceCurrency": "USD",
+          "priceSubunit": null,
+          "price": 353.1,
+          "change": -42.65,
+          "changePercent": -0.10777,
+          "marketState": "POST",
+          "delayMinutes": 20,
+          "asOf": "2026-11-05T21:00:02.000Z",
+          "nextEarnings": {
+            "value": {
+              "date": "2027-01-14T13:30:00.000Z",
+              "isEstimate": true
+            },
+            "reason": null
+          },
+          "sparkline": {
+            "value": [
+              451.1499938964844,
+              450.6099853515625,
+              452.8800048828125,
+              456.94000244140625,
+              456.19000244140625,
+              459.20001220703125,
+              472.7799987792969,
+              485.79998779296875,
+              482.29998779296875,
+              472.20001220703125,
+              457.989990234375,
+              453.30999755859375,
+              444.3500061035156,
+              445.1199951171875,
+              430,
+              412.6099853515625,
+              420.2200012207031,
+              425.0799865722656,
+              431.8900146484375,
+              412.3500061035156,
+              418.510009765625,
+              424.3699951171875,
+              436.8699951171875,
+              439.510009765625,
+              431.80999755859375,
+              406.1300048828125,
+              398.6300048828125,
+              404.79998779296875,
+              395.75,
+              353.1000061035156
+            ],
+            "reason": null
+          }
+        },
+        "reason": null
+      },
+      "stale": false
+    },
+    {
+      "symbol": "SHEL.L",
+      "status": "ok",
+      "quote": {
+        "value": {
+          "symbol": "SHEL.L",
+          "name": "Shell plc",
+          "exchange": "LSE",
+          "quoteType": "EQUITY",
+          "priceCurrency": "GBP",
+          "priceSubunit": {
+            "quotedAs": "GBp",
+            "factor": 100
+          },
+          "price": 37.84,
+          "change": -0.115,
+          "changePercent": -0.0030299038,
+          "marketState": "CLOSED",
+          "delayMinutes": 15,
+          "asOf": "2026-11-05T16:43:21.000Z",
+          "nextEarnings": {
+            "value": null,
+            "reason": "not_provided_by_source"
+          },
+          "sparkline": {
+            "value": [
+              36.41,
+              36.11,
+              36.545,
+              35.94,
+              35.695,
+              35.89,
+              35.965,
+              36.315,
+              36.51,
+              36.48,
+              37.805,
+              37.935,
+              38.36,
+              38.655,
+              39.115,
+              39.38,
+              39.32,
+              39,
+              39.09,
+              38.885,
+              40.33,
+              39.995,
+              39.275,
+              39.565,
+              40.38,
+              40.365,
+              39.21,
+              38.635,
+              37.955,
+              37.84
+            ],
+            "reason": null
+          }
+        },
+        "reason": null
+      },
+      "stale": false
+    },
+    {
+      "symbol": "JPM",
+      "status": "ok",
+      "quote": {
+        "value": {
+          "symbol": "JPM",
+          "name": "JPMorgan Chase & Co.",
+          "exchange": "NYSE",
+          "quoteType": "EQUITY",
+          "priceCurrency": "USD",
+          "priceSubunit": null,
+          "price": 337.34,
+          "change": -14.77,
+          "changePercent": -0.0419471,
+          "marketState": "POST",
+          "delayMinutes": 20,
+          "asOf": "2026-11-05T21:00:02.000Z",
+          "nextEarnings": {
+            "value": {
+              "date": "2027-01-14T13:30:00.000Z",
+              "isEstimate": false
+            },
+            "reason": null
+          },
+          "sparkline": {
+            "value": [
+              338.55999755859375,
+              343.05999755859375,
+              336.5899963378906,
+              334.9800109863281,
+              330.8299865722656,
+              333.17999267578125,
+              332.3800048828125,
+              332.3800048828125,
+              331.2799987792969,
+              329.5799865722656,
+              331.4200134277344,
+              332.989990234375,
+              334.29998779296875,
+              331.42999267578125,
+              335.2799987792969,
+              339.7200012207031,
+              333.5299987792969,
+              335.260009765625,
+              335.19000244140625,
+              336.5400085449219,
+              331.5799865722656,
+              334.0400085449219,
+              335.7900085449219,
+              339.29998779296875,
+              343.5799865722656,
+              337.0400085449219,
+              340.5799865722656,
+              337.9800109863281,
+              352.1099853515625,
+              337.3399963378906
+            ],
+            "reason": null
+          }
+        },
+        "reason": null
+      },
+      "stale": false
+    },
+    {
+      "symbol": "RIVN",
+      "status": "ok",
+      "quote": {
+        "value": {
+          "symbol": "RIVN",
+          "name": "Rivian Automotive, Inc.",
+          "exchange": "NasdaqGS",
+          "quoteType": "EQUITY",
+          "priceCurrency": "USD",
+          "priceSubunit": null,
+          "price": 13.29,
+          "change": -0.77000046,
+          "changePercent": -0.05476532,
+          "marketState": "POST",
+          "delayMinutes": 15,
+          "asOf": "2026-11-05T21:00:01.000Z",
+          "nextEarnings": {
+            "value": null,
+            "reason": "not_provided_by_source"
+          },
+          "sparkline": {
+            "value": [
+              15.289999961853027,
+              15.470000267028809,
+              14.789999961853027,
+              14.970000267028809,
+              14.9399995803833,
+              14.760000228881836,
+              14.300000190734863,
+              14.600000381469727,
+              14.510000228881836,
+              14.34000015258789,
+              14.329999923706055,
+              13.960000038146973,
+              13.539999961853027,
+              13.369999885559082,
+              12.949999809265137,
+              12.420000076293945,
+              12.34000015258789,
+              12.430000305175781,
+              12.460000038146973,
+              12.0600004196167,
+              11.829999923706055,
+              11.430000305175781,
+              11.819999694824219,
+              11.670000076293945,
+              11.449999809265137,
+              12.15999984741211,
+              13.1899995803833,
+              13.289999961853027,
+              14.0600004196167,
+              13.289999961853027
+            ],
+            "reason": null
+          }
+        },
+        "reason": null
+      },
+      "stale": false
+    },
+    {
+      "symbol": "NVDA",
+      "status": "unavailable",
+      "quote": {
+        "value": null,
+        "reason": "provider_error"
+      },
+      "stale": false
+    },
+    {
+      "symbol": "ZZZNOTREAL123",
+      "status": "not_found",
+      "quote": {
+        "value": null,
+        "reason": "not_provided_by_source"
+      },
+      "stale": false
+    },
+    {
+      "symbol": "NOT A TICKER",
+      "status": "invalid",
+      "quote": {
+        "value": null,
+        "reason": "not_provided_by_source"
+      },
+      "stale": false
+    }
+  ]
+}

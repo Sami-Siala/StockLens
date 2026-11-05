@@ -45,6 +45,12 @@ export class ResilientStore implements KeyValueStore {
   get<T>(key: string) {
     return this.run(() => this.inner.get<T>(key), null as T | null);
   }
+  getMany<T>(keys: string[]) {
+    return this.run(
+      () => this.inner.getMany<T>(keys),
+      keys.map(() => null) as Array<T | null>,
+    );
+  }
   set(key: string, value: unknown, ttl: number) {
     return this.run(() => this.inner.set(key, value, ttl), undefined);
   }

@@ -109,10 +109,10 @@ describe("contract fixtures (recorded from real Yahoo payloads)", () => {
 });
 
 describe("contract v0.2 additions (all additive)", () => {
-  it("announces 0.2.0 and keeps every v0.1 field", () => {
+  it("announces a v0.2+ contract and keeps every v0.1 field", () => {
     for (const symbol of symbols) {
       const s = load<StockSnapshot>(symbol, "stock.json");
-      expect(s.meta.contractVersion).toBe("0.2.0");
+      expect(["0.2.0", "0.3.0"]).toContain(s.meta.contractVersion);
       for (const k of [
         "listing",
         "quote",

@@ -5,6 +5,7 @@
  *   npx tsx scripts/smoke.ts                       # in-process: real Yahoo through our provider + service
  *   npx tsx scripts/smoke.ts --base http://localhost:3000   # over HTTP against a running app (next start / Vercel)
  *   npx tsx scripts/smoke.ts AAPL MC.PA            # chosen symbols
+ *   npx tsx scripts/smoke.ts --dashboard          # ONLY the home-dashboard endpoints (/api/market, /api/quotes)
  *   options: --delay 800 (ms between calls, default 700) --quiet
  *
  * Prints which fields came back for each ticker. Exit code 1 when a hard expectation fails
@@ -12,7 +13,13 @@
  * Missing *optional* fields are reported but are not failures: that is the point of the contract.
  */
 import "./shim-server-only";
-import type { ChartRange, ChartResponse, StockSnapshot } from "../lib/contract";
+import type {
+  ChartRange,
+  ChartResponse,
+  MarketResponse,
+  QuotesResponse,
+  StockSnapshot,
+} from "../lib/contract";
 import { MemoryStore } from "../lib/providers/cache/memory";
 import { DataService } from "../lib/providers/service";
 import { YahooProvider } from "../lib/providers/yahoo";
@@ -42,9 +49,14 @@ const opt = (name: string) => {
 const base = opt("base")?.replace(/\/$/, "");
 const delay = Number(opt("delay") ?? 700);
 const quiet = flag("quiet");
+const dashboardOnly = flag("dashboard");
 const valueArgs = new Set([opt("base"), opt("delay")]);
 const symbols = args.filter((a) => !a.startsWith("--") && !valueArgs.has(a));
 const SYMBOLS = symbols.length ? symbols : DEFAULT_SYMBOLS;
+/** The watchlist-style list the dashboard smoke asks /api/quotes for. */
+const DASH_SYMBOLS = symbols.length
+  ? symbols
+  : ["AAPL", "MC.PA", "7203.T", "SPY", "TSM"];
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 const failures: string[] = [];
@@ -58,6 +70,8 @@ interface Api {
   chart(s: string, r: ChartRange): Promise<ChartResponse>;
   search(q: string): Promise<{ hits: Array<{ symbol: string }> }>;
   health(): Promise<{ status: string; providers: unknown[] }>;
+  quotes(symbols: string[]): Promise<QuotesResponse>;
+  market(): Promise<MarketResponse>;
 }
 
 function httpApi(root: string): Api {
@@ -79,13 +93,31 @@ function httpApi(root: string): Api {
     chart: (s, r) => get(`/api/chart/${encodeURIComponent(s)}?range=${r}`),
     search: (q) => get(`/api/search?q=${encodeURIComponent(q)}`),
     health: () => get("/api/health"),
+    quotes: (s) =>
+      get(`/api/quotes?symbols=${encodeURIComponent(s.join(","))}`),
+    market: () => get("/api/market"),
   };
 }
 
+/** Upstream call counts per Yahoo method (in-process mode only). */
+const upstream: Record<string, number> = {};
+
 function inProcessApi(): Api {
   const store = new MemoryStore();
+  const raw = createYahooClient(store);
+  const counted = new Proxy(raw, {
+    get(target, key: string) {
+      const v = (target as unknown as Record<string, unknown>)[key];
+      return typeof v === "function"
+        ? (...args: unknown[]) => {
+            upstream[key] = (upstream[key] ?? 0) + 1;
+            return (v as (...a: unknown[]) => unknown)(...args);
+          }
+        : v;
+    },
+  });
   const service = new DataService({
-    provider: new YahooProvider(createYahooClient(store)),
+    provider: new YahooProvider(counted),
     store,
   });
   return {
@@ -93,6 +125,11 @@ function inProcessApi(): Api {
     chart: (s, r) => service.getChart(s, r),
     search: (q) => service.search(q),
     health: () => service.health(),
+    quotes: (s) =>
+      service.getQuotes(
+        s.map((symbol) => ({ symbol: symbol.toUpperCase(), valid: true })),
+      ),
+    market: () => service.getMarket(),
   };
 }
 
@@ -100,6 +137,70 @@ async function timed<T>(fn: () => Promise<T>): Promise<[T, number]> {
   const t0 = Date.now();
   const v = await fn();
   return [v, Date.now() - t0];
+}
+
+/** The home-dashboard endpoints (contract v0.3.0). */
+async function dashboardSmoke(api: Api) {
+  console.log("\n== /api/market");
+  try {
+    const [m, ms] = await timed(() => api.market());
+    console.log(
+      `  ${ms} ms | stale=${m.meta.stale} | chips: ${m.status
+        .map(
+          (s) =>
+            `${s.id}=${s.marketState}${s.isOpen ? "(open)" : ""}[${s.basis}]`,
+        )
+        .join(" ")}`,
+    );
+    if (m.meta.contractVersion !== "0.3.0")
+      fail(`market: unexpected contract ${m.meta.contractVersion}`);
+    if (m.status.length !== 3)
+      fail(`market: expected 3 status chips, got ${m.status.length}`);
+    if (m.status.some((s) => s.basis !== "yahoo"))
+      fail(
+        "market: a status chip fell back to the schedule (reference index missing)",
+      );
+    for (const i of m.indices) {
+      const q = i.quote.value;
+      if (!q) {
+        fail(`market ${i.symbol} (${i.label}): ${i.quote.reason}`);
+        continue;
+      }
+      const sp = q.sparkline.value?.length ?? `none(${q.sparkline.reason})`;
+      console.log(
+        `  ${i.symbol.padEnd(10)} ${i.kind.padEnd(6)} ${String(q.price).padStart(10)} ${(q.priceCurrency ?? "-").padEnd(3)} chg ${((q.changePercent ?? NaN) * 100).toFixed(2).padStart(6)}%  ${q.marketState.padEnd(7)} delay ${q.delayMinutes}m  spark ${sp}`,
+      );
+      if (q.sparkline.value === null)
+        fail(`market ${i.symbol}: no sparkline (${q.sparkline.reason})`);
+    }
+  } catch (e) {
+    fail(`market: ${(e as Error).message}`);
+  }
+  await sleep(delay);
+
+  console.log(`\n== /api/quotes ${DASH_SYMBOLS.join(",")}`);
+  try {
+    const [r, ms] = await timed(() => api.quotes(DASH_SYMBOLS));
+    console.log(`  ${ms} ms | stale=${r.meta.stale}`);
+    for (const e of r.entries) {
+      const q = e.quote.value;
+      if (!q) {
+        console.log(`  ${e.symbol.padEnd(8)} ${e.status} (${e.quote.reason})`);
+        fail(`quotes ${e.symbol}: ${e.status}`);
+        continue;
+      }
+      const ne = q.nextEarnings.value
+        ? `${q.nextEarnings.value.date.slice(0, 10)}${q.nextEarnings.value.isEstimate ? "~" : ""}`
+        : `-(${q.nextEarnings.reason})`;
+      console.log(
+        `  ${e.symbol.padEnd(8)} ok ${String(q.price).padStart(9)} ${q.priceCurrency} chg ${((q.changePercent ?? NaN) * 100).toFixed(2).padStart(6)}%  ${q.marketState.padEnd(7)} delay ${q.delayMinutes}m  spark ${q.sparkline.value?.length ?? `none(${q.sparkline.reason})`}  next ${ne}`,
+      );
+      if (q.sparkline.value === null)
+        fail(`quotes ${e.symbol}: no sparkline (${q.sparkline.reason})`);
+    }
+  } catch (e) {
+    fail(`quotes: ${(e as Error).message}`);
+  }
 }
 
 async function main() {
@@ -128,7 +229,7 @@ async function main() {
   await sleep(delay);
 
   const summary: string[] = [];
-  for (const symbol of SYMBOLS) {
+  for (const symbol of dashboardOnly ? [] : SYMBOLS) {
     console.log(`\n== ${symbol}`);
     let stock: StockSnapshot;
     try {
@@ -138,7 +239,7 @@ async function main() {
       console.log(
         `  stock ${ms} ms | ${s.listing.name} | ${s.listing.quoteType} | ${q ? `${q.price.amount} ${q.price.currency} (${q.marketState}, delay ${q.delayMinutes} min)` : "NO QUOTE"} | stale=${s.meta.stale}`,
       );
-      if (s.meta.contractVersion !== "0.2.0")
+      if (s.meta.contractVersion !== "0.3.0")
         fail(`${symbol}: unexpected contract ${s.meta.contractVersion}`);
       if (CORE.has(symbol) && !q) fail(`${symbol}: core ticker has no quote`);
       if (s.meta.degradedSections?.length)
@@ -200,7 +301,17 @@ async function main() {
     await sleep(delay);
   }
 
-  console.log("\nsummary (fields present):", summary.join(" | "));
+  const before = { ...upstream };
+  await dashboardSmoke(api);
+  if (!base) {
+    const d = (k: string) => (upstream[k] ?? 0) - (before[k] ?? 0);
+    console.log(
+      `\ndashboard upstream calls: ${d("quotes")} quote() batches + ${d("chart")} chart() sparklines`,
+    );
+  }
+
+  if (summary.length)
+    console.log("\nsummary (fields present):", summary.join(" | "));
   if (failures.length) {
     console.log(
       `\n${failures.length} FAILURE(S):\n - ${failures.join("\n - ")}`,

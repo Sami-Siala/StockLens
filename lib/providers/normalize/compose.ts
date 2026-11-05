@@ -60,7 +60,7 @@ function trailingStatementEps(
   return a ?? null;
 }
 
-function resolveNextEarnings(
+export function resolveNextEarnings(
   candidates: Array<{ date: string; isEstimate: boolean }>,
   now: Date,
 ): Metric<NextEarnings> {

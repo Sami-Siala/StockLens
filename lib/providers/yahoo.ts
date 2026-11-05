@@ -3,6 +3,8 @@ import type { ChartRange, ChartSeries, SearchHit } from "@/lib/contract";
 import { ProviderError } from "./errors";
 import { normalizeChart, periodStart, RANGE_PLANS } from "./normalize/chart";
 import { normalizeCore } from "./normalize/core";
+import { normalizeCoreBatch } from "./normalize/core";
+import { normalizeSparkline, SPARKLINE_LOOKBACK_MS } from "./normalize/lite";
 import { normalizeDetail } from "./normalize/detail";
 import { normalizeSearch } from "./normalize/search";
 import { SUMMARY_MODULES } from "./schemas";
@@ -26,6 +28,28 @@ export class YahooProvider implements MarketDataProvider {
 
   async getCore(symbol: string): Promise<CoreBundle> {
     return normalizeCore(symbol, await this.client.quote(symbol), this.clock());
+  }
+
+  async getCores(
+    symbols: string[],
+  ): Promise<Map<string, CoreBundle | ProviderError>> {
+    return normalizeCoreBatch(
+      symbols,
+      await this.client.quotes(symbols),
+      this.clock(),
+    );
+  }
+
+  async getSparkline(
+    symbol: string,
+    now: Date = this.clock(),
+  ): Promise<number[]> {
+    const raw = await this.client.chart(symbol, {
+      period1: new Date(now.getTime() - SPARKLINE_LOOKBACK_MS),
+      interval: "1d",
+      includePrePost: false,
+    });
+    return normalizeSparkline(symbol, raw);
   }
 
   /**

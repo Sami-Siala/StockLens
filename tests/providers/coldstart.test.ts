@@ -9,6 +9,7 @@ vi.mock("server-only", () => ({}));
 /** Upstream calls ONE stock page needs: quote + quoteSummary + 2 time series. */
 const ONE_PAGE = {
   quote: 1,
+  quotes: 0,
   quoteSummary: 1,
   timeSeries: 2,
   chart: 0,

@@ -100,3 +100,54 @@ export function normalizeCore(
     fetchedAt: now.toISOString(),
   };
 }
+
+/**
+ * quote([...]) result -> one bundle (or error) PER requested symbol. Rows are matched by the
+ * symbol Yahoo echoes back (case-insensitive); a requested symbol with no row is `not_found`
+ * (Yahoo omits unknown symbols), and one unusable row fails only that symbol.
+ */
+export function normalizeCoreBatch(
+  symbols: string[],
+  raw: unknown,
+  now: Date,
+): Map<string, CoreBundle | ProviderError> {
+  const rows: unknown[] = Array.isArray(raw)
+    ? raw
+    : raw && typeof raw === "object"
+      ? [raw]
+      : [];
+  if (
+    raw !== undefined &&
+    raw !== null &&
+    !Array.isArray(raw) &&
+    typeof raw !== "object"
+  )
+    throw new ProviderError("invalid_payload", "Unusable batch quote payload");
+  const bySymbol = new Map<string, unknown>();
+  for (const row of rows) {
+    const s = (row as { symbol?: unknown } | null)?.symbol;
+    if (typeof s === "string") bySymbol.set(s.toUpperCase(), row);
+  }
+  const out = new Map<string, CoreBundle | ProviderError>();
+  for (const symbol of symbols) {
+    const row = bySymbol.get(symbol.toUpperCase());
+    if (row === undefined) {
+      out.set(symbol, new ProviderError("not_found", `No quote for ${symbol}`));
+      continue;
+    }
+    try {
+      out.set(symbol, normalizeCore(symbol, row, now));
+    } catch (e) {
+      out.set(
+        symbol,
+        e instanceof ProviderError
+          ? e
+          : new ProviderError(
+              "invalid_payload",
+              `Unusable quote for ${symbol}`,
+            ),
+      );
+    }
+  }
+  return out;
+}
