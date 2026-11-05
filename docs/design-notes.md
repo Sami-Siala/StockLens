@@ -58,8 +58,22 @@ Source: `Assets/*.png` (already has a transparent background). Sampled gradient 
 `#f89349` (left), `#e36092` (top), `#d747c8`, `#982ef8` (right).
 Open question (PLAN §10 Q10): confirm you own the logo and choose a LICENSE before this repo goes public.
 
+## Decisions made while building Step 3 (do not re-litigate)
+
+- **Accent fill is orange -> magenta -> pink only, with near-black text** (`--accent-fill`,
+  `--on-accent`). White text on the orange end is 2.3:1 (fails WCAG AA); near-black passes on every
+  stop. The purple end of the logo gradient stays for the focus ring and small brand marks (the
+  "current price" dot on the price-target bar). Used on: primary button, active range pill.
+- **Explain is an inline disclosure, not a floating tooltip** (works with touch, keyboard, screen readers).
+- **Funds / ETFs** show one calm note instead of six identical "not available" cards.
+- **Tokens only**: no pixel values in components except data-driven widths on the rating and
+  price-target bars. Spacing steps used: 4 (icon gaps), 8, 12, 16, 24, 32.
+- Rating colours (green / grey / red) are semantic and always paired with an arrow or dash icon and a text label.
+- Screenshots are taken through headless Chrome (CDP, device metrics 390 and 1280, light and dark
+  emulated), see the report of Step 3. No Chrome-extension access from a subagent.
+
 ## Polish-pass log
 
-| Pass       | Date | What changed | Next target                            |
-| ---------- | ---- | ------------ | -------------------------------------- |
-| (none yet) |      |              | First pass is due at the end of Step 3 |
+| Pass | Date       | What changed                                                                                                                                                                                                                                                                                                                                                | Next target                                                                                                                                                                                   |
+| ---- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1    | 2026-11-05 | Highest-impact gap was hierarchy in the header: "USD 343.53" had the currency as loud as the number. Now the number is large and the currency code is small and muted next to it. Also: shorter search placeholder / button (were truncated at 390 px), balanced the home tagline, FR range labels shortened (1h 1j 1s 1m 1a 3a 5a) so they no longer wrap. | Card rhythm on the stock page (uneven card heights in a row); compact big-number units in French ("Bn" is a true billion but students may read it as English); tooltip for the ticker anatomy |

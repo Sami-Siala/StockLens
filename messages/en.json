@@ -3,11 +3,238 @@
     "title": "StockLens",
     "description": "Understand any listed company: price, key numbers, analysts and an AI explanation. Educational, not financial advice."
   },
+  "Nav": {
+    "home": "StockLens home",
+    "language": "Language",
+    "switchToFr": "Français",
+    "switchToEn": "English"
+  },
   "Home": {
     "tagline": "Understand any company, in plain language.",
-    "status": "Foundations are in place. The app is being built step by step."
+    "startHere": "Start here"
+  },
+  "Search": {
+    "label": "Search a company or a ticker",
+    "placeholder": "Name or ticker",
+    "submit": "Search",
+    "results": "Search results",
+    "count": "{count, plural, =0 {No results} one {# result} other {# results}}",
+    "empty": "No company found. Try its name or its ticker.",
+    "error": "Search is not available right now. If you know the ticker, type it and press Search.",
+    "type": {
+      "ETF": "Fund (ETF)",
+      "MUTUALFUND": "Fund",
+      "INDEX": "Index"
+    }
   },
   "Common": {
     "disclaimer": "Educational content, not financial advice."
+  },
+  "Footer": {
+    "disclaimer": "Educational content, not financial advice.",
+    "data": "Unofficial data from Yahoo Finance. It can be delayed, incomplete or wrong. Do not rely on it to make real decisions.",
+    "about": "About, data sources and credits"
+  },
+  "About": {
+    "title": "About StockLens",
+    "whatTitle": "What this is",
+    "what": "StockLens is a free learning tool made for the PMF Investment Society. It helps you read the key numbers of a listed company and form your own opinion.",
+    "adviceTitle": "Not financial advice",
+    "advice": "Everything here is educational. StockLens is not a broker, you cannot buy or sell anything, and nothing on this site tells you what to do with your money. Analyst opinions are arguments to evaluate, not instructions.",
+    "dataTitle": "Where the data comes from",
+    "data": "Prices and company figures come from Yahoo Finance through an unofficial channel. They can be delayed (the delay is shown next to each price), incomplete or wrong. When a figure is missing we say so instead of guessing.",
+    "storageTitle": "What is stored",
+    "storage": "No account, no ads, no tracking. This draft page will be completed with the full privacy and terms text before launch.",
+    "creditsTitle": "Credits",
+    "draft": "Charts are drawn with TradingView Lightweight Charts, used under its licence."
+  },
+  "Stock": {
+    "loading": "Loading company data",
+    "na": "Not available",
+    "keyNumbers": "Key numbers",
+    "cardError": "This card could not be displayed. The rest of the page still works.",
+    "sectionError": "This section could not be displayed. The rest of the page still works.",
+    "stale": "Live data is temporarily unavailable. You are seeing the last saved data.",
+    "sample": "Sample data for development, not live.",
+    "tickerHint": "Exchange:ticker. The exchange where the shares trade, then the short code of the company.",
+    "penceHint": "GBp means pence: 100 pence = 1 pound.",
+    "priceLabel": "Share price",
+    "direction": {
+      "up": "Up",
+      "down": "Down",
+      "flat": "Unchanged"
+    },
+    "delayed": "Delayed {minutes} min",
+    "realtime": "Real time",
+    "maybeDelayed": "May be delayed",
+    "market": {
+      "REGULAR": "Market open",
+      "CLOSED": "Market closed",
+      "PRE": "Before the market opens",
+      "POST": "After the market closed"
+    },
+    "asOf": "As of {time}",
+    "priceUnavailable": "The price is not available right now.",
+    "type": {
+      "ETF": "Fund (ETF)",
+      "MUTUALFUND": "Fund",
+      "INDEX": "Index",
+      "CRYPTOCURRENCY": "Crypto",
+      "CURRENCY": "Currency",
+      "FUTURE": "Future",
+      "OTHER": "Other"
+    },
+    "reportedIn": "Reported in {currency} (the share trades in {price}).",
+    "period": {
+      "quarter": "Quarter ending {date}",
+      "half": "Half-year ending {date}",
+      "year": "Year ending {date}"
+    },
+    "reasons": {
+      "not_applicable_for_type": "This does not apply to this kind of investment (for example a fund).",
+      "negative_earnings": "The company made a loss, so this number cannot be calculated.",
+      "not_reported": "This company does not publish this figure.",
+      "reported_less_often": "This company reports less often (for example twice a year), so there is no recent figure here.",
+      "not_provided_by_source": "Our data source has no value for this company.",
+      "currency_mismatch": "The figures use different currencies, so we hide this rather than show a misleading number.",
+      "provider_error": "We could not load this right now. Try again in a moment."
+    },
+    "explain": {
+      "button": "Explain",
+      "definition": "What it is",
+      "formula": "How it is calculated",
+      "rule": "Rule of thumb (a guide, not a law)"
+    },
+    "cards": {
+      "eps": {
+        "title": "Earnings per share (EPS)",
+        "meaning": "Profit for each share, last quarter, compared with what analysts expected.",
+        "definition": "The profit the company made, divided among all its shares. Also called BPA in French.",
+        "formula": "Net profit ÷ number of shares",
+        "rule": "Beating or missing by a few percent is common. Look at several quarters, not just one."
+      },
+      "pe": {
+        "title": "P/E ratio",
+        "meaning": "Years of profit it would take to earn back the price of one share.",
+        "definition": "How many times the yearly profit per share the market pays for one share. Read it as the number of years of profit needed to earn your money back.",
+        "formula": "Share price ÷ earnings per share (EPS)",
+        "rule": "A high P/E often means investors expect strong growth, a low one can mean low expectations or doubts. Compare with similar companies."
+      },
+      "revenue": {
+        "title": "Revenue",
+        "meaning": "The money the company earned by selling its products or services.",
+        "definition": "Everything customers paid the company during the period, before any cost is removed. Also called sales.",
+        "formula": "Price of each sale × number of sales",
+        "rule": "Growing revenue is only good news if profit follows. Compare with the same period last year."
+      },
+      "operating": {
+        "title": "Operating profit",
+        "meaning": "What is left after the costs of running the business, before interest and tax.",
+        "definition": "The profit from the company's everyday activity.",
+        "formula": "Revenue − operating costs. The margin is operating profit ÷ revenue.",
+        "rule": "Margins differ a lot between industries. Compare a company with its competitors."
+      },
+      "fcf": {
+        "title": "Free cash flow",
+        "meaning": "The cash left after paying to run and maintain the business.",
+        "definition": "Cash that came in, minus cash that went out to run the company and to buy equipment. It is what the company is really free to use.",
+        "formula": "Cash from operations − investment in equipment and buildings",
+        "rule": "A company can show a profit but little free cash flow, for example when it invests heavily. Look at both."
+      },
+      "marketCap": {
+        "title": "Market capitalisation",
+        "meaning": "What the stock market says the whole company is worth today.",
+        "definition": "The price of one share multiplied by the number of shares. It is the price of the whole company, not the profit.",
+        "formula": "Share price × number of shares",
+        "rule": "Companies above roughly 10 billion are often called large caps. Smaller companies tend to move more."
+      }
+    },
+    "eps": {
+      "expected": "Analysts expected {value}",
+      "beat": "Beat expectations by {pct}",
+      "miss": "Missed expectations by {pct}",
+      "inline": "In line with expectations"
+    },
+    "pe": {
+      "trailing": "Trailing",
+      "trailingHint": "Based on the last 12 months of profit",
+      "forward": "Forward",
+      "forwardHint": "Based on the profit analysts expect"
+    },
+    "revenue": {
+      "growth": "{pct} compared with a year earlier"
+    },
+    "operating": {
+      "margin": "Operating margin {pct}"
+    },
+    "chart": {
+      "title": "Price chart",
+      "rangeLabel": "Chart period",
+      "kindLabel": "Chart type",
+      "kind": {
+        "area": "Line chart",
+        "candle": "Candlestick chart"
+      },
+      "range": {
+        "1H": "1H",
+        "1D": "1D",
+        "1W": "1W",
+        "1M": "1M",
+        "1Y": "1Y",
+        "3Y": "3Y",
+        "5Y": "5Y",
+        "ALL": "All"
+      },
+      "summary": "Price over {range}: from {from} to {to}, highest {high}, lowest {low}.",
+      "overRange": "over {range}",
+      "highLow": "High {high}, low {low}",
+      "fallbackHour": "The market is closed, so this shows the last trading hour.",
+      "fallbackDay": "The market is closed, so this shows the last trading day.",
+      "error": "The chart could not be loaded.",
+      "retry": "Try again",
+      "unavailable": "The chart is not available.",
+      "noBars": "There is not enough price history for this period yet.",
+      "rangeName": {
+        "1H": "1 hour",
+        "1D": "1 day",
+        "1W": "1 week",
+        "1M": "1 month",
+        "1Y": "1 year",
+        "3Y": "3 years",
+        "5Y": "5 years",
+        "ALL": "All history"
+      }
+    },
+    "analysts": {
+      "title": "What analysts think",
+      "intro": "These are the opinions of professional analysts, shown as arguments to evaluate. They are not advice for you.",
+      "ratings": "Analyst ratings",
+      "targets": "Price targets",
+      "buy": "Buy",
+      "hold": "Hold",
+      "sell": "Sell",
+      "count": "{count, plural, one {# analyst} other {# analysts}}",
+      "noRatings": "No analyst ratings for this company.",
+      "targetCount": "{count, plural, one {# analyst} other {# analysts}}",
+      "noTarget": "No usable price target for this company.",
+      "now": "Now {price}",
+      "low": "Lowest",
+      "mean": "Average",
+      "high": "Highest",
+      "meanAbove": "The average target is {pct} above the current price",
+      "meanBelow": "The average target is {pct} below the current price",
+      "targetHidden": "Price targets are hidden: they are quoted in a different currency from the share price, so comparing them would mislead.",
+      "error": "This part could not be displayed. The rest of the page still works."
+    },
+    "errors": {
+      "title": "We could not load this company",
+      "notFoundTitle": "We could not find \"{symbol}\"",
+      "notFoundBody": "Check the spelling, or search by company name.",
+      "unavailable": "The data source is not answering right now. Try again in a moment.",
+      "rateLimited": "Too many requests at once. Wait a few seconds and try again.",
+      "retry": "Try again",
+      "backToSearch": "Back to search"
+    },
+    "fundsNote": "Profit, P/E and the other key numbers describe a single company. This is a fund (it holds many companies), so they do not apply here."
   }
 }
