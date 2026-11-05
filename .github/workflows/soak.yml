@@ -1,0 +1,40 @@
+name: Yahoo soak test
+
+# PLAN §3.3: does Yahoo throttle Vercel's datacenter IPs? Every run calls the deployed spike route
+# (which calls Yahoo from Vercel, region cdg1) for 3 tickers. A run FAILS if any response is not 200,
+# so the run history is the log:
+#   gh run list --workflow soak.yml --limit 300 --json conclusion,createdAt
+# Pass = under 2 % failed runs over the window. Delete this workflow after the verdict.
+
+on:
+  schedule:
+    - cron: "*/5 * * * *" # GitHub's minimum; runs can be delayed a few minutes under load
+  workflow_dispatch:
+
+concurrency:
+  group: soak
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  soak:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      SOAK_URL: https://stocklens-beryl.vercel.app/api/spike
+    steps:
+      - name: Hit the spike route for each ticker
+        run: |
+          fail=0
+          for symbol in AAPL MC.PA 7203.T; do
+            code=$(curl -s -o body.txt -w "%{http_code}" --max-time 30 "$SOAK_URL?symbol=$symbol" || echo 000)
+            echo "$(date -u +%FT%TZ) $symbol -> $code"
+            if [ "$code" != "200" ]; then
+              echo "  body: $(head -c 300 body.txt)"
+              fail=1
+            fi
+            sleep 2
+          done
+          exit $fail

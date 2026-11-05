@@ -20,3 +20,5 @@ Lectures/
 # Local logs / soak test
 soak-log.jsonl
 .env.local
+.vercel
+.env*
