@@ -7,6 +7,7 @@ import { useStock } from "@/lib/data/hooks";
 import type { StockSnapshot } from "@/lib/contract";
 import { buttonVariants } from "../ui/button";
 import { Button } from "../ui/button";
+import { AnimatedWordmark } from "../animated-wordmark";
 import { Skeleton } from "../ui/skeleton";
 import { Link } from "../navigation";
 import { cn } from "@/lib/utils";
@@ -39,6 +40,7 @@ function StockSkeleton() {
       role="status"
       aria-label={t("loading")}
     >
+      <AnimatedWordmark className="mx-auto w-40 sm:w-48" />
       <div className="flex flex-col gap-3">
         <Skeleton className="h-8 w-2/3" />
         <Skeleton className="h-4 w-1/3" />

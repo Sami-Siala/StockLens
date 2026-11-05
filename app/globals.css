@@ -107,3 +107,72 @@ a.text-link {
     transition-duration: 0.01ms !important;
   }
 }
+
+/*
+ * Animated logo (components/animated-wordmark.tsx): the three bars in the "o" rise 1, 2, 3, hold,
+ * settle, and repeat. Bars are static (fully up) unless the user allows motion.
+ */
+.logo-bar {
+  transform-origin: 50% 100%;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .logo-bar {
+    animation: logo-bar-rise 1.6s infinite both;
+  }
+  @keyframes logo-bar-rise {
+    0% {
+      transform: scaleY(0);
+      opacity: 0;
+      animation-timing-function: cubic-bezier(0.22, 0.9, 0.3, 1);
+    }
+    22% {
+      transform: scaleY(1);
+      opacity: 1;
+    }
+    70% {
+      transform: scaleY(1);
+      opacity: 1;
+      animation-timing-function: cubic-bezier(0.5, 0, 0.75, 0.2);
+    }
+    92%,
+    100% {
+      transform: scaleY(0);
+      opacity: 0;
+    }
+  }
+}
+
+/*
+ * Welcome splash: first page load of a browser session only (an inline script in the locale layout
+ * sets html[data-splash="seen"] on later loads). Pure CSS: it fades itself out after ~1.2 s and
+ * never blocks input. Skipped entirely for reduced motion.
+ */
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--background);
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .splash {
+    animation: splash-out 0.4s ease-out 1.2s forwards;
+  }
+  @keyframes splash-out {
+    to {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .splash {
+    display: none;
+  }
+}
+html[data-splash="seen"] .splash {
+  display: none;
+}

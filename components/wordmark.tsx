@@ -15,7 +15,7 @@ export function Wordmark({
         src="/brand/wordmark.webp"
         alt="StockLens"
         width={1200}
-        height={259}
+        height={204}
         priority={priority}
         className={cn("h-auto dark:hidden", className)}
       />
@@ -24,7 +24,7 @@ export function Wordmark({
         alt=""
         aria-hidden="true"
         width={1200}
-        height={259}
+        height={204}
         priority={priority}
         className={cn("hidden h-auto dark:block", className)}
       />

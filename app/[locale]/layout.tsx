@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { Splash } from "@/components/splash";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
 
@@ -30,8 +31,9 @@ export default async function LocaleLayout({
   setRequestLocale(locale);
 
   return (
-    <html lang={locale} className="h-full antialiased">
+    <html lang={locale} className="h-full antialiased" suppressHydrationWarning>
       <body className="min-h-full flex flex-col">
+        <Splash />
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
       </body>
     </html>
