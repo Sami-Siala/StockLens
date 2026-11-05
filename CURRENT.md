@@ -118,3 +118,14 @@ gh run list --workflow soak.yml --limit 300 --json conclusion,createdAt \
 ```
 Pass = failed/runs under 2 %. Failures show the response body in the run log. Delete the workflow and `app/api/spike`
 after the verdict. (The local background soak from the first session is redundant now; ignore its log.)
+
+## Estimates and proposed defaults (from the end of the 2026-11-05 session)
+
+Rough effort, focused working days: dashboard ~2; accounts + groups ~5-8; paper-trading engine ~8-12; teacher console ~5-7.
+**Minimum viable Phase 2 is ~3 weeks part-time; the full §13.6 list ~5-6 weeks** (PLAN §13.1 says 3-4 weeks, read it as the MVP-to-P1 range).
+If the user does not answer PLAN §13.9, propose these defaults: one base currency for all wallets; fills only while the market is
+open; long only with no leverage at first; group trades by any member or by vote (ask which). Recommendation stands: dashboard
+(Step 3b) now, Phase 2 only after the first class.
+
+**State at the end of the session:** `main` is local-ahead of GitHub by one commit (`cf9e209`, plan v4 + this file): not pushed yet,
+the user has not approved pushing it. The next action I had proposed: push the plan update, then start Step 3b.
