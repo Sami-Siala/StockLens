@@ -1,6 +1,8 @@
 import type {
   ChartRange,
   ChartResponse,
+  MarketResponse,
+  QuotesResponse,
   SearchResponse,
   StockSnapshot,
 } from "@/lib/contract";
@@ -14,4 +16,8 @@ export interface DataSourceApi {
     range: ChartRange,
     signal?: AbortSignal,
   ): Promise<ChartResponse>;
+  /** One batched call for many symbols (watchlist, starters, recents). */
+  quotes(symbols: string[], signal?: AbortSignal): Promise<QuotesResponse>;
+  /** Markets-now tile: three open/closed chips plus the index strip. */
+  market(signal?: AbortSignal): Promise<MarketResponse>;
 }

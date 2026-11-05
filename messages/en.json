@@ -10,8 +10,7 @@
     "switchToEn": "English"
   },
   "Home": {
-    "tagline": "Understand any company, in plain language.",
-    "startHere": "Start here"
+    "tagline": "Understand any company, in plain language."
   },
   "Search": {
     "label": "Search a company or a ticker",
@@ -25,6 +24,111 @@
       "ETF": "Fund (ETF)",
       "MUTUALFUND": "Fund",
       "INDEX": "Index"
+    },
+    "recent": "Recent searches",
+    "clearRecent": "Clear"
+  },
+  "Dash": {
+    "loading": "Loading",
+    "retry": "Try again",
+    "refresh": "Refresh",
+    "tileCrash": "This tile could not be displayed. The rest of the page still works.",
+    "direction": {
+      "up": "Up",
+      "down": "Down",
+      "flat": "Unchanged"
+    },
+    "pointsUnit": "pp",
+    "pointsHint": "percentage points",
+    "delayed": "Delayed {minutes} min",
+    "realtime": "Real time",
+    "maybeDelayed": "May be delayed",
+    "stale": "Last saved price",
+    "priceUnavailable": "Price not available",
+    "notFound": "Symbol not found",
+    "comingSoon": "Coming soon",
+    "footer": "Unofficial data from Yahoo Finance, delayed or incomplete at times. Each price is in the company's own currency.",
+    "updated": "Updated {time}.",
+    "markets": {
+      "title": "Markets now",
+      "hint": "Are the big markets open, and how did the main indices move today?",
+      "statusLabel": "Market status",
+      "indicesLabel": "Market indices",
+      "names": {
+        "us": "NYSE / Nasdaq",
+        "paris": "Euronext Paris",
+        "tokyo": "Tokyo"
+      },
+      "state": {
+        "REGULAR": "Open",
+        "CLOSED": "Closed",
+        "PRE": "Pre-market",
+        "POST": "After hours",
+        "UNKNOWN": "Unknown"
+      },
+      "scheduleNote": "Open or closed is estimated from usual opening hours; holidays are not taken into account.",
+      "index": {
+        "sp500": "S&P 500",
+        "nasdaq": "Nasdaq",
+        "cac40": "CAC 40",
+        "stoxx50": "Euro Stoxx 50",
+        "nikkei": "Nikkei 225",
+        "eurusd": "EUR/USD",
+        "gold": "Gold",
+        "us10y": "US 10-year yield"
+      },
+      "kind": {
+        "future": "Future"
+      },
+      "kindHint": {
+        "future": "The price of the gold futures contract, which can differ from today's spot price."
+      },
+      "itemUnavailable": "Not available right now.",
+      "error": "Market data is not available right now."
+    },
+    "watchlist": {
+      "title": "My watchlist",
+      "hint": "Companies you follow, saved in this browser only.",
+      "empty": "Star a company to follow it here.",
+      "emptyHint": "Open any company and tap the star next to its name.",
+      "error": "Prices are not available right now. Your list is safe.",
+      "add": "Add {name} to my watchlist",
+      "remove": "Remove {name} from my watchlist",
+      "addShort": "Follow",
+      "removeShort": "Unfollow",
+      "full": "Your watchlist is full ({max} companies). Remove one to add another."
+    },
+    "recent": {
+      "title": "Recently viewed",
+      "hint": "The last companies you opened.",
+      "empty": "Companies you open will show up here."
+    },
+    "start": {
+      "title": "Start here",
+      "hint": "A few companies to begin with, each with a reason to take a look."
+    },
+    "earnings": {
+      "title": "Earnings this week",
+      "hint": "Who publishes results soon, among the companies above.",
+      "loading": "Loading report dates",
+      "error": "Report dates are not available right now.",
+      "nothingThisWeek": "No reports expected this week. Next ones:",
+      "noDates": "No report date is known yet for these companies.",
+      "reportsToday": "Reports today",
+      "reportedToday": "Reported today",
+      "reportsOn": "Reports {date}",
+      "reportedOn": "Reported {date}",
+      "estimated": "estimated date"
+    },
+    "learn": {
+      "title": "Learn",
+      "hint": "Short lessons that follow the club sessions.",
+      "body": "A term of the day, a quick quiz and shortcuts to each session will appear here."
+    },
+    "assignment": {
+      "title": "This week's assignment",
+      "hint": "What your teacher asks you to look at.",
+      "body": "When your teacher shares a class link, the companies to study will appear here."
     }
   },
   "Common": {

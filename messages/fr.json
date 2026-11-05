@@ -10,8 +10,7 @@
     "switchToEn": "English"
   },
   "Home": {
-    "tagline": "Comprendre n'importe quelle entreprise, en langage simple.",
-    "startHere": "Pour commencer"
+    "tagline": "Comprendre n'importe quelle entreprise, en langage simple."
   },
   "Search": {
     "label": "Rechercher une entreprise ou un symbole boursier",
@@ -25,6 +24,111 @@
       "ETF": "Fonds (ETF)",
       "MUTUALFUND": "Fonds",
       "INDEX": "Indice"
+    },
+    "recent": "Recherches récentes",
+    "clearRecent": "Effacer"
+  },
+  "Dash": {
+    "loading": "Chargement",
+    "retry": "Réessayer",
+    "refresh": "Actualiser",
+    "tileCrash": "Ce bloc n'a pas pu s'afficher. Le reste de la page fonctionne.",
+    "direction": {
+      "up": "En hausse",
+      "down": "En baisse",
+      "flat": "Inchangé"
+    },
+    "pointsUnit": "pt",
+    "pointsHint": "points de pourcentage",
+    "delayed": "Différé de {minutes} min",
+    "realtime": "Temps réel",
+    "maybeDelayed": "Peut être différé",
+    "stale": "Dernier cours enregistré",
+    "priceUnavailable": "Cours indisponible",
+    "notFound": "Symbole introuvable",
+    "comingSoon": "Bientôt",
+    "footer": "Données non officielles de Yahoo Finance, parfois différées ou incomplètes. Chaque cours est dans la devise de l'entreprise.",
+    "updated": "Mis à jour à {time}.",
+    "markets": {
+      "title": "Les marchés maintenant",
+      "hint": "Les grandes places sont-elles ouvertes, et comment ont bougé les principaux indices aujourd'hui ?",
+      "statusLabel": "État des marchés",
+      "indicesLabel": "Indices de marché",
+      "names": {
+        "us": "NYSE / Nasdaq",
+        "paris": "Euronext Paris",
+        "tokyo": "Tokyo"
+      },
+      "state": {
+        "REGULAR": "Ouvert",
+        "CLOSED": "Fermé",
+        "PRE": "Avant ouverture",
+        "POST": "Après clôture",
+        "UNKNOWN": "Inconnu"
+      },
+      "scheduleNote": "L'état ouvert ou fermé est estimé d'après les horaires habituels ; les jours fériés ne sont pas pris en compte.",
+      "index": {
+        "sp500": "S&P 500",
+        "nasdaq": "Nasdaq",
+        "cac40": "CAC 40",
+        "stoxx50": "Euro Stoxx 50",
+        "nikkei": "Nikkei 225",
+        "eurusd": "EUR/USD",
+        "gold": "Or",
+        "us10y": "Taux américain à 10 ans"
+      },
+      "kind": {
+        "future": "Terme"
+      },
+      "kindHint": {
+        "future": "Le prix du contrat à terme sur l'or, qui peut différer du cours au comptant d'aujourd'hui."
+      },
+      "itemUnavailable": "Indisponible pour le moment.",
+      "error": "Les données de marché ne sont pas disponibles pour le moment."
+    },
+    "watchlist": {
+      "title": "Ma liste de suivi",
+      "hint": "Les entreprises que vous suivez, enregistrées dans ce navigateur uniquement.",
+      "empty": "Mettez une entreprise en favori pour la suivre ici.",
+      "emptyHint": "Ouvrez une entreprise et touchez l'étoile à côté de son nom.",
+      "error": "Les cours ne sont pas disponibles pour le moment. Votre liste est conservée.",
+      "add": "Ajouter {name} à ma liste de suivi",
+      "remove": "Retirer {name} de ma liste de suivi",
+      "addShort": "Suivre",
+      "removeShort": "Ne plus suivre",
+      "full": "Votre liste de suivi est pleine ({max} entreprises). Retirez-en une pour en ajouter une autre."
+    },
+    "recent": {
+      "title": "Consultées récemment",
+      "hint": "Les dernières entreprises que vous avez ouvertes.",
+      "empty": "Les entreprises que vous ouvrez apparaîtront ici."
+    },
+    "start": {
+      "title": "Pour commencer",
+      "hint": "Quelques entreprises pour débuter, chacune avec une raison de s'y intéresser."
+    },
+    "earnings": {
+      "title": "Résultats de la semaine",
+      "hint": "Qui publie bientôt ses résultats, parmi les entreprises ci-dessus.",
+      "loading": "Chargement des dates de résultats",
+      "error": "Les dates de résultats ne sont pas disponibles pour le moment.",
+      "nothingThisWeek": "Aucune publication prévue cette semaine. Les prochaines :",
+      "noDates": "Aucune date de résultats connue pour le moment pour ces entreprises.",
+      "reportsToday": "Publie aujourd'hui",
+      "reportedToday": "A publié aujourd'hui",
+      "reportsOn": "Publie le {date}",
+      "reportedOn": "A publié le {date}",
+      "estimated": "date estimée"
+    },
+    "learn": {
+      "title": "Apprendre",
+      "hint": "De courtes leçons qui suivent les séances du club.",
+      "body": "Un terme du jour, un quiz rapide et des raccourcis vers chaque séance apparaîtront ici."
+    },
+    "assignment": {
+      "title": "Devoir de la semaine",
+      "hint": "Ce que votre professeur vous demande d'étudier.",
+      "body": "Quand votre professeur partagera un lien de classe, les entreprises à étudier apparaîtront ici."
     }
   },
   "Common": {

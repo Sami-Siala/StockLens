@@ -4,6 +4,7 @@ import { RefreshCw } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, type ReactNode } from "react";
 import { useStock } from "@/lib/data/hooks";
+import { pushRecent, recentsStore } from "@/lib/data/local/lists";
 import type { StockSnapshot } from "@/lib/contract";
 import { buttonVariants } from "../ui/button";
 import { Button } from "../ui/button";
@@ -118,6 +119,17 @@ export function StockView({ symbol }: { symbol: string }) {
   useEffect(() => {
     if (name) document.title = `${name} (${symbol}) · StockLens`;
   }, [name, symbol]);
+
+  // Recently viewed (home tile 4): saved once the company is known to exist.
+  const listing = res.status === "ready" ? res.data.listing : null;
+  useEffect(() => {
+    if (listing)
+      pushRecent(recentsStore, {
+        symbol: listing.symbol,
+        name: listing.shortName ?? listing.name,
+        exchange: listing.exchange,
+      });
+  }, [listing]);
 
   if (res.status === "loading") return <StockSkeleton />;
   if (res.status === "error")

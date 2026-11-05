@@ -20,7 +20,11 @@ export const loadStock = (symbol: string): StockSnapshot =>
 
 export function render(el: ReactElement, locale: "en" | "fr" = "en"): string {
   return renderToStaticMarkup(
-    <NextIntlClientProvider locale={locale} messages={MESSAGES[locale]}>
+    <NextIntlClientProvider
+      locale={locale}
+      messages={MESSAGES[locale]}
+      timeZone="Europe/Paris"
+    >
       {el}
     </NextIntlClientProvider>,
   );
@@ -31,3 +35,30 @@ export const visibleText = (html: string) =>
   html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ");
 
 export const BROKEN = /NaN|undefined|\[object|\bnull\b|Infinity/;
+
+/* ---------- dashboard fixtures ---------- */
+import type { MarketResponse, QuotesResponse } from "@/lib/contract";
+import type { PolledResource } from "@/lib/data/hooks";
+
+const dash = (name: string) =>
+  JSON.parse(
+    readFileSync(
+      join(__dirname, "../fixtures/contract/_dashboard", name),
+      "utf8",
+    ),
+  );
+
+export const loadQuotes = (): QuotesResponse => dash("quotes.json");
+export const loadMarket = (
+  variant: "market" | "market-open" | "market-degraded" = "market",
+): MarketResponse => dash(`${variant}.json`);
+
+export const ready = <T,>(
+  data: T,
+  refreshedAt = Date.now(),
+): PolledResource<T> => ({
+  status: "ready",
+  data,
+  refreshedAt,
+});
+export const loading = <T,>(): PolledResource<T> => ({ status: "loading" });

@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { useId, useState, type KeyboardEvent } from "react";
 import type { InstrumentType, SearchHit } from "@/lib/contract";
 import { useSearch } from "@/lib/data/hooks";
+import { pushRecent, searchesStore } from "@/lib/data/local/lists";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 import { Skeleton } from "../ui/skeleton";
@@ -36,14 +37,20 @@ export function SearchBox({ autoFocus = false }: { autoFocus?: boolean }) {
   const empty = settled && result.status === "ready" && hits.length === 0;
   const showPanel = open && trimmed !== "";
 
-  function go(symbol: string) {
+  function go(symbol: string, hit?: SearchHit) {
     setOpen(false);
+    pushRecent(searchesStore, {
+      symbol,
+      name: hit?.name ?? symbol,
+      exchange: hit?.exchange ?? "",
+    });
     router.push(`/stock/${encodeURIComponent(symbol)}`);
   }
 
   function submit() {
-    if (active >= 0 && hits[active]) return go(hits[active].symbol);
-    if (hits[0]) return go(hits[0].symbol);
+    if (active >= 0 && hits[active])
+      return go(hits[active].symbol, hits[active]);
+    if (hits[0]) return go(hits[0].symbol, hits[0]);
     // Typed a ticker before results arrived: go straight there.
     if (TICKER_LIKE.test(trimmed)) return go(trimmed.toUpperCase());
     setOpen(true);
@@ -134,7 +141,7 @@ export function SearchBox({ autoFocus = false }: { autoFocus?: boolean }) {
                 id={`${listId}-${i}`}
                 role="option"
                 aria-selected={i === active}
-                onClick={() => go(hit.symbol)}
+                onClick={() => go(hit.symbol, hit)}
                 onMouseEnter={() => setActive(i)}
                 className={cn(
                   "flex cursor-pointer items-center justify-between gap-4 px-4 py-3",

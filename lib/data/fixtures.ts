@@ -8,7 +8,10 @@ import type {
   ChartRange,
   ChartResponse,
   ChartSeries,
+  MarketResponse,
   Metric,
+  QuoteEntry,
+  QuotesResponse,
   SearchHit,
   SearchResponse,
   StockSnapshot,
@@ -90,6 +93,41 @@ function cut(
   return { ...series, range, candles, fallback };
 }
 
+/**
+ * Dashboard fixtures. `/?fixture=open`, `degraded` or `down` (dev only) picks the market
+ * variant (`down` makes both dashboard calls fail), so every tile state can be seen in a browser without touching code.
+ */
+function fixtureParam(): string | null {
+  try {
+    return new URLSearchParams(window.location.search).get("fixture");
+  } catch {
+    return null; // no window (tests)
+  }
+}
+
+function marketVariant(): "market" | "market-open" | "market-degraded" {
+  try {
+    const v = fixtureParam();
+    if (v === "open") return "market-open";
+    if (v === "degraded") return "market-degraded";
+  } catch {
+    /* no window (tests): the default recording */
+  }
+  return "market";
+}
+
+const marketLoaders = {
+  market: () => import("@/tests/fixtures/contract/_dashboard/market.json"),
+  "market-open": () =>
+    import("@/tests/fixtures/contract/_dashboard/market-open.json"),
+  "market-degraded": () =>
+    import("@/tests/fixtures/contract/_dashboard/market-degraded.json"),
+} as unknown as Record<string, () => Promise<{ default: MarketResponse }>>;
+
+const loadQuotes = as<QuotesResponse>(
+  () => import("@/tests/fixtures/contract/_dashboard/quotes.json"),
+);
+
 export const fixtureSource: DataSourceApi = {
   async search(query, signal) {
     await pause(signal, 120);
@@ -146,5 +184,27 @@ export const fixtureSource: DataSourceApi = {
     const value = cut(series, range, count, fallback);
     const result: Metric<ChartSeries> = { value, reason: null };
     return { ...base, range, series: result };
+  },
+  async quotes(symbols, signal) {
+    await pause(signal, 200);
+    if (fixtureParam() === "down") throw new DataError("upstream_unavailable");
+    const { meta, entries: all } = (await loadQuotes()).default;
+    const bySymbol = new Map(all.map((e) => [e.symbol, e]));
+    const entries: QuoteEntry[] = symbols.map(
+      (s) =>
+        bySymbol.get(s.toUpperCase()) ?? {
+          symbol: s.toUpperCase(),
+          status: "not_found",
+          quote: { value: null, reason: "not_provided_by_source" },
+          stale: false,
+        },
+    );
+    return { meta: { ...meta, stale: entries.some((e) => e.stale) }, entries };
+  },
+
+  async market(signal) {
+    await pause(signal, 150);
+    if (fixtureParam() === "down") throw new DataError("upstream_unavailable");
+    return (await marketLoaders[marketVariant()]()).default;
   },
 };

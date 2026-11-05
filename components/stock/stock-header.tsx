@@ -8,6 +8,7 @@ import {
   formatPercent,
   isNum,
 } from "../format";
+import { WatchStar } from "../watchlist/watch-star";
 import { fromMetric } from "./metrics";
 
 function Chip({
@@ -54,7 +55,17 @@ export function StockHeader({ stock }: { stock: StockSnapshot }) {
   return (
     <header className="flex flex-col gap-3">
       <div className="flex flex-col gap-1">
-        <h1 className="text-2xl font-semibold">{listing.name}</h1>
+        <div className="flex items-start justify-between gap-2">
+          <h1 className="text-2xl font-semibold">{listing.name}</h1>
+          <WatchStar
+            className="-mr-2 -mt-1"
+            company={{
+              symbol: listing.symbol,
+              name: listing.shortName ?? listing.name,
+              exchange: listing.exchange,
+            }}
+          />
+        </div>
         <div className="flex flex-wrap items-center gap-2 text-sm text-muted">
           <span title={t("tickerHint")}>
             {listing.exchange}:{listing.symbol}

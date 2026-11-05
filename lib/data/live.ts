@@ -2,6 +2,8 @@ import type {
   ApiError,
   ChartRange,
   ChartResponse,
+  MarketResponse,
+  QuotesResponse,
   SearchResponse,
   StockSnapshot,
 } from "@/lib/contract";
@@ -62,4 +64,11 @@ export const liveSource = {
       `/api/chart/${encodeURIComponent(symbol)}?range=${range}`,
       signal,
     ),
+  quotes: (symbols: string[], signal?: AbortSignal) =>
+    getJson<QuotesResponse>(
+      `/api/quotes?symbols=${encodeURIComponent(symbols.join(","))}`,
+      signal,
+    ),
+  market: (signal?: AbortSignal) =>
+    getJson<MarketResponse>("/api/market", signal),
 };
