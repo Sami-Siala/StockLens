@@ -332,6 +332,14 @@ Instruction: "ignore the logins for now and build around it". So the offline hal
 
 ⚠️ Decisions for you at the checkpoint: contract shape (esp. `Metric<T>` = value-or-reason on every section), and whether the LICENSE / logo-ownership questions (§10 Q10) are settled before the repo goes public.
 
+### Steps 2 and 3 status (2026-11-05, built in parallel, merged locally on `main`, not pushed)
+
+- **Step 2 (data-engineer):** `YahooProvider` + zod, 8 chart ranges, cache layer (Upstash store + in-memory fallback, stale copy, lock, persisted cookie), routes `/api/search|stock|chart|health|club`, `docs/data-availability.md`, live smoke script, 15-parallel-request cold start = 1 upstream fetch (unit-tested and on a production server). **Contract is now v0.2.0** (additive). Upstash is verified only against a mock until provisioned.
+- **Step 3 (frontend-engineer):** home + search, stock page (header, 8-range chart, 6 cards, analyst bars), About page with Lightweight Charts NOTICE, FR/EN, dark mode, sparse-data states, `lib/data` fixtures/live switch (`NEXT_PUBLIC_DATA_MODE`), first apple-ui polish pass.
+- **Integration check:** merged `npm run check` (261 tests) and a live-mode build + production server returned real data through the UI's routes.
+- **Chrome from a subagent: does NOT work** ("Browser extension is not connected"). Fallback that worked: driving the installed Chrome over the DevTools protocol (script kept outside the repo). Playwright not needed for now.
+- **Open for you:** professor review of all FR copy; Shell/ADR P/E hidden on currency mismatch (OK, or show with a warning?); club-code gate on for launch (needs a UI to enter the code)?
+
 ### Schedule (~2 weeks) and priority tiers
 
 Full scope in ~2 weeks is **high risk** (flagged by the plan review). We keep all the scope but deliver in tiers, so if time runs short we cut P2 first and never P0:

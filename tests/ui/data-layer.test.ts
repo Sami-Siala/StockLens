@@ -8,7 +8,7 @@ describe("data layer (fixtures mode, the default)", () => {
   it("returns contract-shaped stock data", async () => {
     const s = await getStock("aapl");
     expect(s.listing.symbol).toBe("AAPL");
-    expect(s.meta.contractVersion).toBe("0.1.0");
+    expect(s.meta.contractVersion).toBe("0.2.0");
   });
 
   it("answers not_found for an unknown symbol", async () => {
