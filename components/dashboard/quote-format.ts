@@ -4,6 +4,7 @@
  * in percentage points (never in percent); a future is priced in its currency.
  */
 import type {
+  CurrencyCode,
   IndexKind,
   NextEarnings,
   QuoteEntry,
@@ -33,6 +34,14 @@ export function currencyDigits(currency: string, locale: string): number {
   }
 }
 
+/** The two fields `priceParts` reads: a `QuoteLite` and a ticker item both fit. */
+export type PriceInput = { price: number; priceCurrency: CurrencyCode | null };
+/** The two fields `changeParts` reads. */
+export type ChangeInput = {
+  change: number | null;
+  changePercent: number | null;
+};
+
 export interface PriceParts {
   /** The number, locale-formatted. */
   amount: string;
@@ -42,7 +51,7 @@ export interface PriceParts {
 
 /** The level / price of a quote. `kind` is set for market-strip items, absent for companies. */
 export function priceParts(
-  q: QuoteLite,
+  q: PriceInput,
   locale: string,
   kind?: IndexKind,
 ): PriceParts {
@@ -91,7 +100,7 @@ export interface ChangeParts {
 
 /** Day change: percent for everything except yields (percentage points). `null` when unknown. */
 export function changeParts(
-  q: QuoteLite,
+  q: ChangeInput,
   locale: string,
   kind?: IndexKind,
 ): ChangeParts | null {

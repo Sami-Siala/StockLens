@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { SiteFooter } from "./site-footer";
 import { SiteHeader } from "./site-header";
+import { TickerBand } from "./ticker/ticker-band";
 
 export function PageShell({
   children,
@@ -15,6 +16,7 @@ export function PageShell({
   return (
     <>
       <SiteHeader home={home} />
+      <TickerBand />
       <main
         className={cn(
           "mx-auto flex w-full flex-1 flex-col px-4 pb-8",

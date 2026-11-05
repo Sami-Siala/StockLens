@@ -134,6 +134,15 @@
   "Common": {
     "disclaimer": "Educational content, not financial advice."
   },
+  "Ticker": {
+    "label": "Market ticker",
+    "note": "Quotes can be delayed and refresh about once a minute.",
+    "stale": "Last saved value",
+    "items": {
+      "gold": "Gold (future)",
+      "us10y": "US 10Y yield"
+    }
+  },
   "Footer": {
     "disclaimer": "Educational content, not financial advice.",
     "data": "Unofficial data from Yahoo Finance. It can be delayed, incomplete or wrong. Do not rely on it to make real decisions.",

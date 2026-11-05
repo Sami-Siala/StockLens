@@ -7,9 +7,12 @@ import type { ChangeParts } from "./quote-format";
 export function Change({
   change,
   className,
+  compact = false,
 }: {
   change: ChangeParts;
   className?: string;
+  /** Smaller arrow, for dense strips such as the market band. */
+  compact?: boolean;
 }) {
   const t = useTranslations("Dash");
   const { direction } = change;
@@ -25,7 +28,10 @@ export function Change({
         className,
       )}
     >
-      <Arrow aria-hidden="true" className="size-4 shrink-0" />
+      <Arrow
+        aria-hidden="true"
+        className={cn("shrink-0", compact ? "size-3" : "size-4")}
+      />
       <span className="sr-only">{t(`direction.${direction}`)}</span>
       <span>
         {change.text}

@@ -15,6 +15,7 @@ import type {
   SearchHit,
   SearchResponse,
   StockSnapshot,
+  TickerResponse,
 } from "@/lib/contract";
 import { DataError } from "./errors";
 import type { DataSourceApi } from "./source";
@@ -128,6 +129,10 @@ const loadQuotes = as<QuotesResponse>(
   () => import("@/tests/fixtures/contract/_dashboard/quotes.json"),
 );
 
+const loadTicker = as<TickerResponse>(
+  () => import("@/tests/fixtures/contract/_dashboard/ticker.json"),
+);
+
 export const fixtureSource: DataSourceApi = {
   async search(query, signal) {
     await pause(signal, 120);
@@ -206,5 +211,15 @@ export const fixtureSource: DataSourceApi = {
     await pause(signal, 150);
     if (fixtureParam() === "down") throw new DataError("upstream_unavailable");
     return (await marketLoaders[marketVariant()]()).default;
+  },
+
+  async ticker(signal) {
+    await pause(signal, 150);
+    if (fixtureParam() === "down") throw new DataError("upstream_unavailable");
+    const full = (await loadTicker()).default;
+    // `?fixture=few`: only three items are served, so the band must hide itself.
+    if (fixtureParam() === "few")
+      return { ...full, items: full.items.slice(0, 3) };
+    return full;
   },
 };

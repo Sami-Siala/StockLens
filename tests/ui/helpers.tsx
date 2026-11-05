@@ -37,7 +37,11 @@ export const visibleText = (html: string) =>
 export const BROKEN = /NaN|undefined|\[object|\bnull\b|Infinity/;
 
 /* ---------- dashboard fixtures ---------- */
-import type { MarketResponse, QuotesResponse } from "@/lib/contract";
+import type {
+  MarketResponse,
+  QuotesResponse,
+  TickerResponse,
+} from "@/lib/contract";
 import type { PolledResource } from "@/lib/data/hooks";
 
 const dash = (name: string) =>
@@ -49,6 +53,7 @@ const dash = (name: string) =>
   );
 
 export const loadQuotes = (): QuotesResponse => dash("quotes.json");
+export const loadTicker = (): TickerResponse => dash("ticker.json");
 export const loadMarket = (
   variant: "market" | "market-open" | "market-degraded" = "market",
 ): MarketResponse => dash(`${variant}.json`);

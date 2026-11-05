@@ -134,6 +134,15 @@
   "Common": {
     "disclaimer": "Contenu pédagogique, pas un conseil financier."
   },
+  "Ticker": {
+    "label": "Bandeau des marchés",
+    "note": "Les cours peuvent être différés et se mettent à jour environ une fois par minute.",
+    "stale": "Dernière valeur enregistrée",
+    "items": {
+      "gold": "Or (terme)",
+      "us10y": "Taux US 10 ans"
+    }
+  },
   "Footer": {
     "disclaimer": "Contenu pédagogique, pas un conseil financier.",
     "data": "Données non officielles issues de Yahoo Finance. Elles peuvent être différées, incomplètes ou fausses. Ne vous en servez pas pour prendre de vraies décisions.",

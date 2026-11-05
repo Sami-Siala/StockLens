@@ -5,6 +5,7 @@ import type {
   QuotesResponse,
   SearchResponse,
   StockSnapshot,
+  TickerResponse,
 } from "@/lib/contract";
 
 /** What both the fixtures and the live routes provide. */
@@ -20,4 +21,6 @@ export interface DataSourceApi {
   quotes(symbols: string[], signal?: AbortSignal): Promise<QuotesResponse>;
   /** Markets-now tile: three open/closed chips plus the index strip. */
   market(signal?: AbortSignal): Promise<MarketResponse>;
+  /** The scrolling band under the header: 25 indices and macro rates, no sparklines. */
+  ticker(signal?: AbortSignal): Promise<TickerResponse>;
 }

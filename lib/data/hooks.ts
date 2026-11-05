@@ -1,6 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
 import type {
   ChartRange,
   ChartResponse,
@@ -8,16 +14,19 @@ import type {
   QuotesResponse,
   SearchHit,
   StockSnapshot,
+  TickerResponse,
 } from "@/lib/contract";
 import {
   getChart,
   getMarket,
   getQuotes,
   getStock,
+  getTicker,
   searchSymbols,
 } from "./index";
 import { REFRESH_MS, shouldRefresh } from "./dashboard";
 import { DataError, isAbort } from "./errors";
+import { createTickerStore, type TickerStore } from "./ticker-store";
 
 export type Resource<T> =
   | { status: "loading" }
@@ -195,4 +204,22 @@ export function useQuotes(symbols: string[], enabled = true) {
 export function useMarket(enabled = true) {
   const fetcher = useCallback((signal: AbortSignal) => getMarket(signal), []);
   return usePolledResource<MarketResponse>("market", enabled, fetcher);
+}
+
+let tickerStore: TickerStore | null = null;
+const sharedTickerStore = (): TickerStore =>
+  (tickerStore ??= createTickerStore({ fetcher: getTicker }));
+const LOADING_TICKER: PolledResource<TickerResponse> = { status: "loading" };
+
+/**
+ * The scrolling band under the header. Unlike the tile hooks this one is SHARED: every page mounts
+ * a band, but there is one `/api/ticker` request per ~60 s for the whole app (see `ticker-store.ts`).
+ */
+export function useTicker(): PolledResource<TickerResponse> {
+  const store = sharedTickerStore();
+  return useSyncExternalStore(
+    store.subscribe,
+    store.getSnapshot,
+    () => LOADING_TICKER,
+  );
 }

@@ -176,3 +176,125 @@ a.text-link {
 html[data-splash="seen"] .splash {
   display: none;
 }
+
+/*
+ * Market ticker band (components/ticker/ticker-band.tsx): a slim strip under the header on every
+ * page. The track holds N identical copies of the list (only the first is read by screen readers)
+ * and slides left by exactly one copy, so the loop has no seam. `--ticker-copies` and
+ * `--ticker-duration` come from measuring the list (duration = width / ~44 px/s, so the speed is
+ * constant whatever the number of items). No accent colour here: the band stays quiet.
+ */
+.ticker {
+  overflow: hidden;
+  outline-offset: -2px;
+}
+.ticker-viewport {
+  overflow: hidden;
+  --ticker-fade: calc(var(--spacing) * 8);
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 var(--ticker-fade),
+    #000 calc(100% - var(--ticker-fade)),
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 var(--ticker-fade),
+    #000 calc(100% - var(--ticker-fade)),
+    transparent
+  );
+}
+.ticker-track {
+  display: flex;
+  width: max-content;
+}
+.ticker-list {
+  display: flex;
+  flex: none;
+}
+.ticker-item {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: calc(var(--spacing) * 2);
+  white-space: nowrap;
+  padding-inline: calc(var(--spacing) * 3);
+}
+/* Region break: a hairline with equal air on both sides (also lands on the loop's wrap point). */
+.ticker-item[data-region-start] {
+  margin-inline-start: calc(var(--spacing) * 3);
+  padding-inline-start: calc(var(--spacing) * 6);
+}
+.ticker-item[data-region-start]::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  top: 50%;
+  height: calc(var(--spacing) * 3);
+  width: 1px;
+  transform: translateY(-50%);
+  background: color-mix(in srgb, var(--muted) 40%, transparent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ticker-track[data-ready] {
+    animation: ticker-scroll var(--ticker-duration) linear infinite;
+  }
+  @keyframes ticker-scroll {
+    to {
+      transform: translateX(calc(-100% / var(--ticker-copies)));
+    }
+  }
+  /* Pause on hover (real pointers only), keyboard focus, a finger held down, and a hidden tab. */
+  @media (hover: hover) {
+    .ticker:hover .ticker-track {
+      animation-play-state: paused;
+    }
+  }
+  .ticker:focus-visible .ticker-track,
+  .ticker[data-pressed] .ticker-track,
+  .ticker[data-hidden] .ticker-track {
+    animation-play-state: paused;
+  }
+  /* First appearance only: ease in after the welcome splash instead of shoving the page down. */
+  .ticker-enter {
+    animation: ticker-in 0.5s ease-out 1.9s both;
+  }
+  html[data-splash="seen"] .ticker-enter {
+    animation-delay: 0s;
+  }
+  @keyframes ticker-in {
+    from {
+      max-height: 0;
+      opacity: 0;
+    }
+    to {
+      max-height: calc(var(--spacing) * 9);
+      opacity: 1;
+    }
+  }
+}
+
+/* Reduced motion: no movement. One static strip you can scroll sideways (finger, trackpad, arrows). */
+@media (prefers-reduced-motion: reduce) {
+  .ticker-viewport {
+    overflow-x: auto;
+    scrollbar-width: thin;
+    -webkit-mask-image: linear-gradient(
+      to right,
+      #000 calc(100% - var(--ticker-fade)),
+      transparent
+    );
+    mask-image: linear-gradient(
+      to right,
+      #000 calc(100% - var(--ticker-fade)),
+      transparent
+    );
+  }
+  .ticker-list[aria-hidden="true"] {
+    display: none;
+  }
+}

@@ -6,6 +6,7 @@ import type {
   QuotesResponse,
   SearchResponse,
   StockSnapshot,
+  TickerResponse,
 } from "@/lib/contract";
 import { DataError } from "./errors";
 
@@ -71,4 +72,6 @@ export const liveSource = {
     ),
   market: (signal?: AbortSignal) =>
     getJson<MarketResponse>("/api/market", signal),
+  ticker: (signal?: AbortSignal) =>
+    getJson<TickerResponse>("/api/ticker", signal),
 };

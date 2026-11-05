@@ -89,3 +89,14 @@ Open question (PLAN §10 Q10): confirm you own the logo and choose a LICENSE bef
 - **Degrade per row, per tile**: a failed symbol only changes its own row; a failed batch keeps names and shows one message with "Try again"; Start here is static and never blank.
 - **Refresh**: 60 s, only while the tab is visible, off with `prefers-reduced-motion` (manual "Refresh" stays). Data stays on screen during a refresh (no skeleton flash).
 - **Dev-only fixture switches** (fixtures mode only): `/?fixture=open`, `?fixture=degraded`, `?fixture=down`.
+
+## Market ticker band (Step 3c, do not re-litigate)
+
+- **One slim band (32 px, hairline bottom border) directly under the header on every page**, wired through `PageShell`. It is quiet on purpose: 12 px type, muted labels, level in the foreground colour, change with the arrow (the only coloured thing; `--positive` / `--negative`, never colour alone). **No gradient accent** here.
+- **Loop**: the list is drawn twice (more when the window is wider than one list); the copy is `aria-hidden`. The track slides left by exactly one list width, so the wrap has no seam (checked: the frame at 0 and at the end of the cycle match). Duration = measured list width / 44 px/s (~118 s for the 24 items), so the speed is the same on phone and desktop. A refresh that changes the width by under 10 % keeps the old duration (changing it mid-flight would make the track jump).
+- **Pause**: hover (real pointers only), keyboard focus on the band (it is one tab stop), a finger held on it, a hidden tab.
+- **Reduced motion**: no animation; the band is one static strip with `overflow-x: auto` (the duplicate list is `display: none`), a fade only on the right edge.
+- **Data**: unavailable items are skipped (no dashes); a stale item keeps its last value plus a small clock icon (and an sr-only "Last saved value"); fewer than 4 usable items or a failed request hides the band completely. The band eases in once per page load (after the splash), later pages mount it already in place, so there is no layout jump.
+- **One request**: `lib/data/ticker-store.ts` is a module-level store shared by every mounted band (one `/api/ticker`, then at most one per ~60 s, never while the tab is hidden, a failed refresh keeps the numbers). Navigating between pages does not refetch.
+- Tried, not kept: a `title` tooltip on the band (noisy over a moving strip; the note is sr-only instead).
+- Next target: on phones the band plus header take ~104 px before the page content; if that feels heavy, drop the header's own bottom padding on the home page.

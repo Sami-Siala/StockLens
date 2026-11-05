@@ -4,7 +4,7 @@
  * Switch with a single flag, `NEXT_PUBLIC_DATA_MODE`:
  *   - "fixtures" (default): recorded contract fixtures from tests/fixtures/contract/
  *   - "live": our own /api/search | /api/stock/[symbol] | /api/chart/[symbol] |
- *     /api/quotes | /api/market routes
+ *     /api/quotes | /api/market | /api/ticker routes
  *
  * The flag is inlined at build time, so with "live" the bundler drops the fixtures
  * branch and no fixture JSON reaches the production client bundle.
@@ -16,6 +16,7 @@ import type {
   QuotesResponse,
   SearchResponse,
   StockSnapshot,
+  TickerResponse,
 } from "@/lib/contract";
 import { liveSource } from "./live";
 import type { DataSourceApi } from "./source";
@@ -59,6 +60,10 @@ export async function getQuotes(
 
 export async function getMarket(signal?: AbortSignal): Promise<MarketResponse> {
   return (await source()).market(signal);
+}
+
+export async function getTicker(signal?: AbortSignal): Promise<TickerResponse> {
+  return (await source()).ticker(signal);
 }
 
 export { DataError, isAbort } from "./errors";
