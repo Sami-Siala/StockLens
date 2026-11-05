@@ -1,6 +1,6 @@
 # StockLens — Project Plan
 
-> Status: **DRAFT v1** — 2026-11-05. Written after a scoping Q&A and a technical spike (see §3.3).
+> Status: **DRAFT v2** (adds the 6-step plan §11 and agents §12) — 2026-11-05. Written after a scoping Q&A and a technical spike (see §3.3).
 > Items marked ⚠️ are risks or things still to confirm; items marked ❓ are open questions for you.
 
 ## 1. Vision
@@ -177,6 +177,7 @@ Suggested layout:
 ```
 StockLens/
 ├─ PLAN.md  README.md  .gitignore
+├─ .claude/agents/    (data-engineer.md, frontend-engineer.md, see §12)
 ├─ Assets/            (logo source)
 ├─ Lectures/          (local only, git-ignored)
 ├─ app/               (routes, pages)
@@ -189,6 +190,8 @@ StockLens/
 ```
 
 ## 8. Roadmap
+
+> The execution order is the **6-step plan in §11**, with agents defined in §12. The phase checklists below are the detailed task lists.
 
 **Phase 0 — Foundations & de-risking (do first)**
 - [ ] Create GitHub repo (public), connect to Vercel
@@ -246,6 +249,43 @@ StockLens/
 7. **Teacher page password** (§6): yes/no?
 8. **Timeline:** any date by which students should be using it (e.g., next session)? This decides how much we cut from Phase 2.
 
-## 11. Next step
+## 11. Implementation plan: 6 steps
 
-Once you answer §10 (or say "defaults are fine"), we start **Phase 0**, beginning with the Vercel/Yahoo throwaway test, because it's the one result that can change the architecture.
+This is the **execution order**. The Phase 0–3 checklists in §8 are the detailed task lists these steps draw from (Step 1 = Phase 0, Steps 2–3 = Phase 1, Steps 4–5 = Phase 2, Step 6 = Phase 3).
+
+Each step ends with a **user checkpoint**: nothing moves on, and nothing is committed or pushed, until you've looked at it and said go.
+
+| # | Step | Lead | Main deliverables | Exit criteria (checkpoint) |
+|---|---|---|---|---|
+| 1 | **Foundations & de-risking** | Orchestrator, with `data-engineer` for the spike | Next.js + TS + Tailwind + shadcn + next-intl scaffold; throwaway Vercel deployment calling `yahoo-finance2` for `AAPL`, `MC.PA`, `7203.T`; Gemini key created and real free-tier quota/model recorded; brand tokens and favicon/wordmark from the logo; **data contract** (`lib/providers/types.ts`, zod schemas) agreed | Vercel can fetch Yahoo data (Plan A) or we've chosen Plan B (§3.6); contract reviewed by you; `.env.example` exists, no secret committed |
+| 2 | **Data layer & API** | `data-engineer` | `MarketDataProvider` + Yahoo implementation; search, quote, chart (8 ranges), fundamentals via `fundamentalsTimeSeries`, analyst data, earnings; currency/`GBp`/timezone handling; caching and per-IP rate limit; fixtures for US/EU/Asia; unit tests | `/api/search`, `/api/stock/[symbol]`, `/api/chart/[symbol]` work for `AAPL`, `MC.PA`, `7203.T` with missing fields returned as `null` + reason; tests green; live smoke output reviewed |
+| 3 | **Core UI** | `frontend-engineer` | Home + search with autocomplete; stock page: header, chart with 8 ranges, key-number cards (EPS vs. expectation, P/E, revenue, operating profit, FCF, market cap), analyst section; FR/EN; responsive, dark mode, skeleton/error states | You can search a company on your phone and read the whole page in FR and EN, including a sparse-data company, with no broken cards |
+| 4 | **AI layer** | `data-engineer` (API) then `frontend-engineer` (display) | Gemini client with model fallback chain; grounded prompt; schema-enforced JSON; per `(ticker, language, day)` cache; `/api/ai/[symbol]`; company explainer + bull/bear/hold columns with the disclaimer | The thesis for 3+ tickers is readable, consistent with the on-page numbers, available in FR and EN, and still works (or degrades cleanly) when the quota is exhausted |
+| 5 | **Education & teacher features** | `frontend-engineer` | Glossary + tooltips + "explain this metric" in lecture voice; "Séance N" tags; rule-based quiz cards; margin-of-safety card; watchlist, notes and one-page thesis export; teacher links (`?tickers=…&hideAI=1`) | **You (the professor) review all French/English educational copy**; a teacher link works end to end |
+| 6 | **Hardening, QA & launch** | Orchestrator, both agents on fixes | Fallback providers and "stale data" mode; accessibility and Lighthouse pass; ticker test matrix (US, EU, Asia, ETF, a loss-making company, a semi-annual reporter); about/disclaimer/credits page; README; production deploy; `/code-review` pass | Meets the v1 definition of done in §8; link ready to share with the club |
+
+**Parallelism:** once Step 1 freezes the contract, Steps 2 and 3 run **in parallel**. The `frontend-engineer` builds against recorded fixtures while the `data-engineer` builds the real routes, then a one-flag switch points the UI at live data. Step 4's API half can start as soon as Step 2's data shapes are stable.
+
+## 12. Agents
+
+Three roles in total: you plus two worker agents. Orchestrator-only would be slow, because the UI and the data/AI layer are independent workstreams after the contract is frozen. Splitting further would add coordination cost for a 15-student app, so we stop at two.
+
+| Role | Runs as | Model | Owns | Definition |
+|---|---|---|---|---|
+| **Orchestrator** | The main Claude Code session | Sonnet (run the session on Sonnet) | `PLAN.md`, the data contract's approval, git (commits/pushes only after you approve), GitHub/Vercel setup, integration, code review, and talking to you | n/a (this is the session you're in) |
+| **`data-engineer`** | Subagent | `sonnet` | `lib/providers/**`, `lib/ai/**`, `app/api/**`, `tests/**`, fixtures, `.env.example` | [`.claude/agents/data-engineer.md`](.claude/agents/data-engineer.md) |
+| **`frontend-engineer`** | Subagent | `sonnet` | `app/**` pages, `components/**`, `messages/**`, `lib/education/**`, styling, brand assets | [`.claude/agents/frontend-engineer.md`](.claude/agents/frontend-engineer.md) |
+
+**Ground rules for working together**
+- **All agents run on Sonnet or lower** (`model: sonnet` in each definition; nothing uses Opus or Fable).
+- **Agents start only when you say so.** The orchestrator proposes each delegation and its brief; you approve it.
+- **File ownership is strict** (table above), so parallel work doesn't collide. For parallel steps, the orchestrator can run each agent in its own git worktree and merge the results.
+- **The contract is the handshake.** Only the `data-engineer` edits `lib/providers/types.ts`, and the `frontend-engineer` asks for changes through the orchestrator.
+- **No agent commits or pushes.** The orchestrator commits after review and your approval, with plain messages (no attribution lines).
+- **Every agent reports in a fixed format** (done / files / how verified / contract changes / open issues / questions) so reviews are quick.
+- Each agent verifies its own work (tests, type check; the UI is also checked in a real browser at phone and desktop width) before reporting. The orchestrator then reviews the diff and re-runs the checks.
+- **Not a separate agent:** QA and review. They're the orchestrator's job at each checkpoint (and `/code-review` in Step 6), which avoids a third agent.
+
+## 13. Next step
+
+Once you answer §10 (or say "defaults are fine"), we start **Step 1**, beginning with the Vercel/Yahoo throwaway test, because it's the one result that can change the architecture.
