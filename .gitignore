@@ -16,3 +16,7 @@ coverage/
 
 # Course material (public repo: keep lectures local only)
 Lectures/
+
+# Local logs / soak test
+soak-log.jsonl
+.env.local

@@ -1,0 +1,395 @@
+{
+  "meta": {
+    "contractVersion": "0.1.0",
+    "source": "fixture",
+    "fetchedAt": "2026-11-05T19:28:37.114Z",
+    "stale": false
+  },
+  "listing": {
+    "symbol": "MC.PA",
+    "name": "LVMH Moët Hennessy - Louis Vuitton, Société Européenne",
+    "shortName": "LVMH",
+    "quoteType": "EQUITY",
+    "exchange": "Paris",
+    "exchangeCode": "PAR",
+    "exchangeTimezone": "Europe/Paris",
+    "priceCurrency": "EUR",
+    "financialCurrency": "EUR",
+    "firstTradeDate": "2000-01-03T08:00:00.000Z"
+  },
+  "quote": {
+    "value": {
+      "price": {
+        "amount": 418.65,
+        "currency": "EUR"
+      },
+      "change": 2.399994,
+      "changePercent": 0.005765751,
+      "previousClose": 416.25,
+      "open": 422.75,
+      "dayHigh": 431.15,
+      "dayLow": 412.55,
+      "volume": 952183,
+      "fiftyTwoWeekHigh": 654.7,
+      "fiftyTwoWeekLow": 375.65,
+      "marketState": "CLOSED",
+      "asOf": "2026-11-05T16:35:41.000Z",
+      "delayMinutes": 15
+    },
+    "reason": null
+  },
+  "profile": {
+    "value": {
+      "sector": "Consumer Cyclical",
+      "industry": "Luxury Goods",
+      "country": "France",
+      "website": "https://www.lvmh.com",
+      "employees": 196647,
+      "summary": "LVMH Moët Hennessy - Louis Vuitton, Société Européenne, together with its subsidiaries, operates as a luxury goods company worldwide. It offers wine and spirit products under the Ao Yun, Ardbeg, Armand de Brignac, Belvedere, Bodega Numanthia, Chandon, Cheval des Andes, Château Cheval Blanc, Château Galoupet, Château d'Yquem, Château d'Esclans, Cloudy Bay, Colgin Cellars, Dom Pérignon, Domaine des Lambrays, Eminente, Glenmorangie, Hennessy, Joseph Phelps, Krug, Mercier, Minuty, Moët & Chandon, Newton Vineyard, Ruinart, SirDavis, Terrazas de los Andes, Veuve Clicquot, Volcan de mi Tierra, and Woodinville brands; fashion and leather products under Barton Perreira,Berluti, Celine, Christian Dior, Fendi, Givenchy, Kenzo, Loewe, Loro Piana, Louis Vuitton, Marc Jacobs, Moynat, Patou, Pucci, Rimowa, and Vuarnet brands; and perfumes and cosmetics products under the Acqua di Parma, Benefit Cosmetics, Fenty Beauty by Rihanna, Fresh, Givenchy Parfums, Guerlain, Kenzo Parfums, Loewe Perfumes, Maison Francis Kurkdjian, Make Up For Ever, OLEHENRIKSEN, Officine Universelle Buly, and Parfums Christian Dior brands. The company also provides watches and jewelry under the Bvlgari, Chaumet, DANIEL ROTH, Fred, Gérald Genta, Hublot, L'Epée 1839, Repossi, TAG Heuer, Tiffany & Co., and Zenith brands; and selective retailing under the 24S, DFS, La Grande Épicerie de Paris, Le Bon Marché Rive Gauche, Samaritaine, and Sephora brands. In addition, it offers french business and cultural publications under the Les Echos group brand; custom-designed yachts under the Feadship brand; hotels under the Cheval Blanc and Belmond brands; and other activities under the Connaissance des Arts, Cova, Investir, Jardin d'Acclimatation, Le Parisien, Paris Match, and Radio Classique brands. LVMH Moët Hennessy - Louis Vuitton, Société Européenne was founded in 1365 and is headquartered in Paris, France."
+    },
+    "reason": null
+  },
+  "fundamentals": {
+    "value": {
+      "financialCurrency": "EUR",
+      "keyStats": {
+        "marketCap": {
+          "value": {
+            "amount": 206379892736,
+            "currency": "EUR"
+          },
+          "reason": null
+        },
+        "sharesOutstanding": {
+          "value": 492965227,
+          "reason": null
+        },
+        "trailingPE": {
+          "value": 19.081585,
+          "reason": null
+        },
+        "forwardPE": {
+          "value": 17.34272,
+          "reason": null
+        },
+        "trailingEps": {
+          "value": {
+            "amount": 21.94,
+            "currency": "EUR"
+          },
+          "reason": null
+        },
+        "forwardEps": {
+          "value": {
+            "amount": 24.13981,
+            "currency": "EUR"
+          },
+          "reason": null
+        },
+        "dividendYield": {
+          "value": 0.0312,
+          "reason": null
+        },
+        "dividendRate": {
+          "value": {
+            "amount": 13,
+            "currency": "EUR"
+          },
+          "reason": null
+        },
+        "payoutRatio": {
+          "value": 0.5925,
+          "reason": null
+        },
+        "operatingMargin": {
+          "value": 0.22521,
+          "reason": null
+        },
+        "revenueGrowth": {
+          "value": -0.029,
+          "reason": null
+        },
+        "beta": {
+          "value": 0.898,
+          "reason": null
+        }
+      },
+      "quarterly": [
+        {
+          "periodEnd": "2025-06-30",
+          "length": "3M",
+          "revenue": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "operatingIncome": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "netIncome": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "freeCashFlow": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "operatingCashFlow": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "dilutedEps": {
+            "value": null,
+            "reason": "reported_less_often"
+          }
+        },
+        {
+          "periodEnd": "2025-12-31",
+          "length": "3M",
+          "revenue": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "operatingIncome": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "netIncome": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "freeCashFlow": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "operatingCashFlow": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "dilutedEps": {
+            "value": null,
+            "reason": "reported_less_often"
+          }
+        },
+        {
+          "periodEnd": "2026-06-30",
+          "length": "3M",
+          "revenue": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "operatingIncome": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "netIncome": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "freeCashFlow": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "operatingCashFlow": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "dilutedEps": {
+            "value": null,
+            "reason": "reported_less_often"
+          }
+        }
+      ],
+      "annual": [
+        {
+          "periodEnd": "2023-12-31",
+          "length": "12M",
+          "revenue": {
+            "value": 86153000000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": 22781000000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": 15174000000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": 10596000000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": 18403000000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": 30.33,
+            "reason": null
+          }
+        },
+        {
+          "periodEnd": "2024-12-31",
+          "length": "12M",
+          "revenue": {
+            "value": 84682000000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": 19577000000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": 12550000000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": 13373000000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": 18925000000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": 25.12,
+            "reason": null
+          }
+        },
+        {
+          "periodEnd": "2025-12-31",
+          "length": "12M",
+          "revenue": {
+            "value": 80807000000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": 17668000000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": 10878000000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": 14205000000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": 18875000000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": 21.85,
+            "reason": null
+          }
+        }
+      ]
+    },
+    "reason": null
+  },
+  "earnings": {
+    "value": {
+      "lastQuarter": {
+        "value": null,
+        "reason": "not_provided_by_source"
+      },
+      "history": [],
+      "next": {
+        "value": null,
+        "reason": "not_provided_by_source"
+      },
+      "epsEstimates": [
+        {
+          "period": "0y",
+          "endDate": "2026-12-31",
+          "avg": 22.27316,
+          "low": 21.43,
+          "high": 24.48,
+          "analysts": 18,
+          "yearAgo": 21.85,
+          "growth": 0.0194,
+          "currency": "EUR"
+        },
+        {
+          "period": "+1y",
+          "endDate": "2027-12-31",
+          "avg": 24.13981,
+          "low": 22.55,
+          "high": 28.23,
+          "analysts": 18,
+          "yearAgo": 22.27316,
+          "growth": 0.0838,
+          "currency": "EUR"
+        }
+      ],
+      "revenueEstimates": [
+        {
+          "period": "0q",
+          "endDate": "2026-12-31",
+          "avg": 23299333330,
+          "low": 23247000000,
+          "high": 23334000000,
+          "analysts": 3,
+          "yearAgo": 22717000000,
+          "growth": 0.0256,
+          "currency": "EUR"
+        },
+        {
+          "period": "0y",
+          "endDate": "2026-12-31",
+          "avg": 80465575720,
+          "low": 80049953990,
+          "high": 81750370000,
+          "analysts": 20,
+          "yearAgo": 80807000000,
+          "growth": -0.0042,
+          "currency": "EUR"
+        },
+        {
+          "period": "+1y",
+          "endDate": "2027-12-31",
+          "avg": 84161293900,
+          "low": 82826100000,
+          "high": 86832790000,
+          "analysts": 25,
+          "yearAgo": 80465575720,
+          "growth": 0.045900002,
+          "currency": "EUR"
+        }
+      ]
+    },
+    "reason": null
+  },
+  "analysts": {
+    "value": {
+      "ratings": {
+        "value": {
+          "strongBuy": 3,
+          "buy": 13,
+          "hold": 10,
+          "sell": 1,
+          "strongSell": 0
+        },
+        "reason": null
+      },
+      "ratingMean": {
+        "value": 2,
+        "reason": null
+      },
+      "priceTarget": {
+        "value": {
+          "low": 415,
+          "mean": 491.54074,
+          "median": 490,
+          "high": 590,
+          "analysts": 27,
+          "currency": "EUR"
+        },
+        "reason": null
+      }
+    },
+    "reason": null
+  }
+}

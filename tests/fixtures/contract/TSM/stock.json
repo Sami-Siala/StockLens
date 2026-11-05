@@ -1,0 +1,583 @@
+{
+  "meta": {
+    "contractVersion": "0.1.0",
+    "source": "fixture",
+    "fetchedAt": "2026-11-05T19:28:37.121Z",
+    "stale": false
+  },
+  "listing": {
+    "symbol": "TSM",
+    "name": "Taiwan Semiconductor Manufacturing Company Limited",
+    "shortName": "Taiwan Semiconductor Manufactur",
+    "quoteType": "EQUITY",
+    "exchange": "NYSE",
+    "exchangeCode": "NYQ",
+    "exchangeTimezone": "America/New_York",
+    "priceCurrency": "USD",
+    "financialCurrency": "TWD",
+    "firstTradeDate": "1997-10-09T13:30:00.000Z"
+  },
+  "quote": {
+    "value": {
+      "price": {
+        "amount": 358.715,
+        "currency": "USD"
+      },
+      "change": -37.035004,
+      "changePercent": -0.09358182,
+      "previousClose": 395.75,
+      "open": 379.75,
+      "dayHigh": 380.78,
+      "dayLow": 352.445,
+      "volume": 30350486,
+      "fiftyTwoWeekHigh": 487.47,
+      "fiftyTwoWeekLow": 266.82,
+      "marketState": "REGULAR",
+      "asOf": "2026-11-05T19:25:27.000Z",
+      "delayMinutes": 20
+    },
+    "reason": null
+  },
+  "profile": {
+    "value": {
+      "sector": "Technology",
+      "industry": "Semiconductors",
+      "country": "Taiwan",
+      "website": "https://www.tsmc.com",
+      "employees": 76907,
+      "summary": "Taiwan Semiconductor Manufacturing Company Limited, together with its subsidiaries, manufactures, packages, tests, and sells integrated circuits and other semiconductor devices in Taiwan, China, Europe, the Middle East, Africa, Japan, the United States, and internationally. It provides various wafer fabrication processes, such as processes to manufacture complementary metal- oxide-semiconductor (CMOS) logic, mixed-signal, radio frequency, embedded memory, bipolar CMOS mixed-signal, and others. The company also involved in providing customer and engineering support services; manufacturing of masks; investment in technology start-up companies; research, designing, developing, manufacturing, packaging, testing, and sale of color filters; and investment activities. Its products are used in high performance computing, smartphones, Internet of things, automotive, and digital consumer electronics. Taiwan Semiconductor Manufacturing Company Limited was incorporated in 1987 and is headquartered in Hsinchu City, Taiwan."
+    },
+    "reason": null
+  },
+  "fundamentals": {
+    "value": {
+      "financialCurrency": "TWD",
+      "keyStats": {
+        "marketCap": {
+          "value": {
+            "amount": 1860465983488,
+            "currency": "USD"
+          },
+          "reason": null
+        },
+        "sharesOutstanding": {
+          "value": 5186474013,
+          "reason": null
+        },
+        "trailingPE": {
+          "value": 23.247892,
+          "reason": null
+        },
+        "forwardPE": {
+          "value": 15.307328,
+          "reason": null
+        },
+        "trailingEps": {
+          "value": {
+            "amount": 15.43,
+            "currency": "USD"
+          },
+          "reason": null
+        },
+        "forwardEps": {
+          "value": {
+            "amount": 23.4342,
+            "currency": "USD"
+          },
+          "reason": null
+        },
+        "dividendYield": {
+          "value": 0.0095,
+          "reason": null
+        },
+        "dividendRate": {
+          "value": {
+            "amount": 3.77,
+            "currency": "USD"
+          },
+          "reason": null
+        },
+        "payoutRatio": {
+          "value": 0.2446,
+          "reason": null
+        },
+        "operatingMargin": {
+          "value": 0.58655,
+          "reason": null
+        },
+        "revenueGrowth": {
+          "value": 0.509,
+          "reason": null
+        },
+        "beta": {
+          "value": 1.233,
+          "reason": null
+        }
+      },
+      "quarterly": [
+        {
+          "periodEnd": "2025-03-31",
+          "length": "3M",
+          "revenue": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "operatingIncome": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "netIncome": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "freeCashFlow": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "operatingCashFlow": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "dilutedEps": {
+            "value": null,
+            "reason": "reported_less_often"
+          }
+        },
+        {
+          "periodEnd": "2025-06-30",
+          "length": "3M",
+          "revenue": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "operatingIncome": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "netIncome": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "freeCashFlow": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "operatingCashFlow": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "dilutedEps": {
+            "value": null,
+            "reason": "reported_less_often"
+          }
+        },
+        {
+          "periodEnd": "2025-09-30",
+          "length": "3M",
+          "revenue": {
+            "value": 989918000000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": 500685000000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": 452302000000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": 139377000000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": 426829000000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": 87.2,
+            "reason": null
+          }
+        },
+        {
+          "periodEnd": "2025-12-31",
+          "length": "3M",
+          "revenue": {
+            "value": 1046090449000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": 564880854000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": 485465363000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": 364041064000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": 725508762000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": 97.5,
+            "reason": null
+          }
+        },
+        {
+          "periodEnd": "2026-03-31",
+          "length": "3M",
+          "revenue": {
+            "value": 1134103440000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": 658948859000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": 572479752000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": 347270237000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": 698976265000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": 110.4,
+            "reason": null
+          }
+        },
+        {
+          "periodEnd": "2026-06-30",
+          "length": "3M",
+          "revenue": {
+            "value": 1270380250000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": 766568191000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": 706561938000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": 274969894000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": 783364977000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": 136.25,
+            "reason": null
+          }
+        },
+        {
+          "periodEnd": "2026-09-30",
+          "length": "3M",
+          "revenue": {
+            "value": 1494243000000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": 876445000000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": 763064000000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": 476570000000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": 919776000000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": 147.125773,
+            "reason": null
+          }
+        }
+      ],
+      "annual": [
+        {
+          "periodEnd": "2023-12-31",
+          "length": "12M",
+          "revenue": {
+            "value": 2161735800000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": 921429900000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": 851740000000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": 286568900000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": 1241967300000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": 161.7,
+            "reason": null
+          }
+        },
+        {
+          "periodEnd": "2024-12-31",
+          "length": "12M",
+          "revenue": {
+            "value": 2894307700000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": 1322003100000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": 1158380200000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": 861195500000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": 1826177100000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": 226.25,
+            "reason": null
+          }
+        },
+        {
+          "periodEnd": "2025-12-31",
+          "length": "12M",
+          "revenue": {
+            "value": 3809054300000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": 1936095600000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": 1697604000000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": 992378400000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": 2274975600000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": 331.25,
+            "reason": null
+          }
+        }
+      ]
+    },
+    "reason": null
+  },
+  "earnings": {
+    "value": {
+      "lastQuarter": {
+        "value": {
+          "quarterEnd": "2026-09-30",
+          "epsActual": 4.6,
+          "epsEstimate": 4.52449,
+          "difference": 0.08,
+          "surprise": 0.0167,
+          "currency": "USD"
+        },
+        "reason": null
+      },
+      "history": [
+        {
+          "quarterEnd": "2025-12-31",
+          "epsActual": 3.14,
+          "epsEstimate": 2.97556,
+          "difference": 0.16,
+          "surprise": 0.0553,
+          "currency": "USD"
+        },
+        {
+          "quarterEnd": "2026-03-31",
+          "epsActual": 3.49,
+          "epsEstimate": 3.33393,
+          "difference": 0.16,
+          "surprise": 0.0468,
+          "currency": "USD"
+        },
+        {
+          "quarterEnd": "2026-06-30",
+          "epsActual": 4.31,
+          "epsEstimate": 3.88658,
+          "difference": 0.42,
+          "surprise": 0.1089,
+          "currency": "USD"
+        },
+        {
+          "quarterEnd": "2026-09-30",
+          "epsActual": 4.6,
+          "epsEstimate": 4.52449,
+          "difference": 0.08,
+          "surprise": 0.0167,
+          "currency": "USD"
+        }
+      ],
+      "next": {
+        "value": {
+          "date": "2027-01-14T13:30:00.000Z",
+          "isEstimate": true
+        },
+        "reason": null
+      },
+      "epsEstimates": [
+        {
+          "period": "0q",
+          "endDate": "2026-12-31",
+          "avg": 5.1641,
+          "low": 5.102,
+          "high": 5.28,
+          "analysts": 8,
+          "yearAgo": 3.14,
+          "growth": 0.6446,
+          "currency": "USD"
+        },
+        {
+          "period": "+1q",
+          "endDate": "2027-03-31",
+          "avg": 5.19402,
+          "low": 4.95,
+          "high": 5.4,
+          "analysts": 10,
+          "yearAgo": 3.49,
+          "growth": 0.48830003,
+          "currency": "USD"
+        },
+        {
+          "period": "0y",
+          "endDate": "2026-12-31",
+          "avg": 17.48724,
+          "low": 17.182,
+          "high": 17.95,
+          "analysts": 12,
+          "yearAgo": 10.65,
+          "growth": 0.64199996,
+          "currency": "USD"
+        },
+        {
+          "period": "+1y",
+          "endDate": "2027-12-31",
+          "avg": 23.4342,
+          "low": 21.45,
+          "high": 25.87,
+          "analysts": 14,
+          "yearAgo": 17.48724,
+          "growth": 0.3401,
+          "currency": "USD"
+        }
+      ],
+      "revenueEstimates": [
+        {
+          "period": "0q",
+          "endDate": "2026-12-31",
+          "avg": 1707801676350,
+          "low": 1647305000000,
+          "high": 1753006000000,
+          "analysts": 26,
+          "yearAgo": 1046090000000,
+          "growth": 0.6326,
+          "currency": "TWD"
+        },
+        {
+          "period": "+1q",
+          "endDate": "2027-03-31",
+          "avg": 1731735924800,
+          "low": 1623355000000,
+          "high": 1862039143700,
+          "analysts": 21,
+          "yearAgo": 1134103000000,
+          "growth": 0.527,
+          "currency": "TWD"
+        },
+        {
+          "period": "0y",
+          "endDate": "2026-12-31",
+          "avg": 5582146967720,
+          "low": 5157000000000,
+          "high": 5728468066000,
+          "analysts": 40,
+          "yearAgo": 3809054000000,
+          "growth": 0.4655,
+          "currency": "TWD"
+        },
+        {
+          "period": "+1y",
+          "endDate": "2027-12-31",
+          "avg": 7691236153280,
+          "low": 6879000000000,
+          "high": 8534416432000,
+          "analysts": 41,
+          "yearAgo": 5582146967720,
+          "growth": 0.3778,
+          "currency": "TWD"
+        }
+      ]
+    },
+    "reason": null
+  },
+  "analysts": {
+    "value": {
+      "ratings": {
+        "value": {
+          "strongBuy": 6,
+          "buy": 14,
+          "hold": 1,
+          "sell": 0,
+          "strongSell": 0
+        },
+        "reason": null
+      },
+      "ratingMean": {
+        "value": 1.38095,
+        "reason": null
+      },
+      "priceTarget": {
+        "value": {
+          "low": 440,
+          "mean": 586.693,
+          "median": 560,
+          "high": 1000,
+          "analysts": 20,
+          "currency": "USD"
+        },
+        "reason": null
+      }
+    },
+    "reason": null
+  }
+}

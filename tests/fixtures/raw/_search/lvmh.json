@@ -1,0 +1,240 @@
+{
+  "explains": [],
+  "count": 11,
+  "quotes": [
+    {
+      "exchange": "PAR",
+      "shortname": "LVMH",
+      "quoteType": "EQUITY",
+      "symbol": "MC.PA",
+      "index": "quotes",
+      "score": 23767,
+      "typeDisp": "Equity",
+      "longname": "LVMH Moët Hennessy - Louis Vuitton, Société Européenne",
+      "exchDisp": "Paris",
+      "sector": "Consumer Cyclical",
+      "sectorDisp": "Consumer Cyclical",
+      "industry": "Luxury Goods",
+      "industryDisp": "Luxury Goods",
+      "dispSecIndFlag": true,
+      "isYahooFinance": true
+    },
+    {
+      "exchange": "PNK",
+      "shortname": "LVMH-Moet Hennessy Louis Vuitto",
+      "quoteType": "EQUITY",
+      "symbol": "LVMUY",
+      "index": "quotes",
+      "score": 21340,
+      "typeDisp": "Equity",
+      "longname": "LVMH Moët Hennessy - Louis Vuitton, Société Européenne",
+      "exchDisp": "OTC Markets",
+      "sector": "Consumer Cyclical",
+      "sectorDisp": "Consumer Cyclical",
+      "industry": "Luxury Goods",
+      "industryDisp": "Luxury Goods",
+      "isYahooFinance": true
+    },
+    {
+      "exchange": "PNK",
+      "shortname": "LVMH-Moet Hennessy Louis Vuitto",
+      "quoteType": "EQUITY",
+      "symbol": "LVMHF",
+      "index": "quotes",
+      "score": 20273,
+      "typeDisp": "Equity",
+      "longname": "LVMH Moët Hennessy - Louis Vuitton, Société Européenne",
+      "exchDisp": "OTC Markets",
+      "sector": "Consumer Cyclical",
+      "sectorDisp": "Consumer Cyclical",
+      "industry": "Luxury Goods",
+      "industryDisp": "Luxury Goods",
+      "isYahooFinance": true
+    },
+    {
+      "exchange": "FRA",
+      "shortname": "LVMH MOET HENNESSY VUITTON SE",
+      "quoteType": "EQUITY",
+      "symbol": "MOH.F",
+      "index": "quotes",
+      "score": 20047,
+      "typeDisp": "Equity",
+      "longname": "LVMH Moët Hennessy - Louis Vuitton, Société Européenne",
+      "exchDisp": "Frankfurt",
+      "sector": "Consumer Cyclical",
+      "sectorDisp": "Consumer Cyclical",
+      "industry": "Luxury Goods",
+      "industryDisp": "Luxury Goods",
+      "isYahooFinance": true
+    },
+    {
+      "exchange": "GER",
+      "shortname": "LVMH  EO 0,3",
+      "quoteType": "EQUITY",
+      "symbol": "MOH.DE",
+      "index": "quotes",
+      "score": 20042,
+      "typeDisp": "Equity",
+      "longname": "LVMH Moët Hennessy - Louis Vuitton, Société Européenne",
+      "exchDisp": "XETRA",
+      "sector": "Consumer Cyclical",
+      "sectorDisp": "Consumer Cyclical",
+      "industry": "Luxury Goods",
+      "industryDisp": "Luxury Goods",
+      "isYahooFinance": true
+    },
+    {
+      "exchange": "IOB",
+      "shortname": "LVMH MOET HENNESSY LOUIS VUITTO",
+      "quoteType": "EQUITY",
+      "symbol": "0HAU.IL",
+      "index": "quotes",
+      "score": 20015,
+      "typeDisp": "Equity",
+      "longname": "LVMH Moët Hennessy - Louis Vuitton, Société Européenne",
+      "exchDisp": "International Orderbook - London",
+      "sector": "Consumer Cyclical",
+      "sectorDisp": "Consumer Cyclical",
+      "industry": "Luxury Goods",
+      "industryDisp": "Luxury Goods",
+      "isYahooFinance": true
+    },
+    {
+      "index": "3e1c27a814d7727933d3a122243d1e00",
+      "name": "Hennessy Maison - LVMH",
+      "permalink": "global-digital-director",
+      "isYahooFinance": false
+    }
+  ],
+  "news": [
+    {
+      "uuid": "0bfc56c8-cd3b-38df-8c6c-9e780fbcdec2",
+      "title": "LVMH Deepens China Engagement With ‘New Generations’ Pavilion at CIIE",
+      "publisher": "WWD",
+      "link": "https://finance.yahoo.com/media-advertising/articles/lvmh-deepens-china-engagement-generations-164100362.html",
+      "providerPublishTime": "2026-11-05T16:41:00.000Z",
+      "type": "STORY",
+      "thumbnail": {
+        "resolutions": [
+          {
+            "url": "https://media.zenfs.com/en/wwd_409/d0c6a8b248db9a1f207e2bf6e911528d.jpg",
+            "width": 2928,
+            "height": 1952,
+            "tag": "original"
+          },
+          {
+            "url": "https://s.yimg.com/lo/mysterio/api/BA0DE1176C12D6060E214CC7E7B0ADCA3668240EA83D506FE3DD5FDB61AB8D45/subgraphmysterio/resizefill_w140_h140/https:%2F%2Fmedia.zenfs.com%2Fen%2Fwwd_409%2Fd0c6a8b248db9a1f207e2bf6e911528d.jpg",
+            "width": 140,
+            "height": 140,
+            "tag": "140x140"
+          }
+        ]
+      },
+      "relatedTickers": [
+        "MC.PA"
+      ]
+    },
+    {
+      "uuid": "d67d6c24-c325-3218-b9d2-2c39a4f74265",
+      "title": "LVMH: Share transactions disclosure",
+      "publisher": "GlobeNewswire",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/lvmh-share-transactions-disclosure-164600853.html",
+      "providerPublishTime": "2026-11-03T16:46:00.000Z",
+      "type": "STORY",
+      "thumbnail": {
+        "resolutions": [
+          {
+            "url": "https://media.zenfs.com/en/globenewswire.com/3a21f89304228688a74ecf7eac2fb12b.jpg",
+            "width": 207,
+            "height": 93,
+            "tag": "original"
+          },
+          {
+            "url": "https://s.yimg.com/lo/mysterio/api/D05ED1B340F25D456DED5DC33EC8BA1C7C3785CC21A17AD13118FC4E26B85B8B/subgraphmysterio/resizefill_w140_h140/https:%2F%2Fmedia.zenfs.com%2Fen%2Fglobenewswire.com%2F3a21f89304228688a74ecf7eac2fb12b.jpg",
+            "width": 140,
+            "height": 140,
+            "tag": "140x140"
+          }
+        ]
+      },
+      "relatedTickers": [
+        "MC.PA",
+        "CDI.PA"
+      ]
+    },
+    {
+      "uuid": "76dca324-49e5-36b2-87d7-164948eb6e6d",
+      "title": "Ferrari Earnings Beat Can Help End Supercar Stock’s Skid",
+      "publisher": "Barrons.com",
+      "link": "https://finance.yahoo.com/m/76dca324-49e5-36b2-87d7-164948eb6e6d/ferrari-earnings-beat-can.html",
+      "providerPublishTime": "2026-11-03T14:55:00.000Z",
+      "type": "STORY",
+      "thumbnail": {
+        "resolutions": [
+          {
+            "url": "https://media.zenfs.com/en/Barrons.com/19337ef49eca34ddeb25e10ac7aff5f1.jpg",
+            "width": 1280,
+            "height": 640,
+            "tag": "original"
+          },
+          {
+            "url": "https://s.yimg.com/lo/mysterio/api/8E45A0B58D56DE83AA522CE82ED429FC1B15661468E864662A9C0A178083242F/subgraphmysterio/resizefill_w140_h140/https:%2F%2Fmedia.zenfs.com%2Fen%2FBarrons.com%2F19337ef49eca34ddeb25e10ac7aff5f1.jpg",
+            "width": 140,
+            "height": 140,
+            "tag": "140x140"
+          }
+        ]
+      },
+      "relatedTickers": [
+        "RACE",
+        "KER.PA",
+        "MC.PA",
+        "RACE"
+      ]
+    },
+    {
+      "uuid": "d0ad3ef1-1bf5-335c-9e3d-130a279b5568",
+      "title": "EXCLUSIVE: Bal Harbour Shops Completes Luxury Expansion at Long Last",
+      "publisher": "WWD",
+      "link": "https://finance.yahoo.com/real-estate/articles/exclusive-bal-harbour-shops-completes-215335160.html",
+      "providerPublishTime": "2026-11-02T21:53:35.000Z",
+      "type": "STORY",
+      "thumbnail": {
+        "resolutions": [
+          {
+            "url": "https://media.zenfs.com/en/wwd_409/88f87859552e73df9184afc1fd958b34.jpg",
+            "width": 1600,
+            "height": 900,
+            "tag": "original"
+          },
+          {
+            "url": "https://s.yimg.com/lo/mysterio/api/EE178B683EC8E46C9BA68842F6ED8260FF71A1DD1D845E3BE8F00F388231F7CF/subgraphmysterio/resizefill_w140_h140/https:%2F%2Fmedia.zenfs.com%2Fen%2Fwwd_409%2F88f87859552e73df9184afc1fd958b34.jpg",
+            "width": 140,
+            "height": 140,
+            "tag": "140x140"
+          }
+        ]
+      },
+      "relatedTickers": [
+        "SAAB-B.ST",
+        "MC.PA"
+      ]
+    }
+  ],
+  "nav": [],
+  "lists": [],
+  "researchReports": [],
+  "screenerFieldResults": [],
+  "totalTime": 155,
+  "timeTakenForQuotes": 415,
+  "timeTakenForNews": 600,
+  "timeTakenForAlgowatchlist": 400,
+  "timeTakenForPredefinedScreener": 400,
+  "timeTakenForCrunchbase": 400,
+  "timeTakenForNav": 400,
+  "timeTakenForResearchReports": 0,
+  "timeTakenForQuestions": 0,
+  "timeTakenForScreenerField": 0,
+  "timeTakenForCulturalAssets": 0,
+  "timeTakenForSearchLists": 0
+}

@@ -1,0 +1,59 @@
+{
+  "query": "lvmh",
+  "hits": [
+    {
+      "symbol": "MC.PA",
+      "name": "LVMH Moët Hennessy - Louis Vuitton, Société Européenne",
+      "exchange": "Paris",
+      "exchangeCode": "PAR",
+      "quoteType": "EQUITY",
+      "sector": "Consumer Cyclical",
+      "industry": "Luxury Goods"
+    },
+    {
+      "symbol": "LVMUY",
+      "name": "LVMH Moët Hennessy - Louis Vuitton, Société Européenne",
+      "exchange": "OTC Markets",
+      "exchangeCode": "PNK",
+      "quoteType": "EQUITY",
+      "sector": "Consumer Cyclical",
+      "industry": "Luxury Goods"
+    },
+    {
+      "symbol": "LVMHF",
+      "name": "LVMH Moët Hennessy - Louis Vuitton, Société Européenne",
+      "exchange": "OTC Markets",
+      "exchangeCode": "PNK",
+      "quoteType": "EQUITY",
+      "sector": "Consumer Cyclical",
+      "industry": "Luxury Goods"
+    },
+    {
+      "symbol": "MOH.F",
+      "name": "LVMH Moët Hennessy - Louis Vuitton, Société Européenne",
+      "exchange": "Frankfurt",
+      "exchangeCode": "FRA",
+      "quoteType": "EQUITY",
+      "sector": "Consumer Cyclical",
+      "industry": "Luxury Goods"
+    },
+    {
+      "symbol": "MOH.DE",
+      "name": "LVMH Moët Hennessy - Louis Vuitton, Société Européenne",
+      "exchange": "XETRA",
+      "exchangeCode": "GER",
+      "quoteType": "EQUITY",
+      "sector": "Consumer Cyclical",
+      "industry": "Luxury Goods"
+    },
+    {
+      "symbol": "0HAU.IL",
+      "name": "LVMH Moët Hennessy - Louis Vuitton, Société Européenne",
+      "exchange": "International Orderbook - London",
+      "exchangeCode": "IOB",
+      "quoteType": "EQUITY",
+      "sector": "Consumer Cyclical",
+      "industry": "Luxury Goods"
+    }
+  ]
+}

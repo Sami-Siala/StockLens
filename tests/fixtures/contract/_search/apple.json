@@ -1,0 +1,50 @@
+{
+  "query": "apple",
+  "hits": [
+    {
+      "symbol": "AAPL",
+      "name": "Apple Inc.",
+      "exchange": "NASDAQ",
+      "exchangeCode": "NMS",
+      "quoteType": "EQUITY",
+      "sector": "Technology",
+      "industry": "Consumer Electronics"
+    },
+    {
+      "symbol": "SAAPL=F",
+      "name": "Apple Inc Single Stock futures",
+      "exchange": "Chicago Mercantile Exchange",
+      "exchangeCode": "CME",
+      "quoteType": "FUTURE",
+      "sector": null,
+      "industry": null
+    },
+    {
+      "symbol": "XAAPL=F",
+      "name": "Micro Apple Inc Stock Futures,D",
+      "exchange": "Chicago Mercantile Exchange",
+      "exchangeCode": "CME",
+      "quoteType": "FUTURE",
+      "sector": null,
+      "industry": null
+    },
+    {
+      "symbol": "APLE",
+      "name": "Apple Hospitality REIT, Inc.",
+      "exchange": "NYSE",
+      "exchangeCode": "NYQ",
+      "quoteType": "EQUITY",
+      "sector": "Real Estate",
+      "industry": "REIT—Hotel & Motel"
+    },
+    {
+      "symbol": "AAPL.TO",
+      "name": "Apple Inc.",
+      "exchange": "Toronto",
+      "exchangeCode": "TOR",
+      "quoteType": "EQUITY",
+      "sector": "Technology",
+      "industry": "Consumer Electronics"
+    }
+  ]
+}

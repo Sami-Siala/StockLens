@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+/*
+ * StockLens design tokens (docs/design-notes.md).
+ * Neutral canvas + ONE accent: the logo gradient (orange -> magenta -> purple),
+ * sampled from Assets/ (#f89349 / #e36092 / #d747c8 / #982ef8).
+ * System font stack, no webfonts. 8 px spacing grid (Tailwind's 4 px unit x2).
+ */
+:root {
+  --background: #ffffff;
+  --surface: #f5f5f7;
+  --border: #e5e5ea;
+  --foreground: #111114;
+  --muted: #6e6e73;
+
+  --brand-orange: #f89349;
+  --brand-magenta: #e36092;
+  --brand-pink: #d747c8;
+  --brand-purple: #982ef8;
+  --brand-gradient: linear-gradient(
+    90deg,
+    var(--brand-orange),
+    var(--brand-magenta) 50%,
+    var(--brand-purple)
+  );
+
+  /* Up / down are never colour-only: always pair with an arrow icon. */
+  --positive: #1a7f37;
+  --negative: #cf222e;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #000000;
+    --surface: #1c1c1e;
+    --border: #2c2c2e;
+    --foreground: #f5f5f7;
+    --muted: #98989d;
+    --positive: #3fb950;
+    --negative: #ff6b6b;
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-positive: var(--positive);
+  --color-negative: var(--negative);
+  --color-brand-orange: var(--brand-orange);
+  --color-brand-magenta: var(--brand-magenta);
+  --color-brand-purple: var(--brand-purple);
+  --font-sans:
+    system-ui, -apple-system, "SF Pro Text", "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
+}
+
+:focus-visible {
+  outline: 2px solid var(--brand-purple);
+  outline-offset: 2px;
+}

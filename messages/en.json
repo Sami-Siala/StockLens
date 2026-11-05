@@ -1,0 +1,13 @@
+{
+  "Meta": {
+    "title": "StockLens",
+    "description": "Understand any listed company: price, key numbers, analysts and an AI explanation. Educational, not financial advice."
+  },
+  "Home": {
+    "tagline": "Understand any company, in plain language.",
+    "status": "Foundations are in place. The app is being built step by step."
+  },
+  "Common": {
+    "disclaimer": "Educational content, not financial advice."
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "meta": {
+    "contractVersion": "0.1.0",
+    "source": "fixture",
+    "fetchedAt": "2026-11-05T19:28:37.117Z",
+    "stale": false
+  },
+  "listing": {
+    "symbol": "SPY",
+    "name": "State Street SPDR S&P 500 ETF Trust",
+    "shortName": "State Street SPDR S&P 500 ETF T",
+    "quoteType": "ETF",
+    "exchange": "NYSEArca",
+    "exchangeCode": "PCX",
+    "exchangeTimezone": "America/New_York",
+    "priceCurrency": "USD",
+    "financialCurrency": "USD",
+    "firstTradeDate": "1993-01-29T14:30:00.000Z"
+  },
+  "quote": {
+    "value": {
+      "price": {
+        "amount": 735.49,
+        "currency": "USD"
+      },
+      "change": -31.320007,
+      "changePercent": -0.040844544999999996,
+      "previousClose": 766.81,
+      "open": 765.47,
+      "dayHigh": 765.97,
+      "dayLow": 733.95,
+      "volume": 72618861,
+      "fiftyTwoWeekHigh": 781.62,
+      "fiftyTwoWeekLow": 629.28,
+      "marketState": "REGULAR",
+      "asOf": "2026-11-05T19:25:06.000Z",
+      "delayMinutes": 0
+    },
+    "reason": null
+  },
+  "profile": {
+    "value": {
+      "sector": null,
+      "industry": null,
+      "country": null,
+      "website": null,
+      "employees": null,
+      "summary": "The trust seeks to achieve its investment objective by holding a portfolio of the common stocks that are included in the index (the “Portfolio”), with the weight of each stock in the Portfolio substantially corresponding to the weight of such stock in the index."
+    },
+    "reason": null
+  },
+  "fundamentals": {
+    "value": null,
+    "reason": "not_applicable_for_type"
+  },
+  "earnings": {
+    "value": null,
+    "reason": "not_applicable_for_type"
+  },
+  "analysts": {
+    "value": null,
+    "reason": "not_applicable_for_type"
+  }
+}

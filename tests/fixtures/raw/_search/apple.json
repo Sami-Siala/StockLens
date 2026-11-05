@@ -1,0 +1,173 @@
+{
+  "explains": [],
+  "count": 11,
+  "quotes": [
+    {
+      "exchange": "NMS",
+      "shortname": "Apple Inc.",
+      "quoteType": "EQUITY",
+      "symbol": "AAPL",
+      "index": "quotes",
+      "score": 805083,
+      "typeDisp": "Equity",
+      "longname": "Apple Inc.",
+      "exchDisp": "NASDAQ",
+      "sector": "Technology",
+      "sectorDisp": "Technology",
+      "industry": "Consumer Electronics",
+      "industryDisp": "Consumer Electronics",
+      "dispSecIndFlag": true,
+      "isYahooFinance": true
+    },
+    {
+      "exchange": "CME",
+      "shortname": "Apple Inc Stock Futures,Dec-202",
+      "quoteType": "FUTURE",
+      "symbol": "SAAPL=F",
+      "index": "quotes",
+      "score": 30202,
+      "typeDisp": "Futures",
+      "longname": "Apple Inc Single Stock futures",
+      "exchDisp": "Chicago Mercantile Exchange",
+      "isYahooFinance": true
+    },
+    {
+      "exchange": "CME",
+      "shortname": "Micro Apple Inc Stock Futures,D",
+      "quoteType": "FUTURE",
+      "symbol": "XAAPL=F",
+      "index": "quotes",
+      "score": 30015,
+      "typeDisp": "Futures",
+      "exchDisp": "Chicago Mercantile Exchange",
+      "isYahooFinance": true
+    },
+    {
+      "exchange": "NYQ",
+      "shortname": "Apple Hospitality REIT, Inc.",
+      "quoteType": "EQUITY",
+      "symbol": "APLE",
+      "index": "quotes",
+      "score": 21417,
+      "typeDisp": "Equity",
+      "longname": "Apple Hospitality REIT, Inc.",
+      "exchDisp": "NYSE",
+      "sector": "Real Estate",
+      "sectorDisp": "Real Estate",
+      "industry": "REIT—Hotel & Motel",
+      "industryDisp": "REIT—Hotel & Motel",
+      "isYahooFinance": true
+    },
+    {
+      "exchange": "TOR",
+      "shortname": "APPLE CDR (CAD HEDGED)",
+      "quoteType": "EQUITY",
+      "symbol": "AAPL.TO",
+      "index": "quotes",
+      "score": 20249,
+      "typeDisp": "Equity",
+      "longname": "Apple Inc.",
+      "exchDisp": "Toronto",
+      "sector": "Technology",
+      "sectorDisp": "Technology",
+      "industry": "Consumer Electronics",
+      "industryDisp": "Consumer Electronics",
+      "isYahooFinance": true
+    },
+    {
+      "index": "7e90b00eb9cb3e1feb91ca39b64bebb9",
+      "name": "ApplePie Capital",
+      "permalink": "applepie-capital",
+      "isYahooFinance": false
+    },
+    {
+      "index": "d8c1b54896db4e148d5bff7bdd4778d0",
+      "name": "Apple Tree Partners",
+      "permalink": "apple-tree-partners",
+      "isYahooFinance": false
+    }
+  ],
+  "news": [
+    {
+      "uuid": "26015864-6a62-38d8-99a6-6e80390367d4",
+      "title": "Apple Stocks Move Lower as Investors Revisit Earnings Quality",
+      "publisher": "GuruFocus.com",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/apple-stocks-move-lower-investors-192048060.html",
+      "providerPublishTime": "2026-11-05T19:20:48.000Z",
+      "type": "STORY",
+      "relatedTickers": [
+        "AAPL"
+      ]
+    },
+    {
+      "uuid": "b20e1994-6a4f-30c1-aea7-944e3a69979a",
+      "title": "Apple Makes Major $7 Billion Funding Move",
+      "publisher": "GuruFocus.com",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/apple-makes-major-7-billion-184833106.html",
+      "providerPublishTime": "2026-11-05T18:48:33.000Z",
+      "type": "STORY",
+      "relatedTickers": [
+        "AAPL"
+      ]
+    },
+    {
+      "uuid": "06a95808-e386-3ac8-95af-a34b93296e41",
+      "title": "Sector Update: Tech Stocks Tumble Thursday Afternoon",
+      "publisher": "MT Newswires",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/sector-tech-stocks-tumble-thursday-182101545.html",
+      "providerPublishTime": "2026-11-05T18:21:01.000Z",
+      "type": "STORY",
+      "relatedTickers": [
+        "QCOM",
+        "MU",
+        "NVDA",
+        "XLK",
+        "XSD",
+        "AAPL"
+      ]
+    },
+    {
+      "uuid": "bd636264-5caa-392d-965e-c736d1951922",
+      "title": "Jeenius CEO: AI's Next Frontier Is the World It Can't Yet Reach",
+      "publisher": "PR Newswire",
+      "link": "https://finance.yahoo.com/technology/ai/articles/jeenius-ceo-ais-next-frontier-181100914.html",
+      "providerPublishTime": "2026-11-05T18:11:00.000Z",
+      "type": "STORY",
+      "thumbnail": {
+        "resolutions": [
+          {
+            "url": "https://media.zenfs.com/en/prnewswire.com/dcf39f6fa9ab6d1c0a31480de33583d3.jpg",
+            "width": 400,
+            "height": 110,
+            "tag": "original"
+          },
+          {
+            "url": "https://s.yimg.com/lo/mysterio/api/5EAEE0583F2FE980C96D46536BB654806791B04F178CADF8E101074C4304DC0A/subgraphmysterio/resizefill_w140_h140/https:%2F%2Fmedia.zenfs.com%2Fen%2Fprnewswire.com%2Fdcf39f6fa9ab6d1c0a31480de33583d3.jpg",
+            "width": 140,
+            "height": 140,
+            "tag": "140x140"
+          }
+        ]
+      },
+      "relatedTickers": [
+        "AAPL"
+      ]
+    }
+  ],
+  "nav": [],
+  "lists": [],
+  "researchReports": [],
+  "screenerFieldResults": [],
+  "totalTime": 172,
+  "timeTakenForQuotes": 416,
+  "timeTakenForNews": 600,
+  "timeTakenForAlgowatchlist": 400,
+  "timeTakenForPredefinedScreener": 400,
+  "timeTakenForCrunchbase": 400,
+  "timeTakenForNav": 400,
+  "timeTakenForResearchReports": 0,
+  "timeTakenForQuestions": 0,
+  "timeTakenForScreenerField": 0,
+  "timeTakenForCulturalAssets": 0,
+  "timeTakenForSearchLists": 0
+}

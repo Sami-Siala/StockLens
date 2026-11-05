@@ -1,0 +1,555 @@
+{
+  "price": {
+    "maxAge": 1,
+    "preMarketChangePercent": -0.04200406,
+    "preMarketChange": -16.600006,
+    "preMarketTime": "2026-11-05T14:29:59.000Z",
+    "preMarketPrice": 378.6,
+    "preMarketSource": "FREE_REALTIME",
+    "regularMarketChangePercent": -0.09372077,
+    "regularMarketChange": -37.089996,
+    "regularMarketTime": "2026-11-05T19:25:30.000Z",
+    "priceHint": 2,
+    "regularMarketPrice": 358.66,
+    "regularMarketDayHigh": 380.78,
+    "regularMarketDayLow": 352.445,
+    "regularMarketVolume": 30350781,
+    "regularMarketPreviousClose": 395.75,
+    "regularMarketSource": "FREE_REALTIME",
+    "regularMarketOpen": 379.75,
+    "fulldayChangePercent": -0.09372077,
+    "fulldayChange": -37.089996,
+    "fulldayPrice": 358.66,
+    "exchange": "NYQ",
+    "exchangeName": "NYSE",
+    "exchangeDataDelayedBy": 20,
+    "marketState": "REGULAR",
+    "quoteType": "EQUITY",
+    "symbol": "TSM",
+    "underlyingSymbol": null,
+    "shortName": "Taiwan Semiconductor Manufactur",
+    "longName": "Taiwan Semiconductor Manufacturing Company Limited",
+    "currency": "USD",
+    "quoteSourceName": "Nasdaq Real Time Price",
+    "currencySymbol": "$",
+    "fromCurrency": null,
+    "toCurrency": null,
+    "lastMarket": null,
+    "marketCap": 1860180770816
+  },
+  "quoteType": {
+    "exchange": "NYQ",
+    "quoteType": "EQUITY",
+    "symbol": "TSM",
+    "underlyingSymbol": "TSM",
+    "shortName": "Taiwan Semiconductor Manufactur",
+    "longName": "Taiwan Semiconductor Manufacturing Company Limited",
+    "firstTradeDateEpochUtc": "1997-10-09T13:30:00.000Z",
+    "timeZoneFullName": "America/New_York",
+    "timeZoneShortName": "EST",
+    "uuid": "a22510a4-756f-3424-8b07-71b132611395",
+    "messageBoardId": "finmb_380075",
+    "gmtOffSetMilliseconds": -18000000,
+    "maxAge": 1
+  },
+  "summaryDetail": {
+    "maxAge": 1,
+    "priceHint": 2,
+    "previousClose": 395.75,
+    "open": 379.75,
+    "dayLow": 352.445,
+    "dayHigh": 380.78,
+    "regularMarketPreviousClose": 395.75,
+    "regularMarketOpen": 379.75,
+    "regularMarketDayLow": 352.445,
+    "regularMarketDayHigh": 380.78,
+    "dividendRate": 3.77,
+    "dividendYield": 0.0095,
+    "exDividendDate": "2026-12-10T00:00:00.000Z",
+    "payoutRatio": 0.2446,
+    "fiveYearAvgDividendYield": 1.33,
+    "beta": 1.233,
+    "trailingPE": 23.247568,
+    "forwardPE": 15.307115,
+    "volume": 30352218,
+    "regularMarketVolume": 30352218,
+    "averageVolume": 10503185,
+    "averageVolume10days": 12014880,
+    "averageDailyVolume10Day": 12014880,
+    "bid": 358.39,
+    "ask": 358.66,
+    "bidSize": 12000,
+    "askSize": 4000,
+    "marketCap": 1860440031232,
+    "nonDilutedMarketCap": 1788821425126,
+    "fiftyTwoWeekLow": 266.82,
+    "fiftyTwoWeekHigh": 487.47,
+    "allTimeHigh": 487.47,
+    "allTimeLow": 2.842947,
+    "fulldayPrice": 358.71,
+    "fulldayChange": -37.04001,
+    "fulldayChangePercent": -0.09359446,
+    "priceToSalesTrailing12Months": 0.37624043,
+    "fiftyDayAverage": 433.972,
+    "twoHundredDayAverage": 401.1023,
+    "trailingAnnualDividendRate": 6,
+    "trailingAnnualDividendYield": 0.015161087,
+    "currency": "USD",
+    "fromCurrency": null,
+    "toCurrency": null,
+    "lastMarket": null,
+    "coinMarketCapLink": null,
+    "algorithm": null,
+    "tradeable": false
+  },
+  "defaultKeyStatistics": {
+    "maxAge": 1,
+    "priceHint": 2,
+    "enterpriseValue": 13221541969920,
+    "forwardPE": 15.311596,
+    "profitMargins": 0.51116,
+    "floatShares": 37842463872,
+    "sharesOutstanding": 5186474013,
+    "sharesShort": 29310548,
+    "sharesShortPriorMonth": "1970-11-18T15:21:35.000Z",
+    "sharesShortPreviousMonthDate": "2026-09-15T00:00:00.000Z",
+    "dateShortInterest": "2026-10-15T00:00:00.000Z",
+    "sharesPercentSharesOut": 0.0057,
+    "heldPercentInsiders": 0.00013,
+    "heldPercentInstitutions": 0.1547,
+    "shortRatio": 2.79,
+    "shortPercentOfFloat": 0.0061000003,
+    "beta": 1.233,
+    "impliedSharesOutstanding": 5186474013,
+    "category": null,
+    "bookValue": 5.23992,
+    "priceToBook": 68.47719,
+    "fundFamily": null,
+    "legalType": null,
+    "lastFiscalYearEnd": "2025-12-31T00:00:00.000Z",
+    "nextFiscalYearEnd": "2026-12-31T00:00:00.000Z",
+    "mostRecentQuarter": "2026-09-30T00:00:00.000Z",
+    "earningsQuarterlyGrowth": 0.687,
+    "netIncomeToCommon": 2527570952192,
+    "trailingEps": 15.43,
+    "forwardEps": 23.4342,
+    "pegRatio": 0.73,
+    "lastSplitFactor": "1005:1000",
+    "lastSplitDate": 1247616000,
+    "enterpriseToRevenue": 2.674,
+    "enterpriseToEbitda": 3.661,
+    "52WeekChange": 0.36824095,
+    "SandP52WeekChange": 0.1440854,
+    "lastDividendValue": 1.107,
+    "lastDividendDate": "2026-09-16T00:00:00.000Z",
+    "latestShareClass": null,
+    "leadInvestor": null
+  },
+  "financialData": {
+    "maxAge": 86400,
+    "currentPrice": 358.82,
+    "targetHighPrice": 1000,
+    "targetLowPrice": 440,
+    "targetMeanPrice": 586.693,
+    "targetMedianPrice": 560,
+    "recommendationMean": 1.38095,
+    "recommendationKey": "strong_buy",
+    "numberOfAnalystOpinions": 20,
+    "totalCash": 4016980099072,
+    "totalCashPerShare": 96.815,
+    "ebitda": 3611427078144,
+    "totalDebt": 818380013568,
+    "quickRatio": 2.287,
+    "currentRatio": 2.505,
+    "totalRevenue": 4944817029120,
+    "debtToEquity": 11.619,
+    "revenuePerShare": 119.18437,
+    "returnOnAssets": 0.20581,
+    "returnOnEquity": 0.41854998,
+    "grossProfits": 3255971872768,
+    "freeCashflow": 1203071877120,
+    "operatingCashflow": 3127619878912,
+    "earningsGrowth": 0.687,
+    "revenueGrowth": 0.509,
+    "grossMargins": 0.65846,
+    "ebitdaMargins": 0.73035,
+    "operatingMargins": 0.58655,
+    "profitMargins": 0.51116,
+    "financialCurrency": "TWD"
+  },
+  "earningsHistory": {
+    "history": [
+      {
+        "maxAge": 1,
+        "epsActual": 3.14,
+        "epsEstimate": 2.97556,
+        "epsDifference": 0.16,
+        "surprisePercent": 0.0553,
+        "quarter": "2025-12-31T00:00:00.000Z",
+        "currency": "USD",
+        "period": "-4q"
+      },
+      {
+        "maxAge": 1,
+        "epsActual": 3.49,
+        "epsEstimate": 3.33393,
+        "epsDifference": 0.16,
+        "surprisePercent": 0.0468,
+        "quarter": "2026-03-31T00:00:00.000Z",
+        "currency": "USD",
+        "period": "-3q"
+      },
+      {
+        "maxAge": 1,
+        "epsActual": 4.31,
+        "epsEstimate": 3.88658,
+        "epsDifference": 0.42,
+        "surprisePercent": 0.1089,
+        "quarter": "2026-06-30T00:00:00.000Z",
+        "currency": "USD",
+        "period": "-2q"
+      },
+      {
+        "maxAge": 1,
+        "epsActual": 4.6,
+        "epsEstimate": 4.52449,
+        "epsDifference": 0.08,
+        "surprisePercent": 0.0167,
+        "quarter": "2026-09-30T00:00:00.000Z",
+        "currency": "USD",
+        "period": "-1q"
+      }
+    ],
+    "defaultMethodology": "nongaap",
+    "maxAge": 86400
+  },
+  "earningsTrend": {
+    "trend": [
+      {
+        "maxAge": 1,
+        "period": "0q",
+        "endDate": "2026-12-31T00:00:00.000Z",
+        "growth": 0.6446,
+        "earningsEstimate": {
+          "avg": 5.1641,
+          "low": 5.102,
+          "high": 5.28,
+          "yearAgoEps": 3.14,
+          "numberOfAnalysts": 8,
+          "growth": 0.6446,
+          "earningsCurrency": "USD"
+        },
+        "revenueEstimate": {
+          "avg": 1707801676350,
+          "low": 1647305000000,
+          "high": 1753006000000,
+          "numberOfAnalysts": 26,
+          "yearAgoRevenue": 1046090000000,
+          "growth": 0.6326,
+          "revenueCurrency": "TWD"
+        },
+        "epsTrend": {
+          "current": 5.1641,
+          "7daysAgo": 5.04936,
+          "30daysAgo": 4.96547,
+          "60daysAgo": 4.96788,
+          "90daysAgo": 4.9585,
+          "epsTrendCurrency": "USD"
+        },
+        "epsRevisions": {
+          "upLast7days": 6,
+          "upLast30days": 6,
+          "downLast30days": 1,
+          "downLast7Days": 1,
+          "downLast90days": null,
+          "epsRevisionsCurrency": "USD"
+        }
+      },
+      {
+        "maxAge": 1,
+        "period": "+1q",
+        "endDate": "2027-03-31T00:00:00.000Z",
+        "growth": 0.48830003,
+        "earningsEstimate": {
+          "avg": 5.19402,
+          "low": 4.95,
+          "high": 5.4,
+          "yearAgoEps": 3.49,
+          "numberOfAnalysts": 10,
+          "growth": 0.48830003,
+          "earningsCurrency": "USD"
+        },
+        "revenueEstimate": {
+          "avg": 1731735924800,
+          "low": 1623355000000,
+          "high": 1862039143700,
+          "numberOfAnalysts": 21,
+          "yearAgoRevenue": 1134103000000,
+          "growth": 0.527,
+          "revenueCurrency": "TWD"
+        },
+        "epsTrend": {
+          "current": 5.19402,
+          "7daysAgo": 5.05694,
+          "30daysAgo": 4.96747,
+          "60daysAgo": 4.95592,
+          "90daysAgo": 4.89148,
+          "epsTrendCurrency": "USD"
+        },
+        "epsRevisions": {
+          "upLast7days": 6,
+          "upLast30days": 1,
+          "downLast30days": 1,
+          "downLast7Days": 2,
+          "downLast90days": null,
+          "epsRevisionsCurrency": "USD"
+        }
+      },
+      {
+        "maxAge": 1,
+        "period": "0y",
+        "endDate": "2026-12-31T00:00:00.000Z",
+        "growth": 0.64199996,
+        "earningsEstimate": {
+          "avg": 17.48724,
+          "low": 17.182,
+          "high": 17.95,
+          "yearAgoEps": 10.65,
+          "numberOfAnalysts": 12,
+          "growth": 0.64199996,
+          "earningsCurrency": "USD"
+        },
+        "revenueEstimate": {
+          "avg": 5582146967720,
+          "low": 5157000000000,
+          "high": 5728468066000,
+          "numberOfAnalysts": 40,
+          "yearAgoRevenue": 3809054000000,
+          "growth": 0.4655,
+          "revenueCurrency": "TWD"
+        },
+        "epsTrend": {
+          "current": 17.48724,
+          "7daysAgo": 17.50426,
+          "30daysAgo": 16.92658,
+          "60daysAgo": 16.904,
+          "90daysAgo": 16.81247,
+          "epsTrendCurrency": "USD"
+        },
+        "epsRevisions": {
+          "upLast7days": 9,
+          "upLast30days": 9,
+          "downLast30days": 2,
+          "downLast7Days": 2,
+          "downLast90days": null,
+          "epsRevisionsCurrency": "USD"
+        }
+      },
+      {
+        "maxAge": 1,
+        "period": "+1y",
+        "endDate": "2027-12-31T00:00:00.000Z",
+        "growth": 0.3401,
+        "earningsEstimate": {
+          "avg": 23.4342,
+          "low": 21.45,
+          "high": 25.87,
+          "yearAgoEps": 17.48724,
+          "numberOfAnalysts": 14,
+          "growth": 0.3401,
+          "earningsCurrency": "USD"
+        },
+        "revenueEstimate": {
+          "avg": 7691236153280,
+          "low": 6879000000000,
+          "high": 8534416432000,
+          "numberOfAnalysts": 41,
+          "yearAgoRevenue": 5582146967720,
+          "growth": 0.3778,
+          "revenueCurrency": "TWD"
+        },
+        "epsTrend": {
+          "current": 23.4342,
+          "7daysAgo": 23.38529,
+          "30daysAgo": 21.91887,
+          "60daysAgo": 21.85494,
+          "90daysAgo": 21.60186,
+          "epsTrendCurrency": "USD"
+        },
+        "epsRevisions": {
+          "upLast7days": 10,
+          "upLast30days": 10,
+          "downLast30days": 2,
+          "downLast7Days": 2,
+          "downLast90days": null,
+          "epsRevisionsCurrency": "USD"
+        }
+      }
+    ],
+    "defaultMethodology": "nongaap",
+    "maxAge": 1
+  },
+  "recommendationTrend": {
+    "trend": [
+      {
+        "period": "0m",
+        "strongBuy": 6,
+        "buy": 14,
+        "hold": 1,
+        "sell": 0,
+        "strongSell": 0
+      },
+      {
+        "period": "-1m",
+        "strongBuy": 6,
+        "buy": 14,
+        "hold": 1,
+        "sell": 0,
+        "strongSell": 0
+      },
+      {
+        "period": "-2m",
+        "strongBuy": 6,
+        "buy": 14,
+        "hold": 1,
+        "sell": 0,
+        "strongSell": 0
+      },
+      {
+        "period": "-3m",
+        "strongBuy": 6,
+        "buy": 12,
+        "hold": 1,
+        "sell": 0,
+        "strongSell": 0
+      }
+    ],
+    "maxAge": 86400
+  },
+  "assetProfile": {
+    "address1": "Hsinchu Science Park",
+    "address2": "No. 8, Li-Hsin Road 6",
+    "city": "Hsinchu City",
+    "zip": "300096",
+    "country": "Taiwan",
+    "phone": "886 3 563 6688",
+    "fax": "886 3 563 7000",
+    "website": "https://www.tsmc.com",
+    "industry": "Semiconductors",
+    "industryKey": "semiconductors",
+    "industryDisp": "Semiconductors",
+    "sector": "Technology",
+    "sectorKey": "technology",
+    "sectorDisp": "Technology",
+    "longBusinessSummary": "Taiwan Semiconductor Manufacturing Company Limited, together with its subsidiaries, manufactures, packages, tests, and sells integrated circuits and other semiconductor devices in Taiwan, China, Europe, the Middle East, Africa, Japan, the United States, and internationally. It provides various wafer fabrication processes, such as processes to manufacture complementary metal- oxide-semiconductor (CMOS) logic, mixed-signal, radio frequency, embedded memory, bipolar CMOS mixed-signal, and others. The company also involved in providing customer and engineering support services; manufacturing of masks; investment in technology start-up companies; research, designing, developing, manufacturing, packaging, testing, and sale of color filters; and investment activities. Its products are used in high performance computing, smartphones, Internet of things, automotive, and digital consumer electronics. Taiwan Semiconductor Manufacturing Company Limited was incorporated in 1987 and is headquartered in Hsinchu City, Taiwan.",
+    "fullTimeEmployees": 76907,
+    "companyOfficers": [
+      {
+        "maxAge": 1,
+        "name": "Dr. C. C.  Wei Ph.D.",
+        "title": "Chairman & CEO",
+        "fiscalYear": 2025,
+        "totalPay": 63452261,
+        "exercisedValue": 0,
+        "unexercisedValue": 0
+      },
+      {
+        "maxAge": 1,
+        "name": "Mr. Jen-Chau  Huang",
+        "title": "Senior VP, CFO & Spokesperson",
+        "fiscalYear": 2025,
+        "totalPay": 9192490,
+        "exercisedValue": 0,
+        "unexercisedValue": 0
+      },
+      {
+        "maxAge": 1,
+        "name": "Mr. Y. P.  Chyn",
+        "title": "Executive VP & Co-COO",
+        "fiscalYear": 2025,
+        "exercisedValue": 0,
+        "unexercisedValue": 0
+      },
+      {
+        "maxAge": 1,
+        "name": "Dr. Y. J.  Mii",
+        "title": "Executive VP & Co-COO",
+        "fiscalYear": 2025,
+        "exercisedValue": 0,
+        "unexercisedValue": 0
+      },
+      {
+        "maxAge": 1,
+        "name": "Dr. Min  Cao",
+        "title": "VP of Research, Development, Pathfinding & Corporate Research and CTO",
+        "fiscalYear": 2025,
+        "exercisedValue": 0,
+        "unexercisedValue": 0
+      },
+      {
+        "maxAge": 1,
+        "name": "Dr. Horng-Dar  Lin",
+        "title": "Vice President of Corporate Information Technology & Chief Information Officer",
+        "fiscalYear": 2025,
+        "exercisedValue": 0,
+        "unexercisedValue": 0
+      },
+      {
+        "maxAge": 1,
+        "name": "Mr. Jeff  Su",
+        "title": "Director of Investor Relations",
+        "fiscalYear": 2025,
+        "exercisedValue": 0,
+        "unexercisedValue": 0
+      },
+      {
+        "maxAge": 1,
+        "name": "Ms. Sylvia  Fang",
+        "title": "Senior VP, General Counsel & Corporate Governance Officer",
+        "fiscalYear": 2025,
+        "exercisedValue": 0,
+        "unexercisedValue": 0
+      },
+      {
+        "maxAge": 1,
+        "name": "Mr. Pei-Hong  Chen",
+        "title": "Vice President of the Human Resources",
+        "fiscalYear": 2025,
+        "exercisedValue": 0,
+        "unexercisedValue": 0
+      },
+      {
+        "maxAge": 1,
+        "name": "Dr. Wei-Jen  Lo",
+        "title": "Senior Vice President of Corporate Strategy Development",
+        "fiscalYear": 2025,
+        "exercisedValue": 0,
+        "unexercisedValue": 0
+      }
+    ],
+    "compensationAsOfEpochDate": "2025-12-31T00:00:00.000Z",
+    "irWebsite": "http://www.tsmc.com/english/investorRelations/index.htm",
+    "executiveTeam": [],
+    "maxAge": 86400
+  },
+  "calendarEvents": {
+    "maxAge": 1,
+    "earnings": {
+      "earningsDate": [
+        "2027-01-14T13:30:00.000Z"
+      ],
+      "earningsCallDate": [
+        "2026-10-15T06:00:00.000Z"
+      ],
+      "isEarningsDateEstimate": true,
+      "earningsAverage": 5.1641,
+      "earningsLow": 5.102,
+      "earningsHigh": 5.28,
+      "revenueAverage": 1707801676350,
+      "revenueLow": 1647305000000,
+      "revenueHigh": 1753006000000
+    },
+    "exDividendDate": "2026-12-10T00:00:00.000Z",
+    "dividendDate": "2027-01-07T00:00:00.000Z"
+  }
+}

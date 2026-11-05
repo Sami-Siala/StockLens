@@ -1,0 +1,558 @@
+{
+  "price": {
+    "maxAge": 1,
+    "regularMarketChangePercent": 0.16677675,
+    "regularMarketChange": 505,
+    "regularMarketTime": "2026-11-05T06:30:00.000Z",
+    "priceHint": 2,
+    "regularMarketPrice": 3533,
+    "regularMarketDayHigh": 3533,
+    "regularMarketDayLow": 3164,
+    "regularMarketVolume": 105239100,
+    "regularMarketPreviousClose": 3028,
+    "regularMarketSource": "DELAYED",
+    "regularMarketOpen": 3168,
+    "fulldayChangePercent": 0.16677675,
+    "fulldayChange": 505,
+    "fulldayPrice": 3533,
+    "exchange": "JPX",
+    "exchangeName": "Tokyo",
+    "exchangeDataDelayedBy": 20,
+    "marketState": "PREPRE",
+    "quoteType": "EQUITY",
+    "symbol": "7203.T",
+    "underlyingSymbol": null,
+    "shortName": "TOYOTA MOTOR CORP",
+    "longName": "Toyota Motor Corporation",
+    "currency": "JPY",
+    "quoteSourceName": "Delayed Quote",
+    "currencySymbol": "￥",
+    "fromCurrency": null,
+    "toCurrency": null,
+    "lastMarket": null,
+    "marketCap": 41611903893504
+  },
+  "quoteType": {
+    "exchange": "JPX",
+    "quoteType": "EQUITY",
+    "symbol": "7203.T",
+    "underlyingSymbol": "7203.T",
+    "shortName": "TOYOTA MOTOR CORP",
+    "longName": "Toyota Motor Corporation",
+    "firstTradeDateEpochUtc": "1999-05-06T00:00:00.000Z",
+    "timeZoneFullName": "Asia/Tokyo",
+    "timeZoneShortName": "JST",
+    "uuid": "7fefb7fe-72a5-3aef-bc8b-6a6d9ecc4fe6",
+    "messageBoardId": "finmb_319676",
+    "gmtOffSetMilliseconds": 32400000,
+    "maxAge": 1
+  },
+  "summaryDetail": {
+    "maxAge": 1,
+    "priceHint": 2,
+    "previousClose": 3028,
+    "open": 3168,
+    "dayLow": 3164,
+    "dayHigh": 3533,
+    "regularMarketPreviousClose": 3028,
+    "regularMarketOpen": 3168,
+    "regularMarketDayLow": 3164,
+    "regularMarketDayHigh": 3533,
+    "dividendRate": 100,
+    "dividendYield": 0.033,
+    "exDividendDate": "2027-03-30T00:00:00.000Z",
+    "payoutRatio": 0.27040002,
+    "fiveYearAvgDividendYield": 2.71,
+    "beta": 0.376,
+    "trailingPE": 10.054642,
+    "forwardPE": 10.896922,
+    "volume": 105239100,
+    "regularMarketVolume": 105239100,
+    "averageVolume": 23714837,
+    "averageVolume10days": 21812270,
+    "averageDailyVolume10Day": 21812270,
+    "bid": 3530,
+    "ask": 3533,
+    "bidSize": 0,
+    "askSize": 0,
+    "marketCap": 41611903893504,
+    "nonDilutedMarketCap": 35663982373364,
+    "fiftyTwoWeekLow": 2686,
+    "fiftyTwoWeekHigh": 4000,
+    "allTimeHigh": 4000,
+    "allTimeLow": 466,
+    "fulldayPrice": 3533,
+    "fulldayChange": 505,
+    "fulldayChangePercent": 0.16677675,
+    "priceToSalesTrailing12Months": 0.8008908,
+    "fiftyDayAverage": 3029.95,
+    "twoHundredDayAverage": 3132.53,
+    "trailingAnnualDividendRate": 95,
+    "trailingAnnualDividendYield": 0.031373844,
+    "currency": "JPY",
+    "fromCurrency": null,
+    "toCurrency": null,
+    "lastMarket": null,
+    "coinMarketCapLink": null,
+    "algorithm": null,
+    "tradeable": false
+  },
+  "defaultKeyStatistics": {
+    "maxAge": 1,
+    "priceHint": 2,
+    "enterpriseValue": 73359912075264,
+    "profitMargins": 0.0863,
+    "floatShares": 10915802268,
+    "sharesOutstanding": 11778065513,
+    "heldPercentInsiders": 0.08956,
+    "heldPercentInstitutions": 0.26246,
+    "beta": 0.376,
+    "impliedSharesOutstanding": 11778065513,
+    "category": null,
+    "bookValue": 3150.596,
+    "priceToBook": 1.1213752,
+    "fundFamily": null,
+    "legalType": null,
+    "lastFiscalYearEnd": "2026-03-31T00:00:00.000Z",
+    "nextFiscalYearEnd": "2027-03-31T00:00:00.000Z",
+    "mostRecentQuarter": "2026-06-30T00:00:00.000Z",
+    "earningsQuarterlyGrowth": 0.756,
+    "netIncomeToCommon": 4483796959232,
+    "trailingEps": 351.38,
+    "forwardEps": 324.22,
+    "pegRatio": 1.56,
+    "lastSplitFactor": "5:1",
+    "lastSplitDate": 1632873600,
+    "enterpriseToRevenue": 1.412,
+    "enterpriseToEbitda": 13.099,
+    "52WeekChange": -0.035361588,
+    "SandP52WeekChange": 0.1440854,
+    "lastDividendValue": 50,
+    "lastDividendDate": "2027-03-30T00:00:00.000Z",
+    "latestShareClass": null,
+    "leadInvestor": null
+  },
+  "financialData": {
+    "maxAge": 86400,
+    "currentPrice": 3533,
+    "targetHighPrice": 4900,
+    "targetLowPrice": 2930,
+    "targetMeanPrice": 3677.1052,
+    "targetMedianPrice": 3700,
+    "recommendationMean": 1.73684,
+    "recommendationKey": "buy",
+    "numberOfAnalystOpinions": 19,
+    "totalCash": 13350560858112,
+    "totalCashPerShare": 1127.407,
+    "ebitda": 5600540884992,
+    "totalDebt": 43953168580608,
+    "quickRatio": 0.953,
+    "currentRatio": 1.169,
+    "totalRevenue": 51957024686080,
+    "debtToEquity": 114.974,
+    "revenuePerShare": 4048.159,
+    "returnOnAssets": 0.02339,
+    "returnOnEquity": 0.12404,
+    "grossProfits": 8711846232064,
+    "freeCashflow": -3599962472448,
+    "operatingCashflow": 4132990091264,
+    "earningsGrowth": 0.869,
+    "revenueGrowth": 0.104,
+    "grossMargins": 0.16767,
+    "ebitdaMargins": 0.10779,
+    "operatingMargins": 0.07863,
+    "profitMargins": 0.0863,
+    "financialCurrency": "JPY"
+  },
+  "earningsHistory": {
+    "history": [
+      {
+        "maxAge": 1,
+        "epsActual": 96.48,
+        "epsEstimate": 74.04519,
+        "epsDifference": 22.43,
+        "surprisePercent": 0.303,
+        "quarter": "2025-12-31T00:00:00.000Z",
+        "currency": "JPY",
+        "period": "-4q"
+      },
+      {
+        "maxAge": 1,
+        "epsActual": 62.7,
+        "epsEstimate": 52.655,
+        "epsDifference": 10.05,
+        "surprisePercent": 0.1908,
+        "quarter": "2026-03-31T00:00:00.000Z",
+        "currency": "JPY",
+        "period": "-3q"
+      },
+      {
+        "maxAge": 1,
+        "epsActual": 120.69,
+        "epsEstimate": 82.0203,
+        "epsDifference": 38.67,
+        "surprisePercent": 0.4715,
+        "quarter": "2026-06-30T00:00:00.000Z",
+        "currency": "JPY",
+        "period": "-2q"
+      },
+      {
+        "maxAge": 1,
+        "epsActual": 65.28,
+        "epsEstimate": 56.37642,
+        "epsDifference": 8.9,
+        "surprisePercent": 0.1579,
+        "quarter": "2026-09-30T00:00:00.000Z",
+        "currency": "JPY",
+        "period": "-1q"
+      }
+    ],
+    "defaultMethodology": "nongaap",
+    "maxAge": 86400
+  },
+  "earningsTrend": {
+    "trend": [
+      {
+        "maxAge": 1,
+        "period": "0q",
+        "endDate": "2026-12-31T00:00:00.000Z",
+        "growth": null,
+        "earningsEstimate": {
+          "avg": 76.55514,
+          "low": 64.49543,
+          "high": 91,
+          "yearAgoEps": 96.48,
+          "numberOfAnalysts": 3,
+          "growth": -0.2065,
+          "earningsCurrency": "JPY"
+        },
+        "revenueEstimate": {
+          "avg": 13882675776850,
+          "low": 13132506214800,
+          "high": 14500000000000,
+          "numberOfAnalysts": 8,
+          "yearAgoRevenue": 13456851000000,
+          "growth": 0.031600002,
+          "revenueCurrency": "JPY"
+        },
+        "epsTrend": {
+          "current": 76.55514,
+          "7daysAgo": 76.55514,
+          "30daysAgo": 76.55514,
+          "60daysAgo": 76.02808,
+          "90daysAgo": 76.18712,
+          "epsTrendCurrency": "JPY"
+        },
+        "epsRevisions": {
+          "upLast7days": 1,
+          "upLast30days": 1,
+          "downLast30days": 0,
+          "downLast7Days": 0,
+          "downLast90days": null,
+          "epsRevisionsCurrency": "JPY"
+        }
+      },
+      {
+        "maxAge": 1,
+        "period": "+1q",
+        "endDate": "2027-03-31T00:00:00.000Z",
+        "growth": null,
+        "earningsEstimate": {
+          "avg": 62.51786,
+          "low": 55.48359,
+          "high": 69.07,
+          "yearAgoEps": 62.7,
+          "numberOfAnalysts": 3,
+          "growth": -0.0029,
+          "earningsCurrency": "JPY"
+        },
+        "revenueEstimate": {
+          "avg": 13111884425730,
+          "low": 11114600000000,
+          "high": 13739000000000,
+          "numberOfAnalysts": 8,
+          "yearAgoRevenue": 12597348000000,
+          "growth": 0.040799998,
+          "revenueCurrency": "JPY"
+        },
+        "epsTrend": {
+          "current": 62.51786,
+          "7daysAgo": 62.51786,
+          "30daysAgo": 62.51786,
+          "60daysAgo": 72.87488,
+          "90daysAgo": 75.40232,
+          "epsTrendCurrency": "JPY"
+        },
+        "epsRevisions": {
+          "upLast7days": 0,
+          "upLast30days": 0,
+          "downLast30days": 1,
+          "downLast7Days": 1,
+          "downLast90days": null,
+          "epsRevisionsCurrency": "JPY"
+        }
+      },
+      {
+        "maxAge": 1,
+        "period": "0y",
+        "endDate": "2027-03-31T00:00:00.000Z",
+        "growth": null,
+        "earningsEstimate": {
+          "avg": 313.29172,
+          "low": 272.78268,
+          "high": 357.0932,
+          "yearAgoEps": 295.25,
+          "numberOfAnalysts": 19,
+          "growth": 0.061100002,
+          "earningsCurrency": "JPY"
+        },
+        "revenueEstimate": {
+          "avg": 53948756832110,
+          "low": 52470000000000,
+          "high": 55000000000000,
+          "numberOfAnalysts": 19,
+          "yearAgoRevenue": 18259979000000,
+          "growth": 1.9545,
+          "revenueCurrency": "JPY"
+        },
+        "epsTrend": {
+          "current": 313.29172,
+          "7daysAgo": 311.58118,
+          "30daysAgo": 312.1633,
+          "60daysAgo": 307.4626,
+          "90daysAgo": 299.90976,
+          "epsTrendCurrency": "JPY"
+        },
+        "epsRevisions": {
+          "upLast7days": 1,
+          "upLast30days": 6,
+          "downLast30days": 2,
+          "downLast7Days": 1,
+          "downLast90days": null,
+          "epsRevisionsCurrency": "JPY"
+        }
+      },
+      {
+        "maxAge": 1,
+        "period": "+1y",
+        "endDate": "2028-03-31T00:00:00.000Z",
+        "growth": null,
+        "earningsEstimate": {
+          "avg": 347.5493,
+          "low": 278.1,
+          "high": 439.4495,
+          "yearAgoEps": 313.29172,
+          "numberOfAnalysts": 19,
+          "growth": 0.1093,
+          "earningsCurrency": "JPY"
+        },
+        "revenueEstimate": {
+          "avg": 55743881945550,
+          "low": 53220000000000,
+          "high": 58551040000000,
+          "numberOfAnalysts": 21,
+          "yearAgoRevenue": 53948756832110,
+          "growth": 0.033299997,
+          "revenueCurrency": "JPY"
+        },
+        "epsTrend": {
+          "current": 347.5493,
+          "7daysAgo": 346.84402,
+          "30daysAgo": 351.13086,
+          "60daysAgo": 348.61633,
+          "90daysAgo": 341.53854,
+          "epsTrendCurrency": "JPY"
+        },
+        "epsRevisions": {
+          "upLast7days": 1,
+          "upLast30days": 5,
+          "downLast30days": 4,
+          "downLast7Days": 1,
+          "downLast90days": null,
+          "epsRevisionsCurrency": "JPY"
+        }
+      }
+    ],
+    "defaultMethodology": "nongaap",
+    "maxAge": 1
+  },
+  "recommendationTrend": {
+    "trend": [
+      {
+        "period": "0m",
+        "strongBuy": 4,
+        "buy": 10,
+        "hold": 5,
+        "sell": 0,
+        "strongSell": 0
+      },
+      {
+        "period": "-1m",
+        "strongBuy": 4,
+        "buy": 10,
+        "hold": 5,
+        "sell": 0,
+        "strongSell": 0
+      },
+      {
+        "period": "-2m",
+        "strongBuy": 4,
+        "buy": 10,
+        "hold": 5,
+        "sell": 0,
+        "strongSell": 0
+      },
+      {
+        "period": "-3m",
+        "strongBuy": 4,
+        "buy": 10,
+        "hold": 5,
+        "sell": 0,
+        "strongSell": 0
+      }
+    ],
+    "maxAge": 86400
+  },
+  "assetProfile": {
+    "address1": "1 Toyota-cho",
+    "city": "Toyota",
+    "zip": "471-8571",
+    "country": "Japan",
+    "phone": "81 565 28 2121",
+    "website": "https://global.toyota",
+    "industry": "Auto Manufacturers",
+    "industryKey": "auto-manufacturers",
+    "industryDisp": "Auto Manufacturers",
+    "sector": "Consumer Cyclical",
+    "sectorKey": "consumer-cyclical",
+    "sectorDisp": "Consumer Cyclical",
+    "longBusinessSummary": "Toyota Motor Corporation designs, manufactures, assembles, and sells passenger vehicles, minivans and commercial vehicles, and related parts and accessories in Japan, North America, Europe, Asia, Central and South America, Oceania, Africa, the Middle East, and internationally. The company operates through Automotive, Financial Services, and All Other segments. The company offers subcompact and compact cars; mini-vehicles; mid-size, luxury, sports, and specialty cars; recreational and sport-utility vehicles; pickup trucks; minivans; trucks; and buses. It also develops and sells battery and hybrid electric vehicles and batteries. In addition, the company provides financial services, such as retail financing and leasing, wholesale financing, insurance, and credit cards. Further, it operates GAZOO.com, a web portal for automobile information, as well as engages in telecommunications and other businesses. It offers vehicles under the Toyota and Lexus brand names. It has strategic manufacturing alliance with Joby Aviation, Inc. to establish a joint venture to realize air mobility. Toyota Motor Corporation was founded in 1933 and is headquartered in Toyota, Japan.",
+    "fullTimeEmployees": 367990,
+    "companyOfficers": [
+      {
+        "maxAge": 1,
+        "name": "Mr. Yoichi  Miyazaki",
+        "age": 62,
+        "title": "CFO, Operating Officer, Executive VP & Director",
+        "yearBorn": 1963,
+        "fiscalYear": 2026,
+        "totalPay": 268000000,
+        "exercisedValue": 0,
+        "unexercisedValue": 0
+      },
+      {
+        "maxAge": 1,
+        "name": "Mr. Hiroki  Nakajima",
+        "age": 63,
+        "title": "Operating Officer, Executive VP, CTO & Director",
+        "yearBorn": 1962,
+        "fiscalYear": 2026,
+        "totalPay": 263000000,
+        "exercisedValue": 0,
+        "unexercisedValue": 0
+      },
+      {
+        "maxAge": 1,
+        "name": "Mr. Koji  Sato",
+        "age": 56,
+        "title": "Vice Chairman & Chief Industry Officer",
+        "yearBorn": 1969,
+        "fiscalYear": 2026,
+        "totalPay": 379000000,
+        "exercisedValue": 0,
+        "unexercisedValue": 0
+      },
+      {
+        "maxAge": 1,
+        "name": "Mr. Kenta  Kon",
+        "age": 57,
+        "title": "President, CEO & Representative Director",
+        "yearBorn": 1968,
+        "fiscalYear": 2026,
+        "totalPay": 108000000,
+        "exercisedValue": 0,
+        "unexercisedValue": 0
+      },
+      {
+        "maxAge": 1,
+        "name": "Takanori  Azuma",
+        "title": "Chief Risk Officer & Chief Officer of Accounting Group",
+        "fiscalYear": 2026,
+        "exercisedValue": 0,
+        "unexercisedValue": 0
+      },
+      {
+        "maxAge": 1,
+        "name": "Dr. Gill A.  Pratt",
+        "title": "Chief Scientist, CEO & Executive Fellow of Toyota Research Institute, Inc.",
+        "fiscalYear": 2026,
+        "exercisedValue": 0,
+        "unexercisedValue": 0
+      },
+      {
+        "maxAge": 1,
+        "name": "Masahiro  Yamamoto",
+        "title": "Chief Officer of General Administration & Human Resources Group",
+        "fiscalYear": 2026,
+        "exercisedValue": 0,
+        "unexercisedValue": 0
+      },
+      {
+        "maxAge": 1,
+        "name": "Mr. Hirofumi  Muta",
+        "age": 69,
+        "title": "Chief Officer -Safety & Health Promotion, Plant & Environmental Engg Divs, Production Control Group",
+        "yearBorn": 1956,
+        "fiscalYear": 2026,
+        "exercisedValue": 0,
+        "unexercisedValue": 0
+      },
+      {
+        "maxAge": 1,
+        "name": "Mr. Nobuhiko  Murakami",
+        "age": 66,
+        "title": "Senior Managing Officer & CEO of East Asia, Oceania & Middle East Region",
+        "yearBorn": 1959,
+        "fiscalYear": 2026,
+        "exercisedValue": 0,
+        "unexercisedValue": 0
+      },
+      {
+        "maxAge": 1,
+        "name": "Mr. Shigeki  Tomoyama",
+        "age": 67,
+        "title": "Executive Fellow & CEO of Japan Business Group",
+        "yearBorn": 1958,
+        "fiscalYear": 2026,
+        "exercisedValue": 0,
+        "unexercisedValue": 0
+      }
+    ],
+    "auditRisk": 1,
+    "boardRisk": 9,
+    "compensationRisk": 1,
+    "shareHolderRightsRisk": 4,
+    "overallRisk": 7,
+    "governanceEpochDate": "2026-11-01T00:00:00.000Z",
+    "compensationAsOfEpochDate": "2026-12-31T00:00:00.000Z",
+    "irWebsite": "http://www.toyota-global.com/investors/",
+    "executiveTeam": [],
+    "maxAge": 86400
+  },
+  "calendarEvents": {
+    "maxAge": 1,
+    "earnings": {
+      "earningsDate": [
+        "2026-11-05T06:30:00.000Z"
+      ],
+      "earningsCallDate": [
+        "2026-11-05T05:00:00.000Z"
+      ],
+      "isEarningsDateEstimate": false,
+      "revenueAverage": 13882675776850,
+      "revenueLow": 13132506214800,
+      "revenueHigh": 14500000000000
+    },
+    "exDividendDate": "2027-03-30T00:00:00.000Z"
+  }
+}

@@ -1,0 +1,12 @@
+node_modules
+.next
+out
+coverage
+package-lock.json
+PLAN.md
+Assets
+Lectures
+public
+tests/fixtures
+soak-log.jsonl
+.claude

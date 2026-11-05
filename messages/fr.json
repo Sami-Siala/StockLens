@@ -1,0 +1,13 @@
+{
+  "Meta": {
+    "title": "StockLens",
+    "description": "Comprendre n'importe quelle entreprise cotée : cours, chiffres clés, analystes et explication par IA. Contenu pédagogique, pas un conseil financier."
+  },
+  "Home": {
+    "tagline": "Comprendre n'importe quelle entreprise, en langage simple.",
+    "status": "Les fondations sont posées. L'application se construit étape par étape."
+  },
+  "Common": {
+    "disclaimer": "Contenu pédagogique, pas un conseil financier."
+  }
+}

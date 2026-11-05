@@ -1,0 +1,591 @@
+{
+  "meta": {
+    "contractVersion": "0.1.0",
+    "source": "fixture",
+    "fetchedAt": "2026-11-05T19:28:37.110Z",
+    "stale": false
+  },
+  "listing": {
+    "symbol": "AAPL",
+    "name": "Apple Inc.",
+    "shortName": "Apple Inc.",
+    "quoteType": "EQUITY",
+    "exchange": "NasdaqGS",
+    "exchangeCode": "NMS",
+    "exchangeTimezone": "America/New_York",
+    "priceCurrency": "USD",
+    "financialCurrency": "USD",
+    "firstTradeDate": "1980-12-12T14:30:00.000Z"
+  },
+  "quote": {
+    "value": {
+      "price": {
+        "amount": 343.5301,
+        "currency": "USD"
+      },
+      "change": -5.9799194,
+      "changePercent": -0.017109437,
+      "previousClose": 349.51,
+      "open": 353.9,
+      "dayHigh": 355.38,
+      "dayLow": 344.53,
+      "volume": 43685679,
+      "fiftyTwoWeekHigh": 355.38,
+      "fiftyTwoWeekLow": 243.42,
+      "marketState": "REGULAR",
+      "asOf": "2026-11-05T19:23:56.000Z",
+      "delayMinutes": 15
+    },
+    "reason": null
+  },
+  "profile": {
+    "value": {
+      "sector": "Technology",
+      "industry": "Consumer Electronics",
+      "country": "United States",
+      "website": "https://www.apple.com",
+      "employees": 167000,
+      "summary": "Apple Inc. designs, manufactures, and markets smartphones, personal computers, tablets, wearables, and accessories. The company offers iPhone, a line of smartphones; Mac, a line of personal computers; iPad, a line of multi-purpose tablets; and wearables, home, and accessories, including Apple Watch, AirPods, Beats products, Apple Vision Pro, Apple TV 4K, HomePod, and Apple HomeView, as well as Apple branded and third-party accessories. It also provides advertising services comprising third-party licensing arrangements and own advertising platforms; AppleCare and cloud services; and payment services, including Apple Card and Apple Pay. In addition, the company operates App Store that allow customers to discover and download applications and digital content, such as books, music, video, games, and podcasts. Further, it provides digital content through subscription-based services, including Apple Arcade, a game service; Apple Fitness+, a personalized fitness service; Apple Music, which offers users a curated listening experience; Apple News+, a news and magazine service; and Apple TV, which offers original content and live sports. The company sells its products and resells third-party products through its retail and online stores, and direct sales force; its services through its various service platforms; and third-party cellular network carriers and other resellers. It serves consumer, small and mid-sized business, education, enterprise, and government markets. The company operates in North and South America, European countries, India, the Middle East, Africa, China mainland, Hong Kong, Taiwan, Japan, Australia, New Zealand, and rest of Asia. The company was formerly known as Apple Computer, Inc. and changed its name to Apple Inc. in January 2007. Apple Inc. was founded in 1976 and is headquartered in Cupertino, California."
+    },
+    "reason": null
+  },
+  "fundamentals": {
+    "value": {
+      "financialCurrency": "USD",
+      "keyStats": {
+        "marketCap": {
+          "value": {
+            "amount": 4992242024448,
+            "currency": "USD"
+          },
+          "reason": null
+        },
+        "sharesOutstanding": {
+          "value": 14532182000,
+          "reason": null
+        },
+        "trailingPE": {
+          "value": 38.255024,
+          "reason": null
+        },
+        "forwardPE": {
+          "value": 32.26186,
+          "reason": null
+        },
+        "trailingEps": {
+          "value": {
+            "amount": 8.98,
+            "currency": "USD"
+          },
+          "reason": null
+        },
+        "forwardEps": {
+          "value": {
+            "amount": 10.64818,
+            "currency": "USD"
+          },
+          "reason": null
+        },
+        "dividendYield": {
+          "value": 0.0031,
+          "reason": null
+        },
+        "dividendRate": {
+          "value": {
+            "amount": 1.08,
+            "currency": "USD"
+          },
+          "reason": null
+        },
+        "payoutRatio": {
+          "value": 0.118,
+          "reason": null
+        },
+        "operatingMargin": {
+          "value": 0.31125,
+          "reason": null
+        },
+        "revenueGrowth": {
+          "value": 0.117,
+          "reason": null
+        },
+        "beta": {
+          "value": 1.089,
+          "reason": null
+        }
+      },
+      "quarterly": [
+        {
+          "periodEnd": "2025-03-31",
+          "length": "3M",
+          "revenue": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "operatingIncome": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "netIncome": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "freeCashFlow": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "operatingCashFlow": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "dilutedEps": {
+            "value": null,
+            "reason": "reported_less_often"
+          }
+        },
+        {
+          "periodEnd": "2025-06-30",
+          "length": "3M",
+          "revenue": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "operatingIncome": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "netIncome": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "freeCashFlow": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "operatingCashFlow": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "dilutedEps": {
+            "value": 1.57,
+            "reason": null
+          }
+        },
+        {
+          "periodEnd": "2025-09-30",
+          "length": "3M",
+          "revenue": {
+            "value": 102466000000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": 32427000000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": 27466000000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": 26486000000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": 29728000000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": 1.85,
+            "reason": null
+          }
+        },
+        {
+          "periodEnd": "2025-12-31",
+          "length": "3M",
+          "revenue": {
+            "value": 143756000000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": 50852000000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": 42097000000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": 51552000000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": 53925000000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": 2.84,
+            "reason": null
+          }
+        },
+        {
+          "periodEnd": "2026-03-31",
+          "length": "3M",
+          "revenue": {
+            "value": 111184000000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": 35885000000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": 29578000000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": 26731000000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": 28702000000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": 2.01,
+            "reason": null
+          }
+        },
+        {
+          "periodEnd": "2026-06-30",
+          "length": "3M",
+          "revenue": {
+            "value": 109417000000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": 35695000000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": 29789000000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": 31914000000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": 34369000000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": 2.02,
+            "reason": null
+          }
+        },
+        {
+          "periodEnd": "2026-09-30",
+          "length": "3M",
+          "revenue": {
+            "value": 114477000000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": 35631000000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": 30711000000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": 25859000000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": 28101000000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": null,
+            "reason": "not_reported"
+          }
+        }
+      ],
+      "annual": [
+        {
+          "periodEnd": "2024-09-30",
+          "length": "12M",
+          "revenue": {
+            "value": 391035000000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": 123216000000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": 93736000000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": 108807000000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": 118254000000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": 6.08,
+            "reason": null
+          }
+        },
+        {
+          "periodEnd": "2025-09-30",
+          "length": "12M",
+          "revenue": {
+            "value": 416161000000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": 133050000000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": 112010000000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": 98767000000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": 111482000000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": 7.46,
+            "reason": null
+          }
+        },
+        {
+          "periodEnd": "2026-09-30",
+          "length": "12M",
+          "revenue": {
+            "value": 478834000000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": 158063000000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": 132175000000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": 136056000000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": 145097000000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": 8.98,
+            "reason": null
+          }
+        }
+      ]
+    },
+    "reason": null
+  },
+  "earnings": {
+    "value": {
+      "lastQuarter": {
+        "value": {
+          "quarterEnd": "2026-09-30",
+          "epsActual": 2.1,
+          "epsEstimate": 1.98579,
+          "difference": 0.11,
+          "surprise": 0.0575,
+          "currency": "USD"
+        },
+        "reason": null
+      },
+      "history": [
+        {
+          "quarterEnd": "2025-09-30",
+          "epsActual": 1.85,
+          "epsEstimate": 1.77112,
+          "difference": 0.08,
+          "surprise": 0.044499997,
+          "currency": "USD"
+        },
+        {
+          "quarterEnd": "2025-12-31",
+          "epsActual": 2.84,
+          "epsEstimate": 2.6708,
+          "difference": 0.17,
+          "surprise": 0.0634,
+          "currency": "USD"
+        },
+        {
+          "quarterEnd": "2026-03-31",
+          "epsActual": 2.01,
+          "epsEstimate": 1.94275,
+          "difference": 0.07,
+          "surprise": 0.0346,
+          "currency": "USD"
+        },
+        {
+          "quarterEnd": "2026-06-30",
+          "epsActual": 2.02,
+          "epsEstimate": 1.89243,
+          "difference": 0.13,
+          "surprise": 0.0674,
+          "currency": "USD"
+        },
+        {
+          "quarterEnd": "2026-09-30",
+          "epsActual": 2.1,
+          "epsEstimate": 1.98579,
+          "difference": 0.11,
+          "surprise": 0.0575,
+          "currency": "USD"
+        }
+      ],
+      "next": {
+        "value": {
+          "date": "2027-01-28T21:00:00.000Z",
+          "isEstimate": true
+        },
+        "reason": null
+      },
+      "epsEstimates": [
+        {
+          "period": "0q",
+          "endDate": "2026-09-30",
+          "avg": 2.90354,
+          "low": 2.87,
+          "high": 2.94202,
+          "analysts": 26,
+          "yearAgo": 1.85,
+          "growth": 0.5695,
+          "currency": "USD"
+        },
+        {
+          "period": "+1q",
+          "endDate": "2027-03-31",
+          "avg": 2.15241,
+          "low": 1.87,
+          "high": 2.48998,
+          "analysts": 16,
+          "yearAgo": 2.01,
+          "growth": 0.0709,
+          "currency": "USD"
+        },
+        {
+          "period": "0y",
+          "endDate": "2027-09-30",
+          "avg": 9.44849,
+          "low": 8.87,
+          "high": 9.94337,
+          "analysts": 38,
+          "yearAgo": 7.46,
+          "growth": 0.2666,
+          "currency": "USD"
+        },
+        {
+          "period": "+1y",
+          "endDate": "2027-09-30",
+          "avg": 10.571,
+          "low": 8.57,
+          "high": 11.61414,
+          "analysts": 28,
+          "yearAgo": 8.83814,
+          "growth": 0.19610001,
+          "currency": "USD"
+        }
+      ],
+      "revenueEstimates": [
+        {
+          "period": "0q",
+          "endDate": "2026-09-30",
+          "avg": 155568783890,
+          "low": 138455000000,
+          "high": 159565000000,
+          "analysts": 15,
+          "yearAgo": 143756000000,
+          "growth": 0.082200006,
+          "currency": "USD"
+        },
+        {
+          "period": "+1q",
+          "endDate": "2027-03-31",
+          "avg": 124937339510,
+          "low": 110770000000,
+          "high": 142811158840,
+          "analysts": 15,
+          "yearAgo": 111184000000,
+          "growth": 0.1237,
+          "currency": "USD"
+        },
+        {
+          "period": "0y",
+          "endDate": "2027-09-30",
+          "avg": 477708596770,
+          "low": 476002000000,
+          "high": 484000000000,
+          "analysts": 36,
+          "yearAgo": 416161000000,
+          "growth": 0.1479,
+          "currency": "USD"
+        },
+        {
+          "period": "+1y",
+          "endDate": "2027-09-30",
+          "avg": 570058709710,
+          "low": 492192000000,
+          "high": 637905000000,
+          "analysts": 26,
+          "yearAgo": 526938759100,
+          "growth": 0.08180001,
+          "currency": "USD"
+        }
+      ]
+    },
+    "reason": null
+  },
+  "analysts": {
+    "value": {
+      "ratings": {
+        "value": {
+          "strongBuy": 6,
+          "buy": 18,
+          "hold": 13,
+          "sell": 3,
+          "strongSell": 3
+        },
+        "reason": null
+      },
+      "ratingMean": {
+        "value": 2.23256,
+        "reason": null
+      },
+      "priceTarget": {
+        "value": {
+          "low": 250,
+          "mean": 333.28052,
+          "median": 340,
+          "high": 405,
+          "analysts": 38,
+          "currency": "USD"
+        },
+        "reason": null
+      }
+    },
+    "reason": null
+  }
+}

@@ -302,6 +302,36 @@ Each step ends with a **user checkpoint**: nothing moves on, and nothing is comm
 
 **Parallelism:** once Step 1 publishes **contract v0** (built from real recorded payloads, not guesses), Steps 2 and 3 run **in parallel**. The `frontend-engineer` builds against recorded fixtures while the `data-engineer` builds the real routes, then a one-flag switch in `lib/data/**` points the UI at live data. The contract is **versioned, not frozen**: Step 2 will discover real-world shapes, so the `data-engineer` may issue additive v1.x changes (breaking changes go through the orchestrator). Step 4's API half can start as soon as Step 2's data shapes are stable.
 
+### Step 1 status (2026-11-05): everything that needs no login is done
+
+Instruction: "ignore the logins for now and build around it". So the offline half of Step 1 is built and verified; the parts that need an account are prepared and parked.
+
+**Done and verified** (`npm run check` green: typecheck, lint, 22 tests; `npm run build` green; production server smoke-tested):
+- Next.js 16 + TypeScript + Tailwind 4 + next-intl scaffold (FR default, `/fr` and `/en`, `proxy.ts` for locale routing), shadcn config + `cn()` helper, `noindex` header + meta, system fonts, brand tokens in `app/globals.css`. **Cache Components / PPR switched off** (the scaffold's default): our data is dynamic and cached in Upstash, so that model only added friction.
+- Brand assets from the logo: transparent wordmark (dark + light-mode variant, PNG/WebP), gradient mark, favicon / app icons. Sampled gradient: `#f89349` → `#e36092` → `#d747c8` → `#982ef8`.
+- **Real Yahoo payloads recorded** (`tests/fixtures/raw/`) for `AAPL`, `MC.PA`, `7203.T`, plus sparse/currency cases `SPY` (ETF) and `TSM` (ADR), plus two searches. All 10 quoteSummary modules, `fundamentalsTimeSeries` and both chart intervals returned data.
+- **Data contract v0.1.0** (`lib/contract/**`, types only) built from those payloads, plus a prototype normaliser (`scripts/build-contract-fixtures.ts`) that fills it from the raw recordings, type-checked, giving **contract-shaped fixtures** (`tests/fixtures/contract/`) the frontend can build against now. Step 2 replaces the prototype with the real provider.
+- CI skeleton (`.github/workflows/ci.yml`), `.env.example`, README, `docs/design-notes.md` (apple-ui rules copied in), soak-test script (`scripts/soak.ts`) and a throwaway spike route (`app/api/spike`, to delete after the soak verdict).
+- Live check from this machine: `yahoo-finance2` answered 200 for all three tickers through the Next route. This does **not** answer the Vercel question (§3.3).
+
+**Parked: needs your accounts / decisions** (nothing here blocks Steps 2 and 3 starting on fixtures):
+- [ ] Create the GitHub repo + enable secret scanning / push protection; connect to Vercel.
+- [ ] Deploy the spike route, then run `SOAK_URL=… npm run soak` for 3–5 days (the verdict is still due before Step 3 closes).
+- [ ] Create the Gemini key in AI Studio and record the real RPM/RPD in §3.5.
+- [ ] Provision Upstash (via the Vercel Marketplace) and fill `.env.local`.
+- [ ] Orchestrator test: can a subagent drive the Chrome extension (§12)? Needs an agent spawn, so it waits for your go.
+- [ ] Review contract v0 (checkpoint), then say go for Step 2 and Step 3 in parallel.
+
+**New data-reality findings from the recordings** (all encoded in the contract and tests):
+1. **Percent units are inconsistent in Yahoo itself**: `quote.dividendYield` = 3.12 (percent) but `summaryDetail.dividendYield` = 0.0312 (fraction); `quote.regularMarketChangePercent` = 0.58 vs. `price.…` = 0.0058. The contract uses **fractions everywhere**; the provider normalises.
+2. **Semi-annual reporters (LVMH)**: the "quarterly" time series returns rows with balance-sheet lines only, no revenue / operating income / net income / FCF. Contract reason: `reported_less_often`; the UI falls back to annual figures. LVMH also has empty `earningsHistory`, so "EPS vs. expected" is blank for it (as §3.2 predicted).
+3. **Yahoo keeps serving a past "next earnings" date** until the next one is scheduled (LVMH showed July 2026). The provider drops dates older than 2 days.
+4. **Analyst-target currency**: for `TSM`, `financialData.financialCurrency` says TWD but the target (≈ 587) is clearly USD. The contract carries `PriceTarget.currency` decided by the provider, with a plausibility guard (target/price outside 0.2–5 → `currency_mismatch`, card hidden). Revenue estimates for TSM are in TWD while EPS estimates are in USD, hence a currency on every `Estimate`.
+5. ETFs (`SPY`): `financialData`, `earningsHistory`, `earningsTrend`, `recommendationTrend`, `calendarEvents` all throw "No fundamentals data"; time series are empty. These sections become `not_applicable_for_type`.
+6. Toyota's quote showed a +16.7 % move on its earnings day; a reminder that change % can legitimately be large, so the UI must not treat big numbers as errors.
+
+⚠️ Decisions for you at the checkpoint: contract shape (esp. `Metric<T>` = value-or-reason on every section), and whether the LICENSE / logo-ownership questions (§10 Q10) are settled before the repo goes public.
+
 ### Schedule (~2 weeks) and priority tiers
 
 Full scope in ~2 weeks is **high risk** (flagged by the plan review). We keep all the scope but deliver in tiers, so if time runs short we cut P2 first and never P0:

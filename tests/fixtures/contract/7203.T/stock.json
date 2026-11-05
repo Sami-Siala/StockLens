@@ -1,0 +1,555 @@
+{
+  "meta": {
+    "contractVersion": "0.1.0",
+    "source": "fixture",
+    "fetchedAt": "2026-11-05T19:28:37.105Z",
+    "stale": false
+  },
+  "listing": {
+    "symbol": "7203.T",
+    "name": "Toyota Motor Corporation",
+    "shortName": "TOYOTA MOTOR CORP",
+    "quoteType": "EQUITY",
+    "exchange": "Tokyo",
+    "exchangeCode": "JPX",
+    "exchangeTimezone": "Asia/Tokyo",
+    "priceCurrency": "JPY",
+    "financialCurrency": "JPY",
+    "firstTradeDate": "1999-05-06T00:00:00.000Z"
+  },
+  "quote": {
+    "value": {
+      "price": {
+        "amount": 3533,
+        "currency": "JPY"
+      },
+      "change": 505,
+      "changePercent": 0.16677675,
+      "previousClose": 3028,
+      "open": 3168,
+      "dayHigh": 3533,
+      "dayLow": 3164,
+      "volume": 105239100,
+      "fiftyTwoWeekHigh": 4000,
+      "fiftyTwoWeekLow": 2686,
+      "marketState": "CLOSED",
+      "asOf": "2026-11-05T06:30:00.000Z",
+      "delayMinutes": 20
+    },
+    "reason": null
+  },
+  "profile": {
+    "value": {
+      "sector": "Consumer Cyclical",
+      "industry": "Auto Manufacturers",
+      "country": "Japan",
+      "website": "https://global.toyota",
+      "employees": 367990,
+      "summary": "Toyota Motor Corporation designs, manufactures, assembles, and sells passenger vehicles, minivans and commercial vehicles, and related parts and accessories in Japan, North America, Europe, Asia, Central and South America, Oceania, Africa, the Middle East, and internationally. The company operates through Automotive, Financial Services, and All Other segments. The company offers subcompact and compact cars; mini-vehicles; mid-size, luxury, sports, and specialty cars; recreational and sport-utility vehicles; pickup trucks; minivans; trucks; and buses. It also develops and sells battery and hybrid electric vehicles and batteries. In addition, the company provides financial services, such as retail financing and leasing, wholesale financing, insurance, and credit cards. Further, it operates GAZOO.com, a web portal for automobile information, as well as engages in telecommunications and other businesses. It offers vehicles under the Toyota and Lexus brand names. It has strategic manufacturing alliance with Joby Aviation, Inc. to establish a joint venture to realize air mobility. Toyota Motor Corporation was founded in 1933 and is headquartered in Toyota, Japan."
+    },
+    "reason": null
+  },
+  "fundamentals": {
+    "value": {
+      "financialCurrency": "JPY",
+      "keyStats": {
+        "marketCap": {
+          "value": {
+            "amount": 41611903893504,
+            "currency": "JPY"
+          },
+          "reason": null
+        },
+        "sharesOutstanding": {
+          "value": 11778065513,
+          "reason": null
+        },
+        "trailingPE": {
+          "value": 10.054642,
+          "reason": null
+        },
+        "forwardPE": {
+          "value": 10.896922,
+          "reason": null
+        },
+        "trailingEps": {
+          "value": {
+            "amount": 351.38,
+            "currency": "JPY"
+          },
+          "reason": null
+        },
+        "forwardEps": {
+          "value": {
+            "amount": 324.22,
+            "currency": "JPY"
+          },
+          "reason": null
+        },
+        "dividendYield": {
+          "value": 0.033,
+          "reason": null
+        },
+        "dividendRate": {
+          "value": {
+            "amount": 100,
+            "currency": "JPY"
+          },
+          "reason": null
+        },
+        "payoutRatio": {
+          "value": 0.27040002,
+          "reason": null
+        },
+        "operatingMargin": {
+          "value": 0.07863,
+          "reason": null
+        },
+        "revenueGrowth": {
+          "value": 0.104,
+          "reason": null
+        },
+        "beta": {
+          "value": 0.376,
+          "reason": null
+        }
+      },
+      "quarterly": [
+        {
+          "periodEnd": "2025-03-31",
+          "length": "3M",
+          "revenue": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "operatingIncome": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "netIncome": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "freeCashFlow": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "operatingCashFlow": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "dilutedEps": {
+            "value": null,
+            "reason": "reported_less_often"
+          }
+        },
+        {
+          "periodEnd": "2025-06-30",
+          "length": "3M",
+          "revenue": {
+            "value": 12253326000000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": 1166141000000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": 841345000000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": 633559000000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": 1876481000000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": 64.56,
+            "reason": null
+          }
+        },
+        {
+          "periodEnd": "2025-09-30",
+          "length": "3M",
+          "revenue": {
+            "value": 12377427000000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": 839551000000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": 932081000000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": -204078000000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": 1068128000000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": null,
+            "reason": "not_reported"
+          }
+        },
+        {
+          "periodEnd": "2025-12-31",
+          "length": "3M",
+          "revenue": {
+            "value": 13456852000000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": 1191030000000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": 1257465000000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": -488899000000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": 825130000000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": null,
+            "reason": "not_reported"
+          }
+        },
+        {
+          "periodEnd": "2026-03-31",
+          "length": "3M",
+          "revenue": {
+            "value": 12597347000000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": 569494000000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": 817207000000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": 238990000000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": 1703181000000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": null,
+            "reason": "not_reported"
+          }
+        },
+        {
+          "periodEnd": "2026-06-30",
+          "length": "3M",
+          "revenue": {
+            "value": 13525400000000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": 1063473000000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": 1477044000000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": -768981000000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": 536551000000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": 120.69,
+            "reason": null
+          }
+        }
+      ],
+      "annual": [
+        {
+          "periodEnd": "2024-03-31",
+          "length": "12M",
+          "revenue": {
+            "value": 45095325000000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": 5352935000000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": 4944933000000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": -842021000000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": 4206373000000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": 365.94,
+            "reason": null
+          }
+        },
+        {
+          "periodEnd": "2025-03-31",
+          "length": "12M",
+          "revenue": {
+            "value": 48036704000000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": 4795586000000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": 4765086000000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": -1560993000000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": 3696934000000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": 359.56,
+            "reason": null
+          }
+        },
+        {
+          "periodEnd": "2026-03-31",
+          "length": "12M",
+          "revenue": {
+            "value": 50684952000000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": 3766216000000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": 3848098000000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": 179572000000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": 5472920000000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": 295.25,
+            "reason": null
+          }
+        }
+      ]
+    },
+    "reason": null
+  },
+  "earnings": {
+    "value": {
+      "lastQuarter": {
+        "value": {
+          "quarterEnd": "2026-09-30",
+          "epsActual": 65.28,
+          "epsEstimate": 56.37642,
+          "difference": 8.9,
+          "surprise": 0.1579,
+          "currency": "JPY"
+        },
+        "reason": null
+      },
+      "history": [
+        {
+          "quarterEnd": "2025-12-31",
+          "epsActual": 96.48,
+          "epsEstimate": 74.04519,
+          "difference": 22.43,
+          "surprise": 0.303,
+          "currency": "JPY"
+        },
+        {
+          "quarterEnd": "2026-03-31",
+          "epsActual": 62.7,
+          "epsEstimate": 52.655,
+          "difference": 10.05,
+          "surprise": 0.1908,
+          "currency": "JPY"
+        },
+        {
+          "quarterEnd": "2026-06-30",
+          "epsActual": 120.69,
+          "epsEstimate": 82.0203,
+          "difference": 38.67,
+          "surprise": 0.4715,
+          "currency": "JPY"
+        },
+        {
+          "quarterEnd": "2026-09-30",
+          "epsActual": 65.28,
+          "epsEstimate": 56.37642,
+          "difference": 8.9,
+          "surprise": 0.1579,
+          "currency": "JPY"
+        }
+      ],
+      "next": {
+        "value": {
+          "date": "2026-11-05T06:30:00.000Z",
+          "isEstimate": false
+        },
+        "reason": null
+      },
+      "epsEstimates": [
+        {
+          "period": "0q",
+          "endDate": "2026-12-31",
+          "avg": 76.55514,
+          "low": 64.49543,
+          "high": 91,
+          "analysts": 3,
+          "yearAgo": 96.48,
+          "growth": -0.2065,
+          "currency": "JPY"
+        },
+        {
+          "period": "+1q",
+          "endDate": "2027-03-31",
+          "avg": 62.51786,
+          "low": 55.48359,
+          "high": 69.07,
+          "analysts": 3,
+          "yearAgo": 62.7,
+          "growth": -0.0029,
+          "currency": "JPY"
+        },
+        {
+          "period": "0y",
+          "endDate": "2027-03-31",
+          "avg": 313.29172,
+          "low": 272.78268,
+          "high": 357.0932,
+          "analysts": 19,
+          "yearAgo": 295.25,
+          "growth": 0.061100002,
+          "currency": "JPY"
+        },
+        {
+          "period": "+1y",
+          "endDate": "2028-03-31",
+          "avg": 347.5493,
+          "low": 278.1,
+          "high": 439.4495,
+          "analysts": 19,
+          "yearAgo": 313.29172,
+          "growth": 0.1093,
+          "currency": "JPY"
+        }
+      ],
+      "revenueEstimates": [
+        {
+          "period": "0q",
+          "endDate": "2026-12-31",
+          "avg": 13882675776850,
+          "low": 13132506214800,
+          "high": 14500000000000,
+          "analysts": 8,
+          "yearAgo": 13456851000000,
+          "growth": 0.031600002,
+          "currency": "JPY"
+        },
+        {
+          "period": "+1q",
+          "endDate": "2027-03-31",
+          "avg": 13111884425730,
+          "low": 11114600000000,
+          "high": 13739000000000,
+          "analysts": 8,
+          "yearAgo": 12597348000000,
+          "growth": 0.040799998,
+          "currency": "JPY"
+        },
+        {
+          "period": "0y",
+          "endDate": "2027-03-31",
+          "avg": 53948756832110,
+          "low": 52470000000000,
+          "high": 55000000000000,
+          "analysts": 19,
+          "yearAgo": 18259979000000,
+          "growth": 1.9545,
+          "currency": "JPY"
+        },
+        {
+          "period": "+1y",
+          "endDate": "2028-03-31",
+          "avg": 55743881945550,
+          "low": 53220000000000,
+          "high": 58551040000000,
+          "analysts": 21,
+          "yearAgo": 53948756832110,
+          "growth": 0.033299997,
+          "currency": "JPY"
+        }
+      ]
+    },
+    "reason": null
+  },
+  "analysts": {
+    "value": {
+      "ratings": {
+        "value": {
+          "strongBuy": 4,
+          "buy": 10,
+          "hold": 5,
+          "sell": 0,
+          "strongSell": 0
+        },
+        "reason": null
+      },
+      "ratingMean": {
+        "value": 1.73684,
+        "reason": null
+      },
+      "priceTarget": {
+        "value": {
+          "low": 2930,
+          "mean": 3677.1052,
+          "median": 3700,
+          "high": 4900,
+          "analysts": 19,
+          "currency": "JPY"
+        },
+        "reason": null
+      }
+    },
+    "reason": null
+  }
+}
