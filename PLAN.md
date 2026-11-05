@@ -1,6 +1,6 @@
 # StockLens — Project Plan
 
-> Status: **DRAFT v2** (adds the 6-step plan §11 and agents §12) — 2026-11-05. Written after a scoping Q&A and a technical spike (see §3.3).
+> Status: **DRAFT v3** (v2 added the 6-step plan §11 and agents §12; v3 applies the independent plan review: AI terms, Upstash in v1, ownership fixes, schedule tiers) — 2026-11-05. Written after a scoping Q&A and a technical spike (see §3.3).
 > Items marked ⚠️ are risks or things still to confirm; items marked ❓ are open questions for you.
 
 ## 1. Vision
@@ -17,7 +17,7 @@ A free, beginner-friendly, modern web app where a high-school student can look u
 
 | Topic | Decision |
 |---|---|
-| Data | **Yahoo Finance via `yahoo-finance2`**, behind a server-side cache, with fallbacks (Finnhub / Twelve Data free keys for prices, SEC EDGAR for US fundamentals) |
+| Data | **Yahoo Finance via `yahoo-finance2`**, behind a server-side cache, with a stale cache + snapshot file as the real degraded mode; optional **US-only** quote fallback via Finnhub / Twelve Data free keys (to be tested in Step 1). SEC EDGAR is **dropped from v1** (heavy XBRL mapping, US-only, no analyst data) |
 | Language | **Bilingual FR / EN** toggle (UI and AI output). i18n from day one |
 | AI thesis flow | **Shown immediately** on the stock page (bull / bear / hold). No "write yours first" gate (a teacher-mode toggle can hide it, see §6) |
 | Persistence | **No accounts.** Watchlist and notes in browser `localStorage`, with copy/export |
@@ -25,6 +25,10 @@ A free, beginner-friendly, modern web app where a high-school student can look u
 | Scope | **Stocks first**; macro/bonds page is phase 2 |
 | Learning features | Metric tooltips + "explain this metric", **teacher mode**, **quiz / "test yourself"** prompts |
 | Repo | GitHub, **public** (so: no secrets, no copyrighted lecture PDFs committed, see §9) |
+| Audience age & region | Students are **adults (18+) and live outside the EEA, Switzerland and the UK** (stated by the professor). This is what makes Gemini's free-tier terms usable (§3.5). If the audience ever changes, the AI plan must be revisited |
+| Shared store | **Upstash Redis is in v1** (cache + stale copy, request lock, Yahoo cookie, rate-limit counter), per the plan review (§3.1, §7) |
+| Thesis labels | **Buy / Hold / Sell kept**, always framed as *arguments to evaluate*, never as advice |
+| Schedule | **~2 weeks to first student use, full scope kept**, so delivery is staged by priority tier (§11) |
 | Logo | `Assets/3f61d25b-…png`: black rounded wordmark, gradient orange→magenta→purple "o" with 3 bars |
 
 ## 3. Technology choices
@@ -36,7 +40,7 @@ A free, beginner-friendly, modern web app where a high-school student can look u
 - **TradingView Lightweight Charts** (free, open source; its attribution requirement is easy to satisfy) for price charts. It handles area/candle, crosshair and range switching well. Fallback: Recharts for the small financial bar charts.
 - **next-intl** for FR/EN.
 - **Zod** to validate every external payload (Yahoo's shape changes; we never trust it blindly).
-- **Upstash Redis (free tier, via Vercel Marketplace)** as a shared cache, mainly for AI output. For 15 users, Next's built-in fetch/route caching + CDN `s-maxage` may already be enough, so start without it and add it only if needed.
+- **Upstash Redis (free tier, via Vercel Marketplace)**, **in from v1**. Serverless instances don't share memory and route handlers aren't cached by default, so without a shared store: (a) 15 students opening the same ticker in the same minute all hit Yahoo cold, (b) "serve last-known data when Yahoo fails" is impossible, (c) a per-IP limiter can't work. It holds: the data cache with a long-TTL stale copy, a short "generation in progress" lock (request coalescing), the AI cache, the persisted Yahoo cookie/crumb (re-fetching it on every cold start is a main trigger of 429s), and rate-limit counters.
 
 ### 3.2 Data: how we get each feature
 
@@ -59,12 +63,22 @@ A free, beginner-friendly, modern web app where a high-school student can look u
 
 ⚠️ **Gaps by market:** Some companies report semi-annually (LVMH returned only 3 rows with partial fields) and some fields are missing outside the US. The UI must treat every metric as optional, with a clear "not available for this company" state, never a blank or a `NaN`.
 
+⚠️ **More data-reality rules (from the plan review):**
+- **Three currencies, not one.** Yahoo's price currency can differ from the **financial/reporting currency** (e.g. TSMC trades in USD, reports in TWD; many ADRs and cross-listings) and from the analyst-target currency. The contract carries `priceCurrency`, `financialCurrency` and `targetCurrency` plus a unit table (`GBp`, `ZAc`, `ILA`...). When units can't be reconciled, hide price-vs-target and P/E-derived cards instead of mixing currencies.
+- **`quoteType` branching with reason codes:** ETFs, indices and crypto have no fundamentals (`not_applicable_for_type`); loss-makers have no trailing P/E (`negative_earnings`); banks, insurers and REITs often lack FCF/operating income (`not_reported`).
+- **EPS-vs-expected may be blank** for many non-US names (`earningsHistory` is only the last ~4 quarters and often empty abroad). Tell the professor what blank cards to expect.
+- **Delay:** use Yahoo's `exchangeDataDelayedBy` per exchange rather than a fixed "15 minutes".
+- **Chart quirks:** `chart()` may require `period1`/`period2` instead of `range` (check the pinned version); drop null rows; Lightweight Charts needs strictly ascending, unique timestamps and has no timezone support (custom exchange-time label formatter); decide once between adjusted and unadjusted close.
+- **yahoo-finance2 validates responses itself and throws on unexpected shapes.** Disable its validation (`validateResult: false` / equivalent) and rely on our own zod, so a new field degrades one card, not a route.
+- **Step 2 deliverable: a data-availability matrix** (fields × `AAPL`, `MC.PA`, `7203.T`, `TSM`, a bank, an ETF, a loss-maker). We only build cards for fields that appear in most rows.
+
 ### 3.3 Spike results (2026-11-05, run from this machine)
 
 - `yahoo-finance2` (it handles Yahoo's cookie/crumb): search, chart (weekly since 2020 on `MC.PA`), and 10 `quoteSummary` modules all returned data for **AAPL, MC.PA (Paris), 7203.T (Tokyo)**.
 - Raw `curl` to Yahoo's endpoints got **HTTP 429** on the first call, so we must never call Yahoo from the browser or without the library, and the cache layer is non-negotiable.
 - Stooq (a historical free CSV source) now sits behind a JS challenge, so it is **not** usable as a fallback.
-- ⚠️ **Not yet tested: calls from Vercel's servers.** Shared datacenter IPs are the main throttling risk. This is the **first thing Phase 0 verifies** with a throwaway deployment.
+- ⚠️ **Not yet tested: calls from Vercel's servers.** Shared datacenter IPs are the main throttling risk, and blocking is intermittent, so one successful call proves little. Step 1 starts a **multi-day soak test** (3–5 days, intended Vercel region, persisted cookie, explicit User-Agent, a request every few minutes for the 3 test tickers). **Pass = under 2% non-200 responses.** It runs in the background while Steps 2–3 proceed; the verdict is due before Step 3 closes.
+- ⚠️ **Honest fallback picture:** for non-US tickers (LVMH, Toyota...) there is effectively **no free fallback provider**. The real degraded mode is the stale cache plus a **snapshot file** for the curated "start here" tickers (refreshed by a GitHub Action or from the teacher's machine).
 
 ### 3.4 Chart ranges → Yahoo parameters
 
@@ -87,16 +101,18 @@ Also: market-hours awareness and local currency + exchange timezone per ticker, 
 - **Plan:** primary `gemini-3.6-flash` (best quality/speed that's free), fallback chain `gemini-3.5-flash-lite` → `gemini-3.1-flash-lite`. ⚠️ Free model lists and quotas change often; exact RPM/RPD are shown only inside AI Studio, so we confirm them there when you create the key, and keep model names in one config file.
 - ⚠️ **Google Search grounding is NOT free on Gemini 3+** (only older 2.5 Flash gets 500/day). So we do **not** rely on live web search. Instead we **ground the AI on the structured data we already fetched** (financials, estimates, analyst data, profile) and tell it to use only that plus well-established general knowledge. This also reduces hallucination and keeps the explanation consistent with the numbers on the page.
 - **Output:** structured JSON (schema-enforced) with: `what_it_does` (explain like I'm 15), `how_it_makes_money`, `bull_case`, `bear_case`, `hold_case` (each 2–3 bullets that reference specific metrics shown on the page), `key_risks`, `what_to_watch`, and `glossary_terms_used`.
-- **Cache:** one generation per `(ticker, language, day)`; 15 students means a few dozen calls a day at most.
+- **Cache & quota:** cache key `(ticker, language, data-hash or week)` in Upstash with a "generation in progress" lock, so 15 students opening the same ticker trigger **one** generation, not 15. Third-party reports say free-tier daily request limits were cut sharply in late 2025 and disagree on the number, and limits are per project, so **Step 1 records the real RPD/RPM from AI Studio and writes it here**. Fallback models usually have their own small quotas, so don't count on the chain alone. Pre-warm the teacher's curated tickers before class. The public `/api/ai/*` endpoint must not be an open quota-burner (see rate limiting, §7).
+- **Numbers integrity:** the model cites **metric IDs** and the server renders the numbers into the text (placeholders like `{{pe_trailing}}`), or at minimum every number in the output is regex-checked against the supplied data and the generation is rejected on mismatch. "Cross-check where feasible" is not enough.
+- **Untrusted text:** company names and `longBusinessSummary` are third-party text pasted into the prompt. Wrap them in clear delimiters, tell the model to treat them as data, and **render AI output as plain text** (never HTML/markdown). Pass the lecture glossary (BPA/EPS, capitalisation boursière, DPR...) so French output uses the course vocabulary, and have the professor review the French output for the first batch of tickers.
 - **Safeguards:** a persistent "Educational content, not financial advice" notice; the AI never says "buy now"; the thesis frames Buy/Hold/Sell as *arguments to evaluate*; temperature kept low; numbers in the thesis are cross-checked against our data where feasible.
-- **Privacy:** only public market data goes to Gemini. No student data, no names. Free-tier inputs may be used by Google to improve its products, which is another reason to send nothing personal.
+- **Gemini free-tier terms (verified 2026-11-05 on Google's terms page):** "You must be 18 years of age or older to use the APIs"; API clients "directed towards or … likely to be accessed by individuals under the age of 18" are not allowed; **only paid services** may be used for API clients available to users in the **EEA, Switzerland or the UK**; and on the unpaid tier Google may use submitted content and responses to improve its products, and human reviewers may read them. **We rely on the professor's statement that all students are adults living outside those regions.** Mitigations: no student data ever reaches Gemini (only public market data), the site is not indexed by search engines (`noindex`), and the About/Privacy page states the intended audience. If the audience changes, switch to pre-generated reviewed content or another provider.
 
 ### 3.6 Hosting (the Vercel question)
 
 **Yes, Vercel Hobby works and is free.** Caveats:
-- The Hobby plan is **non-commercial, personal use only**. A free school club app is fine as long as nobody is paid for it or it carries ads or sales.
+- The Hobby plan is **non-commercial, personal use only**. A free school club app is fine as long as nobody is paid for it or it carries ads or sales. Grey zone: Vercel defines "commercial" as financial gain for anyone involved in production, so if the app were used as **paid** course material for a paid instructor, check Vercel's fair-use guidelines first (donations are allowed).
 - Hobby limits (per Vercel docs, 2026): function max duration 300 s; usage caps are monthly and generous for 15 users.
-- Alternatives if Vercel's IPs get throttled by Yahoo: **Cloudflare Pages/Workers** (free, also edge IPs) or a **tiny free-tier VM** (Oracle Always Free) used as a data proxy. Plan B only; not needed unless Phase 0 says so.
+- If Vercel's IPs get throttled by Yahoo: Cloudflare Workers and free-tier VMs are *also* datacenter IPs (and Oracle Always Free needs a card), so they are not independent fixes. **Plan B = the snapshot file for curated tickers (above) plus, if needed, a small proxy on a machine you control.** Not needed unless the soak test (§3.3) fails.
 - Domain: free `*.vercel.app` URL (e.g. `stocklens.vercel.app` if available). A custom domain costs money, so skip it.
 
 ## 4. Product design
@@ -116,7 +132,7 @@ Also: market-hours awareness and local currency + exchange timezone per ticker, 
    5. **What analysts think:** buy/hold/sell stacked bar + price-target range bar with the current price marked.
    6. **Bull / Bear / Hold** three-column AI thesis, then "your turn": the student's own notes box (localStorage) and a Buy/Hold/Sell pick.
    7. **Test yourself** (quiz) card.
-   8. Footer: data sources, delay notice, disclaimer.
+   8. Footer: data sources, delay notice, disclaimer, link to the bilingual **About / Privacy & Terms** page (what is stored locally, what the server logs, AI and delayed-data caveats, "educational, not advice, not a broker", intended audience; professor signs off) and the Lightweight Charts attribution/NOTICE.
 3. **Compare** (stretch): two tickers side by side. Great for the "Maison Dorée vs NovaTech" style discussions.
 4. **Learn / Glossary:** every term with definition, formula, example in the lectures' voice (the "café d'Aziz"), and "Séance N" tags.
 5. **Teacher mode** (see §6).
@@ -164,14 +180,20 @@ Browser (Next.js client)
    │   /api/search?q=            ─┐
    │   /api/stock/[symbol]        │  Next.js route handlers (server)
    │   /api/chart/[symbol]?range  │   • zod-validate input
-   │   /api/ai/[symbol]?lang      │   • rate-limit per IP (tiny)
-   ▼                              ▼   • cache (revalidate: quote 30–60 s, charts by range, fundamentals 12–24 h, AI 24 h)
+   │   /api/ai/[symbol]?lang      │   • rate-limit (Upstash counter)
+   ▼                              ▼   • Upstash cache + stale copy + lock (quote 30–60 s, charts by range, fundamentals 12–24 h, AI per ticker/lang/week)
  Provider layer: MarketDataProvider interface
    ├─ YahooProvider (primary, yahoo-finance2)
    ├─ FinnhubProvider / TwelveDataProvider (fallback prices; optional)
-   └─ EdgarProvider (US fundamentals fallback; phase 3)
+   └─ SnapshotProvider (static JSON for curated tickers; last-resort degraded mode)
  AI layer: GeminiClient (model fallback chain, JSON schema, cache)
 ```
+
+**Resilience & abuse rules (from the plan review):**
+- *Rate limiting:* 15 students may share one school IP, so per-IP limits use a **high ceiling** (~300 requests/min) in an Upstash counter. Yahoo and Gemini are protected by **cache + request coalescing + the curated list**, not by tight per-IP limits.
+- *Public API:* `/api/*` is effectively a Yahoo redistribution endpoint if left open. Add `noindex`/`robots.txt`, an Origin/Referer check, and (optional, §10) a shared club code. Show an "unofficial data, may be delayed or wrong, no redistribution" notice.
+- *Observability:* a `/api/health` route reports per-provider status and last-success time; the UI shows a visible "data source degraded" banner. A **weekly GitHub Action** runs the live smoke script so we find out Yahoo broke before class, not from a student.
+- *Server-only code:* provider and AI modules `import 'server-only'` so `yahoo-finance2` and zod schemas never enter the client bundle; the shared **contract is types only**.
 
 Key rules: the browser never talks to Yahoo or Gemini directly; API keys only in Vercel env vars; every provider response is normalized into **our own types** (`Quote`, `Candle[]`, `Fundamentals`, `AnalystView`) so a source can be swapped without touching the UI.
 
@@ -184,11 +206,15 @@ StockLens/
 ├─ Lectures/          (local only, git-ignored)
 ├─ app/               (routes, pages)
 ├─ components/        (chart, metric cards, analyst bar, thesis, quiz)
-├─ lib/providers/     (yahoo.ts, finnhub.ts, types.ts)
+├─ lib/contract/      (versioned shared TYPES only: Quote, Candle, Fundamentals, ...)
+├─ lib/providers/     (server-only: yahoo.ts, snapshot.ts, optional finnhub.ts, zod schemas)
+├─ lib/data/          (frontend data-access layer: fixtures ⇄ live /api switch)
+├─ docs/design-notes.md  (apple-ui rules + polish-pass log)
 ├─ lib/ai/            (gemini.ts, prompt.ts, schema.ts)
 ├─ lib/education/     (glossary.fr.json, glossary.en.json, quiz rules)
 ├─ messages/          (fr.json, en.json)
-└─ tests/
+├─ tests/             (data tests + fixtures incl. sparse/, ui tests in tests/ui/)
+└─ .github/workflows/ (CI: typecheck + lint + tests; weekly live smoke)
 ```
 
 ## 8. Roadmap
@@ -232,13 +258,18 @@ StockLens/
 |---|---|---|
 | Yahoo throttles/blocks Vercel IPs | Medium | Phase 0 test; aggressive caching; fallback providers; Plan B hosting |
 | Yahoo changes API/module shapes (already happened Nov 2024) | Medium | zod validation, provider abstraction, per-card error states, pin library version, contract tests with recorded fixtures |
-| Yahoo's terms: unofficial API is for personal/non-commercial use | Low for a school club | Keep non-commercial, no ads, no redistribution of data, show source attribution |
-| Gemini free quotas/models change | Medium | Model fallback chain in one config; cache per ticker/day; static "AI unavailable" state |
+| Yahoo's terms: unofficial API; secondary sources say automated collection is restricted with no clear personal-use carve-out (Yahoo's text not verified) | **Medium** | Non-commercial, no ads; `noindex`; Origin check / optional club code so our `/api` isn't an open redistribution endpoint; "unofficial data" notice; keep the contract + snapshot so the source is swappable |
+| Gemini free-tier terms: 18+ only, no minor-facing clients, paid-only for EEA/CH/UK, content may be reviewed by humans | Low **given the stated audience** (adults outside those regions) | Recorded in §2/§3.5; send no student data; revisit if the audience changes (fallback: pre-generated reviewed content or another provider) |
+| Currency mix-ups (price vs financial vs target currency, `GBp`) | Medium | Three currency fields + unit table in the contract; hide cards when units can't be reconciled; ADR (`TSM`) and LSE stocks in the test matrix |
+| Class-time thundering herd (15 users, same ticker, same minute) | High without a shared store | Upstash cache + lock + stale copy; pre-warm curated tickers; Step 6 dry run with 15 simultaneous tabs |
+| Full scope in ~2 weeks | High | Priority tiers P0/P1/P2 (§11); cut P2 first, never P0 |
+| Gemini free quotas/models change (real RPD unknown; reports say sharply cut, per project) | Medium-High | Record real RPD in Step 1; one generation per ticker/lang/week via lock; pre-warm curated list; model fallback chain in one config; static "AI unavailable" state |
 | AI hallucinations / bad numbers | Medium | Ground only on supplied data; schema output; disclaimer; spot checks |
 | Missing data for non-US tickers | High | Everything optional; clear "n/a" states; test on US + EU + Asia tickers |
 | 1H chart empty when market closed | High | Show last trading hour, label it |
 | Public repo leaking secrets or lecture PDFs | Medium | `.gitignore` (done), `.env.example` only; Lectures stay local (course material may be copyrighted or club-internal; ❓ tell me if you *want* them public) |
-| Regulatory/"financial advice" perception for minors | Low | Prominent educational disclaimer; no brokerage/trading features |
+| Regulatory / "financial advice" perception; privacy | Low | Prominent educational disclaimer; Buy/Hold/Sell framed as arguments; no brokerage/trading features; bilingual About/Privacy page; no Vercel Analytics, third-party fonts or CDNs (system fonts only); localStorage only |
+| Logo ownership/licence in a public repo; no LICENSE file | Low | ❓ confirm you own the logo (§10); choose a LICENSE; enable GitHub secret scanning/push protection (free on public repos) |
 
 ## 10. Open questions ❓
 
@@ -249,7 +280,10 @@ StockLens/
 5. **Currency display:** show native currency only, or also a converted view (EUR/USD/TND)? Native only is simpler and recommended for v1.
 6. **Name/branding checks:** "StockLens" may clash with existing products. Is a quick trademark/domain search worth doing before you share it publicly?
 7. **Teacher page password** (§6): yes/no?
-8. **Timeline:** any date by which students should be using it (e.g., next session)? This decides how much we cut from Phase 2.
+8. ~~**Timeline**~~ **Answered:** ~2 weeks to first student use, full scope kept → staged by priority tier (§11).
+9. **Club code gate:** a shared "club code" (entered once, stored in a cookie) in front of the app/API, to keep it from being an open public Yahoo/Gemini proxy? Recommended; costs students one extra step.
+10. **Logo:** do you own it (or generated it with a tool whose terms allow this use)? It's in a public repo. And which **LICENSE** for the code (MIT is the usual choice)?
+11. **Privacy/Terms page:** you (the professor) sign off on the wording before launch?
 
 ## 11. Implementation plan: 6 steps
 
@@ -259,14 +293,26 @@ Each step ends with a **user checkpoint**: nothing moves on, and nothing is comm
 
 | # | Step | Lead | Main deliverables | Exit criteria (checkpoint) |
 |---|---|---|---|---|
-| 1 | **Foundations & de-risking** | Orchestrator, with `data-engineer` for the spike | Next.js + TS + Tailwind + shadcn + next-intl scaffold; throwaway Vercel deployment calling `yahoo-finance2` for `AAPL`, `MC.PA`, `7203.T`; Gemini key created and real free-tier quota/model recorded; brand tokens and favicon/wordmark from the logo; **data contract** (`lib/providers/types.ts`, zod schemas) agreed | Vercel can fetch Yahoo data (Plan A) or we've chosen Plan B (§3.6); contract reviewed by you; `.env.example` exists, no secret committed |
-| 2 | **Data layer & API** | `data-engineer` | `MarketDataProvider` + Yahoo implementation; search, quote, chart (8 ranges), fundamentals via `fundamentalsTimeSeries`, analyst data, earnings; currency/`GBp`/timezone handling; caching and per-IP rate limit; fixtures for US/EU/Asia; unit tests | `/api/search`, `/api/stock/[symbol]`, `/api/chart/[symbol]` work for `AAPL`, `MC.PA`, `7203.T` with missing fields returned as `null` + reason; tests green; live smoke output reviewed |
-| 3 | **Core UI** | `frontend-engineer` | Home + search with autocomplete; stock page: header, chart with 8 ranges, key-number cards (EPS vs. expectation, P/E, revenue, operating profit, FCF, market cap), analyst section; FR/EN; responsive, dark mode, skeleton/error states; **first `apple-ui` polish pass** | You can search a company on your phone and read the whole page in FR and EN, including a sparse-data company, with no broken cards; the page passes the apple-ui self-critique checklist |
+| 1 | **Foundations & de-risking** | Orchestrator, with `data-engineer` for the spike | Next.js + TS + Tailwind + shadcn + next-intl scaffold; throwaway Vercel deployment calling `yahoo-finance2` for `AAPL`, `MC.PA`, `7203.T`; Gemini key created and real free-tier quota/model recorded; brand tokens and favicon/wordmark from the logo; **data contract v0** (`lib/contract/**`, types only) built from real recorded payloads for `AAPL`, `MC.PA`, `7203.T` and one sparse case; Upstash provisioned; **multi-day Yahoo soak test started** (§3.3); real Gemini RPD recorded in §3.5; CI skeleton (typecheck + lint + tests) | Soak test running (verdict due before Step 3 closes; Plan B per §3.6 if it fails); Gemini RPD written into §3.5; contract v0 reviewed by you; CI green; `.env.example` exists, no secret committed; GitHub secret scanning on |
+| 2 | **Data layer & API** | `data-engineer` | `MarketDataProvider` + Yahoo implementation; search, quote, chart (8 ranges), fundamentals via `fundamentalsTimeSeries`, analyst data, earnings; currency/`GBp`/timezone handling; caching and per-IP rate limit; fixtures for US/EU/Asia **plus sparse cases** (ETF, loss-maker, bank, ADR such as `TSM`, an LSE stock); **data-availability matrix**; Upstash cache/stale/lock; `/api/health`; unit tests | `/api/search`, `/api/stock/[symbol]`, `/api/chart/[symbol]` work for `AAPL`, `MC.PA`, `7203.T` with missing fields returned as `null` + reason; tests green; availability matrix and live smoke output reviewed; a cold-start test with 15 parallel requests for one ticker causes **one** upstream fetch |
+| 3 | **Core UI** | `frontend-engineer` | Home + search with autocomplete; stock page: header, chart with 8 ranges, key-number cards (EPS vs. expectation, P/E, revenue, operating profit, FCF, market cap), analyst section; FR/EN; responsive, dark mode, skeleton/error states; **first `apple-ui` polish pass** | You can search a company on your phone and read the whole page in FR and EN, including a sparse-data company, with no broken cards; the page passes the apple-ui self-critique checklist; Lightweight Charts attribution (`attributionLogo`) and NOTICE are present |
 | 4 | **AI layer** | `data-engineer` (API) then `frontend-engineer` (display) | Gemini client with model fallback chain; grounded prompt; schema-enforced JSON; per `(ticker, language, day)` cache; `/api/ai/[symbol]`; company explainer + bull/bear/hold columns with the disclaimer | The thesis for 3+ tickers is readable, consistent with the on-page numbers, available in FR and EN, and still works (or degrades cleanly) when the quota is exhausted |
 | 5 | **Education & teacher features** | `frontend-engineer` | Glossary + tooltips + "explain this metric" in lecture voice; "Séance N" tags; rule-based quiz cards; margin-of-safety card; watchlist, notes and one-page thesis export; teacher links (`?tickers=…&hideAI=1`) | **You (the professor) review all French/English educational copy**; a teacher link works end to end |
-| 6 | **Hardening, QA & launch** | Orchestrator, both agents on fixes | Fallback providers and "stale data" mode; accessibility and Lighthouse pass; ticker test matrix (US, EU, Asia, ETF, a loss-making company, a semi-annual reporter); about/disclaimer/credits page; README; production deploy; `/code-review` pass; final `apple-ui` polish pass in light and dark mode | Meets the v1 definition of done in §8; link ready to share with the club |
+| 6 | **Hardening, QA & launch** | Orchestrator, both agents on fixes | Fallback providers and "stale data" mode; accessibility and Lighthouse pass; ticker test matrix (US, EU, Asia, ETF, a loss-making company, a semi-annual reporter); about/disclaimer/credits page; README; production deploy; `/code-review` pass; final `apple-ui` polish pass in light and dark mode | Meets the v1 definition of done in §8; **class dry run with 15 simultaneous tabs** (no 429s, AI quota survives); soak-test verdict is "pass"; Privacy/Terms page signed off by you; link ready to share with the club |
 
-**Parallelism:** once Step 1 freezes the contract, Steps 2 and 3 run **in parallel**. The `frontend-engineer` builds against recorded fixtures while the `data-engineer` builds the real routes, then a one-flag switch points the UI at live data. Step 4's API half can start as soon as Step 2's data shapes are stable.
+**Parallelism:** once Step 1 publishes **contract v0** (built from real recorded payloads, not guesses), Steps 2 and 3 run **in parallel**. The `frontend-engineer` builds against recorded fixtures while the `data-engineer` builds the real routes, then a one-flag switch in `lib/data/**` points the UI at live data. The contract is **versioned, not frozen**: Step 2 will discover real-world shapes, so the `data-engineer` may issue additive v1.x changes (breaking changes go through the orchestrator). Step 4's API half can start as soon as Step 2's data shapes are stable.
+
+### Schedule (~2 weeks) and priority tiers
+
+Full scope in ~2 weeks is **high risk** (flagged by the plan review). We keep all the scope but deliver in tiers, so if time runs short we cut P2 first and never P0:
+
+| Tier | Contents | Target |
+|---|---|---|
+| **P0: must work for the first class** | Search; chart with 8 ranges; 6 key cards (EPS vs. expected, P/E trailing+forward, revenue, operating profit, FCF, market cap); analyst bar + price targets; FR/EN; disclaimer + Privacy/Terms page; stale/degraded mode; AI explainer + bull/bear/hold (Buy/Hold/Sell as arguments) with caching | end of week 1 (soft launch), polished by day ~10 |
+| **P1: should have** | Glossary + tooltips + "explain this metric"; Séance tags; watchlist; notes; teacher links (`?tickers=…&hideAI=1`); dark mode; apple-ui polish passes; curated "start here" list | week 2 |
+| **P2: nice to have (cut first)** | Margin-of-safety card; one-page thesis export/print; compare page; quiz beyond ~10 rule-based items; macro page (already phase 2) | only if time remains |
+
+Rough calendar: **days 1–2** Step 1 · **days 2–6** Steps 2 and 3 in parallel · **days 6–9** Step 4 · **days 9–12** Step 5 · **days 12–14** Step 6 and class dry run. The professor reviews at each checkpoint, so reviews must be quick to keep this pace.
 
 ## 12. Agents
 
@@ -274,18 +320,19 @@ Three roles in total: you plus two worker agents. Orchestrator-only would be slo
 
 | Role | Runs as | Model | Owns | Definition |
 |---|---|---|---|---|
-| **Orchestrator** | The main Claude Code session | Sonnet (run the session on Sonnet) | `PLAN.md`, the data contract's approval, git (commits/pushes only after you approve), GitHub/Vercel setup, integration, code review, and talking to you | n/a (this is the session you're in) |
-| **`data-engineer`** | Subagent | `sonnet` | `lib/providers/**`, `lib/ai/**`, `app/api/**`, `tests/**`, fixtures, `.env.example` | [`.claude/agents/data-engineer.md`](.claude/agents/data-engineer.md) |
-| **`frontend-engineer`** | Subagent | `sonnet` | `app/**` pages, `components/**`, `messages/**`, `lib/education/**`, styling, brand assets, `docs/design-notes.md`; runs **`apple-ui` polish passes** | [`.claude/agents/frontend-engineer.md`](.claude/agents/frontend-engineer.md) |
+| **Orchestrator** | The main Claude Code session | Sonnet (run the session on Sonnet) | `PLAN.md`; **all root config and dependencies** (`package.json` + lockfile, `next.config`, `tsconfig`, lint/test config, `vercel.json`); `app/layout.tsx`, `middleware.ts` and next-intl setup; CI (`.github/workflows/**`); `README.md`/LICENSE; contract approval; git (commits/pushes only after you approve); GitHub/Vercel/Upstash setup; integration, code review, and talking to you | n/a (this is the session you're in) |
+| **`data-engineer`** | Subagent | `sonnet` | `lib/contract/**` (the shared types), `lib/providers/**`, `lib/ai/**`, `app/api/**`, `tests/**` (data tests) and `tests/fixtures/**` **including sparse/missing-data fixtures**, `.env.example`; asks the orchestrator to install dependencies | [`.claude/agents/data-engineer.md`](.claude/agents/data-engineer.md) |
+| **`frontend-engineer`** | Subagent | `sonnet` | `app/**` pages (except the root layout/middleware), `components/**`, `messages/**`, `lib/education/**`, **`lib/data/**` (data-access layer)**, `tests/ui/**`, styling, brand assets, `docs/design-notes.md`; asks the orchestrator to install dependencies; runs **`apple-ui` polish passes** | [`.claude/agents/frontend-engineer.md`](.claude/agents/frontend-engineer.md) |
 
 **Ground rules for working together**
 - **All agents run on Sonnet or lower** (`model: sonnet` in each definition; nothing uses Opus or Fable).
 - **Agents start only when you say so.** The orchestrator proposes each delegation and its brief; you approve it.
-- **File ownership is strict** (table above), so parallel work doesn't collide. For parallel steps, the orchestrator can run each agent in its own git worktree and merge the results.
-- **The contract is the handshake.** Only the `data-engineer` edits `lib/providers/types.ts`, and the `frontend-engineer` asks for changes through the orchestrator.
+- **File ownership is strict** (table above), so parallel work doesn't collide. Neither agent runs `npm install` or edits `package.json`: they list the dependencies they need in their report and the orchestrator installs them. For parallel steps, the orchestrator can use a git worktree per agent and makes **local WIP commits on a feature branch (never pushed)** to merge them; otherwise it runs them sequentially per file area. Agents themselves still never commit.
+- **The contract is the handshake.** Only the `data-engineer` edits `lib/contract/**` (types only, **versioned**: v0 from real payloads in Step 1, additive v1.x afterwards), and the `frontend-engineer` asks for changes through the orchestrator.
+- **Browser checks:** Chrome tools are deferred tools that must be loaded via `ToolSearch` first, so the frontend agent has `ToolSearch` in its tool list. Whether a subagent can actually drive the Chrome extension is **unverified**: the orchestrator tests this once in Step 1 with a trivial brief. Fallback: Playwright (free, dev dependency, owned by the orchestrator) with headless screenshots at 390 px and 1280 px.
 - **No agent commits or pushes.** The orchestrator commits after review and your approval, with plain messages (no attribution lines).
 - **Every agent reports in a fixed format** (done / files / how verified / contract changes / open issues / questions) so reviews are quick.
-- **`apple-ui` skill:** written for native macOS GUIs, so the `frontend-engineer` applies its *principles* (spacing grid, hierarchy, restraint, feedback, dark mode) to the web and ignores its Tkinter/SwiftUI specifics. Where it conflicts with this plan, the plan wins on product decisions (e.g. the logo gradient stays as the single accent); the skill wins on spacing, typography and hierarchy. It runs as one small, screenshot-driven polish pass after each UI milestone (Steps 3, 5, 6).
+- **`apple-ui` skill:** written for native macOS GUIs, so the `frontend-engineer` applies its *principles* (spacing grid, hierarchy, restraint, feedback, dark mode) to the web and ignores its Tkinter/SwiftUI specifics. Where it conflicts with this plan, the plan wins on product decisions (e.g. the logo gradient stays as the single accent); the skill wins on spacing, typography and hierarchy. It runs as one small, screenshot-driven polish pass after each UI milestone (Steps 3, 5, 6). Because the skill lives in your home folder (not this repo), its web-relevant rules (8 px grid, system type, one accent, one primary action, calm inline feedback, dark mode, restraint) are **copied into `docs/design-notes.md`**, so the project doesn't depend on it.
 - Each agent verifies its own work (tests, type check; the UI is also checked in a real browser at phone and desktop width) before reporting. The orchestrator then reviews the diff and re-runs the checks.
 - **Not a separate agent:** QA and review. They're the orchestrator's job at each checkpoint (and `/code-review` in Step 6), which avoids a third agent.
 
