@@ -24,6 +24,19 @@
     var(--brand-purple)
   );
 
+  /*
+   * The accent fill (primary button, active range pill) only spans orange -> magenta -> pink,
+   * with near-black text: white on orange fails WCAG AA, near-black passes on every stop.
+   * The purple end stays for the focus ring and small brand marks.
+   */
+  --accent-fill: linear-gradient(
+    90deg,
+    var(--brand-orange),
+    var(--brand-magenta) 55%,
+    var(--brand-pink)
+  );
+  --on-accent: #111114;
+
   /* Up / down are never colour-only: always pair with an arrow icon. */
   --positive: #1a7f37;
   --negative: #cf222e;
@@ -47,6 +60,7 @@
   --color-border: var(--border);
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
+  --color-on-accent: var(--on-accent);
   --color-positive: var(--positive);
   --color-negative: var(--negative);
   --color-brand-orange: var(--brand-orange);
@@ -68,4 +82,28 @@ body {
 :focus-visible {
   outline: 2px solid var(--brand-purple);
   outline-offset: 2px;
+}
+
+/* Utilities for the single accent. */
+@utility bg-accent-fill {
+  background-image: var(--accent-fill);
+}
+@utility bg-brand-gradient {
+  background-image: var(--brand-gradient);
+}
+
+/* Anchors inside prose-like text get an underline instead of a colour. */
+a.text-link {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

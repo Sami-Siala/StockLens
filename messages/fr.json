@@ -3,11 +3,238 @@
     "title": "StockLens",
     "description": "Comprendre n'importe quelle entreprise cotée : cours, chiffres clés, analystes et explication par IA. Contenu pédagogique, pas un conseil financier."
   },
+  "Nav": {
+    "home": "Accueil StockLens",
+    "language": "Langue",
+    "switchToFr": "Français",
+    "switchToEn": "English"
+  },
   "Home": {
     "tagline": "Comprendre n'importe quelle entreprise, en langage simple.",
-    "status": "Les fondations sont posées. L'application se construit étape par étape."
+    "startHere": "Pour commencer"
+  },
+  "Search": {
+    "label": "Rechercher une entreprise ou un symbole boursier",
+    "placeholder": "Nom ou symbole",
+    "submit": "Chercher",
+    "results": "Résultats de la recherche",
+    "count": "{count, plural, =0 {Aucun résultat} one {# résultat} other {# résultats}}",
+    "empty": "Aucune entreprise trouvée. Essayez son nom ou son symbole.",
+    "error": "La recherche n'est pas disponible pour le moment. Si vous connaissez le symbole, saisissez-le et appuyez sur Rechercher.",
+    "type": {
+      "ETF": "Fonds (ETF)",
+      "MUTUALFUND": "Fonds",
+      "INDEX": "Indice"
+    }
   },
   "Common": {
     "disclaimer": "Contenu pédagogique, pas un conseil financier."
+  },
+  "Footer": {
+    "disclaimer": "Contenu pédagogique, pas un conseil financier.",
+    "data": "Données non officielles issues de Yahoo Finance. Elles peuvent être différées, incomplètes ou fausses. Ne vous en servez pas pour prendre de vraies décisions.",
+    "about": "À propos, sources des données et crédits"
+  },
+  "About": {
+    "title": "À propos de StockLens",
+    "whatTitle": "De quoi s'agit-il ?",
+    "what": "StockLens est un outil pédagogique gratuit, conçu pour le PMF Investment Society. Il aide à lire les chiffres clés d'une entreprise cotée et à se faire sa propre opinion.",
+    "adviceTitle": "Pas un conseil financier",
+    "advice": "Tout ce qui est ici est pédagogique. StockLens n'est pas un courtier : on ne peut rien acheter ni vendre, et rien sur ce site ne vous dit quoi faire de votre argent. Les avis des analystes sont des arguments à évaluer, pas des consignes.",
+    "dataTitle": "D'où viennent les données",
+    "data": "Les cours et les chiffres des entreprises viennent de Yahoo Finance par un canal non officiel. Ils peuvent être différés (le délai est indiqué à côté de chaque prix), incomplets ou faux. Quand un chiffre manque, nous le disons au lieu de deviner.",
+    "storageTitle": "Ce qui est stocké",
+    "storage": "Pas de compte, pas de publicité, pas de suivi. Cette page provisoire sera complétée par le texte complet sur la vie privée et les conditions avant le lancement.",
+    "creditsTitle": "Crédits",
+    "draft": "Les graphiques sont dessinés avec TradingView Lightweight Charts, utilisé selon sa licence."
+  },
+  "Stock": {
+    "loading": "Chargement des données de l'entreprise",
+    "na": "Non disponible",
+    "keyNumbers": "Chiffres clés",
+    "cardError": "Cette carte n'a pas pu s'afficher. Le reste de la page fonctionne.",
+    "sectionError": "Cette section n'a pas pu s'afficher. Le reste de la page fonctionne.",
+    "stale": "Les données en direct sont momentanément indisponibles. Vous voyez les dernières données enregistrées.",
+    "sample": "Données d'exemple pour le développement, pas en direct.",
+    "tickerHint": "Place:symbole. La place boursière où l'action est négociée, puis le code court de l'entreprise.",
+    "penceHint": "GBp signifie pence : 100 pence = 1 livre.",
+    "priceLabel": "Cours de l'action",
+    "direction": {
+      "up": "En hausse",
+      "down": "En baisse",
+      "flat": "Inchangé"
+    },
+    "delayed": "Différé de {minutes} min",
+    "realtime": "Temps réel",
+    "maybeDelayed": "Peut être différé",
+    "market": {
+      "REGULAR": "Marché ouvert",
+      "CLOSED": "Marché fermé",
+      "PRE": "Avant l'ouverture du marché",
+      "POST": "Après la fermeture du marché"
+    },
+    "asOf": "À {time}",
+    "priceUnavailable": "Le cours n'est pas disponible pour le moment.",
+    "type": {
+      "ETF": "Fonds (ETF)",
+      "MUTUALFUND": "Fonds",
+      "INDEX": "Indice",
+      "CRYPTOCURRENCY": "Crypto",
+      "CURRENCY": "Devise",
+      "FUTURE": "Contrat à terme",
+      "OTHER": "Autre"
+    },
+    "reportedIn": "Publié en {currency} (l'action est cotée en {price}).",
+    "period": {
+      "quarter": "Trimestre clos en {date}",
+      "half": "Semestre clos en {date}",
+      "year": "Exercice clos en {date}"
+    },
+    "reasons": {
+      "not_applicable_for_type": "Cela ne s'applique pas à ce type de placement (par exemple un fonds).",
+      "negative_earnings": "L'entreprise est en perte : ce chiffre ne peut pas être calculé.",
+      "not_reported": "Cette entreprise ne publie pas ce chiffre.",
+      "reported_less_often": "Cette entreprise publie moins souvent (par exemple deux fois par an) : il n'y a pas de chiffre récent ici.",
+      "not_provided_by_source": "Notre source de données n'a pas de valeur pour cette entreprise.",
+      "currency_mismatch": "Les chiffres sont dans des devises différentes : nous le masquons plutôt que d'afficher un nombre trompeur.",
+      "provider_error": "Impossible de charger ceci pour le moment. Réessayez dans un instant."
+    },
+    "explain": {
+      "button": "Expliquer",
+      "definition": "Ce que c'est",
+      "formula": "Comment on le calcule",
+      "rule": "Règle générale (un repère, pas une loi)"
+    },
+    "cards": {
+      "eps": {
+        "title": "Bénéfice par action (BPA)",
+        "meaning": "Le bénéfice de chaque action au dernier trimestre, comparé à ce que les analystes attendaient.",
+        "definition": "Le bénéfice réalisé par l'entreprise, réparti entre toutes ses actions. En anglais : EPS.",
+        "formula": "Bénéfice net ÷ nombre d'actions",
+        "rule": "Dépasser ou manquer l'attente de quelques pourcents est courant. Regardez plusieurs trimestres, pas un seul."
+      },
+      "pe": {
+        "title": "P/E (ratio cours/bénéfice)",
+        "meaning": "Le nombre d'années de bénéfices qu'il faudrait pour récupérer le prix d'une action.",
+        "definition": "Combien de fois le bénéfice annuel par action le marché paie pour une action. À lire comme le nombre d'années de bénéfices pour récupérer sa mise.",
+        "formula": "Cours de l'action ÷ bénéfice par action (BPA)",
+        "rule": "Un P/E élevé signifie souvent que les investisseurs attendent une forte croissance ; un P/E bas peut traduire de faibles attentes ou des doutes. Comparez avec des entreprises similaires."
+      },
+      "revenue": {
+        "title": "Chiffre d'affaires",
+        "meaning": "L'argent que l'entreprise a encaissé en vendant ses produits ou ses services.",
+        "definition": "Tout ce que les clients ont payé à l'entreprise sur la période, avant de retirer le moindre coût. On dit aussi les ventes.",
+        "formula": "Prix de chaque vente × nombre de ventes",
+        "rule": "Un chiffre d'affaires en hausse n'est une bonne nouvelle que si le bénéfice suit. Comparez avec la même période l'an dernier."
+      },
+      "operating": {
+        "title": "Résultat d'exploitation",
+        "meaning": "Ce qu'il reste après les coûts de fonctionnement, avant intérêts et impôts.",
+        "definition": "Le bénéfice tiré de l'activité courante de l'entreprise.",
+        "formula": "Chiffre d'affaires − coûts d'exploitation. La marge est le résultat d'exploitation ÷ chiffre d'affaires.",
+        "rule": "Les marges varient beaucoup d'un secteur à l'autre. Comparez une entreprise à ses concurrentes."
+      },
+      "fcf": {
+        "title": "Flux de trésorerie disponible (FCF)",
+        "meaning": "La trésorerie qui reste après avoir payé le fonctionnement et l'entretien de l'activité.",
+        "definition": "L'argent entré, moins l'argent sorti pour faire tourner l'entreprise et acheter du matériel. C'est ce dont l'entreprise peut vraiment disposer.",
+        "formula": "Trésorerie d'exploitation − investissements en matériel et bâtiments",
+        "rule": "Une entreprise peut afficher un bénéfice mais peu de FCF, par exemple quand elle investit beaucoup. Regardez les deux."
+      },
+      "marketCap": {
+        "title": "Capitalisation boursière",
+        "meaning": "Ce que la bourse estime que toute l'entreprise vaut aujourd'hui.",
+        "definition": "Le prix d'une action multiplié par le nombre d'actions. C'est le prix de toute l'entreprise, pas son bénéfice.",
+        "formula": "Cours de l'action × nombre d'actions",
+        "rule": "Au-dessus d'environ 10 milliards, on parle souvent de grandes capitalisations. Les plus petites entreprises bougent en général davantage."
+      }
+    },
+    "eps": {
+      "expected": "Les analystes attendaient {value}",
+      "beat": "Au-dessus de l'attente de {pct}",
+      "miss": "En dessous de l'attente de {pct}",
+      "inline": "Conforme à l'attente"
+    },
+    "pe": {
+      "trailing": "Sur 12 mois passés",
+      "trailingHint": "Calculé sur les 12 derniers mois de bénéfice",
+      "forward": "Anticipé",
+      "forwardHint": "Calculé sur le bénéfice attendu par les analystes"
+    },
+    "revenue": {
+      "growth": "{pct} par rapport à un an plus tôt"
+    },
+    "operating": {
+      "margin": "Marge opérationnelle {pct}"
+    },
+    "chart": {
+      "title": "Graphique du cours",
+      "rangeLabel": "Période du graphique",
+      "kindLabel": "Type de graphique",
+      "kind": {
+        "area": "Courbe",
+        "candle": "Chandeliers"
+      },
+      "range": {
+        "1H": "1h",
+        "1D": "1j",
+        "1W": "1s",
+        "1M": "1m",
+        "1Y": "1a",
+        "3Y": "3a",
+        "5Y": "5a",
+        "ALL": "Tout"
+      },
+      "summary": "Cours sur {range} : de {from} à {to}, plus haut {high}, plus bas {low}.",
+      "overRange": "sur {range}",
+      "highLow": "Plus haut {high}, plus bas {low}",
+      "fallbackHour": "Le marché est fermé : le graphique montre la dernière heure de cotation.",
+      "fallbackDay": "Le marché est fermé : le graphique montre la dernière séance.",
+      "error": "Le graphique n'a pas pu être chargé.",
+      "retry": "Réessayer",
+      "unavailable": "Le graphique n'est pas disponible.",
+      "noBars": "Il n'y a pas encore assez d'historique de cours pour cette période.",
+      "rangeName": {
+        "1H": "1 heure",
+        "1D": "1 jour",
+        "1W": "1 semaine",
+        "1M": "1 mois",
+        "1Y": "1 an",
+        "3Y": "3 ans",
+        "5Y": "5 ans",
+        "ALL": "Tout l'historique"
+      }
+    },
+    "analysts": {
+      "title": "Ce que pensent les analystes",
+      "intro": "Ce sont les avis d'analystes professionnels, présentés comme des arguments à évaluer. Ce ne sont pas des conseils pour vous.",
+      "ratings": "Recommandations des analystes",
+      "targets": "Objectifs de cours",
+      "buy": "Acheter",
+      "hold": "Conserver",
+      "sell": "Vendre",
+      "count": "{count, plural, one {# analyste} other {# analystes}}",
+      "noRatings": "Aucune recommandation d'analyste pour cette entreprise.",
+      "targetCount": "{count, plural, one {# analyste} other {# analystes}}",
+      "noTarget": "Aucun objectif de cours exploitable pour cette entreprise.",
+      "now": "Actuel {price}",
+      "low": "Le plus bas",
+      "mean": "Moyen",
+      "high": "Le plus haut",
+      "meanAbove": "L'objectif moyen est {pct} au-dessus du cours actuel",
+      "meanBelow": "L'objectif moyen est {pct} en dessous du cours actuel",
+      "targetHidden": "Les objectifs de cours sont masqués : ils sont exprimés dans une autre devise que l'action, les comparer serait trompeur.",
+      "error": "Cette partie n'a pas pu s'afficher. Le reste de la page fonctionne."
+    },
+    "errors": {
+      "title": "Nous n'avons pas pu charger cette entreprise",
+      "notFoundTitle": "Nous n'avons pas trouvé « {symbol} »",
+      "notFoundBody": "Vérifiez l'orthographe, ou cherchez par nom d'entreprise.",
+      "unavailable": "La source de données ne répond pas pour le moment. Réessayez dans un instant.",
+      "rateLimited": "Trop de requêtes en même temps. Attendez quelques secondes et réessayez.",
+      "retry": "Réessayer",
+      "backToSearch": "Retour à la recherche"
+    },
+    "fundsNote": "Le bénéfice, le P/E et les autres chiffres clés décrivent une seule entreprise. Ceci est un fonds (il détient de nombreuses entreprises) : ils ne s'appliquent donc pas ici."
   }
 }
