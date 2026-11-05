@@ -117,7 +117,7 @@ a.text-link {
 }
 @media (prefers-reduced-motion: no-preference) {
   .logo-bar {
-    animation: logo-bar-rise 1.6s infinite both;
+    animation: logo-bar-rise 2.1s infinite both;
   }
   @keyframes logo-bar-rise {
     0% {
@@ -144,7 +144,7 @@ a.text-link {
 
 /*
  * Welcome splash: first page load of a browser session only (an inline script in the locale layout
- * sets html[data-splash="seen"] on later loads). Pure CSS: it fades itself out after ~1.2 s and
+ * sets html[data-splash="seen"] on later loads). Pure CSS: it fades itself out after ~1.8 s and
  * never blocks input. Skipped entirely for reduced motion.
  */
 .splash {
@@ -159,7 +159,7 @@ a.text-link {
 }
 @media (prefers-reduced-motion: no-preference) {
   .splash {
-    animation: splash-out 0.4s ease-out 1.2s forwards;
+    animation: splash-out 0.45s ease-out 1.8s forwards;
   }
   @keyframes splash-out {
     to {

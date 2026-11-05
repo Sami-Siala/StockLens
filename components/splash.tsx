@@ -1,7 +1,7 @@
 import { AnimatedWordmark } from "./animated-wordmark";
 
 /**
- * ~1 s welcome animation on the first page load of a browser session. Server-rendered and
+ * ~2 s welcome animation on the first page load of a browser session. Server-rendered and
  * CSS-driven (see `.splash` in globals.css), so it shows before any JS loads and never blocks
  * input. The tiny inline script marks later loads as "seen" so the splash stays out of the way.
  */

@@ -70,7 +70,7 @@ export function AnimatedWordmark({
             top: pct(b.y, H),
             width: pct(b.w, W),
             height: pct(b.h, H),
-            animationDelay: `${(b.n - 1) * 0.16}s`,
+            animationDelay: `${(b.n - 1) * 0.2}s`,
           }}
         />
       ))}

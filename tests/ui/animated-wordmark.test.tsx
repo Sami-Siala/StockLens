@@ -17,7 +17,7 @@ describe("AnimatedWordmark", () => {
     const delays = [...html.matchAll(/animation-delay:([\d.]+)s/g)].map((m) =>
       Number(m[1]),
     );
-    expect(delays).toEqual([0, 0.16, 0.32]);
+    expect(delays).toEqual([0, 0.2, 0.4]);
   });
 
   it("is decorative unless given a label", () => {
