@@ -1,0 +1,5 @@
+Lectures
+Assets
+soak-log.jsonl
+.env*
+!.env.example

@@ -15,6 +15,8 @@ const LOG = process.env.SOAK_LOG ?? "soak-log.jsonl";
 const SYMBOLS = (process.env.SOAK_SYMBOLS ?? "AAPL,MC.PA,7203.T").split(",");
 const INTERVAL_MS = Number(process.env.SOAK_INTERVAL_MIN ?? "5") * 60_000;
 const PASS_THRESHOLD = 0.02;
+// Minimum observation window for a verdict. PLAN says 3+ days; override for a faster read.
+const MIN_DAYS = Number(process.env.SOAK_MIN_HOURS ?? "72") / 24;
 
 interface Row {
   at: string;
@@ -45,10 +47,10 @@ function report(): void {
     ? (Date.parse(rows.at(-1)!.at) - Date.parse(rows[0].at)) / 864e5
     : 0;
   console.log(
-    rate < PASS_THRESHOLD && days >= 3
-      ? `VERDICT: PASS (< ${PASS_THRESHOLD * 100} % over ${days.toFixed(1)} days)`
-      : days < 3
-        ? `VERDICT: INCONCLUSIVE (only ${days.toFixed(1)} of 3+ days so far)`
+    rate < PASS_THRESHOLD && days >= MIN_DAYS
+      ? `VERDICT: PASS (< ${PASS_THRESHOLD * 100} % over ${(days * 24).toFixed(1)} h)`
+      : days < MIN_DAYS
+        ? `VERDICT: INCONCLUSIVE (only ${(days * 24).toFixed(1)} of ${(MIN_DAYS * 24).toFixed(0)} h so far)`
         : `VERDICT: FAIL -> Plan B (PLAN §3.6)`,
   );
 }
