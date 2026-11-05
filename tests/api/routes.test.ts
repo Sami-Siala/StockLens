@@ -51,7 +51,7 @@ describe("GET /api/stock/[symbol]", () => {
     expect(res.headers.get("cache-control")).toMatch(/no-store/);
     const body = (await res.json()) as StockSnapshot;
     expect(body.meta).toMatchObject({
-      contractVersion: "0.3.0",
+      contractVersion: "0.3.1",
       source: "yahoo",
       stale: false,
     });

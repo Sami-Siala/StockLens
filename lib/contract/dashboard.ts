@@ -10,10 +10,11 @@ import type { PriceSubunit } from "./market";
 import type { ResponseMeta } from "./stock";
 
 /*
- * Home-dashboard contract (v0.3.0, ADDITIVE over v0.2.0; PLAN §4.3).
- * Two cheap batch endpoints feed every tile:
+ * Home-dashboard contract (v0.3.0, ADDITIVE over v0.2.0; PLAN §4.3; `/api/ticker` added in v0.3.1).
+ * Cheap batch endpoints feed every tile:
  *   GET /api/quotes?symbols=AAPL,MC.PA,7203.T   -> QuotesResponse   (watchlist, starters, movers, sectors)
  *   GET /api/market                              -> MarketResponse   (status chips + index strip)
+ *   GET /api/ticker                              -> TickerResponse   (scrolling band, v0.3.1: no sparklines)
  * Same conventions as the rest of the contract: fractions for percentages, ISO timestamps,
  * `Metric<T>` for everything that can be missing, major currency units.
  */
@@ -141,4 +142,64 @@ export interface MarketOverview {
 /** GET /api/market. One cached batch (about 60 s); `meta.stale` is true when any item is stale. */
 export interface MarketResponse extends MarketOverview {
   meta: ResponseMeta;
+}
+
+/* ------------------------------------------------------------- ticker band (v0.3.1) */
+
+/** Where an instrument lives, for grouping in the band. `other` = VIX and the macro trio (EUR/USD, gold, US 10-year yield). */
+export type TickerRegion = "americas" | "europe" | "asia_pacific" | "other";
+
+/**
+ * What kind of number a ticker item is; `IndexKind` plus `volatility`:
+ *  - `volatility` the VIX: a level in points (28.18), no currency. Both `change` (points) and `changePercent`
+ *                 are meaningful; show them like an index.
+ * Format `index` / `fx` / `yield` / `future` exactly as documented on `IndexKind` (for `yield` show `change`
+ * in percentage points, never `changePercent`).
+ */
+export type TickerKind = IndexKind | "volatility";
+
+/**
+ * One item of the band. `ok` means price/change/asOf are filled in; `unavailable` means Yahoo did not
+ * serve it (failed call without a stale copy, unknown symbol, or no price): every number is `null`,
+ * `marketState` is `UNKNOWN`. The route never fails because one symbol did: render the item as "n/a"
+ * or skip it.
+ */
+export interface TickerItem {
+  /** Stable machine id ("sp500", "cac40", "us10y"): key for i18n and React lists. Never changes once shipped. */
+  id: string;
+  /** Our own short English label ("S&P 500", "Euro Stoxx 50"), not Yahoo's padded name. */
+  label: string;
+  region: TickerRegion;
+  kind: TickerKind;
+  /** Yahoo symbol, e.g. "^GSPC". */
+  symbol: string;
+  /** Level (points, rate or yield in %, or price for the gold future). `null` when `status` is `unavailable`. */
+  price: number | null;
+  /** Absolute change vs. previous close in the unit of `price` (percentage points for `yield`). */
+  change: number | null;
+  /** Fraction, 0.0058 = +0.58 %. For `yield` do NOT display it (a relative move of the rate misleads). */
+  changePercent: number | null;
+  /**
+   * Money currency of `price`; only the gold future has one ("USD"). `null` for indices, FX, yields
+   * and VIX (points / rates are not money). Additive extra that makes the gold item unambiguous.
+   */
+  priceCurrency: CurrencyCode | null;
+  marketState: MarketState;
+  /** Per-exchange delay from Yahoo's `exchangeDataDelayedBy`. */
+  delayMinutes: number | null;
+  /** When Yahoo last traded/updated this price. */
+  asOf: IsoTimestamp | null;
+  status: "ok" | "unavailable";
+  /** True when this item came from the stale copy because Yahoo failed. */
+  stale: boolean;
+}
+
+/**
+ * GET /api/ticker. `items` is in FIXED display order (Americas, Europe, Asia-Pacific, other), the same
+ * on every call, whatever failed. `meta.stale` is true when ANY item is stale; `meta.fetchedAt` is the
+ * oldest item. One batched upstream call per ~60 s for the whole class; never a chart call.
+ */
+export interface TickerResponse {
+  meta: ResponseMeta;
+  items: TickerItem[];
 }

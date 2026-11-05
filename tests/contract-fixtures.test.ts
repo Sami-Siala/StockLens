@@ -112,7 +112,7 @@ describe("contract v0.2 additions (all additive)", () => {
   it("announces a v0.2+ contract and keeps every v0.1 field", () => {
     for (const symbol of symbols) {
       const s = load<StockSnapshot>(symbol, "stock.json");
-      expect(["0.2.0", "0.3.0"]).toContain(s.meta.contractVersion);
+      expect(["0.2.0", "0.3.0", "0.3.1"]).toContain(s.meta.contractVersion);
       for (const k of [
         "listing",
         "quote",

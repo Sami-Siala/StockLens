@@ -17,6 +17,10 @@
  */
 
 /**
+ * v0.3.1 (market ticker band) is ADDITIVE over v0.3.0: `GET /api/ticker` -> `TickerResponse` (`TickerItem`,
+ * `TickerRegion`, `TickerKind`, in `dashboard.ts`). Nothing was removed or renamed; every response now
+ * reports `meta.contractVersion: "0.3.1"`.
+ *
  * v0.3.0 (Step 3b, home dashboard) is ADDITIVE over v0.2.0: new file `dashboard.ts` (`QuoteLite`, `QuotesResponse`,
  * `MarketResponse`...) for `GET /api/quotes` and `GET /api/market`. Nothing was removed or renamed; existing
  * responses only change their `meta.contractVersion` to "0.3.0".
@@ -25,7 +29,7 @@
  * `ChartSeries.marketClosed`, optional `ResponseMeta.degradedSections`, two new `ApiError` codes
  * (`forbidden`, `unauthorized`) and an optional `HealthReport` detail. Nothing was removed or renamed.
  */
-export type ContractVersion = "0.1.0" | "0.2.0" | "0.3.0";
+export type ContractVersion = "0.1.0" | "0.2.0" | "0.3.0" | "0.3.1";
 
 /** ISO-8601 UTC timestamp, e.g. "2026-11-05T19:23:56.000Z". */
 export type IsoTimestamp = string;

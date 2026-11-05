@@ -10,6 +10,8 @@
  *   market.json           GET /api/market as recorded: every market CLOSED (after the US close)
  *   market-open.json      the same with the US session OPEN (synthetic: chip + two index states edited)
  *   market-degraded.json  one index failed (`provider_error`) and one served stale
+ *   ticker.json           GET /api/ticker (v0.3.1): 25 items from the real recording; ^BVSP edited to
+ *                         `unavailable` and ^HSI to `stale`, to show both failure shapes
  * Deterministic (fixed "now"), so a re-run only produces a diff when the normaliser changes.
  */
 import "./shim-server-only";
@@ -19,6 +21,7 @@ import type {
   MarketResponse,
   QuoteEntry,
   QuotesResponse,
+  TickerResponse,
 } from "../lib/contract";
 import { MemoryStore } from "../lib/providers/cache/memory";
 import { ProviderError } from "../lib/providers/errors";
@@ -101,8 +104,32 @@ async function main() {
   // use ^GSPC/^FCHI/^N225); only an unusable reference index switches a chip to the schedule.
   await write("market-degraded.json", degraded);
 
+  // ---- ticker.json (contract v0.3.1): real batch, then two hand-edited failure shapes ---------
+  const tickerService = new DataService({
+    provider: new YahooProvider(new FakeYahooClient(), () => new Date(clock.t)),
+    store: new MemoryStore(() => clock.t),
+    now: () => clock.t,
+  });
+  const ticker: TickerResponse = await tickerService.getTicker();
+  ticker.meta.source = "fixture";
+  const gap = ticker.items.find((i) => i.symbol === "^BVSP")!;
+  Object.assign(gap, {
+    price: null,
+    change: null,
+    changePercent: null,
+    priceCurrency: null,
+    marketState: "UNKNOWN",
+    delayMinutes: null,
+    asOf: null,
+    status: "unavailable",
+    stale: false,
+  });
+  ticker.items.find((i) => i.symbol === "^HSI")!.stale = true;
+  ticker.meta.stale = true;
+  await write("ticker.json", ticker);
+
   console.log(
-    `quotes.json ${quotes.entries.length} entries, market.json ${market.indices.length} items`,
+    `ticker.json ${ticker.items.length} items; quotes.json ${quotes.entries.length} entries, market.json ${market.indices.length} items`,
   );
 }
 main().catch((e) => {

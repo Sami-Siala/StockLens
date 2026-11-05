@@ -5,7 +5,8 @@
  *   npx tsx scripts/smoke.ts                       # in-process: real Yahoo through our provider + service
  *   npx tsx scripts/smoke.ts --base http://localhost:3000   # over HTTP against a running app (next start / Vercel)
  *   npx tsx scripts/smoke.ts AAPL MC.PA            # chosen symbols
- *   npx tsx scripts/smoke.ts --dashboard          # ONLY the home-dashboard endpoints (/api/market, /api/quotes)
+ *   npx tsx scripts/smoke.ts --dashboard          # ONLY the home-dashboard endpoints (/api/ticker, /api/market, /api/quotes)
+ *   npx tsx scripts/smoke.ts --ticker             # ONLY /api/ticker (cold load; prints the exact upstream call count)
  *   options: --delay 800 (ms between calls, default 700) --quiet
  *
  * Prints which fields came back for each ticker. Exit code 1 when a hard expectation fails
@@ -19,11 +20,13 @@ import type {
   MarketResponse,
   QuotesResponse,
   StockSnapshot,
+  TickerResponse,
 } from "../lib/contract";
 import { MemoryStore } from "../lib/providers/cache/memory";
 import { DataService } from "../lib/providers/service";
 import { YahooProvider } from "../lib/providers/yahoo";
 import { createYahooClient } from "../lib/providers/yahoo-client";
+import { TICKER_SYMBOLS } from "../lib/providers/ticker-config";
 import { extractFields } from "./availability";
 
 const DEFAULT_SYMBOLS = [
@@ -49,7 +52,8 @@ const opt = (name: string) => {
 const base = opt("base")?.replace(/\/$/, "");
 const delay = Number(opt("delay") ?? 700);
 const quiet = flag("quiet");
-const dashboardOnly = flag("dashboard");
+const tickerOnly = flag("ticker");
+const dashboardOnly = flag("dashboard") || tickerOnly;
 const valueArgs = new Set([opt("base"), opt("delay")]);
 const symbols = args.filter((a) => !a.startsWith("--") && !valueArgs.has(a));
 const SYMBOLS = symbols.length ? symbols : DEFAULT_SYMBOLS;
@@ -72,6 +76,7 @@ interface Api {
   health(): Promise<{ status: string; providers: unknown[] }>;
   quotes(symbols: string[]): Promise<QuotesResponse>;
   market(): Promise<MarketResponse>;
+  ticker(): Promise<TickerResponse>;
 }
 
 function httpApi(root: string): Api {
@@ -96,6 +101,7 @@ function httpApi(root: string): Api {
     quotes: (s) =>
       get(`/api/quotes?symbols=${encodeURIComponent(s.join(","))}`),
     market: () => get("/api/market"),
+    ticker: () => get("/api/ticker"),
   };
 }
 
@@ -130,6 +136,7 @@ function inProcessApi(): Api {
         s.map((symbol) => ({ symbol: symbol.toUpperCase(), valid: true })),
       ),
     market: () => service.getMarket(),
+    ticker: () => service.getTicker(),
   };
 }
 
@@ -139,8 +146,46 @@ async function timed<T>(fn: () => Promise<T>): Promise<[T, number]> {
   return [v, Date.now() - t0];
 }
 
-/** The home-dashboard endpoints (contract v0.3.0). */
+/** GET /api/ticker (contract v0.3.1): every configured symbol must come back with a price. */
+async function tickerSmoke(api: Api) {
+  console.log("\n== /api/ticker");
+  try {
+    const [t, ms] = await timed(() => api.ticker());
+    const ok = t.items.filter((i) => i.status === "ok");
+    console.log(
+      `  ${ms} ms | stale=${t.meta.stale} | ${ok.length}/${t.items.length} ok | contract ${t.meta.contractVersion}`,
+    );
+    if (t.meta.contractVersion !== "0.3.1")
+      fail(`ticker: unexpected contract ${t.meta.contractVersion}`);
+    if (t.items.map((i) => i.symbol).join() !== TICKER_SYMBOLS.join())
+      fail("ticker: items are not in config order");
+    for (const i of t.items) {
+      if (i.status !== "ok") {
+        fail(`ticker ${i.symbol} (${i.label}): unavailable`);
+        continue;
+      }
+      console.log(
+        `  ${i.symbol.padEnd(11)} ${i.region.padEnd(12)} ${i.kind.padEnd(10)} ${String(i.price).padStart(10)} ${(i.priceCurrency ?? "-").padEnd(3)} chg ${((i.changePercent ?? NaN) * 100).toFixed(2).padStart(6)}%  ${i.marketState.padEnd(7)} delay ${i.delayMinutes}m  ${i.label}`,
+      );
+      if (i.changePercent === null || i.delayMinutes === null)
+        console.log(`    note: ${i.symbol} has no change/delay`);
+    }
+  } catch (e) {
+    fail(`ticker: ${(e as Error).message}`);
+  }
+}
+
+/** The home-dashboard endpoints (contract v0.3.0, ticker v0.3.1). */
 async function dashboardSmoke(api: Api) {
+  const t0 = { ...upstream };
+  await tickerSmoke(api);
+  if (!base)
+    console.log(
+      `  cold ticker upstream calls: ${(upstream.quotes ?? 0) - (t0.quotes ?? 0)} quote() batch + ${(upstream.chart ?? 0) - (t0.chart ?? 0)} chart() (expected 1 + 0)`,
+    );
+  if (tickerOnly) return;
+  await sleep(delay);
+
   console.log("\n== /api/market");
   try {
     const [m, ms] = await timed(() => api.market());
@@ -152,7 +197,7 @@ async function dashboardSmoke(api: Api) {
         )
         .join(" ")}`,
     );
-    if (m.meta.contractVersion !== "0.3.0")
+    if (m.meta.contractVersion !== "0.3.1")
       fail(`market: unexpected contract ${m.meta.contractVersion}`);
     if (m.status.length !== 3)
       fail(`market: expected 3 status chips, got ${m.status.length}`);
@@ -239,7 +284,7 @@ async function main() {
       console.log(
         `  stock ${ms} ms | ${s.listing.name} | ${s.listing.quoteType} | ${q ? `${q.price.amount} ${q.price.currency} (${q.marketState}, delay ${q.delayMinutes} min)` : "NO QUOTE"} | stale=${s.meta.stale}`,
       );
-      if (s.meta.contractVersion !== "0.3.0")
+      if (s.meta.contractVersion !== "0.3.1")
         fail(`${symbol}: unexpected contract ${s.meta.contractVersion}`);
       if (CORE.has(symbol) && !q) fail(`${symbol}: core ticker has no quote`);
       if (s.meta.degradedSections?.length)

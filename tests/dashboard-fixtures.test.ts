@@ -1,12 +1,15 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import type {
   MarketResponse,
   Metric,
   QuoteEntry,
   QuotesResponse,
+  TickerResponse,
 } from "@/lib/contract";
+
+vi.mock("server-only", () => ({}));
 
 const DIR = join(__dirname, "fixtures/contract/_dashboard");
 const load = <T>(file: string): T =>
@@ -117,5 +120,41 @@ describe("dashboard contract fixtures (v0.3.0)", () => {
     });
     expect(degraded.indices.find((i) => i.symbol === "^TNX")!.stale).toBe(true);
     expect(degraded.meta.stale).toBe(true);
+  });
+});
+
+describe("ticker contract fixture (v0.3.1)", () => {
+  const ticker = load<TickerResponse>("ticker.json");
+
+  it("has 25 items in config order, one unavailable and one stale", async () => {
+    const { TICKER_SYMBOLS } = await import("@/lib/providers/ticker-config");
+    expect(ticker.meta.contractVersion).toBe("0.3.1");
+    expect(ticker.meta.stale).toBe(true);
+    expect(ticker.items.map((i) => i.symbol)).toEqual(TICKER_SYMBOLS);
+    expect(ticker.items.filter((i) => i.status === "unavailable")).toHaveLength(
+      1,
+    );
+    expect(ticker.items.filter((i) => i.stale)).toHaveLength(1);
+  });
+
+  it("follows the unit rules: fractions, no NaN, no currency on points, null numbers when unavailable", () => {
+    expect(JSON.stringify(ticker)).not.toMatch(/NaN|undefined/);
+    for (const i of ticker.items) {
+      if (i.status === "unavailable") {
+        expect([i.price, i.change, i.changePercent, i.asOf]).toEqual([
+          null,
+          null,
+          null,
+          null,
+        ]);
+        expect(i.marketState).toBe("UNKNOWN");
+        continue;
+      }
+      expect(Number.isFinite(i.price!), i.id).toBe(true);
+      expect(Math.abs(i.changePercent ?? 0), i.id).toBeLessThan(1);
+      expect(i.priceCurrency, i.id).toBe(i.kind === "future" ? "USD" : null);
+    }
+    expect(ticker.items.filter((i) => i.kind === "yield")).toHaveLength(1);
+    expect(ticker.items.filter((i) => i.kind === "volatility")).toHaveLength(1);
   });
 });

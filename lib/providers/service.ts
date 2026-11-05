@@ -6,6 +6,7 @@ import type {
   QuoteEntry,
   QuoteLite,
   QuotesResponse,
+  TickerResponse,
   ChartResponse,
   DataSource,
   HealthReport,
@@ -34,9 +35,11 @@ import {
   MARKET_STRIP,
   sparklineMetric,
 } from "./normalize/lite";
+import { tickerItem } from "./normalize/ticker";
+import { TICKER_SPECS, TICKER_SYMBOLS } from "./ticker-config";
 import type { CoreBundle, DetailBundle, MarketDataProvider } from "./types";
 
-export const CONTRACT_VERSION = "0.3.0" as const;
+export const CONTRACT_VERSION = "0.3.1" as const;
 
 const MIN = 60;
 const HOUR = 3600;
@@ -50,6 +53,8 @@ export const TTL = {
   core: { softTtl: 45, staleTtl: 3 * DAY },
   /** Index strip + status chips: one batch per ~60 s for the whole class. */
   market: { softTtl: 60, staleTtl: 3 * DAY },
+  /** Ticker band: same `core:SYMBOL` entries, no sparklines, one batch per ~60 s. */
+  ticker: { softTtl: 60, staleTtl: 3 * DAY },
   /** Dashboard sparklines: daily closes only change slowly, so much longer than the price. */
   spark: { softTtl: 30 * MIN, staleTtl: 7 * DAY },
   detail: { softTtl: 12 * HOUR, staleTtl: 7 * DAY },
@@ -207,18 +212,12 @@ export class DataService {
   }
 
   /**
-   * Dashboard batch: cached `core:SYMBOL` entries (shared with the stock page) for everything
-   * fresh, ONE batched quote() for the rest, then one daily `chart()` per symbol whose sparkline
-   * is not cached (30 min). Failures stay per symbol.
+   * Cached `core:SYMBOL` entries (shared with the stock page) for everything fresh, ONE batched
+   * quote() for the rest (coalesced per key). Failures stay per symbol. No chart calls.
    */
-  private async liteBatch(
-    symbols: string[],
-    policy: CachePolicy,
-  ): Promise<Map<string, LiteResult>> {
-    const deps = this.cacheDeps();
-    const asOf = new Date(this.now());
-    const cores = await cachedBatch<CoreBundle>(
-      deps,
+  private coreBatch(symbols: string[], policy: CachePolicy) {
+    return cachedBatch<CoreBundle>(
+      this.cacheDeps(),
       symbols.map((s) => `core:${s}`),
       policy,
       async (keys) =>
@@ -229,6 +228,19 @@ export class DataService {
               new Map([...m].map(([sym, v]) => [`core:${sym}`, v] as const)),
           ),
     );
+  }
+
+  /**
+   * Dashboard batch: `coreBatch`, then one daily `chart()` per symbol whose sparkline is not
+   * cached (30 min).
+   */
+  private async liteBatch(
+    symbols: string[],
+    policy: CachePolicy,
+  ): Promise<Map<string, LiteResult>> {
+    const deps = this.cacheDeps();
+    const asOf = new Date(this.now());
+    const cores = await this.coreBatch(symbols, policy);
 
     // Sparklines only for symbols that actually have a quote (no chart calls for unknown tickers).
     const live = symbols.filter((s) => {
@@ -375,6 +387,29 @@ export class DataService {
       ),
       status: buildStatus(refs, new Date(this.now())),
       indices,
+    };
+  }
+
+  /**
+   * GET /api/ticker: every configured index/macro symbol from the shared `core:SYMBOL` cache and
+   * ONE batched quote() for whatever is not fresh. No sparklines, no chart calls. Items keep the
+   * config order; a failed symbol is an inline `unavailable` item (or its stale copy).
+   */
+  async getTicker(): Promise<TickerResponse> {
+    const cores = await this.coreBatch(TICKER_SYMBOLS, TTL.ticker);
+    const at = new Date(this.now());
+    const rows = TICKER_SPECS.map((spec) =>
+      tickerItem(spec, cores.get(`core:${spec.symbol}`), at),
+    );
+    const times = rows.flatMap((r) =>
+      r.fetchedAt === null ? [] : [r.fetchedAt],
+    );
+    return {
+      meta: this.meta(
+        times.length ? Math.min(...times) : this.now(),
+        rows.some((r) => r.item.stale),
+      ),
+      items: rows.map((r) => r.item),
     };
   }
 

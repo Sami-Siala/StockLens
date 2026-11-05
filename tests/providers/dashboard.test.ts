@@ -189,7 +189,7 @@ describe("GET /api/quotes logic: DataService.getQuotes", () => {
   it("returns tile-sized quotes with fractions, major currency and a sparkline", async () => {
     const { service } = dash();
     const r = await service.getQuotes(items(["AAPL", "SHEL.L", "SPY"]));
-    expect(r.meta).toMatchObject({ contractVersion: "0.3.0", stale: false });
+    expect(r.meta).toMatchObject({ contractVersion: "0.3.1", stale: false });
     const aapl = r.entries[0].quote.value!;
     expect(r.entries[0].status).toBe("ok");
     expect(aapl).toMatchObject({
@@ -464,7 +464,7 @@ describe("GET /api/market logic: DataService.getMarket", () => {
   it("returns the 8-item strip with the right kinds and no misleading currencies", async () => {
     const { service } = dash();
     const r: MarketResponse = await service.getMarket();
-    expect(r.meta).toMatchObject({ contractVersion: "0.3.0", stale: false });
+    expect(r.meta).toMatchObject({ contractVersion: "0.3.1", stale: false });
     expect(r.indices.map((i) => i.symbol)).toEqual([
       "^GSPC",
       "^IXIC",

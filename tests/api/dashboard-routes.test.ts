@@ -1,5 +1,10 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { ApiError, MarketResponse, QuotesResponse } from "@/lib/contract";
+import type {
+  ApiError,
+  MarketResponse,
+  QuotesResponse,
+  TickerResponse,
+} from "@/lib/contract";
 import { setStoreForTests } from "@/lib/providers/cache";
 import { ResilientStore } from "@/lib/providers/cache/resilient";
 import { ProviderError } from "@/lib/providers/errors";
@@ -10,6 +15,7 @@ vi.mock("server-only", () => ({}));
 
 const { GET: quotesGET } = await import("@/app/api/quotes/route");
 const { GET: marketGET } = await import("@/app/api/market/route");
+const { GET: tickerGET } = await import("@/app/api/ticker/route");
 
 const g = globalThis as unknown as { __stocklensService?: unknown };
 const ORIGIN = "http://localhost:3000";
@@ -43,7 +49,7 @@ describe("GET /api/quotes", () => {
     expect(res.headers.get("cache-control")).toMatch(/no-store/);
     const body = (await res.json()) as QuotesResponse;
     expect(body.meta).toMatchObject({
-      contractVersion: "0.3.0",
+      contractVersion: "0.3.1",
       source: "yahoo",
       stale: false,
     });
@@ -128,7 +134,7 @@ describe("GET /api/market", () => {
     expect(res.status).toBe(200);
     expect(res.headers.get("x-robots-tag")).toMatch(/noindex/);
     const body = (await res.json()) as MarketResponse;
-    expect(body.meta.contractVersion).toBe("0.3.0");
+    expect(body.meta.contractVersion).toBe("0.3.1");
     expect(body.indices).toHaveLength(8);
     expect(body.status).toHaveLength(3);
     expect(client.calls.quotes).toBe(1);
@@ -149,5 +155,42 @@ describe("GET /api/market", () => {
       true,
     );
     expect(body.status.every((s) => s.basis === "schedule")).toBe(true);
+  });
+});
+
+describe("GET /api/ticker", () => {
+  it("returns the v0.3.1 band: 25 items, one batched quote(), no chart call, noindex + no-store", async () => {
+    const res = await tickerGET(req("/api/ticker"));
+    expect(res.status).toBe(200);
+    expect(res.headers.get("x-robots-tag")).toMatch(/noindex/);
+    expect(res.headers.get("cache-control")).toMatch(/no-store/);
+    const body = (await res.json()) as TickerResponse;
+    expect(body.meta.contractVersion).toBe("0.3.1");
+    expect(body.items).toHaveLength(25);
+    expect(body.items[0]).toMatchObject({
+      id: "sp500",
+      label: "S&P 500",
+      region: "americas",
+      kind: "index",
+      symbol: "^GSPC",
+      status: "ok",
+    });
+    expect(client.calls.quotes).toBe(1);
+    expect(client.calls.chart).toBe(0);
+  });
+
+  it("guards: 403 without an Origin; 401 without the club cookie", async () => {
+    expect((await tickerGET(req("/api/ticker", {}))).status).toBe(403);
+    process.env.CLUB_CODE = "x";
+    expect((await tickerGET(req("/api/ticker"))).status).toBe(401);
+  });
+
+  it("when Yahoo is down and nothing is cached: still 200, every item unavailable", async () => {
+    client.opts.fail = { quotes: new ProviderError("upstream", "429") };
+    const res = await tickerGET(req("/api/ticker"));
+    expect(res.status).toBe(200);
+    const body = (await res.json()) as TickerResponse;
+    expect(body.items).toHaveLength(25);
+    expect(body.items.every((i) => i.status === "unavailable")).toBe(true);
   });
 });

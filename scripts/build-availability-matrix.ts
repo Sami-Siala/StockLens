@@ -154,6 +154,30 @@ only the gold future keeps \`USD\`.
 
 Cost of one dashboard load (market + a 5-symbol list) measured live: **2 batched \`quote()\` + 13 \`chart()\` = 15 upstream calls**, then **0** for the next
 45-60 s and **2 \`quote()\`** per minute afterwards (sparklines live 30 min). Every symbol is fetched at most once, however many students ask.
+
+## Market ticker band: \`GET /api/ticker\` (contract v0.3.1)
+
+One cheap endpoint for the scrolling band: **25 items** in a fixed order (Americas, Europe, Asia-Pacific, then VIX and the macro trio), **no sparklines**.
+
+- **Upstream cost:** one batched \`quote()\` for every symbol that is not fresh and **zero \`chart()\` calls**. Cold load measured live: **1 \`quote()\` + 0 \`chart()\`**. Price entries are the same \`core:SYMBOL\` cache entries as the stock page, the watchlist and \`/api/market\`: 60 s soft TTL, 3-day stale copy, one batch for the whole class (15 parallel cold requests = 1 call, proven in \`tests/providers/ticker.test.ts\`).
+- **Failures stay per item:** a symbol Yahoo omits or fails on is \`status: "unavailable"\` with every number \`null\` and \`marketState: "UNKNOWN"\`; one served from the stale copy is \`status: "ok"\` with \`stale: true\`. The route itself only fails if the response cannot be built at all (it returns 200 with 25 unavailable items when Yahoo is down and nothing is cached).
+- **Formatting by \`kind\`** follows \`IndexKind\` (points / rate / yield / futures) plus \`volatility\` (the VIX, a level in points; both \`change\` and \`changePercent\` are meaningful). Only the gold future carries \`priceCurrency\` (\`USD\`); every other item is \`null\`.
+- The list lives in \`lib/providers/ticker-config.ts\` (id, our own short label, region, kind, symbol). Overlap with \`/api/market\` is deliberate: whoever asks first fetches, the other reads the cache (if both are cold in the same instant the overlapping 8 are fetched once and the rest in a second batch).
+
+### Ticker symbols: every one verified live on 2026-11-05
+
+All 25 symbols were returned by **one** batched Yahoo \`quote()\` with a price. **None failed; no substitute is needed.**
+
+| Region          | Symbols (label)                                                                                                                                                                      |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| \`americas\`      | \`^GSPC\` S&P 500, \`^DJI\` Dow Jones, \`^IXIC\` Nasdaq Composite, \`^NDX\` Nasdaq 100, \`^RUT\` Russell 2000 (15 min delay), \`^GSPTSE\` S&P/TSX, \`^BVSP\` Bovespa (15 min delay)                  |
+| \`europe\`        | \`^FCHI\` CAC 40, \`^GDAXI\` DAX, \`^FTSE\` FTSE 100, \`^STOXX50E\` Euro Stoxx 50, \`^IBEX\` IBEX 35, \`FTSEMIB.MI\` FTSE MIB, \`^SSMI\` SMI, \`^AEX\` AEX                                            |
+| \`asia_pacific\`  | \`^N225\` Nikkei 225, \`^HSI\` Hang Seng, \`000001.SS\` Shanghai Composite, \`^KS11\` KOSPI, \`^NSEI\` Nifty 50, \`^AXJO\` ASX 200                                                                |
+| \`other\`         | \`^VIX\` VIX (\`volatility\`), \`EURUSD=X\` EUR/USD (\`fx\`), \`GC=F\` Gold (\`future\`, USD), \`^TNX\` US 10Y yield (\`yield\`, percentage-point \`change\`)                                            |
+
+Quirks seen live: all are \`INDEX\` except EUR/USD (\`CURRENCY\`) and gold (\`FUTURE\`); Yahoo's own names are padded or odd (\`DAX                           P\`, \`SMI PR\`, \`EURO STOXX 50                 I\`), which is why the contract carries our own \`label\`.
+Exchange delays are 0 (US, TSX, Euro Stoxx 50, AEX, FX), 10 (gold), 15 (most others) or 20 minutes (Nikkei, KOSPI, ASX). Yahoo reports \`PREPRE\` / \`POSTPOST\` outside sessions: both are mapped to \`CLOSED\`.
+Outside US hours Yahoo can report \`PRE\` for ASX 200 and \`POST\` for the VIX/US indices: the band shows what Yahoo says, per item.
 `;
   // Same formatting as `npm run format`, so a regenerated file never shows up as a format diff.
   await writeFile(

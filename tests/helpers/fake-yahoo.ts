@@ -95,11 +95,23 @@ export class FakeYahooClient implements YahooClient {
     return "error" in q ? undefined : q;
   }
 
-  /** Replays the ONE recorded batch (tests/fixtures/raw/_dashboard/quotes.json); unknown symbols are omitted, like Yahoo. */
+  /** Replays the recorded batches (tests/fixtures/raw/_dashboard/quotes.json + ticker-quotes.json); unknown symbols are omitted, like Yahoo. */
   async quotes(symbols: string[]) {
     await this.tick("quotes");
     this.batches.push([...symbols]);
-    const rows = await readDashboard<Array<{ symbol?: string }>>("quotes");
+    type Row = { symbol?: string };
+    // quotes.json (dashboard recording) first, then ticker-quotes.json (the 25 ticker symbols);
+    // the first row for a symbol wins.
+    const seen = new Set<string>();
+    const rows = [
+      ...(await readDashboard<Row[]>("quotes")),
+      ...(await readDashboard<Row[]>("ticker-quotes")),
+    ].filter((r) => {
+      const k = r.symbol?.toUpperCase();
+      if (!k || seen.has(k)) return false;
+      seen.add(k);
+      return true;
+    });
     const wanted = new Set(symbols.map((s) => s.toUpperCase()));
     const omit = new Set((this.opts.omit ?? []).map((s) => s.toUpperCase()));
     return rows.filter(
