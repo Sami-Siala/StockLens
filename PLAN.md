@@ -1,6 +1,6 @@
 # StockLens — Project Plan
 
-> Status: **DRAFT v3** (v2 added the 6-step plan §11 and agents §12; v3 applies the independent plan review: AI terms, Upstash in v1, ownership fixes, schedule tiers) — 2026-11-05. Written after a scoping Q&A and a technical spike (see §3.3).
+> Status: **DRAFT v4** (v2 added the 6-step plan §11 and agents §12; v3 applied the independent plan review; **v4 adds the home dashboard (§4.3, Step 3b) and Phase 2 accounts, groups & paper trading (§13)**) — 2026-11-05. Written after a scoping Q&A and a technical spike (see §3.3).
 > Items marked ⚠️ are risks or things still to confirm; items marked ❓ are open questions for you.
 
 ## 1. Vision
@@ -20,7 +20,9 @@ A free, beginner-friendly, modern web app where a high-school student can look u
 | Data | **Yahoo Finance via `yahoo-finance2`**, behind a server-side cache, with a stale cache + snapshot file as the real degraded mode; optional **US-only** quote fallback via Finnhub / Twelve Data free keys (to be tested in Step 1). SEC EDGAR is **dropped from v1** (heavy XBRL mapping, US-only, no analyst data) |
 | Language | **Bilingual FR / EN** toggle (UI and AI output). i18n from day one |
 | AI thesis flow | **Shown immediately** on the stock page (bull / bear / hold). No "write yours first" gate (a teacher-mode toggle can hide it, see §6) |
-| Persistence | **No accounts.** Watchlist and notes in browser `localStorage`, with copy/export |
+| Persistence | **v1 (first class): no accounts.** Watchlist and notes in browser `localStorage`, with copy/export. **Phase 2 (after launch): accounts, groups and paper trading, see §13** (this deliberately changes the privacy, hosting and security posture, so it ships as its own release) |
+| Home page | A **dashboard**, not just a search bar: market snapshot, watchlist with sparklines, curated starters, movers, earnings, sectors, learning strip (§4.3, **Step 3b**, tier P1) |
+| Paper trading (Phase 2) | Virtual wallets for students **and groups**, in teams via `@handle` or a unique invite link; the **professor sets the rules** (starting cash, allowed asset classes, leverage, position limits, per-lesson assignments). Virtual money only, no real orders (§13) |
 | Audience | ~15 students |
 | Scope | **Stocks first**; macro/bonds page is phase 2 |
 | Learning features | Metric tooltips + "explain this metric", **teacher mode**, **quiz / "test yourself"** prompts |
@@ -119,7 +121,7 @@ Also: market-hours awareness and local currency + exchange timezone per ticker, 
 
 ### 4.1 Pages
 
-1. **Home:** big search bar, a few "start here" companies (teacher-curated), your watchlist, market status. Logo-forward, calm.
+1. **Home = dashboard** (full spec in §4.3): search stays the hero, with a market snapshot, your watchlist, curated starters, movers, upcoming earnings, sector tiles and a learning strip under it. Logo-forward, calm, never more than ~8 tiles above the fold on a phone.
 2. **Stock page** (the core), top to bottom:
    1. Header: name, ticker, exchange, currency, live price + change, "delayed" badge, ⭐ add to watchlist.
    2. **Chart** with the 8 range buttons, area/candle toggle.
@@ -149,6 +151,31 @@ Also: market-hours awareness and local currency + exchange timezone per ticker, 
 - Skeleton loaders and graceful per-card errors: one failed Yahoo module never breaks the page.
 - Logo: derive a square favicon/app icon from the gradient "o" mark, plus an SVG/WebP wordmark for fast loading. The original PNG is ~150 KB on a white background, so we'll cut a transparent version (⚠️ may need a re-export from you if a clean cutout isn't possible).
 
+### 4.3 Home dashboard (Step 3b, tier P1)
+
+Today the home page is a logo and a search box. The dashboard makes it worth opening every day, while keeping the beginner-first rule (progressive disclosure: a handful of tiles, each with a one-line "what am I looking at").
+
+| # | Tile | Content | Data source / notes |
+|---|---|---|---|
+| 1 | **Search** (hero) | Autocomplete as today, plus recent searches | `/api/search` |
+| 2 | **Markets now** | Open/closed chips for NYSE/Nasdaq, Euronext Paris, Tokyo, plus an index strip: S&P 500, Nasdaq, CAC 40, Euro Stoxx 50, Nikkei 225, EUR/USD, gold, 10-year US yield, each with level, day change (arrow, not colour alone) and a tiny sparkline | new `/api/market` (one cached batch, ~60 s). Symbols `^GSPC ^IXIC ^FCHI ^STOXX50E ^N225 EURUSD=X GC=F ^TNX` to verify against Yahoo in Step 3b |
+| 3 | **My watchlist** | Starred companies with price, day change, sparkline and a "reports on <date>" chip. Empty state: "Star a company to follow it here" | `localStorage` list (v1) → `/api/quotes?symbols=` batch. Moves to the account in Phase 2 |
+| 4 | **Recently viewed** | Last ~6 companies | `localStorage` |
+| 5 | **Start here** | The professor's curated companies, each with one line on *why* ("a company you can explain to a 10-year-old", linked to a Séance) | curated list in `lib/education/` (needs your 8–10 tickers, §10 Q3) |
+| 6 | **Today's movers** | Biggest gainers/losers **within the curated + watchlist universe** (not the whole market) | computed from the batch quotes; avoids depending on Yahoo's screener endpoints (unverified, possibly restricted). P2 inside the dashboard |
+| 7 | **Earnings this week** | Who reports soon among curated + watchlist, with the "EPS vs expected" explainer link | `calendarEvents`, 12 h cache. Drops dates older than 2 days (finding 3) |
+| 8 | **Sectors** | 11 sector tiles (US sector ETFs, `XLK XLF XLE XLV XLY XLP XLI XLB XLU XLRE XLC`) coloured by day change, with arrows | same batch as tile 2. P2 inside the dashboard |
+| 9 | **Learn** | Term of the day (from the glossary), a quiz teaser, "Séance N" shortcuts | Step 5 content; static placeholder until then |
+| 10 | **This week's assignment** | Card showing the teacher's current link/assignment (v1: a `?tickers=` class link; Phase 2: real assignments, §13) | teacher links (§6) |
+
+Rules for the dashboard:
+- **Cheap on Yahoo.** Every tile reads the shared Upstash cache; one upstream refresh per ~60 s for the whole class, never per student. Batch quotes in one call (`quote()` takes an array), sparklines from the cheapest chart interval, thinned to ~30 points. **Verify in Step 3b** the call count per dashboard load and the 15-tabs cold-start behaviour.
+- **Independent tiles.** Each tile has its own skeleton and error state; one failed tile never blanks the page.
+- **Polite refresh.** At most every 60 s, paused when the tab is hidden, off with reduced motion.
+- **Honest labels.** "Delayed" badge per exchange, local currency, no invented numbers, and an "unofficial data" footer.
+- **Phone first.** Tiles stack in one column at 390 px, 2 to 3 columns at 1280 px; tokens and the single gradient accent as everywhere else.
+- **Contract:** additive v0.3.0, e.g. `MarketOverview` and a light `QuoteLite` (price, change, currency, delay, sparkline). Owner: `data-engineer`; the UI is `frontend-engineer`'s.
+
 ## 5. Education layer (maps to your lectures)
 
 | Lecture concept | Where it appears in the app |
@@ -167,7 +194,7 @@ Also: market-hours awareness and local currency + exchange timezone per ticker, 
 
 **Quiz mode:** generated mostly from rules, not AI (deterministic, free, always correct), e.g. "AAPL's P/E is 34. Is the market paying for growth or stability?" with immediate explanation. A small AI-generated pool can be added later and cached.
 
-## 6. Teacher mode (no accounts, so it must be lightweight)
+## 6. Teacher mode (v1: no accounts, so it must be lightweight; the full teacher console arrives with Phase 2, §13)
 
 - A **shareable URL** encoding a curated list (e.g. `/class?tickers=KO,NVDA,MC.PA&hideAI=1`) for assignments. No login needed.
 - A **hide-AI flag** for exercises where students must analyse before seeing the thesis (this is the "student first" flow, available per link).
@@ -250,6 +277,14 @@ StockLens/
 - [ ] Compare page; macro page (FRED) as Phase 3+ / v2
 - [ ] Disclaimer/About page, data-source credits
 
+**Phase 1.5: Home dashboard (Step 3b, P1)**
+- [ ] `/api/market` and `/api/quotes` batch endpoints (cached, coalesced), contract v0.3.0
+- [ ] Dashboard tiles 1 to 5 and 7 first; movers (6) and sectors (8) only if time remains
+- [ ] Watchlist and recently viewed in `localStorage`; learning strip wired in Step 5
+
+**Phase 4: Accounts, groups & paper trading (post-launch, §13)**
+- [ ] Steps 7 to 11 in §13 (auth, wallets and trading engine, groups, teacher console, performance and hardening)
+
 **Definition of done for v1:** a student on a phone can search "LVMH", "Apple" or "Toyota", switch all 8 ranges, read the numbers with tooltips, see analyst data, read the AI bull/bear/hold in FR or EN, and save notes, all on a free deployment.
 
 ## 9. Risks & mitigations
@@ -268,8 +303,12 @@ StockLens/
 | Missing data for non-US tickers | High | Everything optional; clear "n/a" states; test on US + EU + Asia tickers |
 | 1H chart empty when market closed | High | Show last trading hour, label it |
 | Public repo leaking secrets or lecture PDFs | Medium | `.gitignore` (done), `.env.example` only; Lectures stay local (course material may be copyrighted or club-internal; ❓ tell me if you *want* them public) |
-| Regulatory / "financial advice" perception; privacy | Low | Prominent educational disclaimer; Buy/Hold/Sell framed as arguments; no brokerage/trading features; bilingual About/Privacy page; no Vercel Analytics, third-party fonts or CDNs (system fonts only); localStorage only |
+| Regulatory / "financial advice" perception; privacy | Low | Prominent educational disclaimer; Buy/Hold/Sell framed as arguments; **no brokerage features: Phase 2 trading is virtual only, with no real orders or money, stated everywhere**; bilingual About/Privacy page; no Vercel Analytics, third-party fonts or CDNs (system fonts only); localStorage only |
 | Logo ownership/licence in a public repo; no LICENSE file | Low | ❓ confirm you own the logo (§10); choose a LICENSE; enable GitHub secret scanning/push protection (free on public repos) |
+| Phase 2 scope creep (accounts + trading engine + teacher rules is a product of its own) | High | Separate release after the first class; own steps and checkpoints (§13); minimum viable subset first; no work starts before the launch is stable |
+| Paper-trading integrity (client-supplied prices, double submits, races, stale quotes) | Medium | Server-only prices, one append-only ledger, DB transactions with idempotency keys, a pure rules engine with heavy tests, trading disabled when data is stale (§13.5) |
+| Student personal data (email, name, `@handle`, positions) | Medium | Collect the minimum, handles instead of real names on shared screens, teacher-controlled visibility, privacy page updated, nothing personal ever sent to Gemini, delete-my-account path (§13.8) |
+| Phase 2 breaks the $0 rule (auth and database free tiers) | Medium | Confirm free limits at the time (§13.2); ~15 to 30 users is far inside any free tier; keep a no-account fallback |
 
 ## 10. Open questions ❓
 
@@ -284,6 +323,7 @@ StockLens/
 9. **Club code gate:** a shared "club code" (entered once, stored in a cookie) in front of the app/API, to keep it from being an open public Yahoo/Gemini proxy? Recommended; costs students one extra step.
 10. **Logo:** do you own it (or generated it with a tool whose terms allow this use)? It's in a public repo. And which **LICENSE** for the code (MIT is the usual choice)?
 11. **Privacy/Terms page:** you (the professor) sign off on the wording before launch?
+12. **Phase 2 rules and policy questions** (wallet currency, fills, leverage, fees, group authority, visibility, grading) are listed in §13.9. They are not needed before launch.
 
 ## 11. Implementation plan: 6 steps
 
@@ -296,6 +336,7 @@ Each step ends with a **user checkpoint**: nothing moves on, and nothing is comm
 | 1 | **Foundations & de-risking** | Orchestrator, with `data-engineer` for the spike | Next.js + TS + Tailwind + shadcn + next-intl scaffold; throwaway Vercel deployment calling `yahoo-finance2` for `AAPL`, `MC.PA`, `7203.T`; Gemini key created and real free-tier quota/model recorded; brand tokens and favicon/wordmark from the logo; **data contract v0** (`lib/contract/**`, types only) built from real recorded payloads for `AAPL`, `MC.PA`, `7203.T` and one sparse case; Upstash provisioned; **multi-day Yahoo soak test started** (§3.3); real Gemini RPD recorded in §3.5; CI skeleton (typecheck + lint + tests) | Soak test running (verdict due before Step 3 closes; Plan B per §3.6 if it fails); Gemini RPD written into §3.5; contract v0 reviewed by you; CI green; `.env.example` exists, no secret committed; GitHub secret scanning on |
 | 2 | **Data layer & API** | `data-engineer` | `MarketDataProvider` + Yahoo implementation; search, quote, chart (8 ranges), fundamentals via `fundamentalsTimeSeries`, analyst data, earnings; currency/`GBp`/timezone handling; caching and per-IP rate limit; fixtures for US/EU/Asia **plus sparse cases** (ETF, loss-maker, bank, ADR such as `TSM`, an LSE stock); **data-availability matrix**; Upstash cache/stale/lock; `/api/health`; unit tests | `/api/search`, `/api/stock/[symbol]`, `/api/chart/[symbol]` work for `AAPL`, `MC.PA`, `7203.T` with missing fields returned as `null` + reason; tests green; availability matrix and live smoke output reviewed; a cold-start test with 15 parallel requests for one ticker causes **one** upstream fetch |
 | 3 | **Core UI** | `frontend-engineer` | Home + search with autocomplete; stock page: header, chart with 8 ranges, key-number cards (EPS vs. expectation, P/E, revenue, operating profit, FCF, market cap), analyst section; FR/EN; responsive, dark mode, skeleton/error states; **first `apple-ui` polish pass** | You can search a company on your phone and read the whole page in FR and EN, including a sparse-data company, with no broken cards; the page passes the apple-ui self-critique checklist; Lightweight Charts attribution (`attributionLogo`) and NOTICE are present |
+| 3b | **Home dashboard** (tier P1) | `data-engineer` (small: `/api/market`, `/api/quotes`, contract v0.3.0), then `frontend-engineer` | The 10 tiles of §4.3 (tiles 6 and 8 last / optional); batch endpoints with shared cache; watchlist, recently viewed, curated starters; per-tile skeleton and error states; second `apple-ui` polish pass on the home page | Home on a phone shows markets, watchlist and starters with no empty-looking screen; a dashboard load costs a few upstream calls and the 15-tab cold start is still one fetch per symbol; one tile can fail without breaking the rest |
 | 4 | **AI layer** | `data-engineer` (API) then `frontend-engineer` (display) | Gemini client with model fallback chain; grounded prompt; schema-enforced JSON; per `(ticker, language, day)` cache; `/api/ai/[symbol]`; company explainer + bull/bear/hold columns with the disclaimer | The thesis for 3+ tickers is readable, consistent with the on-page numbers, available in FR and EN, and still works (or degrades cleanly) when the quota is exhausted |
 | 5 | **Education & teacher features** | `frontend-engineer` | Glossary + tooltips + "explain this metric" in lecture voice; "Séance N" tags; rule-based quiz cards; margin-of-safety card; watchlist, notes and one-page thesis export; teacher links (`?tickers=…&hideAI=1`) | **You (the professor) review all French/English educational copy**; a teacher link works end to end |
 | 6 | **Hardening, QA & launch** | Orchestrator, both agents on fixes | Fallback providers and "stale data" mode; accessibility and Lighthouse pass; ticker test matrix (US, EU, Asia, ETF, a loss-making company, a semi-annual reporter); about/disclaimer/credits page; README; production deploy; `/code-review` pass; final `apple-ui` polish pass in light and dark mode | Meets the v1 definition of done in §8; **class dry run with 15 simultaneous tabs** (no 429s, AI quota survives); soak-test verdict is "pass"; Privacy/Terms page signed off by you; link ready to share with the club |
@@ -352,9 +393,11 @@ Full scope in ~2 weeks is **high risk** (flagged by the plan review). We keep al
 
 Rough calendar: **days 1–2** Step 1 · **days 2–6** Steps 2 and 3 in parallel · **days 6–9** Step 4 · **days 9–12** Step 5 · **days 12–14** Step 6 and class dry run. The professor reviews at each checkpoint, so reviews must be quick to keep this pace.
 
+**Schedule impact of the new scope (v4):** the dashboard (Step 3b) adds about **2 days** and sits in tier P1 (cut tiles 6 and 8 first). It runs after Step 3 and can overlap Step 4's AI work, since the dashboard's data piece is small. **Phase 2 (§13) is not in the 2-week window:** it starts only after the first class has used v1 and the soak verdict is in.
+
 ## 12. Agents
 
-Three roles in total: you plus two worker agents. Orchestrator-only would be slow, because the UI and the data/AI layer are independent workstreams after the contract is frozen. Splitting further would add coordination cost for a 15-student app, so we stop at two.
+Three roles in total for v1: you plus two worker agents (Phase 2 adds a `trading-engineer`, §13.7). Orchestrator-only would be slow, because the UI and the data/AI layer are independent workstreams after the contract is frozen. Splitting further would add coordination cost for a 15-student app, so we stop at two.
 
 | Role | Runs as | Model | Owns | Definition |
 |---|---|---|---|---|
@@ -374,6 +417,116 @@ Three roles in total: you plus two worker agents. Orchestrator-only would be slo
 - Each agent verifies its own work (tests, type check; the UI is also checked in a real browser at phone and desktop width) before reporting. The orchestrator then reviews the diff and re-runs the checks.
 - **Not a separate agent:** QA and review. They're the orchestrator's job at each checkpoint (and `/code-review` in Step 6), which avoids a third agent.
 
-## 13. Next step
+## 13. Phase 2: accounts, groups & paper trading
 
-Once you answer §10 (or say "defaults are fine"), we start **Step 1**, beginning with the Vercel/Yahoo throwaway test, because it's the one result that can change the architecture.
+> Status: **idea captured, not scheduled** (2026-11-05). Goal: replicate a paper-trading system. Students trade a virtual wallet alone or in groups (for instance when a trade relates to a lesson), and **the professor sets the rules and limits**: what each student or group starts with, which asset classes are allowed, leverage, position limits, and what each team holds.
+
+### 13.1 How hard is it? (honest answer)
+
+- **Accounts alone are the easy part.** A hosted auth provider handles sign-in, sessions and password or social login; roughly a day of work, plus the privacy changes below.
+- **The real work is the trading engine and the teacher's rules.** A trustworthy ledger (no double fills, no client-supplied prices, correct P&L across currencies), a rules engine that enforces the professor's limits on every order, and a group permission model. Order of magnitude: **3 to 4 weeks of part-time work** after v1, in five steps (§13.7).
+- **It changes the app's nature.** v1 is stateless and anonymous; Phase 2 stores personal data and money-like state. That is why it is a separate release with its own checkpoints, and why nothing here blocks the first class.
+- **Recommendation:** ship v1 for the first class (Steps 1 to 6 plus the dashboard), watch how students actually use it, then build the **minimum viable Phase 2** (§13.6) before adding the rest.
+
+### 13.2 What changes in the v1 decisions
+
+| v1 decision | In Phase 2 |
+|---|---|
+| No accounts, `localStorage` only | Accounts, with a one-time **import of the local watchlist and notes** into the account. `localStorage` stays as the signed-out fallback |
+| Upstash Redis as the only store | Add a **relational database** (Postgres via the Vercel Marketplace, e.g. Neon; confirm the free tier then). A ledger needs transactions and constraints; Redis stays for cache, locks and rate limits |
+| `noindex`, club code optional | Stays. Add auth on every `/api/trade|wallet|group|teacher` route; the club-code gate becomes redundant once signed in |
+| 18+, outside EEA/CH/UK | Stays (it protects the Gemini terms). Phase 2 also stores personal data, so the privacy page is rewritten and signed off by you |
+| Hobby plan, non-commercial | Still fine for a free school club; re-check Vercel's fair-use text if money ever enters |
+| Teacher mode = shareable links | Real **teacher console** (§13.4) |
+
+Auth provider options (decide at Step 7): **Clerk or Auth0 through the Vercel Marketplace** (hosted, free tier far above ~30 users, provisioning handled by the `marketplace` skill) or Auth.js with our own database (more control, more code). Recommendation: hosted, to avoid writing password, reset and session code.
+
+### 13.3 Accounts, `@handles` and groups
+
+- **Identity:** sign in with email, Google or Apple (as the provider allows). Each user picks a unique, case-insensitive `@handle` (reserved words blocked); shared screens show handles, not real names, unless you choose otherwise.
+- **Roles:** `teacher` (you; can be more than one) and `student`. A student belongs to a **cohort** (a class or season), joined with a class code or invite link that you create.
+- **Groups:** any student can create a group (study or trading). Members are added by **`@handle`** or by a **unique invite link** (random token, expiry, max uses, revocable, optional join approval). Roles inside a group: owner and member. Leave, remove and transfer ownership are supported. A group has a size cap you set.
+- **Group trading authority (your choice per assignment or globally):** any member can trade, or only the owner, or **majority approval** of a proposed trade. Every trade records who acted.
+- **Visibility (your choice):** nobody sees others' positions, group members see their group, or the cohort sees a leaderboard (ranked by **return %**, not dollars, so a big wallet does not win).
+
+### 13.4 The professor's controls (teacher console)
+
+All limits live in a **rule set** you create and attach to a cohort, an assignment, or a single student or group.
+
+| Control | Examples |
+|---|---|
+| Starting cash | Per student, per group, per cohort; top-ups, reset or new season |
+| Asset classes | Allow or block by type (equities, ETFs, indices, FX, crypto, futures), by exchange or country, by currency, or by an explicit ticker universe for a lesson |
+| Leverage | Cap at 1x (none), 2x, and so on; shorting on or off; what happens past the limit (block the order, or warn only) |
+| Position limits | Max % of equity in one position, max number of positions, min or max order size, cash buffer |
+| Costs | Optional commission and slippage so trades are not free (a lesson in itself) |
+| Trading window | Market hours only, or a lesson date window |
+| Assignments | A lesson-linked task: title and Séance tag, ticker universe, deadline, which groups take part, a rule-set override, and an optional **required "why" note** per trade (links to the thesis box) |
+| Oversight | See every wallet, position, trade and P&L; freeze or unfreeze a wallet; undo an invalid trade with an audited reversal; export CSV |
+| Visibility | Leaderboard on or off, names or handles |
+
+### 13.5 Trading engine (the part that must be right)
+
+- **Server-only prices.** An order carries a symbol, side and quantity, never a price. The server fills at its own latest quote and stores the price, timestamp, currency and FX rate used. The UI says "delayed N min", because that is what the data is.
+- **No fills on bad data.** Reject when the quote is stale or the market is closed (market-hours rule from the rule set), and disable trading with a banner when the provider is degraded. Never fill from a stale fallback.
+- **One append-only ledger.** Orders and fills are never edited; corrections are new reversing entries. Positions and cash balances are derived (and cached) from it. Every row has an idempotency key, so a double click or retry cannot fill twice.
+- **Transactions and concurrency.** Each order runs in one database transaction with a row lock or version check on the wallet, so two simultaneous orders cannot overspend.
+- **Pure rules engine.** `checkOrder(wallet, order, rules, quote)` is a pure, heavily unit-tested function (including property tests: cash never negative beyond leverage, positions reconcile with the ledger, a reversed trade nets to zero). The route handler only wires data in and out.
+- **Currency.** Each wallet has one base currency. A foreign-currency asset is converted at the fill-time FX quote (stored on the fill). Sub-unit currencies (`GBp`) reuse the Step 2 handling.
+- **Leverage and shorting (if you enable them).** Buying power = equity x leverage cap minus gross exposure; a long position is bought with cash plus margin; a short is a negative position. Past the limit: block, warn, or auto-close, as your rule set says. No borrow fees in the first version.
+- **Not modelled at first (and stated in the UI):** dividends, stock splits and mergers, halts and delistings, limit and stop orders, partial fills, overnight margin interest. Splits and dividends can be added later from Yahoo's data; until then the limitation is documented and the teacher can reverse an affected trade.
+- **Marking to market.** Open positions use the shared cached quotes; a daily **cron snapshot** of every wallet's equity feeds the performance chart and leaderboard. A history chart per wallet and a benchmark (S&P 500, CAC 40) comparison come from those snapshots.
+
+### 13.6 Priority inside Phase 2
+
+| Tier | Contents |
+|---|---|
+| **P0 (minimum viable)** | Sign-in and `@handle`; join a cohort by code; individual wallet; market buy/sell, **long only**; teacher sets starting cash, allowed asset classes and a leverage cap; trade history and live P&L; groups by `@handle` and invite link with a shared wallet (any member can trade); simple leaderboard by return % |
+| **P1** | Teacher console with rule sets and per-lesson **assignments**; position limits and costs; majority-vote group trades; required "why" note per trade; shorting and leverage above 1x; daily snapshots and performance chart; freeze and reversal tools; CSV export |
+| **P2** | Limit and stop orders; dividends and splits; benchmark comparison; seasons and archives; badges or post-mortem prompts; notifications |
+
+### 13.7 Steps (each ends with your checkpoint, like §11)
+
+| # | Step | Lead | Main deliverables | Exit criteria |
+|---|---|---|---|---|
+| 7 | **Auth, profiles, cohorts** | orchestrator (provider and DB provisioning), `frontend-engineer` | Provider chosen and provisioned; Postgres schema and migrations; sign-in, `@handle`, cohort join by code; teacher role; import of local watchlist and notes; updated privacy page draft | You can sign in on a phone, pick a handle, join a cohort; no personal data reaches Gemini or logs |
+| 8 | **Wallets and trading engine** | new `trading-engineer` (see below) | Ledger, rules engine, `/api/trade`, `/api/wallet`; fills from server quotes; stale-data and market-hours guards; P&L and positions; heavy tests including concurrency | A student places buys and sells, P&L is correct on US, EU and a foreign-currency asset; a double submit fills once; stale data blocks trading |
+| 9 | **Groups** | `trading-engineer` + `frontend-engineer` | Groups, `@handle` adds, unique invite links, group wallets, authority modes, member and owner management | Two accounts form a group by link and by `@`, trade from the shared wallet, and the ledger shows who did what |
+| 10 | **Teacher console** | `frontend-engineer` + `trading-engineer` | Rule sets, caps, asset-class and leverage limits, assignments, wallet oversight, freeze and reversal, CSV export | You configure a cohort, set different limits for two groups, and the engine enforces them (including a blocked order with a clear message) |
+| 11 | **Performance, leaderboard, hardening** | orchestrator, both agents | Daily snapshot cron, performance charts, leaderboard, journal link, security review (authorization on every route), load and race tests, privacy page sign-off, deletion path | Class dry run with 15 accounts trading at once; no authorization hole found in review; your sign-off |
+
+**Agents:** the trading engine and database are a distinct domain (money-like integrity), so the plan adds a third worker, **`trading-engineer`**, owning `lib/trading/**`, `lib/db/**` and the trade/wallet/group/teacher API routes. It follows the same ground rules as §12 (Sonnet, strict file ownership, no commits). `data-engineer` stays on market data and AI.
+
+### 13.8 Privacy and security notes
+
+- Collect the minimum: email (from the auth provider), `@handle`, optional display name; no phone, address or date of birth.
+- Row-level authorization on **every** route: a student can read and trade only their own wallet and their groups'; only teachers read cohorts. Reviewed in Step 11 (and by `/code-review`).
+- Invite tokens are random, expiring, revocable and rate-limited; handle lookup is rate-limited to avoid scraping.
+- A "delete my account" path (anonymise trades so cohort statistics stay intact).
+- The privacy page states what is stored, where (provider, database region) and who sees what; you sign it off before launch.
+- It stays virtual: no real money, no broker connection, and the educational disclaimer appears on every trading screen.
+
+### 13.9 Questions for you (needed before Step 7, not before launch)
+
+1. **Wallet currency:** one base currency for everyone (USD, EUR), or per student?
+2. **Starting cash:** a typical amount, and the same for every student or varied (for example per lesson)?
+3. **Fills:** immediately at the latest delayed price when the market is open, **or** queued to the next open when it is closed? Allow trading outside market hours at all?
+4. **Leverage and shorting:** off by default and enabled per assignment? What maximum?
+5. **Costs:** a small commission or slippage, or free trades?
+6. **Fractional shares** allowed?
+7. **Groups:** who may trade (any member, owner only, or vote), maximum group size, may a student be in several groups?
+8. **Who can join:** a class code, or specific school emails? Are real names visible to classmates, or only `@handles`?
+9. **Leaderboard:** shown to everyone, to groups only, or to you only? Ranking by return %?
+10. **Seasons:** one competition per term with a reset, or a continuous portfolio?
+11. **Is it graded?** If yes, I add stronger audit and tamper-evidence, and a clearer dispute and reversal process.
+12. **Sign-in methods:** are you comfortable with third-party sign-in (Google or Apple) and students' emails stored by the auth provider?
+13. **Dividends and splits:** acceptable as "not modelled at first", with you reversing affected trades by hand?
+
+## 14. Next step
+
+Steps 1 to 3 are built and deployed (https://stocklens-beryl.vercel.app). In order:
+1. **Soak verdict** (Yahoo from Vercel's IPs). The scheduled GitHub Action had not fired yet at last check; fall back to a Vercel cron or a local run if it still doesn't.
+2. **Step 3b: home dashboard** (§4.3). No account needed, and it removes the "empty home" problem.
+3. **Step 4: AI layer**. Needs the **Gemini key** (record real RPM/RPD in §3.5).
+4. **Provision Upstash** so the cache is really shared on Vercel; **review the French copy**.
+5. Then Step 5 (education), Step 6 (hardening and class dry run), launch v1. **Phase 2 (§13) only after that.**

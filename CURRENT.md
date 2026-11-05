@@ -4,13 +4,25 @@ Written 2026-11-05 (evening) so a fresh Claude Code session can continue without
 Read `PLAN.md` for the full plan (esp. §11 steps, §12 agents, and the "Step 1 status" block); this file is
 the short "where are we right now" layer on top of it.
 
-## One-paragraph state
+## One-paragraph state (updated 2026-11-05, late evening)
 
-**Step 1 (foundations) is done except for items that need the user's accounts.** The app shell, brand
-assets, recorded Yahoo payloads, data contract v0.1.0, CI skeleton, and docs are built, committed and pushed to
-`github.com/Sami-Siala/StockLens` (`main`, last commit `a9e2ca0`). A throwaway spike route is **deployed on
-Vercel** and a **Yahoo soak test is running**. The user **approved contract v0** ("seems good to me"). Next
-up: propose and (with the user's go) start **Step 2 (data-engineer) and Step 3 (frontend-engineer) in parallel**.
+**Steps 1, 2 and 3 are built, merged, pushed (`main`) and deployed** to https://stocklens-beryl.vercel.app in **live data mode**
+(`NEXT_PUBLIC_DATA_MODE=live` is set on Vercel production; it is read at build time). Contract is **v0.2.0**. The data layer (Yahoo provider,
+cache, `/api/search|stock|chart|health|club`) and the core UI (home, stock page, About, FR/EN, dark mode) work end to end, and the
+animated logo (bars in the "o" rise 1-2-3, ~2.1 s cycle) shows as a once-per-session splash and as the stock loading state.
+The user added two scope items, now in `PLAN.md` v4: the **home dashboard** (§4.3, Step 3b) and **Phase 2 accounts, groups and
+paper trading** (§13, after launch). Next up: soak verdict, **Step 3b dashboard**, then Step 4 (needs the Gemini key). Anything
+below that still says "Step 2/3 next" is history.
+
+**Open problems right now:** (1) the soak GitHub Action has run only once (manual dispatch); the 5-minute schedule had not fired after
+~50 min, so a verdict is still missing (fallback: Vercel cron, or `caffeinate` + `scripts/soak.ts`); (2) Upstash not provisioned, so
+`/api/health` says `degraded` and coalescing is per instance; (3) the user's `Assets/` folder has uncommitted changes (original logo
+moved, `Assets/Animation/`, `Assets/Default.png`): do not commit them without asking; (4) all FR copy needs the professor's review.
+
+**Working method used this session:** two agents ran in parallel in git worktrees (`../StockLens-wt/data` on `step2-data`, `../StockLens-wt/ui`
+on `step3-ui`), local WIP commits, merged into `main`. The worktrees can be removed (`git worktree remove`). A subagent cannot drive the
+Chrome extension; use the CDP scripts in the session scratchpad (`cdp.mjs`, `frames.mjs`, `anim.mjs`) or Playwright.
+Deploy by hand: `vercel deploy --prod --yes` (Vercel-GitHub auto-deploy is not connected).
 
 ## Links and accounts
 
