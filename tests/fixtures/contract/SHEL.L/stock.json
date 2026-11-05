@@ -1,0 +1,585 @@
+{
+  "meta": {
+    "contractVersion": "0.2.0",
+    "source": "fixture",
+    "fetchedAt": "2026-11-05T20:30:00.000Z",
+    "stale": false
+  },
+  "listing": {
+    "symbol": "SHEL.L",
+    "name": "Shell plc",
+    "shortName": "SHELL PLC ORD EUR0.07",
+    "quoteType": "EQUITY",
+    "exchange": "LSE",
+    "exchangeCode": "LSE",
+    "exchangeTimezone": "Europe/London",
+    "priceCurrency": "GBP",
+    "priceSubunit": {
+      "quotedAs": "GBp",
+      "factor": 100
+    },
+    "financialCurrency": "USD",
+    "firstTradeDate": "1996-08-29T07:00:00.000Z"
+  },
+  "quote": {
+    "value": {
+      "price": {
+        "amount": 37.84,
+        "currency": "GBP"
+      },
+      "change": -0.115,
+      "changePercent": -0.0030299038,
+      "previousClose": 37.955,
+      "open": 37.07,
+      "dayHigh": 38.14,
+      "dayLow": 37.03,
+      "volume": 11365147,
+      "fiftyTwoWeekHigh": 41.1,
+      "fiftyTwoWeekLow": 25.53772,
+      "marketState": "CLOSED",
+      "asOf": "2026-11-05T16:43:21.000Z",
+      "delayMinutes": 15
+    },
+    "reason": null
+  },
+  "profile": {
+    "value": {
+      "sector": "Energy",
+      "industry": "Oil & Gas Integrated",
+      "country": "United Kingdom",
+      "website": "https://www.shell.com",
+      "employees": 84000,
+      "summary": "Shell plc operates as an energy and petrochemical company in Europe, Asia, Oceania, Africa, the United States, and other parts of the Americas. It operates through the following segments: Integrated Gas, Upstream, Marketing, Chemicals and Products, and Renewables and Energy Solutions. The company explores for and extracts natural gas to produce liquefied natural gas or convert it into gas-to-liquids (GTL) fuels and other products; explores for and extracts crude oil, natural gas, and natural gas liquids; and operates marketing and transportation of oil, gas, and liquids, supported by the infrastructure required to deliver them to market or to process them within Shell's chemical manufacturing plants and refineries. It is also involved in marketing, which includes mobility, lubricants, and sectors focused on decarbonization; operates a retail network, including electric vehicle charging, convenience retail, and the wholesale commercial fuels business for transport and industry; sells products for road transport and machinery in manufacturing, mining, power generation, agriculture, and construction; and provides low-carbon energy solutions, such as biofuels, to a broad range of commercial customers, including those in the aviation, marine, and agriculture sectors. In addition, the company offers chemicals and products, including chemicals manufacturing plants with their own marketing network, and refineries that turn crude oil and other feedstocks into a range of oil products, which are moved and marketed around the world for domestic, industrial, and transport use; and operates a pipeline business, trading, and optimization of crude oil, oil products, and petrochemicals. The company was formerly known as Royal Dutch Shell plc and changed its name to Shell plc in January 2022. Shell plc was founded in 1897 and is headquartered in London, United Kingdom."
+    },
+    "reason": null
+  },
+  "fundamentals": {
+    "value": {
+      "financialCurrency": "USD",
+      "keyStats": {
+        "marketCap": {
+          "value": {
+            "amount": 214444670976,
+            "currency": "GBP"
+          },
+          "reason": null
+        },
+        "sharesOutstanding": {
+          "value": 5667142592,
+          "reason": null
+        },
+        "trailingPE": {
+          "value": null,
+          "reason": "currency_mismatch"
+        },
+        "forwardPE": {
+          "value": null,
+          "reason": "currency_mismatch"
+        },
+        "trailingEps": {
+          "value": {
+            "amount": 4.3,
+            "currency": "USD"
+          },
+          "reason": null
+        },
+        "forwardEps": {
+          "value": {
+            "amount": 4.390938,
+            "currency": "USD"
+          },
+          "reason": null
+        },
+        "dividendYield": {
+          "value": 0.0306,
+          "reason": null
+        },
+        "dividendRate": {
+          "value": {
+            "amount": 1.16,
+            "currency": "GBP"
+          },
+          "reason": null
+        },
+        "payoutRatio": {
+          "value": 0.2627,
+          "reason": null
+        },
+        "operatingMargin": {
+          "value": 0.18763,
+          "reason": null
+        },
+        "revenueGrowth": {
+          "value": 0.362,
+          "reason": null
+        },
+        "beta": {
+          "value": -0.244,
+          "reason": null
+        }
+      },
+      "quarterly": [
+        {
+          "periodEnd": "2025-03-31",
+          "length": "3M",
+          "revenue": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "operatingIncome": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "netIncome": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "freeCashFlow": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "operatingCashFlow": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "dilutedEps": {
+            "value": null,
+            "reason": "reported_less_often"
+          }
+        },
+        {
+          "periodEnd": "2025-06-30",
+          "length": "3M",
+          "revenue": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "operatingIncome": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "netIncome": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "freeCashFlow": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "operatingCashFlow": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "dilutedEps": {
+            "value": 0.6,
+            "reason": null
+          }
+        },
+        {
+          "periodEnd": "2025-09-30",
+          "length": "3M",
+          "revenue": {
+            "value": 68153000000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": 7734000000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": 5322000000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": 7650000000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": 12207000000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": null,
+            "reason": "not_reported"
+          }
+        },
+        {
+          "periodEnd": "2025-12-31",
+          "length": "3M",
+          "revenue": {
+            "value": 64093000000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": 3159000000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": 4134000000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": 4189000000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": 9438000000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": 0.71,
+            "reason": null
+          }
+        },
+        {
+          "periodEnd": "2026-03-31",
+          "length": "3M",
+          "revenue": {
+            "value": 69691000000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": 10366000000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": 5694000000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": 2305000000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": 6062000000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": 1,
+            "reason": null
+          }
+        },
+        {
+          "periodEnd": "2026-06-30",
+          "length": "3M",
+          "revenue": {
+            "value": 94664000000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": 15177000000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": 10821000000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": 17401000000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": 21432000000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": 1.92,
+            "reason": null
+          }
+        },
+        {
+          "periodEnd": "2026-09-30",
+          "length": "3M",
+          "revenue": {
+            "value": 92848000000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": 17421000000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": 12057000000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": 13465000000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": 21043000000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": 2.13,
+            "reason": null
+          }
+        }
+      ],
+      "annual": [
+        {
+          "periodEnd": "2023-12-31",
+          "length": "12M",
+          "revenue": {
+            "value": 316620000000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": 30737000000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": 19359000000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": 31198000000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": 54191000000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": 2.85,
+            "reason": null
+          }
+        },
+        {
+          "periodEnd": "2024-12-31",
+          "length": "12M",
+          "revenue": {
+            "value": 284312000000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": 29992000000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": 16094000000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": 35086000000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": 54687000000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": 2.53,
+            "reason": null
+          }
+        },
+        {
+          "periodEnd": "2025-12-31",
+          "length": "12M",
+          "revenue": {
+            "value": 266886000000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": 27582000000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": 17837000000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": 23916000000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": 42863000000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": 3,
+            "reason": null
+          }
+        }
+      ],
+      "primaryView": "quarterly"
+    },
+    "reason": null
+  },
+  "earnings": {
+    "value": {
+      "lastQuarter": {
+        "value": {
+          "quarterEnd": "2026-09-30",
+          "epsActual": 1.93,
+          "epsEstimate": 1.79638,
+          "difference": 0.13362,
+          "surprise": 0.074383,
+          "currency": "USD"
+        },
+        "reason": null
+      },
+      "history": [
+        {
+          "quarterEnd": "2025-12-31",
+          "epsActual": 0.57,
+          "epsEstimate": 0.69954,
+          "difference": -0.12954,
+          "surprise": -0.185179,
+          "currency": "USD"
+        },
+        {
+          "quarterEnd": "2026-03-31",
+          "epsActual": 1.22,
+          "epsEstimate": 1.06438,
+          "difference": 0.15562,
+          "surprise": 0.146207,
+          "currency": "USD"
+        },
+        {
+          "quarterEnd": "2026-06-30",
+          "epsActual": 1.76,
+          "epsEstimate": 1.54916,
+          "difference": 0.21084,
+          "surprise": 0.1361,
+          "currency": "USD"
+        },
+        {
+          "quarterEnd": "2026-09-30",
+          "epsActual": 1.93,
+          "epsEstimate": 1.79638,
+          "difference": 0.13362,
+          "surprise": 0.074383,
+          "currency": "USD"
+        }
+      ],
+      "next": {
+        "value": null,
+        "reason": "not_provided_by_source"
+      },
+      "epsEstimates": [
+        {
+          "period": "0q",
+          "endDate": "2026-12-31",
+          "avg": 1.70338,
+          "low": 1.4385,
+          "high": 2.01,
+          "analysts": 7,
+          "yearAgo": 0.57,
+          "growth": 1.9884,
+          "currency": "USD"
+        },
+        {
+          "period": "+1q",
+          "endDate": "2027-03-31",
+          "avg": 1.5625,
+          "low": 1.35,
+          "high": 2.06,
+          "analysts": 4,
+          "yearAgo": 1.22,
+          "growth": 0.2807,
+          "currency": "USD"
+        },
+        {
+          "period": "0y",
+          "endDate": "2026-12-31",
+          "avg": 6.52286,
+          "low": 6.03,
+          "high": 7.3109,
+          "analysts": 19,
+          "yearAgo": 3.15,
+          "growth": 1.0707,
+          "currency": "USD"
+        },
+        {
+          "period": "+1y",
+          "endDate": "2027-12-31",
+          "avg": 5.88131,
+          "low": 4.81,
+          "high": 7.513,
+          "analysts": 19,
+          "yearAgo": 6.52286,
+          "growth": -0.098400004,
+          "currency": "USD"
+        }
+      ],
+      "revenueEstimates": [
+        {
+          "period": "0q",
+          "endDate": "2026-12-31",
+          "avg": 108872775410,
+          "low": 95709000000,
+          "high": 124645552750,
+          "analysts": 5,
+          "yearAgo": 64093000000,
+          "growth": 0.6987,
+          "currency": "USD"
+        },
+        {
+          "period": "+1q",
+          "endDate": "2027-03-31",
+          "avg": 89104195600,
+          "low": 84731000000,
+          "high": 92382586800,
+          "analysts": 3,
+          "yearAgo": 69691000000,
+          "growth": 0.2786,
+          "currency": "USD"
+        },
+        {
+          "period": "0y",
+          "endDate": "2026-12-31",
+          "avg": 349447739220,
+          "low": 269555000000,
+          "high": 381848552750,
+          "analysts": 15,
+          "yearAgo": 266886000000,
+          "growth": 0.3094,
+          "currency": "USD"
+        },
+        {
+          "period": "+1y",
+          "endDate": "2027-12-31",
+          "avg": 326497620100,
+          "low": 276294000000,
+          "high": 375953000000,
+          "analysts": 16,
+          "yearAgo": 349447739220,
+          "growth": -0.0657,
+          "currency": "USD"
+        }
+      ]
+    },
+    "reason": null
+  },
+  "analysts": {
+    "value": {
+      "ratings": {
+        "value": {
+          "strongBuy": 3,
+          "buy": 7,
+          "hold": 9,
+          "sell": 0,
+          "strongSell": 0
+        },
+        "reason": null
+      },
+      "ratingMean": {
+        "value": 2.10526,
+        "reason": null
+      },
+      "priceTarget": {
+        "value": {
+          "low": 34.287583,
+          "mean": 41.043022,
+          "median": 40.89329,
+          "high": 49.18628,
+          "analysts": 16,
+          "currency": "GBP"
+        },
+        "reason": null
+      }
+    },
+    "reason": null
+  }
+}

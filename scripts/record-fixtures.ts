@@ -3,8 +3,10 @@
  * These recordings are the source the data contract (lib/contract) is derived from,
  * and the input for the normalizer tests in Step 2. Run manually, never in CI:
  *
- *   npx tsx scripts/record-fixtures.ts            # default symbol set
- *   npx tsx scripts/record-fixtures.ts AAPL SPY   # chosen symbols
+ *   npx tsx scripts/record-fixtures.ts                      # default symbol set
+ *   npx tsx scripts/record-fixtures.ts AAPL SPY             # chosen symbols
+ *   npx tsx scripts/record-fixtures.ts --charts AAPL 7203.T # ONLY the extra chart intervals
+ *                                                           # (1m, 5m, 1h, 1wk, 1mo) for those symbols
  *
  * Calls are spaced out on purpose: Yahoo answers 429 to bursts.
  */
@@ -18,7 +20,19 @@ const DEFAULT_SYMBOLS = [
   "7203.T", // Tokyo, JPY, forward P/E often missing
   "SPY", // ETF: no fundamentals (sparse case)
   "TSM", // ADR: trades in USD, reports in TWD (currency case)
+  "JPM", // bank: no operating income / FCF lines (Step 2)
+  "RIVN", // loss-maker: negative EPS, no trailing P/E (Step 2)
+  "SHEL.L", // LSE: quoted in GBp (pence), reports in USD (Step 2)
 ];
+
+/** Chart windows for the 8 UI ranges (PLAN §3.4); recorded with period1 because chart() has no `range`. */
+const EXTRA_CHARTS = [
+  { name: "chart-1m-1m", days: 4, interval: "1m", prepost: false },
+  { name: "chart-5d-5m", days: 5, interval: "5m", prepost: false },
+  { name: "chart-1mo-1h", days: 31, interval: "1h", prepost: false },
+  { name: "chart-3y-1wk", days: 3 * 366, interval: "1wk", prepost: true },
+  { name: "chart-all-1mo", days: 0, interval: "1mo", prepost: true },
+] as const;
 
 const MODULES = [
   "price",
@@ -64,15 +78,41 @@ async function attempt<T>(
 }
 
 async function main() {
-  const symbols = process.argv.slice(2).length
-    ? process.argv.slice(2)
-    : DEFAULT_SYMBOLS;
+  const args = process.argv.slice(2);
+  const chartsOnly = args.includes("--charts");
+  const named = args.filter((a) => !a.startsWith("--"));
+  const symbols = named.length ? named : DEFAULT_SYMBOLS;
   const yearAgo = new Date(Date.now() - 365 * 864e5);
   const threeYearsAgo = new Date(Date.now() - 3 * 365 * 864e5);
 
+  const opts = { validateResult: false } as const;
+
+  if (chartsOnly) {
+    for (const symbol of symbols) {
+      console.log(symbol, "(extra charts)");
+      for (const c of EXTRA_CHARTS) {
+        const period1 =
+          c.days === 0
+            ? new Date("1970-01-02")
+            : new Date(Date.now() - c.days * 864e5);
+        await save(
+          symbol,
+          c.name,
+          await attempt(c.name, () =>
+            yf.chart(
+              symbol,
+              { period1, interval: c.interval, includePrePost: c.prepost },
+              opts,
+            ),
+          ),
+        );
+      }
+    }
+    return;
+  }
+
   for (const symbol of symbols) {
     console.log(symbol);
-    const opts = { validateResult: false } as const;
 
     await save(
       symbol,
@@ -125,19 +165,18 @@ async function main() {
     }
   }
 
+  if (named.length) return; // searches are only re-recorded with the default set
   await save(
     "_search",
     "lvmh",
-    await attempt("search lvmh", () => yf.search("lvmh", {}, opts0())),
+    await attempt("search lvmh", () => yf.search("lvmh", {}, opts)),
   );
   await save(
     "_search",
     "apple",
-    await attempt("search apple", () => yf.search("apple", {}, opts0())),
+    await attempt("search apple", () => yf.search("apple", {}, opts)),
   );
 }
-const opts0 = () => ({ validateResult: false }) as const;
-
 main().catch((e) => {
   console.error(e);
   process.exit(1);

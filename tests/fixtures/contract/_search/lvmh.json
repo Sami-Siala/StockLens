@@ -1,4 +1,10 @@
 {
+  "meta": {
+    "contractVersion": "0.2.0",
+    "source": "fixture",
+    "fetchedAt": "2026-11-05T20:30:00.000Z",
+    "stale": false
+  },
   "query": "lvmh",
   "hits": [
     {

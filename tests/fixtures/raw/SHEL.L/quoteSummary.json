@@ -1,0 +1,558 @@
+{
+  "price": {
+    "maxAge": 1,
+    "regularMarketChangePercent": -0.0030299039,
+    "regularMarketChange": -11.5,
+    "regularMarketTime": "2026-11-05T16:43:21.000Z",
+    "priceHint": 2,
+    "regularMarketPrice": 3784,
+    "regularMarketDayHigh": 3814,
+    "regularMarketDayLow": 3703,
+    "regularMarketVolume": 11365147,
+    "regularMarketPreviousClose": 3795.5,
+    "regularMarketSource": "DELAYED",
+    "regularMarketOpen": 3707,
+    "fulldayChangePercent": -0.0030299039,
+    "fulldayChange": -11.5,
+    "fulldayPrice": 3784,
+    "exchange": "LSE",
+    "exchangeName": "LSE",
+    "exchangeDataDelayedBy": 15,
+    "marketState": "POSTPOST",
+    "quoteType": "EQUITY",
+    "symbol": "SHEL.L",
+    "underlyingSymbol": null,
+    "shortName": "SHELL PLC ORD EUR0.07",
+    "longName": "Shell plc",
+    "currency": "GBp",
+    "quoteSourceName": "Delayed Quote",
+    "currencySymbol": "£",
+    "fromCurrency": null,
+    "toCurrency": null,
+    "lastMarket": null,
+    "marketCap": 214444670976
+  },
+  "quoteType": {
+    "exchange": "LSE",
+    "quoteType": "EQUITY",
+    "symbol": "SHEL.L",
+    "underlyingSymbol": "SHEL.L",
+    "shortName": "SHELL PLC ORD EUR0.07",
+    "longName": "Shell plc",
+    "firstTradeDateEpochUtc": "1996-08-29T07:00:00.000Z",
+    "timeZoneFullName": "Europe/London",
+    "timeZoneShortName": "GMT",
+    "uuid": "7184ff0c-1458-3c58-a414-4c8b923dd944",
+    "messageBoardId": "finmb_22385966",
+    "gmtOffSetMilliseconds": 0,
+    "maxAge": 1
+  },
+  "summaryDetail": {
+    "maxAge": 1,
+    "priceHint": 2,
+    "previousClose": 3795.5,
+    "open": 3707,
+    "dayLow": 3703,
+    "dayHigh": 3814,
+    "regularMarketPreviousClose": 3795.5,
+    "regularMarketOpen": 3707,
+    "regularMarketDayLow": 3703,
+    "regularMarketDayHigh": 3814,
+    "dividendRate": 1.16,
+    "dividendYield": 0.0306,
+    "exDividendDate": "2026-11-12T00:00:00.000Z",
+    "payoutRatio": 0.2627,
+    "fiveYearAvgDividendYield": 3.65,
+    "beta": -0.244,
+    "trailingPE": 8.799999,
+    "forwardPE": 8.617749,
+    "volume": 11365147,
+    "regularMarketVolume": 11365147,
+    "averageVolume": 9578727,
+    "averageVolume10days": 7429107,
+    "averageDailyVolume10Day": 7429107,
+    "bid": 3803,
+    "ask": 3803.5,
+    "marketCap": 214444670976,
+    "nonDilutedMarketCap": 219365408650,
+    "fiftyTwoWeekLow": 2553.772,
+    "fiftyTwoWeekHigh": 4110,
+    "allTimeHigh": 6418.88,
+    "allTimeLow": 3.045,
+    "fulldayPrice": 3784,
+    "fulldayChange": -11.5,
+    "fulldayChangePercent": -0.0030299039,
+    "priceToSalesTrailing12Months": 0.66743857,
+    "fiftyDayAverage": 3684.68,
+    "twoHundredDayAverage": 3317.4775,
+    "trailingAnnualDividendRate": 1.544,
+    "trailingAnnualDividendYield": 0.00040679754,
+    "currency": "GBp",
+    "fromCurrency": null,
+    "toCurrency": null,
+    "lastMarket": null,
+    "coinMarketCapLink": null,
+    "algorithm": null,
+    "tradeable": false
+  },
+  "defaultKeyStatistics": {
+    "maxAge": 1,
+    "priceHint": 2,
+    "enterpriseValue": 258191081472,
+    "forwardPE": 643.3941,
+    "profitMargins": 0.1018,
+    "floatShares": 5589010251,
+    "sharesOutstanding": 5667142592,
+    "heldPercentInsiders": 0.00211,
+    "heldPercentInstitutions": 0.36189997,
+    "beta": -0.244,
+    "impliedSharesOutstanding": 5667142592,
+    "category": null,
+    "bookValue": 25.85746,
+    "priceToBook": 146.34074,
+    "fundFamily": null,
+    "legalType": null,
+    "lastFiscalYearEnd": "2025-12-31T00:00:00.000Z",
+    "nextFiscalYearEnd": "2026-12-31T00:00:00.000Z",
+    "mostRecentQuarter": "2026-09-30T00:00:00.000Z",
+    "earningsQuarterlyGrowth": 1.266,
+    "netIncomeToCommon": 32707000320,
+    "trailingEps": 4.3,
+    "forwardEps": 4.390938,
+    "pegRatio": 1.44,
+    "lastSplitFactor": "2:1",
+    "lastSplitDate": 1121385600,
+    "enterpriseToRevenue": 0.804,
+    "enterpriseToEbitda": 3.821,
+    "52WeekChange": 0.33175433,
+    "SandP52WeekChange": 0.1440854,
+    "lastDividendValue": 0.3906,
+    "lastDividendDate": "2026-11-12T00:00:00.000Z",
+    "latestShareClass": null,
+    "leadInvestor": null
+  },
+  "financialData": {
+    "maxAge": 86400,
+    "currentPrice": 3784,
+    "targetHighPrice": 4918.628,
+    "targetLowPrice": 3428.7583,
+    "targetMeanPrice": 4104.3022,
+    "targetMedianPrice": 4089.329,
+    "recommendationMean": 2.10526,
+    "recommendationKey": "buy",
+    "numberOfAnalystOpinions": 16,
+    "totalCash": 36424998912,
+    "totalCashPerShare": 6.357,
+    "ebitda": 67562999808,
+    "totalDebt": 76074999808,
+    "quickRatio": 0.925,
+    "currentRatio": 1.377,
+    "totalRevenue": 321294991360,
+    "debtToEquity": 38.13,
+    "revenuePerShare": 56.905,
+    "returnOnAssets": 0.07672,
+    "returnOnEquity": 0.17432,
+    "grossProfits": 86511001600,
+    "freeCashflow": 29048250368,
+    "operatingCashflow": 57976000512,
+    "earningsGrowth": 1.367,
+    "revenueGrowth": 0.362,
+    "grossMargins": 0.26926002,
+    "ebitdaMargins": 0.21028,
+    "operatingMargins": 0.18763,
+    "profitMargins": 0.1018,
+    "financialCurrency": "USD"
+  },
+  "earningsHistory": {
+    "history": [
+      {
+        "maxAge": 1,
+        "epsActual": 0.57,
+        "epsEstimate": 0.69954,
+        "epsDifference": -0.13,
+        "surprisePercent": -0.1852,
+        "quarter": "2025-12-31T00:00:00.000Z",
+        "currency": "USD",
+        "period": "-4q"
+      },
+      {
+        "maxAge": 1,
+        "epsActual": 1.22,
+        "epsEstimate": 1.06438,
+        "epsDifference": 0.16,
+        "surprisePercent": 0.1462,
+        "quarter": "2026-03-31T00:00:00.000Z",
+        "currency": "USD",
+        "period": "-3q"
+      },
+      {
+        "maxAge": 1,
+        "epsActual": 1.76,
+        "epsEstimate": 1.54916,
+        "epsDifference": 0.21,
+        "surprisePercent": 0.1361,
+        "quarter": "2026-06-30T00:00:00.000Z",
+        "currency": "USD",
+        "period": "-2q"
+      },
+      {
+        "maxAge": 1,
+        "epsActual": 1.93,
+        "epsEstimate": 1.79638,
+        "epsDifference": 0.13,
+        "surprisePercent": 0.0744,
+        "quarter": "2026-09-30T00:00:00.000Z",
+        "currency": "USD",
+        "period": "-1q"
+      }
+    ],
+    "defaultMethodology": "nongaap",
+    "maxAge": 86400
+  },
+  "earningsTrend": {
+    "trend": [
+      {
+        "maxAge": 1,
+        "period": "0q",
+        "endDate": "2026-12-31T00:00:00.000Z",
+        "growth": 1.9884,
+        "earningsEstimate": {
+          "avg": 1.70338,
+          "low": 1.4385,
+          "high": 2.01,
+          "yearAgoEps": 0.57,
+          "numberOfAnalysts": 7,
+          "growth": 1.9884,
+          "earningsCurrency": "USD"
+        },
+        "revenueEstimate": {
+          "avg": 108872775410,
+          "low": 95709000000,
+          "high": 124645552750,
+          "numberOfAnalysts": 5,
+          "yearAgoRevenue": 64093000000,
+          "growth": 0.6987,
+          "revenueCurrency": "USD"
+        },
+        "epsTrend": {
+          "current": 1.70338,
+          "7daysAgo": 1.67956,
+          "30daysAgo": 1.36575,
+          "60daysAgo": 1.32632,
+          "90daysAgo": 1.38448,
+          "epsTrendCurrency": "USD"
+        },
+        "epsRevisions": {
+          "upLast7days": 2,
+          "upLast30days": 2,
+          "downLast30days": 1,
+          "downLast7Days": 2,
+          "downLast90days": null,
+          "epsRevisionsCurrency": "USD"
+        }
+      },
+      {
+        "maxAge": 1,
+        "period": "+1q",
+        "endDate": "2027-03-31T00:00:00.000Z",
+        "growth": 0.2807,
+        "earningsEstimate": {
+          "avg": 1.5625,
+          "low": 1.35,
+          "high": 2.06,
+          "yearAgoEps": 1.22,
+          "numberOfAnalysts": 4,
+          "growth": 0.2807,
+          "earningsCurrency": "USD"
+        },
+        "revenueEstimate": {
+          "avg": 89104195600,
+          "low": 84731000000,
+          "high": 92382586800,
+          "numberOfAnalysts": 3,
+          "yearAgoRevenue": 69691000000,
+          "growth": 0.2786,
+          "revenueCurrency": "USD"
+        },
+        "epsTrend": {
+          "current": 1.5625,
+          "7daysAgo": 1.5225,
+          "30daysAgo": 1.175,
+          "60daysAgo": 1.29538,
+          "90daysAgo": 1.30172,
+          "epsTrendCurrency": "USD"
+        },
+        "epsRevisions": {
+          "upLast7days": 1,
+          "upLast30days": 1,
+          "downLast30days": 0,
+          "downLast7Days": 0,
+          "downLast90days": null,
+          "epsRevisionsCurrency": "USD"
+        }
+      },
+      {
+        "maxAge": 1,
+        "period": "0y",
+        "endDate": "2026-12-31T00:00:00.000Z",
+        "growth": 1.0707,
+        "earningsEstimate": {
+          "avg": 6.52286,
+          "low": 6.03,
+          "high": 7.3109,
+          "yearAgoEps": 3.15,
+          "numberOfAnalysts": 19,
+          "growth": 1.0707,
+          "earningsCurrency": "USD"
+        },
+        "revenueEstimate": {
+          "avg": 349447739220,
+          "low": 269555000000,
+          "high": 381848552750,
+          "numberOfAnalysts": 15,
+          "yearAgoRevenue": 266886000000,
+          "growth": 0.3094,
+          "revenueCurrency": "USD"
+        },
+        "epsTrend": {
+          "current": 6.52286,
+          "7daysAgo": 6.38813,
+          "30daysAgo": 5.9947,
+          "60daysAgo": 5.41949,
+          "90daysAgo": 5.71314,
+          "epsTrendCurrency": "USD"
+        },
+        "epsRevisions": {
+          "upLast7days": 2,
+          "upLast30days": 9,
+          "downLast30days": 1,
+          "downLast7Days": 0,
+          "downLast90days": null,
+          "epsRevisionsCurrency": "USD"
+        }
+      },
+      {
+        "maxAge": 1,
+        "period": "+1y",
+        "endDate": "2027-12-31T00:00:00.000Z",
+        "growth": -0.098400004,
+        "earningsEstimate": {
+          "avg": 5.88131,
+          "low": 4.81,
+          "high": 7.513,
+          "yearAgoEps": 6.52286,
+          "numberOfAnalysts": 19,
+          "growth": -0.098400004,
+          "earningsCurrency": "USD"
+        },
+        "revenueEstimate": {
+          "avg": 326497620100,
+          "low": 276294000000,
+          "high": 375953000000,
+          "numberOfAnalysts": 16,
+          "yearAgoRevenue": 349447739220,
+          "growth": -0.0657,
+          "revenueCurrency": "USD"
+        },
+        "epsTrend": {
+          "current": 5.88131,
+          "7daysAgo": 5.7078,
+          "30daysAgo": 5.26974,
+          "60daysAgo": 4.7779,
+          "90daysAgo": 4.65222,
+          "epsTrendCurrency": "USD"
+        },
+        "epsRevisions": {
+          "upLast7days": 2,
+          "upLast30days": 8,
+          "downLast30days": 1,
+          "downLast7Days": 0,
+          "downLast90days": null,
+          "epsRevisionsCurrency": "USD"
+        }
+      }
+    ],
+    "defaultMethodology": "nongaap",
+    "maxAge": 1
+  },
+  "recommendationTrend": {
+    "trend": [
+      {
+        "period": "0m",
+        "strongBuy": 3,
+        "buy": 7,
+        "hold": 9,
+        "sell": 0,
+        "strongSell": 0
+      },
+      {
+        "period": "-1m",
+        "strongBuy": 3,
+        "buy": 7,
+        "hold": 9,
+        "sell": 0,
+        "strongSell": 0
+      },
+      {
+        "period": "-2m",
+        "strongBuy": 3,
+        "buy": 6,
+        "hold": 9,
+        "sell": 0,
+        "strongSell": 0
+      },
+      {
+        "period": "-3m",
+        "strongBuy": 2,
+        "buy": 6,
+        "hold": 10,
+        "sell": 0,
+        "strongSell": 0
+      }
+    ],
+    "maxAge": 86400
+  },
+  "assetProfile": {
+    "address1": "Shell Centre",
+    "city": "London",
+    "zip": "SE1 7NA",
+    "country": "United Kingdom",
+    "phone": "44 20 7934 1234",
+    "website": "https://www.shell.com",
+    "industry": "Oil & Gas Integrated",
+    "industryKey": "oil-gas-integrated",
+    "industryDisp": "Oil & Gas Integrated",
+    "sector": "Energy",
+    "sectorKey": "energy",
+    "sectorDisp": "Energy",
+    "longBusinessSummary": "Shell plc operates as an energy and petrochemical company in Europe, Asia, Oceania, Africa, the United States, and other parts of the Americas. It operates through the following segments: Integrated Gas, Upstream, Marketing, Chemicals and Products, and Renewables and Energy Solutions. The company explores for and extracts natural gas to produce liquefied natural gas or convert it into gas-to-liquids (GTL) fuels and other products; explores for and extracts crude oil, natural gas, and natural gas liquids; and operates marketing and transportation of oil, gas, and liquids, supported by the infrastructure required to deliver them to market or to process them within Shell's chemical manufacturing plants and refineries. It is also involved in marketing, which includes mobility, lubricants, and sectors focused on decarbonization; operates a retail network, including electric vehicle charging, convenience retail, and the wholesale commercial fuels business for transport and industry; sells products for road transport and machinery in manufacturing, mining, power generation, agriculture, and construction; and provides low-carbon energy solutions, such as biofuels, to a broad range of commercial customers, including those in the aviation, marine, and agriculture sectors. In addition, the company offers chemicals and products, including chemicals manufacturing plants with their own marketing network, and refineries that turn crude oil and other feedstocks into a range of oil products, which are moved and marketed around the world for domestic, industrial, and transport use; and operates a pipeline business, trading, and optimization of crude oil, oil products, and petrochemicals. The company was formerly known as Royal Dutch Shell plc and changed its name to Shell plc in January 2022. Shell plc was founded in 1897 and is headquartered in London, United Kingdom.",
+    "fullTimeEmployees": 84000,
+    "companyOfficers": [
+      {
+        "maxAge": 1,
+        "name": "Mr. Wael  Sawan",
+        "age": 51,
+        "title": "CEO & Director",
+        "yearBorn": 1974,
+        "fiscalYear": 2025,
+        "totalPay": 4644000,
+        "exercisedValue": 0,
+        "unexercisedValue": 0
+      },
+      {
+        "maxAge": 1,
+        "name": "Ms. Sinead  Gorman",
+        "age": 48,
+        "title": "CFO & Director",
+        "yearBorn": 1977,
+        "fiscalYear": 2025,
+        "totalPay": 3052000,
+        "exercisedValue": 0,
+        "unexercisedValue": 0
+      },
+      {
+        "maxAge": 1,
+        "name": "Ms. Philippa  Bounds",
+        "age": 54,
+        "title": "Chief Legal Officer",
+        "yearBorn": 1971,
+        "fiscalYear": 2025,
+        "exercisedValue": 0,
+        "unexercisedValue": 0
+      },
+      {
+        "maxAge": 1,
+        "name": "Ms. Rachel  Solway",
+        "age": 51,
+        "title": "Chief Human Resources & Corporate Officer",
+        "yearBorn": 1974,
+        "fiscalYear": 2025,
+        "exercisedValue": 0,
+        "unexercisedValue": 0
+      },
+      {
+        "maxAge": 1,
+        "name": "Mr. Graham Robert van't Hoff",
+        "age": 63,
+        "title": "Executive Vice President of Chemicals",
+        "yearBorn": 1962,
+        "fiscalYear": 2025,
+        "exercisedValue": 0,
+        "unexercisedValue": 0
+      },
+      {
+        "maxAge": 1,
+        "name": "Mr. Brian Paul Eggleston",
+        "title": "Executive Vice President of Finance Downstream",
+        "fiscalYear": 2025,
+        "exercisedValue": 0,
+        "unexercisedValue": 0
+      },
+      {
+        "maxAge": 1,
+        "name": "Mr. Roland Alexander Ilube",
+        "title": "Senior Vice President of Finance Mobility",
+        "fiscalYear": 2025,
+        "exercisedValue": 0,
+        "unexercisedValue": 0
+      },
+      {
+        "maxAge": 1,
+        "name": "Mr. Cederic  Cremers",
+        "age": 46,
+        "title": "President of Integrated Gas",
+        "yearBorn": 1979,
+        "fiscalYear": 2025,
+        "exercisedValue": 0,
+        "unexercisedValue": 0
+      },
+      {
+        "maxAge": 1,
+        "name": "Mr. Ali  Al-Janabi",
+        "title": "Chairman for Kazakhstan",
+        "fiscalYear": 2025,
+        "exercisedValue": 0,
+        "unexercisedValue": 0
+      },
+      {
+        "maxAge": 1,
+        "name": "Mr. Peter  Costello",
+        "age": 59,
+        "title": "President of Upstream",
+        "yearBorn": 1966,
+        "fiscalYear": 2025,
+        "exercisedValue": 0,
+        "unexercisedValue": 0
+      }
+    ],
+    "auditRisk": 2,
+    "boardRisk": 1,
+    "compensationRisk": 1,
+    "shareHolderRightsRisk": 1,
+    "overallRisk": 1,
+    "governanceEpochDate": "2026-11-01T00:00:00.000Z",
+    "compensationAsOfEpochDate": "2025-12-31T00:00:00.000Z",
+    "irWebsite": "http://www.shell.com/home/content/investor/",
+    "executiveTeam": [],
+    "maxAge": 86400
+  },
+  "calendarEvents": {
+    "maxAge": 1,
+    "earnings": {
+      "earningsDate": [
+        "2026-10-29T16:30:00.000Z"
+      ],
+      "earningsCallDate": [
+        "2026-10-29T14:30:00.000Z"
+      ],
+      "isEarningsDateEstimate": false,
+      "earningsAverage": 1.70338,
+      "earningsLow": 1.4385,
+      "earningsHigh": 2.01,
+      "revenueAverage": 108872775410,
+      "revenueLow": 95709000000,
+      "revenueHigh": 124645552750
+    },
+    "exDividendDate": "2026-11-12T00:00:00.000Z"
+  }
+}

@@ -1,3 +1,4 @@
+import type { ResponseMeta } from "./stock";
 import type {
   CurrencyCode,
   InstrumentType,
@@ -22,6 +23,21 @@ export interface SearchHit {
 export interface SearchResponse {
   query: string;
   hits: SearchHit[];
+  /** Present on live responses (added in v0.2.0); older fixtures lack it. */
+  meta?: ResponseMeta;
+}
+
+/**
+ * Sub-unit conversion done by the provider. Yahoo quotes London stocks in pence ("GBp"),
+ * Johannesburg in cents ("ZAc"), Tel Aviv in agorot ("ILA"). The provider divides every price
+ * by `factor` and reports the MAJOR currency (GBP, ZAR, ILS) everywhere, so price, EPS and
+ * analyst targets always share one unit.
+ */
+export interface PriceSubunit {
+  /** What Yahoo calls it, e.g. "GBp". */
+  quotedAs: CurrencyCode;
+  /** Sub-units per major unit, e.g. 100 for pence. */
+  factor: number;
 }
 
 /** Static identity of a listing. Slow-changing; cached for hours. */
@@ -35,8 +51,10 @@ export interface Listing {
   exchangeCode: string;
   /** IANA zone, e.g. "Europe/Paris". Needed to label candles in exchange time. */
   exchangeTimezone: string;
-  /** Currency of `Quote` and chart prices. */
+  /** Currency of `Quote` and chart prices (always a MAJOR unit: "GBP", never "GBp"). */
   priceCurrency: CurrencyCode;
+  /** Set when Yahoo quoted a sub-unit (pence…) and the provider converted it. Added in v0.2.0. */
+  priceSubunit?: PriceSubunit | null;
   /** Currency of the financial statements; null when unknown (ETFs). May differ from price. */
   financialCurrency: CurrencyCode | null;
   /** First trade date; used to know how far "All" can go. */
@@ -71,7 +89,8 @@ export type ChartInterval = "1m" | "5m" | "15m" | "1h" | "1d" | "1wk" | "1mo";
 /**
  * One OHLCV bar. `t` is UNIX SECONDS (UTC). Within a series `t` is strictly ascending
  * and unique, and null rows are already dropped (Lightweight Charts requires both).
- * Prices are UNADJUSTED close/open/high/low in the listing's price currency.
+ * Prices are in the listing's price currency (major unit) and are split-adjusted but NOT
+ * dividend-adjusted (Yahoo `close`, not `adjclose`), so they match what the exchange printed.
  */
 export interface Candle {
   t: number;
@@ -91,8 +110,14 @@ export interface ChartSeries {
   /** Seconds east of UTC at the time of the series, for the exchange-time axis formatter. */
   gmtOffsetSeconds: number;
   candles: Candle[];
+  /**
+   * Reference close for the change display. For 1H/1D: the previous session's last close.
+   * For longer ranges: the close just before the first candle (Yahoo `chartPreviousClose`).
+   */
   previousClose: number | null;
   marketState: MarketState;
+  /** True when the exchange is not in its regular session now (CLOSED / PRE / POST). Added in v0.2.0. */
+  marketClosed?: boolean;
   /**
    * Set when the requested window had no bars (market closed / holiday) and we
    * returned the last available data instead, e.g. "last trading hour" for 1H.

@@ -1,5 +1,5 @@
 /**
- * StockLens data contract v0.1 — TYPES ONLY (no runtime code, safe to import anywhere).
+ * StockLens data contract v0.2 — TYPES ONLY (no runtime code, safe to import anywhere).
  *
  * Owner: data-engineer. Versioned, not frozen: additive v0.x changes are allowed,
  * breaking changes go through the orchestrator (PLAN §12).
@@ -16,7 +16,12 @@
  *    so the UI shows a clear "not available" state, never a blank or NaN.
  */
 
-export type ContractVersion = "0.1.0";
+/**
+ * v0.2.0 (Step 2) is ADDITIVE over v0.1.0: optional `Listing.priceSubunit`, optional `Fundamentals.primaryView`, optional
+ * `ChartSeries.marketClosed`, optional `ResponseMeta.degradedSections`, two new `ApiError` codes
+ * (`forbidden`, `unauthorized`) and an optional `HealthReport` detail. Nothing was removed or renamed.
+ */
+export type ContractVersion = "0.1.0" | "0.2.0";
 
 /** ISO-8601 UTC timestamp, e.g. "2026-11-05T19:23:56.000Z". */
 export type IsoTimestamp = string;

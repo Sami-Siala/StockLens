@@ -49,4 +49,9 @@ export interface Fundamentals {
   quarterly: FinancialPeriod[];
   /** Oldest first, up to the last ~3 fiscal years. */
   annual: FinancialPeriod[];
+  /**
+   * Which series the UI should chart by default (added in v0.2.0): "quarterly" when the latest
+   * quarterly rows carry revenue, else "annual" (semi-annual reporters such as LVMH).
+   */
+  primaryView?: "quarterly" | "annual";
 }

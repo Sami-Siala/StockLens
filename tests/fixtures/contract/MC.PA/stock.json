@@ -1,8 +1,8 @@
 {
   "meta": {
-    "contractVersion": "0.1.0",
+    "contractVersion": "0.2.0",
     "source": "fixture",
-    "fetchedAt": "2026-11-05T19:28:37.114Z",
+    "fetchedAt": "2026-11-05T20:30:00.000Z",
     "stale": false
   },
   "listing": {
@@ -14,6 +14,7 @@
     "exchangeCode": "PAR",
     "exchangeTimezone": "Europe/Paris",
     "priceCurrency": "EUR",
+    "priceSubunit": null,
     "financialCurrency": "EUR",
     "firstTradeDate": "2000-01-03T08:00:00.000Z"
   },
@@ -285,7 +286,8 @@
             "reason": null
           }
         }
-      ]
+      ],
+      "primaryView": "annual"
     },
     "reason": null
   },

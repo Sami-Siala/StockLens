@@ -1,0 +1,579 @@
+{
+  "meta": {
+    "contractVersion": "0.2.0",
+    "source": "fixture",
+    "fetchedAt": "2026-11-05T20:30:00.000Z",
+    "stale": false
+  },
+  "listing": {
+    "symbol": "RIVN",
+    "name": "Rivian Automotive, Inc.",
+    "shortName": "Rivian Automotive, Inc.",
+    "quoteType": "EQUITY",
+    "exchange": "NasdaqGS",
+    "exchangeCode": "NMS",
+    "exchangeTimezone": "America/New_York",
+    "priceCurrency": "USD",
+    "priceSubunit": null,
+    "financialCurrency": "USD",
+    "firstTradeDate": "2021-11-10T14:30:00.000Z"
+  },
+  "quote": {
+    "value": {
+      "price": {
+        "amount": 13.21,
+        "currency": "USD"
+      },
+      "change": -0.8500004,
+      "changePercent": -0.060455217,
+      "previousClose": 14.06,
+      "open": 13.97,
+      "dayHigh": 13.98,
+      "dayLow": 12.76,
+      "volume": 36062486,
+      "fiftyTwoWeekHigh": 22.69,
+      "fiftyTwoWeekLow": 11.375,
+      "marketState": "REGULAR",
+      "asOf": "2026-11-05T20:19:04.000Z",
+      "delayMinutes": 15
+    },
+    "reason": null
+  },
+  "profile": {
+    "value": {
+      "sector": "Consumer Cyclical",
+      "industry": "Auto Manufacturers",
+      "country": "United States",
+      "website": "https://www.rivian.com",
+      "employees": 15232,
+      "summary": "Rivian Automotive, Inc., together with its subsidiaries, develops, manufactures, and sells category-defining electric vehicles. It operates through two segments, Automotive, and Software and Services. The company offers consumer vehicles, including a two-row, five-passenger pickup truck under the R1T brand; and a three-row, seven-passenger sport utility vehicle under the R1S name. It also provides software and services, such as vehicle electrical architecture and software development, as well as Autonomy+, remarketing, vehicle repair and maintenance services, software subscriptions, vehicle accessories, financing, insurance, and other services. In addition, the company designs, develops, and manufactures the Rivian Adventure Network Direct Current fast chargers; and FleetOS, a proprietary, end-to-end centralized fleet management subscription platform. Further, it offers Rivian Commercial Van platform for Electric Delivery Van with collaboration with Amazon.com, Inc. Rivian Automotive, Inc. was founded in 2009 and is based in Irvine, California."
+    },
+    "reason": null
+  },
+  "fundamentals": {
+    "value": {
+      "financialCurrency": "USD",
+      "keyStats": {
+        "marketCap": {
+          "value": {
+            "amount": 19281428480,
+            "currency": "USD"
+          },
+          "reason": null
+        },
+        "sharesOutstanding": {
+          "value": 1455696138,
+          "reason": null
+        },
+        "trailingPE": {
+          "value": null,
+          "reason": "negative_earnings"
+        },
+        "forwardPE": {
+          "value": null,
+          "reason": "negative_earnings"
+        },
+        "trailingEps": {
+          "value": {
+            "amount": -2.26,
+            "currency": "USD"
+          },
+          "reason": null
+        },
+        "forwardEps": {
+          "value": {
+            "amount": -1.76654,
+            "currency": "USD"
+          },
+          "reason": null
+        },
+        "dividendYield": {
+          "value": 0,
+          "reason": null
+        },
+        "dividendRate": {
+          "value": null,
+          "reason": "not_reported"
+        },
+        "payoutRatio": {
+          "value": null,
+          "reason": "not_reported"
+        },
+        "operatingMargin": {
+          "value": -0.40882,
+          "reason": null
+        },
+        "revenueGrowth": {
+          "value": 0.383,
+          "reason": null
+        },
+        "beta": {
+          "value": 1.644,
+          "reason": null
+        }
+      },
+      "quarterly": [
+        {
+          "periodEnd": "2025-03-31",
+          "length": "3M",
+          "revenue": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "operatingIncome": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "netIncome": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "freeCashFlow": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "operatingCashFlow": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "dilutedEps": {
+            "value": null,
+            "reason": "reported_less_often"
+          }
+        },
+        {
+          "periodEnd": "2025-06-30",
+          "length": "3M",
+          "revenue": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "operatingIncome": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "netIncome": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "freeCashFlow": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "operatingCashFlow": {
+            "value": null,
+            "reason": "reported_less_often"
+          },
+          "dilutedEps": {
+            "value": null,
+            "reason": "reported_less_often"
+          }
+        },
+        {
+          "periodEnd": "2025-09-30",
+          "length": "3M",
+          "revenue": {
+            "value": 1558000000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": -983000000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": -1173000000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": -421000000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": 26000000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": -0.96,
+            "reason": null
+          }
+        },
+        {
+          "periodEnd": "2025-12-31",
+          "length": "3M",
+          "revenue": {
+            "value": 1286000000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": -833000000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": -811000000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": -1144000000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": -681000000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": -0.66,
+            "reason": null
+          }
+        },
+        {
+          "periodEnd": "2026-03-31",
+          "length": "3M",
+          "revenue": {
+            "value": 1381000000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": -881000000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": -416000000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": -1075000000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": -703000000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": -0.33,
+            "reason": null
+          }
+        },
+        {
+          "periodEnd": "2026-06-30",
+          "length": "3M",
+          "revenue": {
+            "value": 1658000000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": -836000000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": -833000000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": -849000000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": -487000000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": -0.63,
+            "reason": null
+          }
+        },
+        {
+          "periodEnd": "2026-09-30",
+          "length": "3M",
+          "revenue": {
+            "value": 2155000000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": -881000000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": -913000000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": -1124000000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": -758000000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": -0.63,
+            "reason": null
+          }
+        }
+      ],
+      "annual": [
+        {
+          "periodEnd": "2023-12-31",
+          "length": "12M",
+          "revenue": {
+            "value": 4434000000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": -5739000000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": -5432000000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": -5892000000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": -4866000000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": -5.74,
+            "reason": null
+          }
+        },
+        {
+          "periodEnd": "2024-12-31",
+          "length": "12M",
+          "revenue": {
+            "value": 4970000000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": -4689000000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": -4747000000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": -2857000000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": -1716000000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": -4.69,
+            "reason": null
+          }
+        },
+        {
+          "periodEnd": "2025-12-31",
+          "length": "12M",
+          "revenue": {
+            "value": 5387000000,
+            "reason": null
+          },
+          "operatingIncome": {
+            "value": -3585000000,
+            "reason": null
+          },
+          "netIncome": {
+            "value": -3646000000,
+            "reason": null
+          },
+          "freeCashFlow": {
+            "value": -2489000000,
+            "reason": null
+          },
+          "operatingCashFlow": {
+            "value": -779000000,
+            "reason": null
+          },
+          "dilutedEps": {
+            "value": -3.07,
+            "reason": null
+          }
+        }
+      ],
+      "primaryView": "quarterly"
+    },
+    "reason": null
+  },
+  "earnings": {
+    "value": {
+      "lastQuarter": {
+        "value": {
+          "quarterEnd": "2026-09-30",
+          "epsActual": -0.63,
+          "epsEstimate": -0.72831,
+          "difference": 0.09831,
+          "surprise": 0.134984,
+          "currency": "USD"
+        },
+        "reason": null
+      },
+      "history": [
+        {
+          "quarterEnd": "2025-12-31",
+          "epsActual": -0.66,
+          "epsEstimate": -0.79186,
+          "difference": 0.13186,
+          "surprise": 0.166519,
+          "currency": "USD"
+        },
+        {
+          "quarterEnd": "2026-03-31",
+          "epsActual": -0.33,
+          "epsEstimate": -0.71619,
+          "difference": 0.38619,
+          "surprise": 0.539228,
+          "currency": "USD"
+        },
+        {
+          "quarterEnd": "2026-06-30",
+          "epsActual": -0.63,
+          "epsEstimate": -0.77637,
+          "difference": 0.14637,
+          "surprise": 0.188531,
+          "currency": "USD"
+        },
+        {
+          "quarterEnd": "2026-09-30",
+          "epsActual": -0.63,
+          "epsEstimate": -0.72831,
+          "difference": 0.09831,
+          "surprise": 0.134984,
+          "currency": "USD"
+        }
+      ],
+      "next": {
+        "value": null,
+        "reason": "not_provided_by_source"
+      },
+      "epsEstimates": [
+        {
+          "period": "0q",
+          "endDate": "2026-12-31",
+          "avg": -0.663,
+          "low": -0.71,
+          "high": -0.50898,
+          "analysts": 12,
+          "yearAgo": -0.66,
+          "growth": -0.0045,
+          "currency": "USD"
+        },
+        {
+          "period": "+1q",
+          "endDate": "2027-03-31",
+          "avg": -0.62765,
+          "low": -0.9,
+          "high": -0.40117,
+          "analysts": 8,
+          "yearAgo": -0.33,
+          "growth": -0.90199995,
+          "currency": "USD"
+        },
+        {
+          "period": "0y",
+          "endDate": "2026-12-31",
+          "avg": -2.328,
+          "low": -2.76,
+          "high": -2.00278,
+          "analysts": 14,
+          "yearAgo": -3.07,
+          "growth": 0.2417,
+          "currency": "USD"
+        },
+        {
+          "period": "+1y",
+          "endDate": "2027-12-31",
+          "avg": -2.28938,
+          "low": -2.74,
+          "high": -1.86109,
+          "analysts": 14,
+          "yearAgo": -2.328,
+          "growth": 0.0166,
+          "currency": "USD"
+        }
+      ],
+      "revenueEstimates": [
+        {
+          "period": "0q",
+          "endDate": "2026-12-31",
+          "avg": 2511154630,
+          "low": 1963300000,
+          "high": 2731200000,
+          "analysts": 19,
+          "yearAgo": 1286000000,
+          "growth": 0.95269996,
+          "currency": "USD"
+        },
+        {
+          "period": "+1q",
+          "endDate": "2027-03-31",
+          "avg": 2486285730,
+          "low": 1337300000,
+          "high": 3037000000,
+          "analysts": 11,
+          "yearAgo": 1381000000,
+          "growth": 0.8004,
+          "currency": "USD"
+        },
+        {
+          "period": "0y",
+          "endDate": "2026-12-31",
+          "avg": 7676403790,
+          "low": 7157300000,
+          "high": 7925200000,
+          "analysts": 23,
+          "yearAgo": 5387000000,
+          "growth": 0.425,
+          "currency": "USD"
+        },
+        {
+          "period": "+1y",
+          "endDate": "2027-12-31",
+          "avg": 11595682150,
+          "low": 8950000000,
+          "high": 13059000000,
+          "analysts": 23,
+          "yearAgo": 7676403790,
+          "growth": 0.51060003,
+          "currency": "USD"
+        }
+      ]
+    },
+    "reason": null
+  },
+  "analysts": {
+    "value": {
+      "ratings": {
+        "value": {
+          "strongBuy": 4,
+          "buy": 10,
+          "hold": 6,
+          "sell": 3,
+          "strongSell": 2
+        },
+        "reason": null
+      },
+      "ratingMean": {
+        "value": 2.36,
+        "reason": null
+      },
+      "priceTarget": {
+        "value": {
+          "low": 10,
+          "mean": 18.16,
+          "median": 18,
+          "high": 25,
+          "analysts": 25,
+          "currency": "USD"
+        },
+        "reason": null
+      }
+    },
+    "reason": null
+  }
+}

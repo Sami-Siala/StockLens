@@ -1,8 +1,8 @@
 {
   "meta": {
-    "contractVersion": "0.1.0",
+    "contractVersion": "0.2.0",
     "source": "fixture",
-    "fetchedAt": "2026-11-05T19:28:37.117Z",
+    "fetchedAt": "2026-11-05T20:30:00.000Z",
     "stale": false
   },
   "listing": {
@@ -14,6 +14,7 @@
     "exchangeCode": "PCX",
     "exchangeTimezone": "America/New_York",
     "priceCurrency": "USD",
+    "priceSubunit": null,
     "financialCurrency": "USD",
     "firstTradeDate": "1993-01-29T14:30:00.000Z"
   },
@@ -24,7 +25,7 @@
         "currency": "USD"
       },
       "change": -31.320007,
-      "changePercent": -0.040844544999999996,
+      "changePercent": -0.040844545,
       "previousClose": 766.81,
       "open": 765.47,
       "dayHigh": 765.97,

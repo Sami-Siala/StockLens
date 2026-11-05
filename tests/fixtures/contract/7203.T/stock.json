@@ -1,8 +1,8 @@
 {
   "meta": {
-    "contractVersion": "0.1.0",
+    "contractVersion": "0.2.0",
     "source": "fixture",
-    "fetchedAt": "2026-11-05T19:28:37.105Z",
+    "fetchedAt": "2026-11-05T20:30:00.000Z",
     "stale": false
   },
   "listing": {
@@ -14,6 +14,7 @@
     "exchangeCode": "JPX",
     "exchangeTimezone": "Asia/Tokyo",
     "priceCurrency": "JPY",
+    "priceSubunit": null,
     "financialCurrency": "JPY",
     "firstTradeDate": "1999-05-06T00:00:00.000Z"
   },
@@ -369,7 +370,8 @@
             "reason": null
           }
         }
-      ]
+      ],
+      "primaryView": "quarterly"
     },
     "reason": null
   },
@@ -380,8 +382,8 @@
           "quarterEnd": "2026-09-30",
           "epsActual": 65.28,
           "epsEstimate": 56.37642,
-          "difference": 8.9,
-          "surprise": 0.1579,
+          "difference": 8.90358,
+          "surprise": 0.157931,
           "currency": "JPY"
         },
         "reason": null
@@ -391,32 +393,32 @@
           "quarterEnd": "2025-12-31",
           "epsActual": 96.48,
           "epsEstimate": 74.04519,
-          "difference": 22.43,
-          "surprise": 0.303,
+          "difference": 22.43481,
+          "surprise": 0.302988,
           "currency": "JPY"
         },
         {
           "quarterEnd": "2026-03-31",
           "epsActual": 62.7,
           "epsEstimate": 52.655,
-          "difference": 10.05,
-          "surprise": 0.1908,
+          "difference": 10.045,
+          "surprise": 0.19077,
           "currency": "JPY"
         },
         {
           "quarterEnd": "2026-06-30",
           "epsActual": 120.69,
           "epsEstimate": 82.0203,
-          "difference": 38.67,
-          "surprise": 0.4715,
+          "difference": 38.6697,
+          "surprise": 0.471465,
           "currency": "JPY"
         },
         {
           "quarterEnd": "2026-09-30",
           "epsActual": 65.28,
           "epsEstimate": 56.37642,
-          "difference": 8.9,
-          "surprise": 0.1579,
+          "difference": 8.90358,
+          "surprise": 0.157931,
           "currency": "JPY"
         }
       ],

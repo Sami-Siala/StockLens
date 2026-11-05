@@ -1,8 +1,8 @@
 {
   "meta": {
-    "contractVersion": "0.1.0",
+    "contractVersion": "0.2.0",
     "source": "fixture",
-    "fetchedAt": "2026-11-05T19:28:37.112Z",
+    "fetchedAt": "2026-11-05T20:30:00.000Z",
     "stale": false
   },
   "range": "1W",
@@ -1722,6 +1722,7 @@
       ],
       "previousClose": 344.63,
       "marketState": "REGULAR",
+      "marketClosed": false,
       "fallback": null
     },
     "reason": null

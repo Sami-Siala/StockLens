@@ -24,6 +24,13 @@ export interface ResponseMeta {
   fetchedAt: IsoTimestamp;
   /** True when served from the long-TTL stale copy or a snapshot because the live call failed. */
   stale: boolean;
+  /**
+   * Sections whose upstream module failed or was absent for a reason other than the instrument
+   * type (the matching `Metric` carries `provider_error`). Added in v0.2.0.
+   */
+  degradedSections?: Array<
+    "quote" | "profile" | "fundamentals" | "earnings" | "analysts"
+  >;
 }
 
 /**
@@ -58,6 +65,8 @@ export interface HealthReport {
     name: DataSource | "gemini" | "upstash";
     status: ProviderStatus;
     lastSuccessAt: IsoTimestamp | null;
+    /** Short, secret-free note such as "in-memory cache (Upstash not configured)". Added in v0.2.0. */
+    detail?: string;
   }>;
 }
 
@@ -66,6 +75,10 @@ export interface ApiError {
   error: {
     code:
       | "bad_request"
+      /** Origin/Referer check failed. Added in v0.2.0. */
+      | "forbidden"
+      /** Club code required or wrong. Added in v0.2.0. */
+      | "unauthorized"
       | "not_found"
       | "rate_limited"
       | "upstream_unavailable"

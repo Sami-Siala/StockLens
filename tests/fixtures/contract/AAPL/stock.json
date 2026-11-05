@@ -1,8 +1,8 @@
 {
   "meta": {
-    "contractVersion": "0.1.0",
+    "contractVersion": "0.2.0",
     "source": "fixture",
-    "fetchedAt": "2026-11-05T19:28:37.110Z",
+    "fetchedAt": "2026-11-05T20:30:00.000Z",
     "stale": false
   },
   "listing": {
@@ -14,6 +14,7 @@
     "exchangeCode": "NMS",
     "exchangeTimezone": "America/New_York",
     "priceCurrency": "USD",
+    "priceSubunit": null,
     "financialCurrency": "USD",
     "firstTradeDate": "1980-12-12T14:30:00.000Z"
   },
@@ -397,7 +398,8 @@
             "reason": null
           }
         }
-      ]
+      ],
+      "primaryView": "quarterly"
     },
     "reason": null
   },
@@ -408,51 +410,43 @@
           "quarterEnd": "2026-09-30",
           "epsActual": 2.1,
           "epsEstimate": 1.98579,
-          "difference": 0.11,
-          "surprise": 0.0575,
+          "difference": 0.11421,
+          "surprise": 0.057514,
           "currency": "USD"
         },
         "reason": null
       },
       "history": [
         {
-          "quarterEnd": "2025-09-30",
-          "epsActual": 1.85,
-          "epsEstimate": 1.77112,
-          "difference": 0.08,
-          "surprise": 0.044499997,
-          "currency": "USD"
-        },
-        {
           "quarterEnd": "2025-12-31",
           "epsActual": 2.84,
           "epsEstimate": 2.6708,
-          "difference": 0.17,
-          "surprise": 0.0634,
+          "difference": 0.1692,
+          "surprise": 0.063352,
           "currency": "USD"
         },
         {
           "quarterEnd": "2026-03-31",
           "epsActual": 2.01,
           "epsEstimate": 1.94275,
-          "difference": 0.07,
-          "surprise": 0.0346,
+          "difference": 0.06725,
+          "surprise": 0.034616,
           "currency": "USD"
         },
         {
           "quarterEnd": "2026-06-30",
           "epsActual": 2.02,
           "epsEstimate": 1.89243,
-          "difference": 0.13,
-          "surprise": 0.0674,
+          "difference": 0.12757,
+          "surprise": 0.067411,
           "currency": "USD"
         },
         {
           "quarterEnd": "2026-09-30",
           "epsActual": 2.1,
           "epsEstimate": 1.98579,
-          "difference": 0.11,
-          "surprise": 0.0575,
+          "difference": 0.11421,
+          "surprise": 0.057514,
           "currency": "USD"
         }
       ],

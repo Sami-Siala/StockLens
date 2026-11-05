@@ -1,0 +1,556 @@
+{
+  "price": {
+    "maxAge": 1,
+    "preMarketChangePercent": -0.0064011486,
+    "preMarketChange": -0.09000015,
+    "preMarketTime": "2026-11-05T14:29:58.000Z",
+    "preMarketPrice": 13.97,
+    "preMarketSource": "FREE_REALTIME",
+    "regularMarketChangePercent": -0.060455218,
+    "regularMarketChange": -0.8500004,
+    "regularMarketTime": "2026-11-05T20:19:04.000Z",
+    "priceHint": 2,
+    "regularMarketPrice": 13.21,
+    "regularMarketDayHigh": 13.98,
+    "regularMarketDayLow": 12.76,
+    "regularMarketVolume": 36062586,
+    "regularMarketPreviousClose": 14.06,
+    "regularMarketSource": "FREE_REALTIME",
+    "regularMarketOpen": 13.97,
+    "fulldayChangePercent": -0.060455218,
+    "fulldayChange": -0.8500004,
+    "fulldayPrice": 13.21,
+    "exchange": "NMS",
+    "exchangeName": "NasdaqGS",
+    "exchangeDataDelayedBy": 15,
+    "marketState": "REGULAR",
+    "quoteType": "EQUITY",
+    "symbol": "RIVN",
+    "underlyingSymbol": null,
+    "shortName": "Rivian Automotive, Inc.",
+    "longName": "Rivian Automotive, Inc.",
+    "currency": "USD",
+    "quoteSourceName": "Nasdaq Real Time Price",
+    "currencySymbol": "$",
+    "fromCurrency": null,
+    "toCurrency": null,
+    "lastMarket": null,
+    "marketCap": 19281428480
+  },
+  "quoteType": {
+    "exchange": "NMS",
+    "quoteType": "EQUITY",
+    "symbol": "RIVN",
+    "underlyingSymbol": "RIVN",
+    "shortName": "Rivian Automotive, Inc.",
+    "longName": "Rivian Automotive, Inc.",
+    "firstTradeDateEpochUtc": "2021-11-10T14:30:00.000Z",
+    "timeZoneFullName": "America/New_York",
+    "timeZoneShortName": "EST",
+    "uuid": "7689845e-9995-320d-a8a8-8b80a6a72d10",
+    "messageBoardId": "finmb_144746614",
+    "gmtOffSetMilliseconds": -18000000,
+    "maxAge": 1
+  },
+  "summaryDetail": {
+    "maxAge": 1,
+    "priceHint": 2,
+    "previousClose": 14.06,
+    "open": 13.97,
+    "dayLow": 12.76,
+    "dayHigh": 13.98,
+    "regularMarketPreviousClose": 14.06,
+    "regularMarketOpen": 13.97,
+    "regularMarketDayLow": 12.76,
+    "regularMarketDayHigh": 13.98,
+    "dividendYield": 0,
+    "beta": 1.644,
+    "forwardPE": -7.4778943,
+    "volume": 36073047,
+    "regularMarketVolume": 36073047,
+    "averageVolume": 24820062,
+    "averageVolume10days": 38045170,
+    "averageDailyVolume10Day": 38045170,
+    "bid": 12.28,
+    "ask": 13.92,
+    "bidSize": 100,
+    "askSize": 100,
+    "marketCap": 19281428480,
+    "nonDilutedMarketCap": 20522097450,
+    "fiftyTwoWeekLow": 11.375,
+    "fiftyTwoWeekHigh": 22.69,
+    "allTimeHigh": 179.47,
+    "allTimeLow": 8.26,
+    "fulldayPrice": 13.21,
+    "fulldayChange": -0.8500004,
+    "fulldayChangePercent": -0.060455218,
+    "priceToSalesTrailing12Months": 2.9755292,
+    "fiftyDayAverage": 14.332,
+    "twoHundredDayAverage": 15.4157,
+    "trailingAnnualDividendRate": 0,
+    "trailingAnnualDividendYield": 0,
+    "currency": "USD",
+    "fromCurrency": null,
+    "toCurrency": null,
+    "lastMarket": null,
+    "coinMarketCapLink": null,
+    "algorithm": null,
+    "tradeable": false
+  },
+  "defaultKeyStatistics": {
+    "maxAge": 1,
+    "priceHint": 2,
+    "enterpriseValue": 20478097408,
+    "forwardPE": -7.4778943,
+    "profitMargins": -0.45880002,
+    "floatShares": 956861039,
+    "sharesOutstanding": 1455696138,
+    "sharesShort": 164110598,
+    "sharesShortPriorMonth": "1974-11-20T19:20:56.000Z",
+    "sharesShortPreviousMonthDate": "2026-09-15T00:00:00.000Z",
+    "dateShortInterest": "2026-10-15T00:00:00.000Z",
+    "sharesPercentSharesOut": 0.112399995,
+    "heldPercentInsiders": 0.34287998,
+    "heldPercentInstitutions": 0.40357,
+    "shortRatio": 6.44,
+    "shortPercentOfFloat": 0.14310001,
+    "beta": 1.644,
+    "impliedSharesOutstanding": 1459608638,
+    "category": null,
+    "bookValue": 3.898,
+    "priceToBook": 3.3889174,
+    "fundFamily": null,
+    "legalType": null,
+    "lastFiscalYearEnd": "2025-12-31T00:00:00.000Z",
+    "nextFiscalYearEnd": "2026-12-31T00:00:00.000Z",
+    "mostRecentQuarter": "2026-09-30T00:00:00.000Z",
+    "netIncomeToCommon": -2972999936,
+    "trailingEps": -2.26,
+    "forwardEps": -1.76654,
+    "lastSplitFactor": null,
+    "enterpriseToRevenue": 3.16,
+    "enterpriseToEbitda": -8.037,
+    "52WeekChange": -0.076215506,
+    "SandP52WeekChange": 0.1440854,
+    "latestShareClass": null,
+    "leadInvestor": null
+  },
+  "financialData": {
+    "maxAge": 86400,
+    "currentPrice": 13.2,
+    "targetHighPrice": 25,
+    "targetLowPrice": 10,
+    "targetMeanPrice": 18.16,
+    "targetMedianPrice": 18,
+    "recommendationMean": 2.36,
+    "recommendationKey": "buy",
+    "numberOfAnalystOpinions": 25,
+    "totalCash": 5502000128,
+    "totalCashPerShare": 3.77,
+    "ebitda": -2548000000,
+    "totalDebt": 5431000064,
+    "quickRatio": 1.63,
+    "currentRatio": 2.175,
+    "totalRevenue": 6480000000,
+    "debtToEquity": 94.981,
+    "revenuePerShare": 4.933,
+    "returnOnAssets": -0.13859999,
+    "returnOnEquity": -0.54879004,
+    "grossProfits": 594000000,
+    "freeCashflow": -2192750080,
+    "operatingCashflow": -2628999936,
+    "revenueGrowth": 0.383,
+    "grossMargins": 0.09167,
+    "ebitdaMargins": -0.39321,
+    "operatingMargins": -0.40882,
+    "profitMargins": -0.45880002,
+    "financialCurrency": "USD"
+  },
+  "earningsHistory": {
+    "history": [
+      {
+        "maxAge": 1,
+        "epsActual": -0.66,
+        "epsEstimate": -0.79186,
+        "epsDifference": 0.13,
+        "surprisePercent": 0.1665,
+        "quarter": "2025-12-31T00:00:00.000Z",
+        "currency": "USD",
+        "period": "-4q"
+      },
+      {
+        "maxAge": 1,
+        "epsActual": -0.33,
+        "epsEstimate": -0.71619,
+        "epsDifference": 0.39,
+        "surprisePercent": 0.5392,
+        "quarter": "2026-03-31T00:00:00.000Z",
+        "currency": "USD",
+        "period": "-3q"
+      },
+      {
+        "maxAge": 1,
+        "epsActual": -0.63,
+        "epsEstimate": -0.77637,
+        "epsDifference": 0.15,
+        "surprisePercent": 0.1885,
+        "quarter": "2026-06-30T00:00:00.000Z",
+        "currency": "USD",
+        "period": "-2q"
+      },
+      {
+        "maxAge": 1,
+        "epsActual": -0.63,
+        "epsEstimate": -0.72831,
+        "epsDifference": 0.1,
+        "surprisePercent": 0.135,
+        "quarter": "2026-09-30T00:00:00.000Z",
+        "currency": "USD",
+        "period": "-1q"
+      }
+    ],
+    "defaultMethodology": "gaap",
+    "maxAge": 86400
+  },
+  "earningsTrend": {
+    "trend": [
+      {
+        "maxAge": 1,
+        "period": "0q",
+        "endDate": "2026-12-31T00:00:00.000Z",
+        "growth": -0.0107,
+        "earningsEstimate": {
+          "avg": -0.663,
+          "low": -0.71,
+          "high": -0.50898,
+          "yearAgoEps": -0.66,
+          "numberOfAnalysts": 12,
+          "growth": -0.0045,
+          "earningsCurrency": "USD"
+        },
+        "revenueEstimate": {
+          "avg": 2511154630,
+          "low": 1963300000,
+          "high": 2731200000,
+          "numberOfAnalysts": 19,
+          "yearAgoRevenue": 1286000000,
+          "growth": 0.95269996,
+          "revenueCurrency": "USD"
+        },
+        "epsTrend": {
+          "current": -0.663,
+          "7daysAgo": -0.6528,
+          "30daysAgo": -0.65725,
+          "60daysAgo": -0.66619,
+          "90daysAgo": -0.66286,
+          "epsTrendCurrency": "USD"
+        },
+        "epsRevisions": {
+          "upLast7days": 3,
+          "upLast30days": 3,
+          "downLast30days": 0,
+          "downLast7Days": 0,
+          "downLast90days": null,
+          "epsRevisionsCurrency": "USD"
+        }
+      },
+      {
+        "maxAge": 1,
+        "period": "+1q",
+        "endDate": "2027-03-31T00:00:00.000Z",
+        "growth": 0.0748,
+        "earningsEstimate": {
+          "avg": -0.62765,
+          "low": -0.9,
+          "high": -0.40117,
+          "yearAgoEps": -0.33,
+          "numberOfAnalysts": 8,
+          "growth": -0.90199995,
+          "earningsCurrency": "USD"
+        },
+        "revenueEstimate": {
+          "avg": 2486285730,
+          "low": 1337300000,
+          "high": 3037000000,
+          "numberOfAnalysts": 11,
+          "yearAgoRevenue": 1381000000,
+          "growth": 0.8004,
+          "revenueCurrency": "USD"
+        },
+        "epsTrend": {
+          "current": -0.62765,
+          "7daysAgo": -0.62167,
+          "30daysAgo": -0.57845,
+          "60daysAgo": -0.57845,
+          "90daysAgo": -0.57845,
+          "epsTrendCurrency": "USD"
+        },
+        "epsRevisions": {
+          "upLast7days": 5,
+          "upLast30days": 5,
+          "downLast30days": 0,
+          "downLast7Days": 1,
+          "downLast90days": null,
+          "epsRevisionsCurrency": "USD"
+        }
+      },
+      {
+        "maxAge": 1,
+        "period": "0y",
+        "endDate": "2026-12-31T00:00:00.000Z",
+        "growth": 0.1521,
+        "earningsEstimate": {
+          "avg": -2.328,
+          "low": -2.76,
+          "high": -2.00278,
+          "yearAgoEps": -3.07,
+          "numberOfAnalysts": 14,
+          "growth": 0.2417,
+          "earningsCurrency": "USD"
+        },
+        "revenueEstimate": {
+          "avg": 7676403790,
+          "low": 7157300000,
+          "high": 7925200000,
+          "numberOfAnalysts": 23,
+          "yearAgoRevenue": 5387000000,
+          "growth": 0.425,
+          "revenueCurrency": "USD"
+        },
+        "epsTrend": {
+          "current": -2.328,
+          "7daysAgo": -2.42978,
+          "30daysAgo": -2.43066,
+          "60daysAgo": -2.43928,
+          "90daysAgo": -2.44428,
+          "epsTrendCurrency": "USD"
+        },
+        "epsRevisions": {
+          "upLast7days": 1,
+          "upLast30days": 1,
+          "downLast30days": 2,
+          "downLast7Days": 2,
+          "downLast90days": null,
+          "epsRevisionsCurrency": "USD"
+        }
+      },
+      {
+        "maxAge": 1,
+        "period": "+1y",
+        "endDate": "2027-12-31T00:00:00.000Z",
+        "growth": 0.1283,
+        "earningsEstimate": {
+          "avg": -2.28938,
+          "low": -2.74,
+          "high": -1.86109,
+          "yearAgoEps": -2.328,
+          "numberOfAnalysts": 14,
+          "growth": 0.0166,
+          "earningsCurrency": "USD"
+        },
+        "revenueEstimate": {
+          "avg": 11595682150,
+          "low": 8950000000,
+          "high": 13059000000,
+          "numberOfAnalysts": 23,
+          "yearAgoRevenue": 7676403790,
+          "growth": 0.51060003,
+          "revenueCurrency": "USD"
+        },
+        "epsTrend": {
+          "current": -2.28938,
+          "7daysAgo": -2.20885,
+          "30daysAgo": -2.17393,
+          "60daysAgo": -2.16752,
+          "90daysAgo": -2.17886,
+          "epsTrendCurrency": "USD"
+        },
+        "epsRevisions": {
+          "upLast7days": 2,
+          "upLast30days": 2,
+          "downLast30days": 0,
+          "downLast7Days": 0,
+          "downLast90days": null,
+          "epsRevisionsCurrency": "USD"
+        }
+      }
+    ],
+    "defaultMethodology": "gaap",
+    "maxAge": 1
+  },
+  "recommendationTrend": {
+    "trend": [
+      {
+        "period": "0m",
+        "strongBuy": 4,
+        "buy": 10,
+        "hold": 6,
+        "sell": 3,
+        "strongSell": 2
+      },
+      {
+        "period": "-1m",
+        "strongBuy": 4,
+        "buy": 9,
+        "hold": 7,
+        "sell": 3,
+        "strongSell": 2
+      },
+      {
+        "period": "-2m",
+        "strongBuy": 5,
+        "buy": 8,
+        "hold": 8,
+        "sell": 3,
+        "strongSell": 2
+      },
+      {
+        "period": "-3m",
+        "strongBuy": 5,
+        "buy": 8,
+        "hold": 8,
+        "sell": 3,
+        "strongSell": 2
+      }
+    ],
+    "maxAge": 86400
+  },
+  "assetProfile": {
+    "address1": "14600 Myford Road",
+    "city": "Irvine",
+    "state": "CA",
+    "zip": "92606",
+    "country": "United States",
+    "phone": "888 748 4261",
+    "website": "https://www.rivian.com",
+    "industry": "Auto Manufacturers",
+    "industryKey": "auto-manufacturers",
+    "industryDisp": "Auto Manufacturers",
+    "sector": "Consumer Cyclical",
+    "sectorKey": "consumer-cyclical",
+    "sectorDisp": "Consumer Cyclical",
+    "longBusinessSummary": "Rivian Automotive, Inc., together with its subsidiaries, develops, manufactures, and sells category-defining electric vehicles. It operates through two segments, Automotive, and Software and Services. The company offers consumer vehicles, including a two-row, five-passenger pickup truck under the R1T brand; and a three-row, seven-passenger sport utility vehicle under the R1S name. It also provides software and services, such as vehicle electrical architecture and software development, as well as Autonomy+, remarketing, vehicle repair and maintenance services, software subscriptions, vehicle accessories, financing, insurance, and other services. In addition, the company designs, develops, and manufactures the Rivian Adventure Network Direct Current fast chargers; and FleetOS, a proprietary, end-to-end centralized fleet management subscription platform. Further, it offers Rivian Commercial Van platform for Electric Delivery Van with collaboration with Amazon.com, Inc. Rivian Automotive, Inc. was founded in 2009 and is based in Irvine, California.",
+    "fullTimeEmployees": 15232,
+    "companyOfficers": [
+      {
+        "maxAge": 1,
+        "name": "Dr. Robert Joseph Scaringe Ph.D.",
+        "age": 41,
+        "title": "Founder, CEO & Chairman of the Board",
+        "yearBorn": 1984,
+        "fiscalYear": 2025,
+        "totalPay": 2536810,
+        "exercisedValue": 5851678,
+        "unexercisedValue": 71651376
+      },
+      {
+        "maxAge": 1,
+        "name": "Mr. Michael J. Callahan",
+        "age": 56,
+        "title": "Chief Administrative Officer & Secretary",
+        "yearBorn": 1969,
+        "fiscalYear": 2025,
+        "totalPay": 922840,
+        "exercisedValue": 0,
+        "unexercisedValue": 4010658
+      },
+      {
+        "maxAge": 1,
+        "name": "Mr. Derek  Mulvey",
+        "age": 35,
+        "title": "Interim Chief Financial Officer",
+        "yearBorn": 1990,
+        "fiscalYear": 2025,
+        "exercisedValue": 0,
+        "unexercisedValue": 0
+      },
+      {
+        "maxAge": 1,
+        "name": "Mr. Javier  Varela",
+        "age": 61,
+        "title": "Chief Operations Officer",
+        "yearBorn": 1964,
+        "fiscalYear": 2025,
+        "exercisedValue": 0,
+        "unexercisedValue": 0
+      },
+      {
+        "maxAge": 1,
+        "name": "Ms. Sreela  Venkataratnam",
+        "title": "Chief Accounting Officer",
+        "fiscalYear": 2025,
+        "exercisedValue": 0,
+        "unexercisedValue": 0
+      },
+      {
+        "maxAge": 1,
+        "name": "Mr. Chip  Newcom",
+        "title": "Vice President of Investor Relations",
+        "fiscalYear": 2025,
+        "exercisedValue": 0,
+        "unexercisedValue": 0
+      },
+      {
+        "maxAge": 1,
+        "name": "Ms. Marina  Hoffmann",
+        "title": "Chief Communications Officer",
+        "fiscalYear": 2025,
+        "exercisedValue": 0,
+        "unexercisedValue": 0
+      },
+      {
+        "maxAge": 1,
+        "name": "Mr. Robert Scott Griffin",
+        "age": 60,
+        "title": "Chief People Officer",
+        "yearBorn": 1965,
+        "fiscalYear": 2025,
+        "exercisedValue": 0,
+        "unexercisedValue": 0
+      },
+      {
+        "maxAge": 1,
+        "name": "Mr. Jeff  Hammoud",
+        "title": "Chief Design Officer",
+        "fiscalYear": 2025,
+        "exercisedValue": 0,
+        "unexercisedValue": 0
+      },
+      {
+        "maxAge": 1,
+        "name": "Mr. Jimmy  Knauf",
+        "title": "Executive Vice President of Facilities",
+        "fiscalYear": 2025,
+        "exercisedValue": 0,
+        "unexercisedValue": 0
+      }
+    ],
+    "auditRisk": 6,
+    "boardRisk": 9,
+    "compensationRisk": 10,
+    "shareHolderRightsRisk": 10,
+    "overallRisk": 10,
+    "governanceEpochDate": "2026-11-01T00:00:00.000Z",
+    "compensationAsOfEpochDate": "2025-12-31T00:00:00.000Z",
+    "executiveTeam": [],
+    "maxAge": 86400
+  },
+  "calendarEvents": {
+    "maxAge": 1,
+    "earnings": {
+      "earningsDate": [
+        "2026-10-29T20:00:00.000Z"
+      ],
+      "earningsCallDate": [
+        "2026-10-29T21:00:00.000Z"
+      ],
+      "isEarningsDateEstimate": false,
+      "earningsAverage": -0.53567,
+      "earningsLow": -0.68,
+      "earningsHigh": -0.48,
+      "revenueAverage": 2511154630,
+      "revenueLow": 1963300000,
+      "revenueHigh": 2731200000
+    }
+  }
+}
