@@ -353,6 +353,64 @@
       "retry": "Try again",
       "backToSearch": "Back to search"
     },
-    "fundsNote": "Profit, P/E and the other key numbers describe a single company. This is a fund (it holds many companies), so they do not apply here."
+    "fundsNote": "Profit, P/E and the other key numbers describe a single company. This is a fund (it holds many companies), so they do not apply here.",
+    "thesis": {
+      "introTitle": "The company in 30 seconds",
+      "whatItDoes": "What it does",
+      "howItMakesMoney": "How it makes money",
+      "aiNote": "Written by an AI from the data on this page, so it can make mistakes. Check it against the numbers.",
+      "notAdvice": "Educational content, not financial advice.",
+      "writing": "Writing the explanation...",
+      "writingHint": "This can take a few seconds. The rest of the page already works.",
+      "stale": "From an earlier generation",
+      "staleOn": "From an earlier generation, {date}",
+      "argsTitle": "Arguments to weigh",
+      "argsIntro": "Three ways to look at this company. These are arguments to evaluate, not advice: you decide what you think.",
+      "for": {
+        "title": "Arguments for",
+        "hint": "What supporters of the company point to"
+      },
+      "against": {
+        "title": "Arguments against",
+        "hint": "What worries sceptics"
+      },
+      "wait": {
+        "title": "Arguments for waiting",
+        "hint": "Why some prefer to wait and see"
+      },
+      "risks": "Key risks",
+      "watch": "What to watch",
+      "terms": "Words used above",
+      "termsLabels": {
+        "eps": "EPS (earnings per share)",
+        "pe": "P/E ratio",
+        "forward_pe": "Forward P/E",
+        "market_cap": "Market capitalisation",
+        "dividend_yield": "Dividend yield",
+        "payout_ratio": "Payout ratio (DPR)",
+        "free_cash_flow": "Free cash flow",
+        "operating_margin": "Operating margin",
+        "revenue_growth": "Revenue growth",
+        "analyst_target": "Analyst price target",
+        "beta": "Beta",
+        "margin_of_safety": "Margin of safety",
+        "circle_of_competence": "Circle of competence"
+      },
+      "unavailable": {
+        "title": "AI explanation unavailable right now",
+        "no_key": "The AI explanation is switched off on this server. Everything else on the page works.",
+        "model_error": "The AI could not write a reliable explanation this time. Try again in a moment.",
+        "insufficient_data": "There is too little data on this company for a reliable explanation, so we do not let the AI guess.",
+        "loadFailed": "We could not reach the AI explanation. Check your connection and try again.",
+        "quotaTitle": "Daily AI limit reached",
+        "quota": "The free daily limit of AI explanations is used up. Try again {when}.",
+        "quotaLater": "later",
+        "quotaMinutes": "in about {count, plural, one {# minute} other {# minutes}}",
+        "quotaHours": "in about {count, plural, one {# hour} other {# hours}}",
+        "notApplicableTitle": "No company to explain here",
+        "notApplicable": "This is a fund, an index or another kind of product, not a single company, so there is no business for the AI to explain.",
+        "retry": "Try again"
+      }
+    }
   }
 }

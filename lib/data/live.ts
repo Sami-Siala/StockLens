@@ -1,4 +1,5 @@
 import type {
+  AiLanguage,
   ApiError,
   ChartRange,
   ChartResponse,
@@ -6,6 +7,7 @@ import type {
   QuotesResponse,
   SearchResponse,
   StockSnapshot,
+  ThesisResponse,
   TickerResponse,
 } from "@/lib/contract";
 import { DataError } from "./errors";
@@ -74,4 +76,10 @@ export const liveSource = {
     getJson<MarketResponse>("/api/market", signal),
   ticker: (signal?: AbortSignal) =>
     getJson<TickerResponse>("/api/ticker", signal),
+  /** Answers 200 even when the AI is unavailable (`result.status`); only real HTTP errors throw. */
+  thesis: (symbol: string, lang: AiLanguage, signal?: AbortSignal) =>
+    getJson<ThesisResponse>(
+      `/api/ai/${encodeURIComponent(symbol)}?lang=${lang}`,
+      signal,
+    ),
 };

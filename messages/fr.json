@@ -353,6 +353,64 @@
       "retry": "Réessayer",
       "backToSearch": "Retour à la recherche"
     },
-    "fundsNote": "Le bénéfice, le P/E et les autres chiffres clés décrivent une seule entreprise. Ceci est un fonds (il détient de nombreuses entreprises) : ils ne s'appliquent donc pas ici."
+    "fundsNote": "Le bénéfice, le P/E et les autres chiffres clés décrivent une seule entreprise. Ceci est un fonds (il détient de nombreuses entreprises) : ils ne s'appliquent donc pas ici.",
+    "thesis": {
+      "introTitle": "L'entreprise en 30 secondes",
+      "whatItDoes": "Ce qu'elle fait",
+      "howItMakesMoney": "Comment elle gagne de l'argent",
+      "aiNote": "Écrit par une IA à partir des données de cette page : elle peut se tromper. Vérifiez avec les chiffres.",
+      "notAdvice": "Contenu pédagogique, pas un conseil financier.",
+      "writing": "Rédaction de l'explication...",
+      "writingHint": "Cela peut prendre quelques secondes. Le reste de la page fonctionne déjà.",
+      "stale": "D'une génération précédente",
+      "staleOn": "D'une génération précédente, {date}",
+      "argsTitle": "Des arguments à peser",
+      "argsIntro": "Trois façons de regarder cette entreprise. Ce sont des arguments à évaluer, pas des conseils : c'est à vous de vous faire une opinion.",
+      "for": {
+        "title": "Arguments pour",
+        "hint": "Ce que mettent en avant les partisans de l'entreprise"
+      },
+      "against": {
+        "title": "Arguments contre",
+        "hint": "Ce qui inquiète les sceptiques"
+      },
+      "wait": {
+        "title": "Arguments pour attendre",
+        "hint": "Pourquoi certains préfèrent attendre"
+      },
+      "risks": "Risques principaux",
+      "watch": "À surveiller",
+      "terms": "Mots utilisés ci-dessus",
+      "termsLabels": {
+        "eps": "BPA (bénéfice par action)",
+        "pe": "P/E (ratio cours/bénéfice)",
+        "forward_pe": "P/E prévisionnel",
+        "market_cap": "Capitalisation boursière",
+        "dividend_yield": "Rendement du dividende",
+        "payout_ratio": "Taux de distribution (DPR)",
+        "free_cash_flow": "Flux de trésorerie disponible (FCF)",
+        "operating_margin": "Marge d'exploitation",
+        "revenue_growth": "Croissance du chiffre d'affaires",
+        "analyst_target": "Objectif de cours des analystes",
+        "beta": "Bêta",
+        "margin_of_safety": "Marge de sécurité",
+        "circle_of_competence": "Cercle de compétence"
+      },
+      "unavailable": {
+        "title": "Explication de l'IA indisponible pour le moment",
+        "no_key": "L'explication de l'IA est désactivée sur ce serveur. Tout le reste de la page fonctionne.",
+        "model_error": "L'IA n'a pas pu écrire d'explication fiable cette fois. Réessayez dans un instant.",
+        "insufficient_data": "Il y a trop peu de données sur cette entreprise pour une explication fiable : nous ne laissons pas l'IA deviner.",
+        "loadFailed": "Nous n'avons pas pu joindre l'explication de l'IA. Vérifiez votre connexion et réessayez.",
+        "quotaTitle": "Limite quotidienne de l'IA atteinte",
+        "quota": "La limite quotidienne gratuite d'explications par l'IA est épuisée. Réessayez {when}.",
+        "quotaLater": "plus tard",
+        "quotaMinutes": "dans environ {count, plural, one {# minute} other {# minutes}}",
+        "quotaHours": "dans environ {count, plural, one {# heure} other {# heures}}",
+        "notApplicableTitle": "Pas d'entreprise à expliquer ici",
+        "notApplicable": "Ceci est un fonds, un indice ou un autre type de produit, pas une seule entreprise : il n'y a donc pas d'activité que l'IA puisse expliquer.",
+        "retry": "Réessayer"
+      }
+    }
   }
 }

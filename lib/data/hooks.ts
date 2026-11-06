@@ -8,12 +8,14 @@ import {
   useSyncExternalStore,
 } from "react";
 import type {
+  AiLanguage,
   ChartRange,
   ChartResponse,
   MarketResponse,
   QuotesResponse,
   SearchHit,
   StockSnapshot,
+  ThesisResponse,
   TickerResponse,
 } from "@/lib/contract";
 import {
@@ -21,6 +23,7 @@ import {
   getMarket,
   getQuotes,
   getStock,
+  getThesis,
   getTicker,
   searchSymbols,
 } from "./index";
@@ -87,6 +90,22 @@ export function useChart(symbol: string, range: ChartRange) {
     [symbol, range],
   );
   return useResource<ChartResponse>(`chart:${symbol}:${range}`, fetcher);
+}
+
+/**
+ * The AI explanation for one company, in one language. It is slow (2-13 s on a cold generation)
+ * and metered, so it never starts until `enabled` (the stock must exist first; the teacher flag
+ * `hideAI` turns it off entirely). Unavailable AI is a normal `ready` answer, see `ThesisResponse`.
+ */
+export function useThesis(symbol: string, lang: AiLanguage, enabled = true) {
+  const fetcher = useCallback(
+    (signal: AbortSignal) => getThesis(symbol, lang, signal),
+    [symbol, lang],
+  );
+  return useResource<ThesisResponse>(
+    enabled ? `thesis:${symbol}:${lang}` : null,
+    fetcher,
+  );
 }
 
 /** Search-as-you-type; `query` should already be debounced. Empty query = idle. */

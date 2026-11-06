@@ -1,9 +1,9 @@
 "use client";
 
 import { RefreshCw } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useEffect, type ReactNode } from "react";
-import { useStock } from "@/lib/data/hooks";
+import { useStock, useThesis } from "@/lib/data/hooks";
 import { pushRecent, recentsStore } from "@/lib/data/local/lists";
 import type { StockSnapshot } from "@/lib/contract";
 import { buttonVariants } from "../ui/button";
@@ -12,11 +12,13 @@ import { AnimatedWordmark } from "../animated-wordmark";
 import { Skeleton } from "../ui/skeleton";
 import { Link } from "../navigation";
 import { cn } from "@/lib/utils";
+import { thesisPlan, useHideAi } from "./ai-flag";
 import { AnalystSection } from "./analyst-section";
 import { CardBoundary } from "./card-boundary";
 import { ChartPanel } from "./chart-panel";
 import { KeyNumbers } from "./key-numbers";
 import { StockHeader } from "./stock-header";
+import { ThesisColumns, ThesisIntro } from "./thesis";
 
 function Guard({ children }: { children: ReactNode }) {
   const t = useTranslations("Stock");
@@ -114,6 +116,12 @@ function Banners({ stock }: { stock: StockSnapshot }) {
 
 export function StockView({ symbol }: { symbol: string }) {
   const [res, retry] = useStock(symbol);
+  // The AI request starts only once the company is known to exist (it is slow and metered),
+  // and never when a teacher link says `?hideAI=1`.
+  const locale = useLocale() === "fr" ? "fr" : "en";
+  const hideAi = useHideAi();
+  const ai = thesisPlan(res.status === "ready", hideAi);
+  const [thesis, retryThesis] = useThesis(symbol, locale, ai.fetch);
 
   const name = res.status === "ready" ? res.data.listing.name : null;
   useEffect(() => {
@@ -145,12 +153,22 @@ export function StockView({ symbol }: { symbol: string }) {
       <Guard>
         <ChartPanel listing={stock.listing} />
       </Guard>
+      {ai.render && (
+        <Guard>
+          <ThesisIntro state={thesis} onRetry={retryThesis} />
+        </Guard>
+      )}
       <Guard>
         <KeyNumbers stock={stock} />
       </Guard>
       <Guard>
         <AnalystSection stock={stock} />
       </Guard>
+      {ai.render && (
+        <Guard>
+          <ThesisColumns state={thesis} />
+        </Guard>
+      )}
     </div>
   );
 }

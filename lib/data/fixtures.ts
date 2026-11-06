@@ -15,8 +15,10 @@ import type {
   SearchHit,
   SearchResponse,
   StockSnapshot,
+  ThesisResponse,
   TickerResponse,
 } from "@/lib/contract";
+import { defaultVariant, isThesisVariant, thesisFixture } from "./ai-fixtures";
 import { DataError } from "./errors";
 import type { DataSourceApi } from "./source";
 
@@ -30,6 +32,8 @@ const stocks: Record<string, Loader<StockSnapshot>> = {
   "7203.T": as(() => import("@/tests/fixtures/contract/7203.T/stock.json")),
   SPY: as(() => import("@/tests/fixtures/contract/SPY/stock.json")),
   TSM: as(() => import("@/tests/fixtures/contract/TSM/stock.json")),
+  // Sparse company (loss-maker, little data): the AI says "insufficient data" for it.
+  RIVN: as(() => import("@/tests/fixtures/contract/RIVN/stock.json")),
 };
 
 const charts: Record<
@@ -55,6 +59,10 @@ const charts: Record<
   TSM: {
     w: as(() => import("@/tests/fixtures/contract/TSM/chart-1W.json")),
     y: as(() => import("@/tests/fixtures/contract/TSM/chart-1Y.json")),
+  },
+  RIVN: {
+    w: as(() => import("@/tests/fixtures/contract/RIVN/chart-1W.json")),
+    y: as(() => import("@/tests/fixtures/contract/RIVN/chart-1Y.json")),
   },
 };
 
@@ -132,6 +140,24 @@ const loadQuotes = as<QuotesResponse>(
 const loadTicker = as<TickerResponse>(
   () => import("@/tests/fixtures/contract/_dashboard/ticker.json"),
 );
+
+/** `?aiState=` (dev only) forces one AI state, see `ai-fixtures.ts`. */
+const aiStateParam = () => {
+  try {
+    const v = new URLSearchParams(window.location.search).get("aiState");
+    return isThesisVariant(v) ? v : null;
+  } catch {
+    return null; // no window (tests)
+  }
+};
+
+/** A pause that only ends when the request is aborted (the `loading` state). */
+const forever = (signal?: AbortSignal) =>
+  new Promise<never>((_, reject) => {
+    signal?.addEventListener("abort", () =>
+      reject(new DOMException("Aborted", "AbortError")),
+    );
+  });
 
 export const fixtureSource: DataSourceApi = {
   async search(query, signal) {
@@ -221,5 +247,21 @@ export const fixtureSource: DataSourceApi = {
     if (fixtureParam() === "few")
       return { ...full, items: full.items.slice(0, 3) };
     return full;
+  },
+
+  async thesis(symbol, lang, signal): Promise<ThesisResponse> {
+    const variant = aiStateParam() ?? defaultVariant(symbol);
+    // A cold generation takes seconds: keep the skeleton visible (no wait under test).
+    if (variant === "loading") return forever(signal);
+    if (process.env.NODE_ENV !== "test") await pause(signal, 1800);
+    if (variant === "down") throw new DataError("upstream_unavailable");
+    let name: string | undefined;
+    try {
+      const l = (await loaderFor(stocks, symbol)()).default.listing;
+      name = l.shortName ?? l.name;
+    } catch {
+      /* no stock fixture: the symbol stands in for the name */
+    }
+    return thesisFixture(symbol, lang, variant, name);
   },
 };
