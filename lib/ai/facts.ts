@@ -141,7 +141,7 @@ export function buildFacts(stock: StockSnapshot, lang: AiLanguage): FactSheet {
     );
     add(
       "pe_trailing",
-      "Trailing P/E ratio (price / last 12 months earnings per share)",
+      "Trailing P/E ratio (price / earnings per share of the last twelve months)",
       num(k.trailingPE, (v) => ratio(v, lang)),
     );
     add(
@@ -151,7 +151,7 @@ export function buildFacts(stock: StockSnapshot, lang: AiLanguage): FactSheet {
     );
     add(
       "eps_trailing",
-      "Earnings per share, last 12 months",
+      "Earnings per share, last twelve months",
       num(k.trailingEps, (m) => money(m.amount, m.currency, lang)),
     );
     add(

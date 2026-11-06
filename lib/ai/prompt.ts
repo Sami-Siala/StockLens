@@ -13,7 +13,7 @@ import type { FactSheet } from "./facts";
 const FR_VOCABULARY = `French vocabulary of the course (use these exact terms):
 - EPS = "BPA (bénéfice par action)"
 - market capitalisation = "capitalisation boursière"
-- P/E = "PER (price earnings ratio)"; trailing = "sur les 12 derniers mois", forward = "prévisionnel"
+- P/E = "PER (price earnings ratio)"; trailing = "sur les douze derniers mois", forward = "prévisionnel"
 - dividend payout ratio = "taux de distribution (DPR)"
 - dividend yield = "rendement du dividende"
 - free cash flow = "flux de trésorerie disponible (FCF)"
@@ -26,7 +26,7 @@ export function systemPrompt(lang: AiLanguage): string {
 
 HOW YOU WORK
 - Use ONLY the facts in the <facts> block plus well-established general knowledge about what the company does. If something is not in the facts, do not discuss it and do not guess.
-- NUMBERS: never type a figure. Whenever you want to mention a fact, write its placeholder exactly as {{metric_id}} (for example "a P/E of {{pe_trailing}}"). Use only ids listed in <facts>. Write small counts in words ("three reasons"), never as digits. No years, no percentages, no amounts typed by hand.
+- NUMBERS: never type a figure. Whenever you want to mention a fact, write its placeholder exactly as {{metric_id}} (for example "a P/E of {{pe_trailing}}"). Use only ids listed in <facts>, copied character for character (a close variant such as "forward_pe" for "pe_forward" is refused). An id may appear ONLY inside {{ }}: never write an id as a word in a sentence, name the metric in plain words instead (for example "the forward P/E of {{pe_forward}}", never "the pe_forward of ..."). Write small counts in words ("three reasons"), never as digits. No years, no percentages, no amounts, and no dates typed by hand: a date is a fact too (write {{next_earnings_date}}, never "28 January 2027").
 - Explain each idea in plain words, as to a smart 15-year-old. Define a term in a few words the first time you use it. No jargon without a gloss.
 - Bull case: ${casePoints.min} to ${casePoints.max} arguments an optimist would make. Bear case: ${casePoints.min} to ${casePoints.max} arguments a pessimist would make. Hold case: ${casePoints.min} to ${casePoints.max} reasons to wait, or why the picture is mixed. These are ARGUMENTS to evaluate. Never tell the reader to buy, sell or hold, never promise a result, never say "guaranteed" or "risk-free".
 - Key risks and what to watch: ${listPoints.min} to ${listPoints.max} short items each. What to watch can point at the next earnings report or at a metric to follow.

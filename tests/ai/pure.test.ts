@@ -100,6 +100,33 @@ describe("integrity gate", () => {
     return r.ok ? [] : r.problems.join("\n");
   };
 
+  it("trims an over-long glossary list instead of refusing the answer", () => {
+    const r = check({
+      glossaryTerms: [
+        "pe",
+        "eps",
+        "beta",
+        "market_cap",
+        "forward_pe",
+        "payout_ratio",
+        "analyst_target",
+      ],
+    });
+    expect(r.ok).toBe(true);
+    if (r.ok) expect(r.thesis.glossaryTerms).toHaveLength(6);
+  });
+
+  it("refuses a metric id written as a word outside the braces", () => {
+    expect(
+      problemsOf({
+        bullCase: [
+          "The operating_margin is strong.",
+          "A P/E of {{pe_trailing}}.",
+        ],
+      }),
+    ).toContain("operating_margin");
+  });
+
   it("accepts a clean answer and renders the page's own numbers", () => {
     const r = check({});
     expect(r.ok).toBe(true);

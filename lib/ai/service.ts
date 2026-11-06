@@ -17,7 +17,8 @@ import {
 import { ProviderError } from "@/lib/providers/errors";
 import { AI_CONFIG, GEMINI_MODELS } from "./config";
 import { buildFacts, displayMap, substantiveFactCount } from "./facts";
-import { GeminiError, type GeminiClient } from "./gemini";
+import { GeminiError } from "./gemini";
+import type { ThesisClient } from "./router";
 import { checkThesis, renderThesis } from "./integrity";
 import { retryNote, systemPrompt, userPrompt } from "./prompt";
 
@@ -60,7 +61,7 @@ export interface AiServiceDeps {
   /** The same cached stock snapshot the page shows (so the numbers cannot disagree). */
   getStock: (symbol: string) => Promise<StockSnapshot>;
   /** null = no key configured. */
-  gemini: GeminiClient | null;
+  gemini: ThesisClient | null;
   models?: readonly string[];
   now?: () => number;
   sleep?: (ms: number) => Promise<void>;
@@ -234,10 +235,20 @@ export class AiService {
     const deadline = this.now() + AI_CONFIG.totalBudgetMs;
 
     let everyModelQuota = true;
+    let authFailures = 0;
+    let attempted = 0;
     let dailyQuota = false;
     for (const model of this.models) {
       let problems: string[] = [];
       let lastWasQuota = false;
+      // A model that already said "out of requests" is skipped until its cooldown ends: free-tier
+      // limits are per model per day, and retrying a spent model only wastes time.
+      const spent = await store.get<QuotaMarker>(`ai:quota:${model}`);
+      if (spent) {
+        dailyQuota ||= spent.daily;
+        continue;
+      }
+      attempted++;
       for (let attempt = 0; attempt <= AI_CONFIG.retriesPerModel; attempt++) {
         if (this.now() >= deadline) return fail("model_error");
         const user = problems.length ? [prompt, retryNote(problems)] : [prompt];
@@ -254,10 +265,22 @@ export class AiService {
           lastWasQuota = false;
         } catch (e) {
           if (!(e instanceof GeminiError)) throw e;
-          if (e.kind === "auth") return fail("no_key"); // a bad key fails every model alike
+          if (e.kind === "auth") {
+            // A bad or missing key spoils that provider's models only: another provider may still answer.
+            authFailures++;
+            lastWasQuota = false;
+            break;
+          }
           if (e.kind === "quota") {
             lastWasQuota = true;
             dailyQuota ||= e.daily;
+            await store.set(
+              `ai:quota:${model}`,
+              { daily: e.daily } satisfies QuotaMarker,
+              e.daily
+                ? AI_CONFIG.dailyQuotaCooldownSeconds
+                : AI_CONFIG.quotaCooldownSeconds,
+            );
             break; // each model has its own quota: try the next one
           }
           lastWasQuota = false;
@@ -278,6 +301,7 @@ export class AiService {
       );
       return fail("quota_exhausted");
     }
+    if (attempted > 0 && authFailures === attempted) return fail("no_key");
     return fail("model_error");
   }
 

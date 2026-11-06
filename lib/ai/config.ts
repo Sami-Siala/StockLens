@@ -3,11 +3,18 @@
  * often). Pure constants, no secrets, safe to import anywhere on the server.
  */
 
-/** Tried in order. The first that answers with an acceptable thesis wins. Confirm in AI Studio (Step 4b). */
+/** The whole chain, Gemini API and Groq models mixed. Tried in order. The first that answers with an acceptable thesis wins. Verified to exist on the live API 2026-11-06. */
 export const GEMINI_MODELS = [
   "gemini-3.6-flash",
+  // `groq:` entries go to Groq (free tier, own quota: 1000 requests/day per model, 8000 tokens/minute).
+  "groq:openai/gpt-oss-120b",
   "gemini-3.5-flash-lite",
   "gemini-3.1-flash-lite",
+  "groq:qwen/qwen3.8-27b",
+  // groq:openai/gpt-oss-20b left out: failed the integrity gate in EN and FR (2026-11-06).
+  // Last resort, same Gemini key, own quota. Measured 2026-11-06: 30 s+ per answer and flaky, so it only
+  // runs when everything above is spent. (gemma-4-26b-a4b-it timed out twice: left out.)
+  "gemma-4-31b-it",
 ] as const;
 
 export const GEMINI_BASE_URL =
@@ -16,7 +23,7 @@ export const GEMINI_BASE_URL =
 export const AI_CONFIG = {
   /** Low on purpose: the text must stay close to the supplied facts. */
   temperature: 0.3,
-  maxOutputTokens: 2048,
+  maxOutputTokens: 8192,
   /** One HTTP call to Gemini. The route has `maxDuration`, so the whole chain must fit inside it. */
   requestTimeoutMs: 20_000,
   /** The whole fallback chain, including retries. */
@@ -28,8 +35,10 @@ export const AI_CONFIG = {
   /** If regenerating fails, the last text is still served (flagged stale) for this long. */
   staleTtlSeconds: 7 * 86400,
   /**
-   * Our own ceiling on generations per UTC day, below Google's. PLACEHOLDER until Step 4b records the
-   * real requests-per-day from AI Studio (PLAN §3.5). Cache hits do not count.
+   * Our own ceiling on generations per UTC day, below the providers'. Free-tier limits measured
+   * 2026-11-06: gemini-3.6-flash 20 requests/day; Groq 1000 requests/day per model (8000 tokens/minute).
+   * Spent models are skipped, so this guard only stops a runaway: 150 (ticker, language) pairs a day is far
+   * more than a class needs. Cache hits do not count. Pre-warm the common tickers before class.
    */
   dailyGenerationBudget: 150,
   /** After a 429 that names a per-minute limit, do not call Gemini again for this long. */

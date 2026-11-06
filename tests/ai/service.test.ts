@@ -229,6 +229,25 @@ describe("quota and keys", () => {
     });
   });
 
+  it("a model that hit its daily limit is skipped for the next generations (no wasted calls)", async () => {
+    const s = setup((c: Call) =>
+      c.model === GEMINI_MODELS[0]
+        ? quota("RequestsPerDay")
+        : okBody(GOOD_REPLY),
+    );
+    expect((await s.service.getThesis("AAPL", "en")).meta.model).toBe(
+      GEMINI_MODELS[1],
+    );
+    const first = s.calls.filter((c: Call) => c.model === GEMINI_MODELS[0]);
+    expect(first).toHaveLength(1);
+    expect((await s.service.getThesis("AAPL", "fr")).meta.model).toBe(
+      GEMINI_MODELS[1],
+    );
+    expect(
+      s.calls.filter((c: Call) => c.model === GEMINI_MODELS[0]),
+    ).toHaveLength(1); // still 1: the spent model was not called again
+  });
+
   it("our own daily budget stops generations before Google does", async () => {
     const s = setup(() => okBody(GOOD_REPLY));
     for (let i = 0; i < AI_CONFIG.dailyGenerationBudget; i++)
@@ -248,7 +267,7 @@ describe("quota and keys", () => {
     });
   });
 
-  it("a rejected key (401/403/400 key invalid) stops the chain at once", async () => {
+  it("a rejected key (401/403/400 key invalid) is no_key, with one attempt per model and no retries", async () => {
     for (const res of [
       status(403),
       status(401),
@@ -256,7 +275,7 @@ describe("quota and keys", () => {
     ]) {
       const s = setup(() => res);
       expect(reason(await s.service.getThesis("AAPL", "en"))).toBe("no_key");
-      expect(s.calls).toHaveLength(1);
+      expect(s.calls).toHaveLength(GEMINI_MODELS.length);
     }
   });
 });
@@ -365,5 +384,18 @@ describe("GeminiClient transport", () => {
     } finally {
       globalThis.fetch = realFetch;
     }
+  });
+});
+
+describe("several providers", () => {
+  it("a rejected key on one provider only skips its models; the next one answers", async () => {
+    const s = setup((c: Call) =>
+      c.model === GEMINI_MODELS[0] ? status(403) : okBody(GOOD_REPLY),
+    );
+    const r = await s.service.getThesis("AAPL", "en");
+    expect(r.meta.model).toBe(GEMINI_MODELS[1]);
+    expect(
+      s.calls.filter((c: Call) => c.model === GEMINI_MODELS[0]),
+    ).toHaveLength(1);
   });
 });

@@ -7,8 +7,8 @@ import { THESIS_JSON_SCHEMA } from "./schema";
  * failure path can be tested without a key). The model fallback chain lives in service.ts; this file
  * only turns ONE model call into text or a typed failure.
  *
- * NOTE (Step 4b): the request shape follows Google's public REST docs (`generateContent`,
- * `responseJsonSchema`) but has not been exercised against the live API yet, there is no key. 4b does.
+ * Verified live 2026-11-06 (Step 4b): `generateContent` with `responseJsonSchema` and `thinkingLevel: low` works
+ * on gemini-3.6-flash, 3.5-flash-lite and 3.1-flash-lite. A 503 ("high demand") is common on the primary model.
  */
 
 export type GeminiFailure =
@@ -106,6 +106,11 @@ export class GeminiClient {
       generationConfig: {
         temperature: AI_CONFIG.temperature,
         maxOutputTokens: AI_CONFIG.maxOutputTokens,
+        // Summarising supplied facts needs little reasoning; keep it from eating the output budget.
+        // Gemma rejects thinkingConfig (400), so only the Gemini models get it.
+        ...(input.model.startsWith("gemma")
+          ? {}
+          : { thinkingConfig: { thinkingLevel: "low" } }),
         responseMimeType: "application/json",
         responseJsonSchema: THESIS_JSON_SCHEMA,
       },

@@ -3,17 +3,17 @@
 Written 2026-11-06. Source: `PLAN.md` §11 Step 4 and §3.5, and `CURRENT.md`. `CURRENT.md` is stale on one point: Step 3b (dashboard) and the
 market ticker are already built and committed, so **Step 4 is the next step**.
 
-Step 4 as the plan words it: *Gemini client with model fallback chain; grounded prompt; schema-enforced JSON; per `(ticker, language, day)`
-cache; `/api/ai/[symbol]`; company explainer + bull/bear/hold columns with the disclaimer.* Exit: the thesis for 3+ tickers is readable,
+Step 4 as the plan words it: _Gemini client with model fallback chain; grounded prompt; schema-enforced JSON; per `(ticker, language, day)`
+cache; `/api/ai/[symbol]`; company explainer + bull/bear/hold columns with the disclaimer._ Exit: the thesis for 3+ tickers is readable,
 consistent with the on-page numbers, available in FR and EN, and still works (or degrades cleanly) when the quota is exhausted.
 
 The split follows one dependency: **the Gemini key does not exist yet**, so everything that can be proven without it comes first.
 
-| # | Part | Lead | Needs the user? | Status |
-|---|---|---|---|---|
-| 4a | **AI engine, offline** | orchestrator (data-engineer's area: `lib/ai`, `app/api`, `lib/contract`, `tests`) | No | **Done 2026-11-06** (see below) |
-| 4b | **Live Gemini and quality** | orchestrator | **Yes: create the key** | Not started |
-| 4c | **Thesis UI** | `frontend-engineer` | No (can start on fixtures before 4b) | Not started |
+| #   | Part                        | Lead                                                                              | Needs the user?                      | Status                                 |
+| --- | --------------------------- | --------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------------- |
+| 4a  | **AI engine, offline**      | orchestrator (data-engineer's area: `lib/ai`, `app/api`, `lib/contract`, `tests`) | No                                   | **Done 2026-11-06** (see below)        |
+| 4b  | **Live Gemini and quality** | orchestrator                                                                      | Keys added (Gemini, Groq)            | **Mostly done 2026-11-06** (see below) |
+| 4c  | **Thesis UI**               | `frontend-engineer`                                                               | No (can start on fixtures before 4b) | Not started                            |
 
 ## 4a. AI engine, offline (no key needed)
 
@@ -61,3 +61,15 @@ degrades cleanly. **The professor reviews the French output of the first batch**
 
 **Exit:** a student reads the explainer and the three columns on a phone in FR and EN, including on a sparse-data ticker and on an ETF
 (where the AI section says it does not apply), with no broken card when the AI is down.
+
+## 4b status (2026-11-06)
+
+Done: keys work; the engine runs live in FR and EN on AAPL, MC.PA, 7203.T; fixes found live (`thinkingLevel: low`, metric ids written as words
+now refused, no digits in the FR vocabulary, dates are placeholders too, glossary list trimmed to six); real limits recorded in PLAN §3.5
+(`gemini-3.6-flash` = 20 requests/day on the free tier); **multi-provider chain** (Gemini API, Groq, Gemma) with per-model quota memory;
+one-generation chain test passed (3.6-flash 429, Groq answered). `scripts/ai-live.ts` is the opt-in live check (spends quota: use sparingly).
+Tests: 515 green, all with fake transports.
+
+Still open: live TSM (currency mismatch) FR and EN; the all-providers-exhausted path against the real APIs (covered by unit tests only);
+the pre-warm script for the "start here" tickers; `GEMINI_API_KEY` and `GROQ_API_KEY` on Vercel, redeploy, `/api/health` check; the
+professor's review of the French output. `dailyGenerationBudget` is 150 (Groq adds ~1000/day per model; spent models are skipped).

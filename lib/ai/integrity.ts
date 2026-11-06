@@ -60,6 +60,10 @@ function checkString(
         `${where}: contains the number "${token}". Never type a figure: use a {{metric_id}} placeholder, or write small counts in words.`,
       );
   }
+  for (const word of bare.match(/\b[a-z][a-z0-9]*(?:_[a-z0-9]+)+\b/gi) ?? [])
+    problems.push(
+      `${where}: the identifier "${word}" appears as a word. Ids go only inside {{ }}; name the metric in plain words.`,
+    );
   if (/<[^>]*>/.test(bare))
     problems.push(`${where}: contains markup. Plain text only.`);
   if (/https?:\/\/|www\./i.test(bare))
@@ -79,6 +83,17 @@ export function checkThesis(
   raw: unknown,
   ids: ReadonlySet<string>,
 ): CheckResult {
+  // Some providers do not enforce `maxItems`. Extra glossary ids are harmless (each is checked against an
+  // enum by the schema), so trim that one list instead of refusing a good answer. Nothing else is patched.
+  if (
+    raw &&
+    typeof raw === "object" &&
+    Array.isArray((raw as Thesis).glossaryTerms)
+  )
+    raw = {
+      ...(raw as Thesis),
+      glossaryTerms: (raw as Thesis).glossaryTerms.slice(0, 6),
+    };
   const parsed = ThesisSchema.safeParse(raw);
   if (!parsed.success) {
     return {
