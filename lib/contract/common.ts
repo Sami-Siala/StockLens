@@ -17,6 +17,10 @@
  */
 
 /**
+ * v0.4.0 (Step 4, AI thesis) is ADDITIVE over v0.3.1: new file `ai.ts` (`Thesis`, `ThesisResponse`, `AiUnavailableReason`...)
+ * for `GET /api/ai/[symbol]`. Only that endpoint reports `meta.contractVersion: "0.4.0"`; the market-data endpoints keep
+ * "0.3.1" (nothing in their shape changed, so their tests and fixtures are untouched).
+ *
  * v0.3.1 (market ticker band) is ADDITIVE over v0.3.0: `GET /api/ticker` -> `TickerResponse` (`TickerItem`,
  * `TickerRegion`, `TickerKind`, in `dashboard.ts`). Nothing was removed or renamed; every response now
  * reports `meta.contractVersion: "0.3.1"`.
@@ -29,7 +33,7 @@
  * `ChartSeries.marketClosed`, optional `ResponseMeta.degradedSections`, two new `ApiError` codes
  * (`forbidden`, `unauthorized`) and an optional `HealthReport` detail. Nothing was removed or renamed.
  */
-export type ContractVersion = "0.1.0" | "0.2.0" | "0.3.0" | "0.3.1";
+export type ContractVersion = "0.1.0" | "0.2.0" | "0.3.0" | "0.3.1" | "0.4.0";
 
 /** ISO-8601 UTC timestamp, e.g. "2026-11-05T19:23:56.000Z". */
 export type IsoTimestamp = string;

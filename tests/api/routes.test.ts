@@ -150,8 +150,14 @@ describe("GET /api/health", () => {
     expect(res.status).toBe(200);
     const h = (await res.json()) as HealthReport;
     expect(h.status).toBe("ok");
-    expect(h.providers.map((p) => p.name)).toEqual(["yahoo", "upstash"]);
-    expect(JSON.stringify(h)).not.toMatch(/UPSTASH_|GEMINI|token/i);
+    expect(h.providers.map((p) => p.name)).toEqual([
+      "yahoo",
+      "upstash",
+      "gemini",
+    ]);
+    expect(JSON.stringify(h)).not.toMatch(
+      /UPSTASH_|GEMINI_|token|api[_-]?key/i,
+    );
   });
 });
 
