@@ -20,6 +20,8 @@ export function PageShell({
       <main
         className={cn(
           "mx-auto flex w-full flex-1 flex-col px-4 pb-8",
+          // Air between the market band and the page title (the home page sets its own top spacing).
+          !home && "pt-6 md:pt-8",
           narrow ? "max-w-3xl" : "max-w-5xl",
         )}
       >
