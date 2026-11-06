@@ -5,6 +5,11 @@
   },
   "Nav": {
     "home": "Accueil StockLens",
+    "main": "Navigation principale",
+    "markets": "Accueil",
+    "about": "À propos",
+    "search": "Rechercher",
+    "closeSearch": "Fermer la recherche",
     "language": "Langue",
     "switchToFr": "Français",
     "switchToEn": "English"

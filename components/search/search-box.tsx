@@ -16,7 +16,16 @@ import { useDebounced } from "./use-debounced";
 const SHOWN: InstrumentType[] = ["EQUITY", "ETF", "MUTUALFUND", "INDEX"];
 const TICKER_LIKE = /^[A-Za-z0-9^][A-Za-z0-9.^=-]{0,11}$/;
 
-export function SearchBox({ autoFocus = false }: { autoFocus?: boolean }) {
+export function SearchBox({
+  autoFocus = false,
+  compact = false,
+  onNavigate,
+}: {
+  autoFocus?: boolean;
+  /** Header popover variant: shorter field, no submit button (Enter submits). */
+  compact?: boolean;
+  onNavigate?: () => void;
+}) {
   const t = useTranslations("Search");
   const router = useRouter();
   const listId = useId();
@@ -39,6 +48,7 @@ export function SearchBox({ autoFocus = false }: { autoFocus?: boolean }) {
 
   function go(symbol: string, hit?: SearchHit) {
     setOpen(false);
+    onNavigate?.();
     pushRecent(searchesStore, {
       symbol,
       name: hit?.name ?? symbol,
@@ -83,7 +93,10 @@ export function SearchBox({ autoFocus = false }: { autoFocus?: boolean }) {
         <div className="relative flex-1">
           <Search
             aria-hidden="true"
-            className="pointer-events-none absolute left-4 top-1/2 size-5 -translate-y-1/2 text-muted"
+            className={cn(
+              "pointer-events-none absolute top-1/2 -translate-y-1/2 text-muted",
+              compact ? "left-3.5 size-4" : "left-4 size-5",
+            )}
           />
           <input
             type="search"
@@ -109,12 +122,17 @@ export function SearchBox({ autoFocus = false }: { autoFocus?: boolean }) {
             onFocus={() => setOpen(true)}
             onBlur={() => setOpen(false)}
             onKeyDown={onKeyDown}
-            className="h-12 w-full rounded-full bg-surface pl-12 pr-4 text-base placeholder:text-muted"
+            className={cn(
+              "w-full rounded-full bg-surface pr-4 placeholder:text-muted",
+              compact ? "h-10 pl-10 text-sm" : "h-12 pl-12 text-base",
+            )}
           />
         </div>
-        <Button type="submit" variant="primary" size="lg">
-          {t("submit")}
-        </Button>
+        {!compact && (
+          <Button type="submit" variant="primary" size="lg">
+            {t("submit")}
+          </Button>
+        )}
       </div>
 
       <p role="status" className="sr-only">
