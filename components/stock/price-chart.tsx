@@ -86,6 +86,10 @@ export default function PriceChart({
       rightPriceScale: { borderVisible: false },
       timeScale: {
         borderVisible: false,
+        // Zooming out stops at the full series, and scrolling stops at its first and last candle:
+        // no blank space on either side.
+        fixLeftEdge: true,
+        fixRightEdge: true,
         timeVisible: intraday,
         secondsVisible: false,
         tickMarkFormatter: (time: Time, type: TickMarkType) => {
