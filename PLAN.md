@@ -388,6 +388,7 @@ Instruction: "ignore the logins for now and build around it". So the offline hal
 - **Step 3b done:** home dashboard (markets, watchlist, recents, start here, earnings, placeholders), `/api/quotes`, `/api/market`, `/api/ticker` (25 items), market band on every page. Contract v0.3.1.
 - **Step 4 done:** AI layer with a multi-provider chain (§3.5), contract v0.4.0 (`/api/ai/[symbol]`), thesis UI on the stock page in all states, FR/EN, pre-warm script (`npm run ai:prewarm`, not yet run). Details in `STEPS.md`.
 - **Step 5 built** (2026-11-07): 5a glossary and Séance tags, 5b notes/pick/teacher links, 5c quiz/margin of safety/export. 5d (the professor's review of all FR/EN copy) is open. Details in `STEPS.md`.
+- **Step 6 started** (2026-11-07): hardening, QA and launch. First finding: the soak test had been measuring a redirect since the domain rename, so there is still no soak verdict; workflow fixed. Details in `STEPS.md`.
 
 ### Schedule (~2 weeks) and priority tiers
 

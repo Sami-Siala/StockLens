@@ -21,7 +21,7 @@ export function LocaleSwitcher() {
           lang={locale}
           hrefLang={locale}
           aria-current={locale === current ? "true" : undefined}
-          aria-label={t(locale === "fr" ? "switchToFr" : "switchToEn")}
+          aria-label={`${locale.toUpperCase()}, ${t(locale === "fr" ? "switchToFr" : "switchToEn")}`}
           className={cn(
             "rounded-full px-2 py-1 uppercase sm:px-3",
             locale === current

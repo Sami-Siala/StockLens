@@ -83,7 +83,7 @@ export function ChartPanel({ listing }: { listing: Listing }) {
               key={r}
               type="button"
               aria-pressed={r === range}
-              aria-label={t(`rangeName.${r}`)}
+              aria-label={`${t(`range.${r}`)}, ${t(`rangeName.${r}`)}`}
               onClick={() => {
                 setRange(r);
                 setHover(null);

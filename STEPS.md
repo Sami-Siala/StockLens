@@ -191,3 +191,45 @@ SHEL.L (pence case) is not wired into `lib/data/fixtures.ts`, so it is covered b
 Only 5d: the professor's review of all FR/EN copy (`lib/education/glossary.ts`, `lib/education/quiz` strings, the `messages/*.json` namespaces `Learn`, `Turn`, `Class`,
 `Quiz`, `Safety`, `Export`, `Dash.learn`, `Dash.assignment`), the six glossary terms with no Séance, and a short apple-ui polish of the long stock page on phones
 (idea: fold quiz and margin cards into `details`). Then Step 6 (hardening, QA, launch).
+
+---
+
+# Step 6: hardening, QA and launch (started 2026-11-07)
+
+Source: `PLAN.md` §11 Step 6 and §8 "Definition of done". Baseline: `main` at `dcc8076`, 906 tests green. Lead: orchestrator, agents only on fixes
+and only when the user says go. Exit: v1 definition of done, **class dry run with 15 simultaneous tabs** (no 429s, AI quota survives),
+soak verdict "pass", Privacy/Terms signed off by the professor, link ready to share.
+
+| #   | Part                                  | Needs the user?                          | Status      |
+| --- | ------------------------------------- | ---------------------------------------- | ----------- |
+| 6a  | **Soak verdict and ops sanity**       | Final call on deleting spike + workflow  | In progress |
+| 6b  | **Resilience audit (stale mode)**     | No                                       | Partly: prod burst OK, see below |
+| 6c  | **Ticker test matrix**                | No                                       | Not started |
+| 6d  | **Accessibility and Lighthouse**      | No                                       | Done 2026-11-07 (see below) |
+| 6e  | **About / Privacy / Terms and README**| Professor signs the wording              | Page drafted, README not yet |
+| 6f  | **Code review and final polish**      | No                                       | Not started |
+| 6g  | **Deploy and class dry run**          | Upstash, "start here" list, go to deploy | Not started |
+
+## 6a. Soak verdict (finding, 2026-11-07)
+
+The GitHub soak was **invalid**: 6 of 7 runs failed with HTTP 307 because the workflow still called the old `stocklens-beryl` alias, which now redirects
+to `stocks-lens`. The only run that measured Yahoo was the first manual dispatch (success). GitHub's scheduler also fires a `*/5` cron only every ~6 hours.
+Fix applied: URL now `stocks-lens`, one run loops 10 ticks x 3 tickers over ~50 minutes and prints `SOAK total=… non200=…`, cron every 30 minutes.
+Verified by hand: `/api/spike` answers 200 for AAPL, MC.PA and 7203.T on production. Verdict = read the `SOAK total` lines after a few runs
+(pass = under 2 % non-200). Plan B is PLAN §3.6.
+
+## 6b to 6e status (2026-11-07, uncommitted, not yet deployed)
+
+- **Burst test on production** (read-only, no AI): 15 parallel `/api/stock` requests for KO and for NVDA, plus chart, search, quotes, market, ticker, SPY, TSM: all 200,
+  0.4 to 1.7 s; unknown ticker gives a clean 404. This does **not** prove "one upstream fetch" across instances: that needs Upstash (health says `degraded`).
+  Stale mode already exists (provider cache with stale copy, `stale` flags in the contract and the UI), still to be exercised against a forced Yahoo failure.
+- **Lighthouse (mobile, production)**: home, AAPL stock page, glossary, About. Accessibility 100 and best-practices 100 everywhere, performance 90 to 100
+  (stock page LCP 3.4 s is the weakest), CLS 0. SEO 60 is the intentional `noindex`. One real finding fixed: WCAG 2.5.3 label-in-name on the language
+  switcher ("FR, Français") and the chart range pills ("1H, 1 heure"); `components/locale-switcher.tsx` and `components/stock/chart-panel.tsx`.
+- **About, Privacy and Terms** written in FR and EN (`About.*` in `messages/*.json`, `app/[locale]/about/page.tsx`): audience, advice, data, AI, browser storage
+  (the exact localStorage keys), cookies, server, terms. It carries a visible "draft, to be signed off by the professor" line; **remove that line only after the
+  professor signs.** The old `About.draft` key was renamed `About.credits`. Facts the professor should confirm: adults 18+, outside EEA/CH/UK; no contact address
+  is invented (it says "your professor or the club organiser").
+- Still open in 6e: README is stale ("Step 1 in progress"), to rewrite at close-out.
+- Not done yet: 6c ticker matrix against the live site (US, EU, Asia, ETF, loss-maker, semi-annual, bank), forced-failure test of stale mode, `/code-review`,
+  final apple-ui pass, and 6g (needs Upstash and the "start here" list from the user).
