@@ -2,6 +2,7 @@
 
 import { useLocale, useTranslations } from "next-intl";
 import type { ReactNode } from "react";
+import { stockHref } from "@/lib/education/class-link";
 import { Link } from "../navigation";
 import { Skeleton } from "../ui/skeleton";
 import { Change } from "./change";
@@ -41,6 +42,7 @@ export function QuoteRow({
   note,
   footnote,
   action,
+  hideAi = false,
 }: {
   company: RowCompany;
   state: RowState;
@@ -48,6 +50,8 @@ export function QuoteRow({
   note?: ReactNode;
   footnote?: ReactNode;
   action?: ReactNode;
+  /** A class link asked for the AI to stay hidden: the company page opens with `?hideAI=1`. */
+  hideAi?: boolean;
 }) {
   const t = useTranslations("Dash");
   const locale = useLocale();
@@ -60,7 +64,7 @@ export function QuoteRow({
   return (
     <li className="flex items-center gap-2">
       <Link
-        href={`/stock/${encodeURIComponent(company.symbol)}`}
+        href={stockHref(company.symbol, hideAi)}
         className="-mx-2 flex min-w-0 flex-1 flex-col gap-1 rounded-xl px-2 py-1 hover:bg-background"
       >
         <span className="flex items-center gap-3">

@@ -1,6 +1,18 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
+
+// next-intl's navigation helpers need the Next runtime; a plain anchor is enough to test rendering.
+vi.mock("@/components/navigation", () => ({
+  Link: ({ href, children, ...rest }: React.ComponentProps<"a">) => (
+    <a href={href} {...rest}>
+      {children}
+    </a>
+  ),
+  useRouter: () => ({ push: () => {} }),
+  usePathname: () => "/",
+}));
+
 import { readHideAi, thesisPlan } from "@/components/stock/ai-flag";
 import { ThesisColumns, ThesisIntro } from "@/components/stock/thesis";
 import {
@@ -10,6 +22,7 @@ import {
 } from "@/components/stock/thesis-logic";
 import type { ThesisResponse } from "@/lib/contract";
 import { thesisFixture, type ThesisVariant } from "@/lib/data/ai-fixtures";
+import { getText, isGlossaryId } from "@/lib/education/glossary";
 import { DataError } from "@/lib/data/errors";
 import type { Resource } from "@/lib/data/hooks";
 import en from "@/messages/en.json";
@@ -70,10 +83,11 @@ describe.each(["en", "fr"] as const)("thesis, ready (%s)", (lang) => {
       expect(text).toContain(arg.replace(/[\u00a0\u202f]/g, " "));
   });
   it("has no NaN / undefined / null", () => expect(text).not.toMatch(BROKEN));
-  it("shows the glossary terms as plain chips (no links or buttons)", () => {
-    expect(text).toContain(m.termsLabels.pe);
-    expect(text).toContain(m.termsLabels.payout_ratio);
-    expect(html).not.toMatch(/<a |<button/);
+  it("shows the glossary terms as chips linking to the glossary term", () => {
+    expect(text).toContain(getText("pe", lang).name);
+    expect(text).toContain(getText("payout_ratio", lang).name);
+    expect(html).toContain(`href="/learn#pe"`);
+    expect(html).toContain(`href="/learn#payout_ratio"`);
   });
   it("never reads as advice (columns are 'arguments', no imperative)", () => {
     expect(text).not.toMatch(
@@ -236,7 +250,7 @@ describe("a malformed thesis cannot break the page", () => {
     const text = visibleText(page(ready(r)));
     expect(text).toContain("Arguments for");
     expect(text).not.toContain("Arguments against");
-    expect(text).toContain("P/E ratio");
+    expect(text).toContain(getText("pe", "en").name);
     expect(text).not.toContain("made_up_term");
     expect(text).not.toMatch(BROKEN);
   });
@@ -269,11 +283,8 @@ describe("retry hint", () => {
   });
 });
 
-describe("messages", () => {
-  it("label every glossary id the contract allows, in both languages", () => {
-    for (const m of [en, fr])
-      expect(Object.keys(m.Stock.thesis.termsLabels).sort()).toEqual(
-        [...GLOSSARY_IDS].sort(),
-      );
+describe("glossary", () => {
+  it("has an entry for every glossary id the contract allows", () => {
+    for (const id of GLOSSARY_IDS) expect(isGlossaryId(id)).toBe(true);
   });
 });

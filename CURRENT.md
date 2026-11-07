@@ -1,5 +1,12 @@
 # CURRENT.md: session handoff
 
+> **Update 2026-11-07: Steps 1 to 4 (incl. 3b, 4a, 4b, 4c) are done and deployed. Step 5 (education and teacher features) is built (5a, 5b, 5c), only the professor's review (5d) is left, see
+> the bottom of `STEPS.md`. Next: Step 6.** Production is https://stocks-lens.vercel.app (the older `stocklens-beryl.vercel.app` redirects there). Baseline for
+> Step 5: `main` at `a7f32d3`, 566 tests green. The AI layer is a multi-provider chain (Gemini, Groq, Gemma), keys are on Vercel. Still open
+> and the user's: Upstash (health stays `degraded`), the soak verdict and deleting `app/api/spike` + `.github/workflows/soak.yml`, the curated
+> "start here" tickers (PLAN §10 Q3), the professor's review of the French copy, and the uncommitted `Assets/` and `next-env.d.ts` changes (do not commit).
+> The text below is the 2026-11-05 handoff and is history where it disagrees with this note.
+
 Written 2026-11-05 (evening) so a fresh Claude Code session can continue without this conversation.
 Read `PLAN.md` for the full plan (esp. §11 steps, §12 agents, and the "Step 1 status" block); this file is
 the short "where are we right now" layer on top of it.

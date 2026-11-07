@@ -23,7 +23,7 @@ export function LocaleSwitcher() {
           aria-current={locale === current ? "true" : undefined}
           aria-label={t(locale === "fr" ? "switchToFr" : "switchToEn")}
           className={cn(
-            "rounded-full px-3 py-1 uppercase",
+            "rounded-full px-2 py-1 uppercase sm:px-3",
             locale === current
               ? "bg-surface font-medium text-foreground"
               : "text-muted hover:text-foreground",

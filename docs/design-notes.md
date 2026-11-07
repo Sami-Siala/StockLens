@@ -110,3 +110,21 @@ Open question (PLAN §10 Q10): confirm you own the logo and choose a LICENSE bef
 - **Never blocks the page.** The request starts only once the company exists (typos must not spend quota), `?hideAI=1` removes the sections and the request, each section sits in its own `CardBoundary`.
 - **Retry** only where it can help: model_error, transport error, quota with a wait of 5 min or less. Not for no_key, insufficient_data, not_applicable, or a daily quota.
 - **Dev-only fixture switch** (fixtures mode): `?aiState=ready|stale|markup|no_key|quota_exhausted|model_error|not_applicable_for_type|insufficient_data|loading|down`. Defaults: SPY not applicable, RIVN insufficient data, AAPL ready, other fixture tickers a short figure-free sample.
+
+## Step 5b notes (Your turn, class links)
+
+- "Your turn": the selected Buy/Hold/Sell pill is neutral (foreground fill + check icon), not the accent:
+  the accent stays on the one primary action of a view and on active range pills.
+- Class page: students see the list and no primary button; the teacher builder is a collapsed `details`
+  (open only when the link is empty) whose single primary action is "Copy the link". The builder search
+  uses the compact field (no second primary button) with a `bg-background` field on the `bg-surface` card.
+- Inputs that are typed into use `text-base` (16 px) so iOS does not zoom on focus.
+
+## Step 5c notes (quiz, margin of safety, one-page export; do not re-litigate)
+
+- Stock page order: ... analysts, AI arguments, **Test yourself**, **Margin of safety**, **Your turn**, **One-page summary**. Four neutral `bg-surface` cards; no accent anywhere in them
+  (no primary button: nothing here is "the" action; Print and Copy are quiet secondary pills).
+- Quiz: answer state is shape + weight + icon (check on the right answer, a cross on a wrong pick, 2 px outline), never red/green. No score, no timer. "Next question" is a secondary pill on `bg-background` (on a `bg-surface` card the default secondary vanishes).
+- Margin of safety: one big figure (the margin, signed), one sentence, one quiet second line; the input is text with `inputMode="decimal"` (a `type=number` field breaks the French decimal comma).
+- Print: the stock page prints ONLY the summary sheet (`print:hidden` on the screen content, `body > :not(main)` hidden, light tokens forced in `@media print` so dark mode prints black on white). AI arguments are capped at 2 per column so the sheet stays one Letter (EN) / A4 (FR) page.
+- Polish pass 1: a wrong pick's outline used the border token and was invisible in dark mode; it now uses `--muted`. Next target: the stock page is long on a phone (quiz, margin, notes, export stack); if it feels heavy, fold the quiz and margin cards into `details` once the first view of each is understood.

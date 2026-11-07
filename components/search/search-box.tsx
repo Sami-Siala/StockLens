@@ -20,11 +20,20 @@ export function SearchBox({
   autoFocus = false,
   compact = false,
   onNavigate,
+  onSelect,
+  fieldClassName,
 }: {
   autoFocus?: boolean;
   /** Header popover variant: shorter field, no submit button (Enter submits). */
   compact?: boolean;
   onNavigate?: () => void;
+  /**
+   * Pick mode (the class-link builder): choosing a result calls this instead of opening the
+   * company page, clears the field, and keeps the search out of "recent searches".
+   */
+  onSelect?: (pick: { symbol: string; name: string; exchange: string }) => void;
+  /** Extra classes for the field (e.g. a `bg-background` field on a `bg-surface` card). */
+  fieldClassName?: string;
 }) {
   const t = useTranslations("Search");
   const router = useRouter();
@@ -48,6 +57,16 @@ export function SearchBox({
 
   function go(symbol: string, hit?: SearchHit) {
     setOpen(false);
+    if (onSelect) {
+      onSelect({
+        symbol,
+        name: hit?.name ?? symbol,
+        exchange: hit?.exchange ?? "",
+      });
+      setValue("");
+      setActive(-1);
+      return;
+    }
     onNavigate?.();
     pushRecent(searchesStore, {
       symbol,
@@ -125,6 +144,7 @@ export function SearchBox({
             className={cn(
               "w-full rounded-full bg-surface pr-4 placeholder:text-muted",
               compact ? "h-10 pl-10 text-sm" : "h-12 pl-12 text-base",
+              fieldClassName,
             )}
           />
         </div>

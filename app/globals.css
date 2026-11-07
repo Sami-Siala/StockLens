@@ -298,3 +298,28 @@ html[data-splash="seen"] .splash {
     display: none;
   }
 }
+
+/*
+ * Printing (one-page summary, components/stock/export-actions.tsx): only <main> is printed, always
+ * on white with dark text, whatever the screen theme. The stock page hides everything but its
+ * print sheet with `print:hidden`.
+ */
+@media print {
+  @page {
+    margin: 12mm;
+  }
+  :root {
+    --background: #ffffff;
+    --surface: #ffffff;
+    --border: #c7c7cc;
+    --foreground: #000000;
+    --muted: #48484a;
+  }
+  body > :not(main) {
+    display: none !important;
+  }
+  main {
+    max-width: none !important;
+    padding: 0 !important;
+  }
+}

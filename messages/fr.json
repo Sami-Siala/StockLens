@@ -12,7 +12,8 @@
     "closeSearch": "Fermer la recherche",
     "language": "Langue",
     "switchToFr": "Français",
-    "switchToEn": "English"
+    "switchToEn": "English",
+    "learn": "Apprendre"
   },
   "Home": {
     "tagline": "Comprendre n'importe quelle entreprise, en langage simple."
@@ -51,7 +52,6 @@
     "stale": "Dernier cours enregistré",
     "priceUnavailable": "Cours indisponible",
     "notFound": "Symbole introuvable",
-    "comingSoon": "Bientôt",
     "footer": "Données non officielles de Yahoo Finance, parfois différées ou incomplètes. Chaque cours est dans la devise de l'entreprise.",
     "updated": "Mis à jour à {time}.",
     "markets": {
@@ -126,14 +126,20 @@
       "estimated": "date estimée"
     },
     "learn": {
-      "title": "Apprendre",
-      "hint": "De courtes leçons qui suivent les séances du club.",
-      "body": "Un terme du jour, un quiz rapide et des raccourcis vers chaque séance apparaîtront ici."
+      "title": "Terme du jour",
+      "hint": "Un mot de la finance, expliqué simplement.",
+      "all": "Tout le glossaire"
     },
     "assignment": {
       "title": "Devoir de la semaine",
       "hint": "Ce que votre professeur vous demande d'étudier.",
-      "body": "Quand votre professeur partagera un lien de classe, les entreprises à étudier apparaîtront ici."
+      "empty": "Quand votre professeur partagera un lien de classe, les entreprises à étudier apparaîtront ici.",
+      "make": "Professeurs : créer un lien de classe",
+      "untitled": "Liste de la classe",
+      "count": "{count, plural, one {# entreprise} other {# entreprises}}",
+      "hideAi": "IA masquée",
+      "open": "Ouvrir la liste",
+      "forget": "Oublier ce lien"
     }
   },
   "Common": {
@@ -151,7 +157,8 @@
   "Footer": {
     "disclaimer": "Contenu pédagogique, pas un conseil financier.",
     "data": "Données non officielles issues de Yahoo Finance. Elles peuvent être différées, incomplètes ou fausses. Ne vous en servez pas pour prendre de vraies décisions.",
-    "about": "À propos, sources des données et crédits"
+    "about": "À propos, sources des données et crédits",
+    "class": "Liens de classe, pour les professeurs"
   },
   "About": {
     "title": "À propos de StockLens",
@@ -221,7 +228,8 @@
       "button": "Expliquer",
       "definition": "Ce que c'est",
       "formula": "Comment on le calcule",
-      "rule": "Règle générale (un repère, pas une loi)"
+      "rule": "Règle générale (un repère, pas une loi)",
+      "readMore": "Lire la suite dans le glossaire"
     },
     "cards": {
       "eps": {
@@ -255,7 +263,7 @@
       "fcf": {
         "title": "Flux de trésorerie disponible (FCF)",
         "meaning": "La trésorerie qui reste après avoir payé le fonctionnement et l'entretien de l'activité.",
-        "definition": "L'argent entré, moins l'argent sorti pour faire tourner l'entreprise et acheter du matériel. C'est ce dont l'entreprise peut vraiment disposer.",
+        "definition": "L'argent entré, moins l'argent sorti pour faire tourner l'entreprise et payer son matériel. C'est ce dont l'entreprise peut vraiment disposer.",
         "formula": "Trésorerie d'exploitation − investissements en matériel et bâtiments",
         "rule": "Une entreprise peut afficher un bénéfice mais peu de FCF, par exemple quand elle investit beaucoup. Regardez les deux."
       },
@@ -381,21 +389,6 @@
       "risks": "Risques principaux",
       "watch": "À surveiller",
       "terms": "Mots utilisés ci-dessus",
-      "termsLabels": {
-        "eps": "BPA (bénéfice par action)",
-        "pe": "P/E (ratio cours/bénéfice)",
-        "forward_pe": "P/E prévisionnel",
-        "market_cap": "Capitalisation boursière",
-        "dividend_yield": "Rendement du dividende",
-        "payout_ratio": "Taux de distribution (DPR)",
-        "free_cash_flow": "Flux de trésorerie disponible (FCF)",
-        "operating_margin": "Marge d'exploitation",
-        "revenue_growth": "Croissance du chiffre d'affaires",
-        "analyst_target": "Objectif de cours des analystes",
-        "beta": "Bêta",
-        "margin_of_safety": "Marge de sécurité",
-        "circle_of_competence": "Cercle de compétence"
-      },
       "unavailable": {
         "title": "Explication de l'IA indisponible pour le moment",
         "no_key": "L'explication de l'IA est désactivée sur ce serveur. Tout le reste de la page fonctionne.",
@@ -412,5 +405,320 @@
         "retry": "Réessayer"
       }
     }
+  },
+  "Learn": {
+    "title": "Glossaire",
+    "intro": "Les mots de la finance, expliqués dans l'esprit des séances du club : un terme à la fois, avec un exemple.",
+    "seanceNote": "L'étiquette « Séance » indique où le club a vu le terme. Sans étiquette, le terme va au-delà des séances.",
+    "searchLabel": "Rechercher un terme",
+    "searchPlaceholder": "Rechercher : BPA, P/E, DPR...",
+    "count": "{count, plural, =0 {Aucun terme} one {# terme} other {# termes}}",
+    "none": "Aucun terme ne correspond à « {query} ». Essayez un autre mot, ou une abréviation comme BPA ou P/E.",
+    "formula": "Comment on le calcule",
+    "example": "Exemple",
+    "rule": "Règle générale (un repère, pas une loi)",
+    "related": "À lire aussi :",
+    "seance": "Séance {n}",
+    "seanceTitle": "Vu en séance {n} du club",
+    "notAdvice": "Contenu pédagogique, pas un conseil financier."
+  },
+  "Turn": {
+    "title": "À vous de jouer",
+    "intro": "Forgez votre propre opinion sur cette entreprise. Écrivez ce que vous en pensez et pourquoi, puis choisissez le camp où vos arguments vous mènent.",
+    "competence": {
+      "title": "Cercle de compétence",
+      "question": "Pouvez-vous expliquer ce métier à un enfant de 10 ans ?",
+      "hint": "Si vous ne pouvez pas dire en deux phrases comment l'entreprise gagne de l'argent, elle est peut-être hors de votre cercle pour l'instant. Ce n'est pas grave, et c'est utile à savoir.",
+      "learn": "Qu'est-ce que le cercle de compétence ?"
+    },
+    "notes": {
+      "label": "Vos notes : qu'en pensez-vous, et pourquoi ?",
+      "placeholder": "Que fait l'entreprise ? Qu'est-ce qui vous rendrait plus ou moins confiant ? Qu'est-ce qui vous ferait changer d'avis ?",
+      "count": "{used} / {max} caractères"
+    },
+    "pick": {
+      "legend": "Où vos arguments vous mènent-ils aujourd'hui ?",
+      "hint": "C'est votre propre conclusion : vous pouvez la défendre ou en changer. Ce n'est pas un conseil.",
+      "buy": "Acheter",
+      "hold": "Conserver",
+      "sell": "Vendre",
+      "clear": "Effacer mon choix"
+    },
+    "storage": "Vos notes et votre choix sont enregistrés uniquement dans ce navigateur. Personne d'autre ne les voit, et effacer les données du navigateur les supprime.",
+    "storageBlocked": "Ce navigateur bloque le stockage local : vos notes disparaîtront quand vous quitterez cette page."
+  },
+  "Class": {
+    "title": "Liste de la classe",
+    "intro": "Votre professeur a choisi ces entreprises pour que vous les étudiiez. Ouvrez-les une à une et forgez votre propre opinion.",
+    "count": "{count, plural, one {# entreprise} other {# entreprises}}",
+    "hideAiNote": "Votre professeur a masqué l'explication de l'IA sur ces pages : partez des chiffres.",
+    "ignored": "Certaines entrées ne sont pas des symboles valides et ont été ignorées : {list}.",
+    "overflow": "Un lien de classe contient au plus {max} entreprises. {count, plural, one {# autre a été ignorée} other {# autres ont été ignorées}}.",
+    "cardError": "Cette entreprise n'a pas pu être affichée. Les autres fonctionnent toujours.",
+    "pricesError": "Les cours ne sont pas disponibles pour le moment. La liste, elle, est bien là.",
+    "loading": "Chargement de la liste de la classe",
+    "emptyTitle": "Aucune entreprise dans ce lien",
+    "emptyNone": "Un lien de classe contient une liste d'entreprises. Demandez un nouveau lien à votre professeur, ou créez-en un plus bas.",
+    "emptyInvalid": "Aucune entrée de ce lien n'est un symbole valide. Vérifiez le lien avec votre professeur, ou créez-en un nouveau plus bas.",
+    "builder": {
+      "title": "Créer un lien de classe",
+      "intro": "Pour les professeurs. Choisissez jusqu'à {max} entreprises et partagez le lien. La liste est dans le lien lui-même : rien n'est enregistré sur un serveur et personne n'a besoin de se connecter.",
+      "companies": "Entreprises du lien",
+      "none": "Aucune entreprise choisie. Cherchez-en une pour l'ajouter.",
+      "full": "Un lien contient au plus {max} entreprises. Retirez-en une pour en ajouter une autre.",
+      "remove": "Retirer {name}",
+      "hideAi": "Masquer l'explication de l'IA sur les pages des entreprises",
+      "hideAiHint": "Les élèves partent alors des chiffres et écrivent d'abord leur propre opinion.",
+      "titleLabel": "Titre (facultatif)",
+      "titlePlaceholder": "Ex. : Semaine 3",
+      "linkLabel": "Lien à partager",
+      "needOne": "Choisissez au moins une entreprise pour obtenir un lien.",
+      "copy": "Copier le lien",
+      "copied": "Lien copié.",
+      "copyFailed": "Copie automatique impossible. Le lien est sélectionné : copiez-le à la main.",
+      "open": "Ouvrir le lien"
+    }
+  },
+  "Quiz": {
+    "title": "Testez-vous",
+    "intro": "De courtes questions construites à partir des chiffres de cette entreprise. Pas de score, pas de chrono : c'est l'explication qui compte.",
+    "counter": "Question {n} sur {total}",
+    "correct": "C'est exact",
+    "wrong": "Pas cette fois",
+    "answerWas": "La réponse : {answer}",
+    "next": "Question suivante",
+    "ruleNote": "Cette réponse suit une règle empirique, pas une loi : des entreprises réelles peuvent faire exception.",
+    "readMore": "Lire dans le glossaire : {term}",
+    "none": "Il n'y a pas assez de données sur cette entreprise pour un quiz pour le moment.",
+    "notAdvice": "Des questions d'entraînement pour apprendre à lire les chiffres. Elles ne disent rien de ce qu'il faut faire d'une action.",
+    "rules": {
+      "pe_years": {
+        "question": "Le P/E de {name} est de {pe}. Environ combien d'années de son bénéfice actuel faudrait-il pour récupérer le prix d'une action ?",
+        "options": {
+          "years": "Environ {n, plural, one {# an} other {# ans}}"
+        },
+        "explain": {
+          "default": "Le P/E est le cours de l'action divisé par le bénéfice par action : un P/E de {pe} correspond à environ {n} ans de bénéfices actuels pour égaler le cours d'aujourd'hui. C'est une façon de lire le prix, pas une promesse : les bénéfices changent d'une année à l'autre."
+        }
+      },
+      "pe_reading": {
+        "question": "Le P/E de {name} est de {pe}. En règle empirique, que le marché anticipe-t-il le plus souvent ?",
+        "options": {
+          "growth": "Une forte croissance à venir : les investisseurs acceptent de payer cher chaque unité de bénéfice actuel",
+          "steady": "De la stabilité, ou quelques doutes : les investisseurs ne paient pas cher chaque unité de bénéfice actuel"
+        },
+        "explain": {
+          "growth": "Un P/E de {pe} est élevé. Il signifie souvent que le marché attend une forte croissance des bénéfices. C'est une règle empirique, pas une loi : un P/E élevé peut aussi simplement vouloir dire que l'action est chère, donc comparez avec des entreprises du même secteur.",
+          "steady": "Un P/E de {pe} est bas. Il va souvent avec une activité stable qui croît lentement, ou avec des doutes sur l'avenir. C'est une règle empirique, pas une loi : comparez avec des entreprises similaires avant de conclure."
+        }
+      },
+      "eps_surprise": {
+        "question": "Pour le trimestre clos en {quarter}, {name} a publié un bénéfice par action (BPA) de {actual}. Les analystes attendaient {estimate}. Par rapport à l'attente, s'agit-il d'un dépassement, d'un manque ou d'un résultat conforme ?",
+        "options": {
+          "beat": "Un dépassement : au-dessus de l'attente",
+          "inline": "Conforme : presque identique à l'attente",
+          "miss": "Un manque : en dessous de l'attente"
+        },
+        "explain": {
+          "beat": "{actual} est supérieur aux {estimate} attendus par les analystes : c'est un dépassement de {pct} par rapport au chiffre attendu. Un dépassement compare un résultat à une attente ; il ne prévoit pas ce que fera le cours.",
+          "miss": "{actual} est inférieur aux {estimate} attendus par les analystes : c'est un manque de {pct} par rapport au chiffre attendu. Un manque compare un résultat à une attente ; il ne prévoit pas ce que fera le cours.",
+          "inline": "{actual} est presque identique aux {estimate} attendus par les analystes : on parle de résultat conforme. L'endroit exact où l'on place cette frontière (ici, environ un demi pour cent) est une convention, pas une loi."
+        }
+      },
+      "forward_vs_trailing": {
+        "question": "{name} a un P/E passé (trailing) de {trailing} (calculé sur les 12 derniers mois de bénéfice) et un P/E prévisionnel (forward) de {forward} (calculé sur le bénéfice que les analystes attendent pour les 12 prochains mois). Le cours de l'action est le même dans les deux cas. Que suggère la différence ?",
+        "options": {
+          "higher": "Les analystes attendent un bénéfice plus élevé sur les 12 prochains mois que sur les 12 derniers",
+          "lower": "Les analystes attendent un bénéfice plus bas sur les 12 prochains mois que sur les 12 derniers"
+        },
+        "explain": {
+          "higher": "Même cours, P/E plus petit : le bénéfice par lequel on divise doit être plus grand. Un P/E prévisionnel ({forward}) inférieur au P/E passé ({trailing}) veut dire que les analystes attendent une hausse du bénéfice par action. Ce sont des prévisions, et les prévisions se trompent souvent.",
+          "lower": "Même cours, P/E plus grand : le bénéfice par lequel on divise doit être plus petit. Un P/E prévisionnel ({forward}) supérieur au P/E passé ({trailing}) veut dire que les analystes attendent une baisse du bénéfice par action. Ce sont des prévisions, et les prévisions se trompent souvent."
+        }
+      },
+      "dividend_income": {
+        "question": "Le rendement du dividende de {name} est de {yield}. Si le dividende reste identique, combien verseraient en un an des actions d'une valeur de {stake} ?",
+        "options": {
+          "amount": "Environ {amount}"
+        },
+        "explain": {
+          "default": "Le rendement du dividende est le dividende annuel divisé par le cours de l'action : {yield} de {stake}, cela fait environ {amount} par an. C'est l'entreprise qui décide du dividende, et elle peut le modifier ou le supprimer : le rendement est une photographie, pas une promesse."
+        }
+      },
+      "payout_ratio": {
+        "question": "{name} a distribué environ {ratio} de son bénéfice sous forme de dividendes (le taux de distribution, DPR). En règle empirique, que cela suggère-t-il ?",
+        "options": {
+          "low": "Elle garde l'essentiel de son bénéfice pour le réinvestir ou le mettre de côté",
+          "mid": "Elle partage à peu près la moitié de son bénéfice et garde le reste",
+          "high": "Elle distribue l'essentiel de son bénéfice, ce qui laisse peu de marge si le bénéfice baisse"
+        },
+        "explain": {
+          "low": "À {ratio}, l'essentiel du bénéfice reste dans l'entreprise. Règle empirique, pas une loi : en dessous d'environ 35 %, on lit souvent « garde l'essentiel » ; entre 35 % et 70 %, « partage à peu près la moitié » ; au-dessus de 70 %, « distribue l'essentiel ». Les secteurs diffèrent beaucoup.",
+          "mid": "À {ratio}, le bénéfice est à peu près partagé entre les actionnaires et l'entreprise. Règle empirique, pas une loi : en dessous d'environ 35 %, on lit souvent « garde l'essentiel » ; entre 35 % et 70 %, « partage à peu près la moitié » ; au-dessus de 70 %, « distribue l'essentiel ». Les secteurs diffèrent beaucoup.",
+          "high": "À {ratio}, l'essentiel du bénéfice va aux actionnaires. Règle empirique, pas une loi : en dessous d'environ 35 %, on lit souvent « garde l'essentiel » ; entre 35 % et 70 %, « partage à peu près la moitié » ; au-dessus de 70 %, « distribue l'essentiel ». Les secteurs diffèrent beaucoup."
+        }
+      },
+      "price_vs_target": {
+        "question": "{name} cote {price}. L'objectif de cours moyen des analystes professionnels est de {mean} (leurs objectifs vont de {low} à {high}). Comment l'objectif moyen se situe-t-il par rapport au cours ?",
+        "options": {
+          "above": "Au-dessus du cours",
+          "same": "À peu près au même niveau (à {band} près)",
+          "below": "En dessous du cours"
+        },
+        "explain": {
+          "above": "L'objectif moyen, {mean}, est supérieur de {gap} au cours, {price}. Les objectifs sont des opinions d'analystes, souvent révisées et souvent fausses : on compare deux nombres, sans rien dire de certain sur l'évolution du cours.",
+          "below": "L'objectif moyen, {mean}, est inférieur de {gap} au cours, {price}. Les objectifs sont des opinions d'analystes, souvent révisées et souvent fausses : on compare deux nombres, sans rien dire de certain sur l'évolution du cours.",
+          "same": "L'objectif moyen, {mean}, est à moins de {band} du cours, {price} : on parle d'un niveau à peu près identique. Cette marge de {band} est une règle empirique, pas une loi. Les objectifs sont des opinions d'analystes, souvent révisées et souvent fausses."
+        }
+      },
+      "market_cap_size": {
+        "question": "La capitalisation boursière de {name} est de {cap}. Dans quel groupe les investisseurs la rangent-ils habituellement ?",
+        "options": {
+          "small": "Une petite ou moyenne capitalisation (moins de 10 milliards)",
+          "large": "Une grande capitalisation (de 10 à 200 milliards)",
+          "mega": "Une très grande capitalisation (plus de 200 milliards)"
+        },
+        "explain": {
+          "small": "La capitalisation boursière est le cours de l'action multiplié par le nombre d'actions : le prix de toute l'entreprise, ici {cap}. Ces groupes sont des conventions, pas des lois : les banques et les indices placent les frontières à des endroits légèrement différents. Les seuils utilisés ici sont une règle empirique pour l'USD, l'EUR, la GBP et le CHF.",
+          "large": "La capitalisation boursière est le cours de l'action multiplié par le nombre d'actions : le prix de toute l'entreprise, ici {cap}. Ces groupes sont des conventions, pas des lois : les banques et les indices placent les frontières à des endroits légèrement différents. Les seuils utilisés ici sont une règle empirique pour l'USD, l'EUR, la GBP et le CHF.",
+          "mega": "La capitalisation boursière est le cours de l'action multiplié par le nombre d'actions : le prix de toute l'entreprise, ici {cap}. Ces groupes sont des conventions, pas des lois : les banques et les indices placent les frontières à des endroits légèrement différents. Les seuils utilisés ici sont une règle empirique pour l'USD, l'EUR, la GBP et le CHF."
+        }
+      },
+      "operating_margin": {
+        "question": "La marge d'exploitation de {name} est de {margin}. Sur 100 de ventes, combien reste-t-il environ en résultat d'exploitation, avant intérêts et impôts ?",
+        "options": {
+          "per100": "Environ {n} sur 100"
+        },
+        "explain": {
+          "default": "La marge d'exploitation est le résultat d'exploitation divisé par le chiffre d'affaires. {margin}, cela fait environ {n} de résultat d'exploitation pour 100 de ventes ; le reste paie les coûts de fonctionnement. Les marges normales diffèrent beaucoup d'un secteur à l'autre : comparez une entreprise à ses concurrentes."
+        }
+      },
+      "operating_loss": {
+        "question": "La marge d'exploitation de {name} est de {margin}, un nombre négatif. Que signifie-t-elle ?",
+        "options": {
+          "costs": "Les coûts de fonctionnement sont supérieurs aux ventes",
+          "cash": "L'entreprise a plus de trésorerie que de dettes",
+          "sales": "Les ventes ont baissé par rapport à l'an dernier"
+        },
+        "explain": {
+          "default": "La marge d'exploitation est le résultat d'exploitation divisé par le chiffre d'affaires. Une marge négative signifie que les coûts de fonctionnement dépassent les ventes : l'activité fait une perte d'exploitation. Beaucoup de jeunes entreprises perdent de l'argent pendant qu'elles grandissent : une perte est un fait à comprendre, pas un verdict."
+        }
+      },
+      "free_cash_flow": {
+        "question": "Le dernier flux de trésorerie disponible de {name} est de {fcf}. Que vous dit son signe ?",
+        "options": {
+          "in": "Il est entré plus d'argent qu'il n'en est sorti, après avoir payé le fonctionnement et l'entretien de l'activité",
+          "out": "Il est sorti plus d'argent qu'il n'en est entré, après avoir payé le fonctionnement et l'entretien de l'activité"
+        },
+        "explain": {
+          "positive": "Le flux de trésorerie disponible est l'argent entré moins l'argent sorti pour faire tourner l'entreprise et payer son matériel. Un chiffre positif ({fcf}) veut dire qu'il est resté de l'argent. Il ne couvre qu'une période : regardez-en plusieurs.",
+          "negative": "Le flux de trésorerie disponible est l'argent entré moins l'argent sorti pour faire tourner l'entreprise et payer son matériel. Un chiffre négatif ({fcf}) veut dire qu'il est sorti plus d'argent qu'il n'en est entré. Cela arrive quand une entreprise investit beaucoup pour grandir, ou quand elle est en difficulté : il faut connaître l'histoire derrière le chiffre."
+        }
+      }
+    }
+  },
+  "Safety": {
+    "title": "Marge de sécurité",
+    "intro": "Combien vaut vraiment une action, selon vous ? Saisissez votre propre estimation et voyez à quelle distance se trouve le cours.",
+    "label": "Votre estimation de la valeur d'une action, en {currency}",
+    "placeholder": "Par exemple 120",
+    "hint": "Appuyez-vous sur votre raisonnement : par exemple le bénéfice par action que vous jugez réaliste, multiplié par un P/E que vous trouvez raisonnable.",
+    "subunit": "Les prix de cette page sont en {currency}, pas en {quotedAs} ({factor} {quotedAs} = 1 {currency}). Saisissez votre estimation en {currency}.",
+    "saved": "Votre estimation est enregistrée uniquement dans ce navigateur.",
+    "clear": "Effacer mon estimation",
+    "errors": {
+      "invalid": "Ceci ne ressemble pas à un nombre. Essayez par exemple 120 ou 12,50.",
+      "not_positive": "L'estimation doit être supérieure à zéro.",
+      "too_large": "Ce nombre est trop grand pour le prix d'une action."
+    },
+    "far": "Votre estimation est très éloignée du cours actuel. Vérifiez le nombre et la devise.",
+    "price": "Cours actuel",
+    "estimate": "Votre estimation",
+    "margin": "Marge de sécurité",
+    "formula": "(estimation - cours) / estimation",
+    "below": "Le cours est inférieur de {pct} à votre estimation : d'après vos chiffres, il y a une marge de sécurité.",
+    "above": "Le cours est supérieur de {pct} à votre estimation : d'après vos chiffres, il n'y a pas de marge de sécurité.",
+    "about_equal": "Le cours est à peu près égal à votre estimation (moins d'un demi pour cent d'écart).",
+    "gapAbove": "Votre estimation est supérieure de {pct} au cours actuel.",
+    "gapBelow": "Votre estimation est inférieure de {pct} au cours actuel.",
+    "notAdvice": "C'est votre estimation, pas une prédiction ni un conseil. Si votre estimation est fausse, la marge l'est aussi.",
+    "learn": "Qu'est-ce qu'une marge de sécurité ?",
+    "hidden": {
+      "fund": "Une marge de sécurité s'applique à une entreprise précise, pas à un fonds.",
+      "quote": "Le cours actuel n'est pas disponible pour le moment : il n'y a donc rien à comparer avec votre estimation.",
+      "currency": "Nous ne savons pas dans quelle devise est le cours, nous ne demandons donc pas d'estimation."
+    }
+  },
+  "Export": {
+    "title": "Résumé en une page",
+    "intro": "Imprimez le résumé ou enregistrez-le en PDF, ou copiez-le en texte brut. Il contient les chiffres clés, vos notes et votre choix, et rien ne quitte votre navigateur.",
+    "print": "Imprimer / enregistrer en PDF",
+    "copy": "Copier en texte",
+    "copied": "Copié",
+    "copyFailed": "Votre navigateur n'a pas autorisé la copie. Sélectionnez le texte ci-dessous et copiez-le vous-même.",
+    "heading": "StockLens : résumé en une page",
+    "date": "Date : {date}",
+    "price": {
+      "line": "Cours : {price} ({status})",
+      "delayed": "différé de {minutes} min",
+      "realtime": "temps réel",
+      "maybeDelayed": "peut être différé"
+    },
+    "keyTitle": "Chiffres clés",
+    "keyNone": "Aucun chiffre clé n'est disponible pour cette entreprise.",
+    "rows": {
+      "eps": "BPA, dernier trimestre",
+      "pe": "P/E (passé / prévisionnel)",
+      "revenue": "Chiffre d'affaires ({period})",
+      "operating": "Résultat d'exploitation ({period})",
+      "fcf": "Flux de trésorerie disponible ({period})",
+      "marketCap": "Capitalisation boursière",
+      "ratings": "Avis des analystes (positifs / neutres / négatifs)",
+      "target": "Objectif de cours des analystes (le plus bas / moyen / le plus haut)"
+    },
+    "values": {
+      "eps": "{actual}, attendu {estimate} ({verdict})",
+      "pe": "{trailing} / {forward}",
+      "margin": "marge {pct}",
+      "ratings": "{pos} / {neu} / {neg}",
+      "target": "{low} / {mean} / {high}"
+    },
+    "verdict": {
+      "beat": "dépassement",
+      "inline": "conforme",
+      "miss": "manque"
+    },
+    "period": {
+      "quarter": "trimestre clos en {date}",
+      "half": "semestre clos en {date}",
+      "year": "exercice clos en {date}"
+    },
+    "reportedIn": "publié en {currency}",
+    "na": "n.d.",
+    "yourTitle": "Votre point de vue",
+    "pick": "Votre choix",
+    "pickNote": "(votre propre conclusion, pas un conseil)",
+    "pickNone": "Pas encore de choix",
+    "notes": "Vos notes",
+    "notesNone": "Pas encore de notes.",
+    "estimate": {
+      "title": "Votre estimation de valeur",
+      "line": "Votre estimation de la valeur d'une action : {estimate}",
+      "gap": {
+        "below": "Le cours est inférieur de {pct} à votre estimation (marge de sécurité d'après vos chiffres).",
+        "above": "Le cours est supérieur de {pct} à votre estimation (pas de marge de sécurité d'après vos chiffres).",
+        "about_equal": "Le cours est à peu près égal à votre estimation."
+      },
+      "notAdvice": "C'est l'estimation personnelle de l'élève, pas une prédiction ni un conseil."
+    },
+    "ai": {
+      "title": "Arguments rédigés par une IA",
+      "note": "Rédigés par une IA à partir des données de la page : elle peut se tromper. Ce sont des arguments à évaluer, pas des conseils.",
+      "for": "Arguments pour",
+      "against": "Arguments contre",
+      "wait": "Arguments pour attendre"
+    },
+    "disclaimer": "Contenu pédagogique, pas un conseil financier. Ce résumé montre le raisonnement personnel d'un élève. Les cours peuvent être différés, et un texte écrit par une IA peut contenir des erreurs.",
+    "footer": "Réalisé avec StockLens, un outil d'apprentissage gratuit du PMF Investment Society. Données : Yahoo Finance, non officielles et parfois différées."
   }
 }

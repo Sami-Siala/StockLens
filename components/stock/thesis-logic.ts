@@ -1,6 +1,6 @@
 import type { GlossaryTermId, Thesis } from "@/lib/contract";
 
-/** Term ids with a label in `messages` (`Stock.thesis.termsLabels`); a newer id is skipped, not shown raw. */
+/** The ids the contract allows (lib/contract/ai.ts); each has a glossary entry, a newer id is skipped, not shown raw. */
 export const GLOSSARY_IDS = [
   "eps",
   "pe",

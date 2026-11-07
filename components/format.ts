@@ -36,13 +36,23 @@ export function formatMoney(
   amount: number,
   currency: string,
   locale: string,
-  opts: { compact?: boolean; maxFraction?: number } = {},
+  opts: { compact?: boolean; maxFraction?: number; minFraction?: number } = {},
 ): string {
   if (!isNum(amount)) return "";
   const compact = opts.compact ? ({ notation: "compact" } as const) : {};
   const digits =
     opts.maxFraction !== undefined
-      ? { maximumFractionDigits: opts.maxFraction }
+      ? {
+          ...(opts.minFraction !== undefined
+            ? {
+                minimumFractionDigits: Math.min(
+                  opts.minFraction,
+                  opts.maxFraction,
+                ),
+              }
+            : {}),
+          maximumFractionDigits: opts.maxFraction,
+        }
       : opts.compact
         ? { maximumFractionDigits: 2 }
         : { minimumFractionDigits: 2, maximumFractionDigits: 2 };

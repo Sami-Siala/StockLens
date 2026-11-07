@@ -14,10 +14,14 @@ export const SEARCHES_MAX = 5;
 
 const SYMBOL = /^[A-Za-z0-9^][A-Za-z0-9.^=-]{0,11}$/;
 
+/** The one rule for "is this a ticker we accept" (lists, notes, class links). */
+export const isValidSymbol = (s: unknown): s is string =>
+  typeof s === "string" && SYMBOL.test(s);
+
 function validateCompany(v: unknown): SavedCompany | null {
   if (!v || typeof v !== "object") return null;
   const { symbol, name, exchange } = v as Record<string, unknown>;
-  if (typeof symbol !== "string" || !SYMBOL.test(symbol)) return null;
+  if (!isValidSymbol(symbol)) return null;
   const clean = (x: unknown, fallback: string) =>
     typeof x === "string" && x.trim() ? x.trim().slice(0, 120) : fallback;
   return {

@@ -383,6 +383,12 @@ Instruction: "ignore the logins for now and build around it". So the offline hal
 - **Chrome from a subagent: does NOT work** ("Browser extension is not connected"). Fallback that worked: driving the installed Chrome over the DevTools protocol (script kept outside the repo). Playwright not needed for now.
 - **Open for you:** professor review of all FR copy; Shell/ADR P/E hidden on currency mismatch (OK, or show with a warning?); club-code gate on for launch (needs a UI to enter the code)?
 
+### Steps 3b and 4 status (2026-11-07)
+
+- **Step 3b done:** home dashboard (markets, watchlist, recents, start here, earnings, placeholders), `/api/quotes`, `/api/market`, `/api/ticker` (25 items), market band on every page. Contract v0.3.1.
+- **Step 4 done:** AI layer with a multi-provider chain (§3.5), contract v0.4.0 (`/api/ai/[symbol]`), thesis UI on the stock page in all states, FR/EN, pre-warm script (`npm run ai:prewarm`, not yet run). Details in `STEPS.md`.
+- **Step 5 built** (2026-11-07): 5a glossary and Séance tags, 5b notes/pick/teacher links, 5c quiz/margin of safety/export. 5d (the professor's review of all FR/EN copy) is open. Details in `STEPS.md`.
+
 ### Schedule (~2 weeks) and priority tiers
 
 Full scope in ~2 weeks is **high risk** (flagged by the plan review). We keep all the scope but deliver in tiers, so if time runs short we cut P2 first and never P0:

@@ -14,14 +14,19 @@ import {
 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import type { ComponentType, ReactNode } from "react";
-import type { GlossaryTermId, Thesis, ThesisResponse } from "@/lib/contract";
+import type { Thesis, ThesisResponse } from "@/lib/contract";
 import type { Resource } from "@/lib/data/hooks";
+import {
+  getText,
+  isGlossaryId,
+  type GlossaryId,
+} from "@/lib/education/glossary";
 import { cn } from "@/lib/utils";
 import { formatDate } from "../format";
+import { Link } from "../navigation";
 import { Button } from "../ui/button";
 import { Skeleton } from "../ui/skeleton";
 import {
-  GLOSSARY_IDS,
   hasColumns,
   retryHint,
   SHORT_WAIT_SECONDS,
@@ -324,11 +329,11 @@ function Notes({
   );
 }
 
+/** Terms the model cites: chips that open the glossary at that term. Unknown ids are skipped. */
 function Terms({ ids }: { ids: unknown }) {
   const t = useTranslations("Stock.thesis");
-  const list = textList(ids).filter((id): id is GlossaryTermId =>
-    (GLOSSARY_IDS as readonly string[]).includes(id),
-  );
+  const locale = useLocale();
+  const list = textList(ids).filter((id): id is GlossaryId => isGlossaryId(id));
   if (list.length === 0) return null;
   return (
     <div className="flex flex-col gap-2">
@@ -337,11 +342,13 @@ function Terms({ ids }: { ids: unknown }) {
       </h3>
       <ul aria-labelledby="thesis-terms" className="flex flex-wrap gap-2">
         {list.map((id) => (
-          <li
-            key={id}
-            className="rounded-full bg-surface px-3 py-1 text-sm text-muted"
-          >
-            {t(`termsLabels.${id}`)}
+          <li key={id}>
+            <Link
+              href={`/learn#${id}`}
+              className="inline-block rounded-full bg-surface px-3 py-1 text-sm text-muted hover:text-foreground"
+            >
+              {getText(id, locale).name}
+            </Link>
           </li>
         ))}
       </ul>

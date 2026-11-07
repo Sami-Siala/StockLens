@@ -1,4 +1,16 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
+
+// next-intl's navigation helpers need the Next runtime; a plain anchor is enough to test rendering.
+vi.mock("@/components/navigation", () => ({
+  Link: ({ href, children, ...rest }: React.ComponentProps<"a">) => (
+    <a href={href} {...rest}>
+      {children}
+    </a>
+  ),
+  useRouter: () => ({ push: () => {} }),
+  usePathname: () => "/",
+}));
+
 import {
   AnalystSection,
   barPosition,

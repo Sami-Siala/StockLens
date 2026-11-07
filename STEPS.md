@@ -1,6 +1,6 @@
-# STEPS.md: Step 4 (AI layer), split in three
+# STEPS.md: Step 4 (AI layer, done) and Step 5 (education and teacher features, in progress)
 
-Written 2026-11-06. Source: `PLAN.md` §11 Step 4 and §3.5, and `CURRENT.md`. `CURRENT.md` is stale on one point: Step 3b (dashboard) and the
+Step 5 is at the bottom of this file. Step 4 was written 2026-11-06. Source: `PLAN.md` §11 Step 4 and §3.5, and `CURRENT.md`. `CURRENT.md` is stale on one point: Step 3b (dashboard) and the
 market ticker are already built and committed, so **Step 4 is the next step**.
 
 Step 4 as the plan words it: _Gemini client with model fallback chain; grounded prompt; schema-enforced JSON; per `(ticker, language, day)`
@@ -100,3 +100,94 @@ professor's review of the French output. `dailyGenerationBudget` is 150 (Groq ad
 - Still open from 4b: Upstash not provisioned (health `degraded`, per-instance cache), live TSM check, professor review of the French,
   curated "start here" tickers (PLAN §10), `Assets/` changes and `next-env.d.ts` are the user's and must not be committed without asking.
 - Glossary term ids come back in `thesis.glossaryTerms`; the glossary itself is Step 5 (render them as plain chips or skip until then).
+
+---
+
+# Step 5: education and teacher features (started 2026-11-07)
+
+Source: `PLAN.md` §5 (education layer), §6 (teacher mode), §11 Step 5, tiers in §11 "Schedule". Baseline when started: `main` at `a7f32d3`,
+`npm run check` green (566 tests). Lead: `frontend-engineer`, sequential (all parts touch `messages/*.json`, so no parallel worktrees).
+No new contract version and no `data-engineer` work: everything is client-side or static content.
+
+Plan wording: _Glossary + tooltips + "explain this metric" in lecture voice; "Séance N" tags; rule-based quiz cards; margin-of-safety card;
+watchlist, notes and one-page thesis export; teacher links (`?tickers=…&hideAI=1`)._ Exit: **the professor reviews all FR/EN educational copy;
+a teacher link works end to end.**
+
+Already in place (do not rebuild): watchlist star + dashboard tile + recents (`lib/data/local`), per-card "explain" toggle with
+definition/formula/rule for the 6 key cards (`Stock.cards.*`), `?hideAI=1` already honoured by the stock page (`components/stock/ai-flag.ts`),
+`GlossaryTermId` (13 ids) in `lib/contract/ai.ts` with the thesis rendering them as plain chips, a static `LearnTile` placeholder on the home page.
+
+| #   | Part                                  | Tier | Status          |
+| --- | ------------------------------------- | ---- | --------------- |
+| 5a  | **Glossary and Séance tags**          | P1   | Done 2026-11-07 |
+| 5b  | **Notes, your pick, teacher links**   | P1   | Done 2026-11-07 |
+| 5c  | **Quiz, margin of safety, export**    | P2   | Done 2026-11-07 |
+| 5d  | **Polish pass and professor review**  | P1   | Waiting on the professor |
+
+## 5a. Glossary and Séance tags
+
+- Source of truth for wording: the lecture PDFs in `Lectures/` (local only, never committed, never quoted at length). Aziz's café voice,
+  BPA/EPS, capitalisation boursière, DPR vocabulary. Séance numbers: last year's lectures 1 to 4, this year's file is three sessions.
+- `lib/education/glossary.ts`: typed entries for the 13 `GlossaryTermId`s plus the terms the 6 cards use, each with FR and EN `short`,
+  `definition`, `formula` (when it has one), `example`, `ruleOfThumb` (labelled as such) and a `seance` tag. Copy lives with the data, not in `messages/`.
+- `/[locale]/learn`: the glossary page (search box, alphabetical, anchors `#eps`), linked from the header nav.
+- Thesis glossary chips link to the term; metric "explain" panels get a "Read more" link and a Séance tag.
+- Home `LearnTile`: real "term of the day" (deterministic by date), links to `/learn`.
+- Tests: every id has FR and EN, no empty field, no digits-as-advice wording ("buy", "acheter" in imperative), term-of-the-day is stable per day.
+
+## 5b. Notes, your pick, teacher links
+
+- "Your turn" box on the stock page: notes (localStorage per symbol, try/catch, works without storage) and a Buy/Hold/Sell pick framed as
+  _your argument_, never advice; the circle-of-competence prompt ("Can you explain this business to a 10-year-old?").
+- Teacher links: `/[locale]/class?tickers=KO,NVDA,MC.PA&hideAI=1&title=…` shows the curated list as cards; `hideAI` is carried to every stock link
+  from that page. Validation: max 12 symbols, symbol regex as in `lib/data/local/lists.ts`, title clipped, everything rendered as plain text.
+- A small "Make a class link" builder (pick tickers, toggle hide-AI, copy the URL). No login, no storage on the server.
+- Dashboard "This week's assignment" tile (tile 10) reads the last opened class link from localStorage.
+
+## 5c. Quiz, margin of safety, export (P2, cut first)
+
+- Rule-based quiz cards on the stock page (deterministic from the snapshot, e.g. P/E vs growth, EPS beat or miss), about 10 rules, immediate explanation.
+- Margin-of-safety card: the student types their own value estimate, sees the gap against the price (Séance 4).
+- One-page thesis export: print stylesheet plus copy-as-text of notes, pick and key numbers.
+
+## 5d. Close-out
+
+`apple-ui` polish pass (light and dark, 390 and 1280 px), `npm run check`, build, deploy, then **the professor reviews every FR/EN string**
+(list them in one place: `lib/education/*` and the new `messages` namespaces).
+
+## 5a status (2026-11-07)
+
+Done, uncommitted: `lib/education/glossary.ts` (19 terms FR/EN: the 13 contract ids, `revenue`, and 5 extras `dcf`, `intrinsic_value`, `ticker`,
+`hindsight_bias`, `opportunity_cost`), `/[locale]/learn` with search and anchors, "Learn" nav link, thesis chips and Explain panels link to the
+glossary, real term of the day on the home tile. 745 tests green, build green, checked at 390 and 1280 px by the agent.
+Decisions taken: "Accueil" stays hidden on phones on non-home pages (header overflowed at 390 px with the new link); the 5 extra terms stay, the professor can trim.
+**For the professor:** all of `lib/education/glossary.ts`; six terms have no Séance (`forward_pe`, `dividend_yield`, `operating_margin`,
+`revenue_growth`, `analyst_target`, `beta`: the lectures do not teach them, assign or confirm); FR "Taux de distribution (DPR)" is the agent's wording;
+English says "Session N" for Séance. Known overlap: `Stock.cards.*` and the glossary repeat definition/formula/rule and can drift.
+
+## 5b status (2026-11-07)
+
+Done, uncommitted: "Your turn" box (`components/stock/your-turn.tsx`: notes up to 2000 chars, Buy/Hold/Sell pick framed as the student's own conclusion,
+circle-of-competence prompt, storage in `lib/data/local/notes.ts`, works without storage), `/[locale]/class` (parsing and validation in
+`lib/education/class-link.ts`, max 12 symbols, title clipped to 80 and rendered as text, `hideAI` carried to stock links), the link builder,
+dashboard tile 10 (last opened class link, `lib/data/local/class-link.ts`), footer link "Class links, for teachers". 802 tests green, build green.
+Decisions taken: the footer link is the entry point for now (no header entry); pick labels stay Buy/Hold/Sell (Acheter / Conserver / Vendre), as PLAN §2 decided.
+**For the professor:** `Turn.*`, `Class.*`, `Class.builder.*`, `Dash.assignment.*`, `Footer.class` in `messages/*.json`. FR wording that is the agent's:
+"À vous de jouer", "Où vos arguments vous mènent-ils aujourd'hui ?", "Liste de la classe", "Créer un lien de classe".
+Known limits: a class link embeds the locale of the teacher who made it; `hideAI` only applies to links from the class page (not header search or watchlist).
+
+## 5c status (2026-11-07)
+
+Done: 11 rule-based quiz questions (`lib/education/quiz.ts`, none for ETFs or when data is missing or currencies do not compare), margin-of-safety card
+(`lib/education/margin-of-safety.ts`; margin = (estimate - price) / estimate, estimate saved in the notes store), one-page export (print / PDF and
+copy as text, `lib/education/export.ts`; works with `?hideAI=1`). 906 tests green, build green. Steps 5a, 5b and 5c are committed and deployed together.
+**For the professor (5d):** `Quiz.rules.*`, `Safety.*`, `Export.*` in `messages/*.json` (all FR wording is the agent's); confirm the lecture's definition of
+margin of safety; trim or keep the 11 rules; confirm the rule-of-thumb thresholds (P/E 25 / 12, payout 35 / 70 %, market-cap buckets 10 / 200 bn, target "about the same" = 2 %).
+Known limits: a long note or the AI text can spill the export to a second page on other paper sizes; margin card shows two percentages (on the estimate and on the price);
+SHEL.L (pence case) is not wired into `lib/data/fixtures.ts`, so it is covered by unit tests only.
+
+## What is left of Step 5
+
+Only 5d: the professor's review of all FR/EN copy (`lib/education/glossary.ts`, `lib/education/quiz` strings, the `messages/*.json` namespaces `Learn`, `Turn`, `Class`,
+`Quiz`, `Safety`, `Export`, `Dash.learn`, `Dash.assignment`), the six glossary terms with no Séance, and a short apple-ui polish of the long stock page on phones
+(idea: fold quiz and margin cards into `details`). Then Step 6 (hardening, QA, launch).

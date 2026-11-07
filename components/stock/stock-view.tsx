@@ -16,9 +16,13 @@ import { thesisPlan, useHideAi } from "./ai-flag";
 import { AnalystSection } from "./analyst-section";
 import { CardBoundary } from "./card-boundary";
 import { ChartPanel } from "./chart-panel";
+import { ExportActions } from "./export-actions";
 import { KeyNumbers } from "./key-numbers";
+import { MarginCard } from "./margin-card";
+import { QuizCard } from "./quiz-card";
 import { StockHeader } from "./stock-header";
 import { ThesisColumns, ThesisIntro } from "./thesis";
+import { YourTurn } from "./your-turn";
 
 function Guard({ children }: { children: ReactNode }) {
   const t = useTranslations("Stock");
@@ -144,31 +148,54 @@ export function StockView({ symbol }: { symbol: string }) {
     return <StockError code={res.error.code} symbol={symbol} retry={retry} />;
 
   const stock = res.data;
+  // The AI text goes into the one-page summary only while it is loaded AND visible on the page.
+  const visibleThesis =
+    ai.render &&
+    thesis.status === "ready" &&
+    thesis.data.result.status === "ready"
+      ? thesis.data.result.thesis
+      : null;
   return (
     <div className="flex flex-col gap-8">
-      <Banners stock={stock} />
-      <Guard>
-        <StockHeader stock={stock} />
-      </Guard>
-      <Guard>
-        <ChartPanel listing={stock.listing} />
-      </Guard>
-      {ai.render && (
+      {/* Printing the page prints the one-page summary instead (ExportActions' PrintSheet). */}
+      <div className="flex flex-col gap-8 print:hidden">
+        <Banners stock={stock} />
         <Guard>
-          <ThesisIntro state={thesis} onRetry={retryThesis} />
+          <StockHeader stock={stock} />
         </Guard>
-      )}
-      <Guard>
-        <KeyNumbers stock={stock} />
-      </Guard>
-      <Guard>
-        <AnalystSection stock={stock} />
-      </Guard>
-      {ai.render && (
         <Guard>
-          <ThesisColumns state={thesis} />
+          <ChartPanel listing={stock.listing} />
         </Guard>
-      )}
+        {ai.render && (
+          <Guard>
+            <ThesisIntro state={thesis} onRetry={retryThesis} />
+          </Guard>
+        )}
+        <Guard>
+          <KeyNumbers stock={stock} />
+        </Guard>
+        <Guard>
+          <AnalystSection stock={stock} />
+        </Guard>
+        {ai.render && (
+          <Guard>
+            <ThesisColumns state={thesis} />
+          </Guard>
+        )}
+        <Guard>
+          <QuizCard stock={stock} />
+        </Guard>
+        <Guard>
+          <MarginCard stock={stock} />
+        </Guard>
+        {/* Always shown, also under `?hideAI=1`: that is the "student first" flow. */}
+        <Guard>
+          <YourTurn symbol={stock.listing.symbol.toUpperCase()} />
+        </Guard>
+      </div>
+      <Guard>
+        <ExportActions stock={stock} thesis={visibleThesis} />
+      </Guard>
     </div>
   );
 }

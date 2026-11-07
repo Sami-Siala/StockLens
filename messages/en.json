@@ -12,7 +12,8 @@
     "closeSearch": "Close search",
     "language": "Language",
     "switchToFr": "Français",
-    "switchToEn": "English"
+    "switchToEn": "English",
+    "learn": "Learn"
   },
   "Home": {
     "tagline": "Understand any company, in plain language."
@@ -51,7 +52,6 @@
     "stale": "Last saved price",
     "priceUnavailable": "Price not available",
     "notFound": "Symbol not found",
-    "comingSoon": "Coming soon",
     "footer": "Unofficial data from Yahoo Finance, delayed or incomplete at times. Each price is in the company's own currency.",
     "updated": "Updated {time}.",
     "markets": {
@@ -126,14 +126,20 @@
       "estimated": "estimated date"
     },
     "learn": {
-      "title": "Learn",
-      "hint": "Short lessons that follow the club sessions.",
-      "body": "A term of the day, a quick quiz and shortcuts to each session will appear here."
+      "title": "Term of the day",
+      "hint": "One finance word, explained simply.",
+      "all": "The whole glossary"
     },
     "assignment": {
       "title": "This week's assignment",
       "hint": "What your teacher asks you to look at.",
-      "body": "When your teacher shares a class link, the companies to study will appear here."
+      "empty": "When your teacher shares a class link, the companies to study will appear here.",
+      "make": "Teachers: make a class link",
+      "untitled": "Class list",
+      "count": "{count, plural, one {# company} other {# companies}}",
+      "hideAi": "AI hidden",
+      "open": "Open the list",
+      "forget": "Forget this link"
     }
   },
   "Common": {
@@ -151,7 +157,8 @@
   "Footer": {
     "disclaimer": "Educational content, not financial advice.",
     "data": "Unofficial data from Yahoo Finance. It can be delayed, incomplete or wrong. Do not rely on it to make real decisions.",
-    "about": "About, data sources and credits"
+    "about": "About, data sources and credits",
+    "class": "Class links, for teachers"
   },
   "About": {
     "title": "About StockLens",
@@ -221,7 +228,8 @@
       "button": "Explain",
       "definition": "What it is",
       "formula": "How it is calculated",
-      "rule": "Rule of thumb (a guide, not a law)"
+      "rule": "Rule of thumb (a guide, not a law)",
+      "readMore": "Read more in the glossary"
     },
     "cards": {
       "eps": {
@@ -255,7 +263,7 @@
       "fcf": {
         "title": "Free cash flow",
         "meaning": "The cash left after paying to run and maintain the business.",
-        "definition": "Cash that came in, minus cash that went out to run the company and to buy equipment. It is what the company is really free to use.",
+        "definition": "Cash that came in, minus cash that went out to run the company and to pay for equipment. It is what the company is really free to use.",
         "formula": "Cash from operations − investment in equipment and buildings",
         "rule": "A company can show a profit but little free cash flow, for example when it invests heavily. Look at both."
       },
@@ -381,21 +389,6 @@
       "risks": "Key risks",
       "watch": "What to watch",
       "terms": "Words used above",
-      "termsLabels": {
-        "eps": "EPS (earnings per share)",
-        "pe": "P/E ratio",
-        "forward_pe": "Forward P/E",
-        "market_cap": "Market capitalisation",
-        "dividend_yield": "Dividend yield",
-        "payout_ratio": "Payout ratio (DPR)",
-        "free_cash_flow": "Free cash flow",
-        "operating_margin": "Operating margin",
-        "revenue_growth": "Revenue growth",
-        "analyst_target": "Analyst price target",
-        "beta": "Beta",
-        "margin_of_safety": "Margin of safety",
-        "circle_of_competence": "Circle of competence"
-      },
       "unavailable": {
         "title": "AI explanation unavailable right now",
         "no_key": "The AI explanation is switched off on this server. Everything else on the page works.",
@@ -412,5 +405,320 @@
         "retry": "Try again"
       }
     }
+  },
+  "Learn": {
+    "title": "Glossary",
+    "intro": "Finance words, explained in the spirit of the club sessions: one term at a time, with an example.",
+    "seanceNote": "The \"Session\" label shows where the club covered the term. A term without a label goes beyond the sessions.",
+    "searchLabel": "Search for a term",
+    "searchPlaceholder": "Search: EPS, P/E, DPR...",
+    "count": "{count, plural, =0 {No terms} one {# term} other {# terms}}",
+    "none": "No term matches \"{query}\". Try another word, or an abbreviation like EPS or P/E.",
+    "formula": "How it is calculated",
+    "example": "Example",
+    "rule": "Rule of thumb (a guide, not a law)",
+    "related": "Also read:",
+    "seance": "Session {n}",
+    "seanceTitle": "Covered in club session {n}",
+    "notAdvice": "Educational content, not financial advice."
+  },
+  "Turn": {
+    "title": "Your turn",
+    "intro": "Form your own view of this company. Write down what you think and why, then pick the side your arguments lead to.",
+    "competence": {
+      "title": "Circle of competence",
+      "question": "Can you explain this business to a 10-year-old?",
+      "hint": "If you can't say in two sentences how it makes money, it may be outside your circle for now. That's fine, and worth knowing.",
+      "learn": "What is a circle of competence?"
+    },
+    "notes": {
+      "label": "Your notes: what do you think, and why?",
+      "placeholder": "What does the company do? What would make you more or less confident? What would change your mind?",
+      "count": "{used} / {max} characters"
+    },
+    "pick": {
+      "legend": "Where do your arguments lead you today?",
+      "hint": "This is your own conclusion, one you can defend or change. It is not advice.",
+      "buy": "Buy",
+      "hold": "Hold",
+      "sell": "Sell",
+      "clear": "Clear my pick"
+    },
+    "storage": "Your notes and pick are only stored in this browser. Nobody else sees them, and clearing the browser's data erases them.",
+    "storageBlocked": "This browser is blocking local storage, so your notes will disappear when you leave this page."
+  },
+  "Class": {
+    "title": "Class list",
+    "intro": "Your teacher picked these companies for you to look at. Open each one and form your own view.",
+    "count": "{count, plural, one {# company} other {# companies}}",
+    "hideAiNote": "Your teacher hid the AI explanation on these pages: start from the numbers.",
+    "ignored": "Some entries are not valid tickers and were left out: {list}.",
+    "overflow": "A class link holds at most {max} companies. {count, plural, one {# more was} other {# more were}} left out.",
+    "cardError": "This company could not be displayed. The others still work.",
+    "pricesError": "Prices are not available right now. The list is still here.",
+    "loading": "Loading the class list",
+    "emptyTitle": "No companies in this link",
+    "emptyNone": "A class link carries a list of companies. Ask your teacher for a new link, or make one below.",
+    "emptyInvalid": "None of the entries in this link is a valid ticker. Check the link with your teacher, or make a new one below.",
+    "builder": {
+      "title": "Make a class link",
+      "intro": "For teachers. Pick up to {max} companies and share the link. The list is inside the link itself: nothing is saved on a server and nobody has to log in.",
+      "companies": "Companies in the link",
+      "none": "No company picked yet. Search for one to add it.",
+      "full": "A link holds at most {max} companies. Remove one to add another.",
+      "remove": "Remove {name}",
+      "hideAi": "Hide the AI explanation on the company pages",
+      "hideAiHint": "Students then start from the numbers and write their own view first.",
+      "titleLabel": "Title (optional)",
+      "titlePlaceholder": "Example: Week 3",
+      "linkLabel": "Link to share",
+      "needOne": "Pick at least one company to get a link.",
+      "copy": "Copy the link",
+      "copied": "Link copied.",
+      "copyFailed": "Could not copy automatically. The link is selected: copy it by hand.",
+      "open": "Open the link"
+    }
+  },
+  "Quiz": {
+    "title": "Test yourself",
+    "intro": "Short questions built from this company's numbers. No score and no timer: the explanation is the point.",
+    "counter": "Question {n} of {total}",
+    "correct": "That's right",
+    "wrong": "Not this time",
+    "answerWas": "The answer: {answer}",
+    "next": "Next question",
+    "ruleNote": "This answer follows a rule of thumb, not a law: real companies can be exceptions.",
+    "readMore": "Read in the glossary: {term}",
+    "none": "There is not enough data on this company for a quiz right now.",
+    "notAdvice": "Practice questions about reading numbers. They say nothing about what to do with a share.",
+    "rules": {
+      "pe_years": {
+        "question": "{name}'s P/E is {pe}. Roughly how many years of its current profit would it take to earn back the price of one share?",
+        "options": {
+          "years": "About {n, plural, one {# year} other {# years}}"
+        },
+        "explain": {
+          "default": "The P/E is the share price divided by the profit per share, so a P/E of {pe} means about {n} years of today's profit to match today's price. It is a way of reading the price, not a promise: profits change from year to year."
+        }
+      },
+      "pe_reading": {
+        "question": "{name}'s P/E is {pe}. As a rule of thumb, what is the market usually pricing in?",
+        "options": {
+          "growth": "Strong growth to come: investors accept paying a lot for each unit of profit today",
+          "steady": "Stability, or some doubts: investors do not pay much for each unit of profit today"
+        },
+        "explain": {
+          "growth": "A P/E of {pe} is high. It often means the market expects profits to grow a lot. That is a rule of thumb, not a law: a high P/E can also simply mean the share is expensive, so compare with companies in the same sector.",
+          "steady": "A P/E of {pe} is low. It often goes with a steady business that grows slowly, or with doubts about the future. That is a rule of thumb, not a law: compare with similar companies before drawing a conclusion."
+        }
+      },
+      "eps_surprise": {
+        "question": "For the quarter ending {quarter}, {name} reported earnings per share (EPS) of {actual}. Analysts expected {estimate}. Compared with the expectation, is this a beat, a miss or in line?",
+        "options": {
+          "beat": "A beat: higher than expected",
+          "inline": "In line: almost the same as expected",
+          "miss": "A miss: lower than expected"
+        },
+        "explain": {
+          "beat": "{actual} is higher than the {estimate} analysts expected, so this is a beat of {pct} against the expected figure. A beat compares a result with expectations: it does not forecast what the share price will do.",
+          "miss": "{actual} is lower than the {estimate} analysts expected, so this is a miss of {pct} against the expected figure. A miss compares a result with expectations: it does not forecast what the share price will do.",
+          "inline": "{actual} is almost identical to the {estimate} analysts expected, so we call it in line. Where exactly to draw that line (here, about half a percent) is a convention, not a law."
+        }
+      },
+      "forward_vs_trailing": {
+        "question": "{name} has a trailing P/E of {trailing} (based on the last 12 months of profit) and a forward P/E of {forward} (based on the profit analysts expect over the next 12 months). The share price is the same in both. What does the difference suggest?",
+        "options": {
+          "higher": "Analysts expect a higher profit over the next 12 months than over the last 12",
+          "lower": "Analysts expect a lower profit over the next 12 months than over the last 12"
+        },
+        "explain": {
+          "higher": "Same price, smaller P/E: the profit it is divided by must be bigger. A forward P/E ({forward}) below the trailing P/E ({trailing}) means analysts expect the profit per share to rise. These are forecasts, and forecasts are often wrong.",
+          "lower": "Same price, bigger P/E: the profit it is divided by must be smaller. A forward P/E ({forward}) above the trailing P/E ({trailing}) means analysts expect the profit per share to fall. These are forecasts, and forecasts are often wrong."
+        }
+      },
+      "dividend_income": {
+        "question": "{name}'s dividend yield is {yield}. If the dividend stays the same, about how much would shares worth {stake} pay in dividends over a year?",
+        "options": {
+          "amount": "About {amount}"
+        },
+        "explain": {
+          "default": "The dividend yield is the yearly dividend divided by the share price: {yield} of {stake} is about {amount} a year. The company decides the dividend and can change or stop it, so the yield is a snapshot, not a promise."
+        }
+      },
+      "payout_ratio": {
+        "question": "{name} paid out about {ratio} of its profit as dividends (the payout ratio, DPR). As a rule of thumb, what does that suggest?",
+        "options": {
+          "low": "It keeps most of its profit to reinvest or set aside",
+          "mid": "It shares roughly half of its profit and keeps the rest",
+          "high": "It pays out most of its profit, which leaves little cushion if profit falls"
+        },
+        "explain": {
+          "low": "At {ratio}, most of the profit stays in the company. Rule of thumb, not a law: under about 35% is often read as \"keeps most\", between 35% and 70% as \"shares about half\", over 70% as \"pays out most\". Sectors differ a lot.",
+          "mid": "At {ratio}, the profit is roughly shared between shareholders and the company. Rule of thumb, not a law: under about 35% is often read as \"keeps most\", between 35% and 70% as \"shares about half\", over 70% as \"pays out most\". Sectors differ a lot.",
+          "high": "At {ratio}, most of the profit goes to shareholders. Rule of thumb, not a law: under about 35% is often read as \"keeps most\", between 35% and 70% as \"shares about half\", over 70% as \"pays out most\". Sectors differ a lot."
+        }
+      },
+      "price_vs_target": {
+        "question": "{name} trades at {price}. The average price target of professional analysts is {mean} (their targets range from {low} to {high}). How does the average target compare with the price?",
+        "options": {
+          "above": "Above the price",
+          "same": "About the same (within {band})",
+          "below": "Below the price"
+        },
+        "explain": {
+          "above": "The average target, {mean}, is {gap} above the price, {price}. Targets are analysts' opinions, often revised and often wrong: this compares two numbers and says nothing certain about where the price will go.",
+          "below": "The average target, {mean}, is {gap} below the price, {price}. Targets are analysts' opinions, often revised and often wrong: this compares two numbers and says nothing certain about where the price will go.",
+          "same": "The average target, {mean}, is within {band} of the price, {price}, so we call it about the same. That {band} margin is a rule of thumb, not a law. Targets are analysts' opinions, often revised and often wrong."
+        }
+      },
+      "market_cap_size": {
+        "question": "{name} has a market capitalisation of {cap}. Which group do investors usually put it in?",
+        "options": {
+          "small": "A small or mid-size company (under 10 billion)",
+          "large": "A large company (10 to 200 billion)",
+          "mega": "A mega-cap company (over 200 billion)"
+        },
+        "explain": {
+          "small": "Market capitalisation is the share price times the number of shares: the price of the whole company, here {cap}. These groups are conventions, not laws: banks and indices draw the lines in slightly different places. The lines used here are a rule of thumb for USD, EUR, GBP and CHF.",
+          "large": "Market capitalisation is the share price times the number of shares: the price of the whole company, here {cap}. These groups are conventions, not laws: banks and indices draw the lines in slightly different places. The lines used here are a rule of thumb for USD, EUR, GBP and CHF.",
+          "mega": "Market capitalisation is the share price times the number of shares: the price of the whole company, here {cap}. These groups are conventions, not laws: banks and indices draw the lines in slightly different places. The lines used here are a rule of thumb for USD, EUR, GBP and CHF."
+        }
+      },
+      "operating_margin": {
+        "question": "{name}'s operating margin is {margin}. Out of every 100 of sales, about how much is left as operating profit, before interest and tax?",
+        "options": {
+          "per100": "About {n} out of every 100"
+        },
+        "explain": {
+          "default": "Operating margin is operating profit divided by sales. {margin} means about {n} of operating profit for every 100 of sales; the rest pays the costs of running the business. Normal margins differ a lot between sectors, so compare a company with its competitors."
+        }
+      },
+      "operating_loss": {
+        "question": "{name}'s operating margin is {margin}, a negative number. What does that mean?",
+        "options": {
+          "costs": "The costs of running the business are higher than its sales",
+          "cash": "The company has more cash than debt",
+          "sales": "Sales fell compared with last year"
+        },
+        "explain": {
+          "default": "Operating margin is operating profit divided by sales. A negative margin means the operating costs are higher than the sales, so the business makes an operating loss. Many young companies run at a loss while they grow: a loss is a fact to understand, not a verdict."
+        }
+      },
+      "free_cash_flow": {
+        "question": "{name}'s latest free cash flow is {fcf}. What does the sign tell you?",
+        "options": {
+          "in": "More cash came in than went out, after paying to run and maintain the business",
+          "out": "More cash went out than came in, after paying to run and maintain the business"
+        },
+        "explain": {
+          "positive": "Free cash flow is the cash coming in minus the cash going out to run the business and pay for equipment. A positive figure ({fcf}) means cash was left over. It covers one period only, so look at several.",
+          "negative": "Free cash flow is the cash coming in minus the cash going out to run the business and pay for equipment. A negative figure ({fcf}) means more cash left than arrived. That happens when a company invests heavily to grow, or when it struggles: you need the story behind the number."
+        }
+      }
+    }
+  },
+  "Safety": {
+    "title": "Margin of safety",
+    "intro": "What do you think one share is really worth? Type your own estimate and see how far the price is from it.",
+    "label": "Your estimate of what one share is worth, in {currency}",
+    "placeholder": "For example 120",
+    "hint": "Use your own reasoning: for example, the profit per share you find realistic times a P/E you find reasonable.",
+    "subunit": "Prices on this page are in {currency}, not in {quotedAs} ({factor} {quotedAs} = 1 {currency}). Type your estimate in {currency}.",
+    "saved": "Your estimate is only stored in this browser.",
+    "clear": "Clear my estimate",
+    "errors": {
+      "invalid": "That does not look like a number. Try something like 120 or 12,50.",
+      "not_positive": "The estimate must be greater than zero.",
+      "too_large": "That number is too large for the price of one share."
+    },
+    "far": "Your estimate is very far from the current price. Check the number and the currency.",
+    "price": "Current price",
+    "estimate": "Your estimate",
+    "margin": "Margin of safety",
+    "formula": "(estimate - price) / estimate",
+    "below": "The price is {pct} below your estimate: on your numbers, there is a margin of safety.",
+    "above": "The price is {pct} above your estimate: on your numbers, there is no margin of safety.",
+    "about_equal": "The price is about the same as your estimate (less than half a percent apart).",
+    "gapAbove": "Your estimate is {pct} above the current price.",
+    "gapBelow": "Your estimate is {pct} below the current price.",
+    "notAdvice": "This is your estimate, not a prediction or advice. If your estimate is wrong, the margin is wrong too.",
+    "learn": "What is a margin of safety?",
+    "hidden": {
+      "fund": "A margin of safety applies to a single company, not to a fund.",
+      "quote": "The current price is not available right now, so there is nothing to compare your estimate with.",
+      "currency": "We cannot tell which currency the price is in, so we do not ask for an estimate."
+    }
+  },
+  "Export": {
+    "title": "One-page summary",
+    "intro": "Print the summary or save it as a PDF, or copy it as plain text. It holds the key numbers, your notes and your pick, and nothing leaves your browser.",
+    "print": "Print / save as PDF",
+    "copy": "Copy as text",
+    "copied": "Copied",
+    "copyFailed": "Your browser did not allow copying. Select the text below and copy it yourself.",
+    "heading": "StockLens: one-page summary",
+    "date": "Date: {date}",
+    "price": {
+      "line": "Price: {price} ({status})",
+      "delayed": "delayed by {minutes} min",
+      "realtime": "real time",
+      "maybeDelayed": "may be delayed"
+    },
+    "keyTitle": "Key numbers",
+    "keyNone": "No key numbers are available for this company.",
+    "rows": {
+      "eps": "EPS, latest quarter",
+      "pe": "P/E (trailing / forward)",
+      "revenue": "Revenue ({period})",
+      "operating": "Operating profit ({period})",
+      "fcf": "Free cash flow ({period})",
+      "marketCap": "Market capitalisation",
+      "ratings": "Analyst ratings (positive / neutral / negative)",
+      "target": "Analyst price target (lowest / average / highest)"
+    },
+    "values": {
+      "eps": "{actual}, expected {estimate} ({verdict})",
+      "pe": "{trailing} / {forward}",
+      "margin": "margin {pct}",
+      "ratings": "{pos} / {neu} / {neg}",
+      "target": "{low} / {mean} / {high}"
+    },
+    "verdict": {
+      "beat": "beat",
+      "inline": "in line",
+      "miss": "miss"
+    },
+    "period": {
+      "quarter": "quarter ending {date}",
+      "half": "half-year ending {date}",
+      "year": "year ending {date}"
+    },
+    "reportedIn": "reported in {currency}",
+    "na": "n/a",
+    "yourTitle": "Your view",
+    "pick": "Your pick",
+    "pickNote": "(your own conclusion, not advice)",
+    "pickNone": "No pick yet",
+    "notes": "Your notes",
+    "notesNone": "No notes yet.",
+    "estimate": {
+      "title": "Your value estimate",
+      "line": "Your estimate of what one share is worth: {estimate}",
+      "gap": {
+        "below": "The price is {pct} below your estimate (margin of safety on your numbers).",
+        "above": "The price is {pct} above your estimate (no margin of safety on your numbers).",
+        "about_equal": "The price is about the same as your estimate."
+      },
+      "notAdvice": "This is the student's own estimate, not a prediction or advice."
+    },
+    "ai": {
+      "title": "Arguments written by an AI",
+      "note": "Written by an AI from the data on the page, so it can make mistakes. These are arguments to evaluate, not advice.",
+      "for": "Arguments for",
+      "against": "Arguments against",
+      "wait": "Arguments for waiting"
+    },
+    "disclaimer": "Educational content, not financial advice. This summary shows one student's own reasoning. Prices may be delayed, and AI-written text can contain mistakes.",
+    "footer": "Made with StockLens, a free learning tool of the PMF Investment Society. Data: Yahoo Finance, unofficial and possibly delayed."
   }
 }

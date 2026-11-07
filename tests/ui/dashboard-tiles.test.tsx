@@ -15,12 +15,17 @@ import { EarningsView } from "@/components/dashboard/earnings-tile";
 import { MarketsView } from "@/components/dashboard/markets-tile";
 import { RecentView } from "@/components/dashboard/recent-tile";
 import { StartHereView } from "@/components/dashboard/start-here-tile";
-import { AssignmentTile, LearnTile } from "@/components/dashboard/static-tiles";
+import {
+  AssignmentTile,
+  AssignmentView,
+  LearnTile,
+} from "@/components/dashboard/static-tiles";
 import { Tile } from "@/components/dashboard/tile";
 import { WatchlistView } from "@/components/dashboard/watchlist-tile";
 import type { DataError } from "@/lib/data/errors";
 import type { PolledResource } from "@/lib/data/hooks";
 import type { MarketResponse, QuotesResponse } from "@/lib/contract";
+import { termOfTheDay } from "@/lib/education/glossary";
 import { START_HERE } from "@/lib/education/start-here";
 import {
   BROKEN,
@@ -318,20 +323,56 @@ describe("earnings tile", () => {
     ).toContain("Explain"));
 });
 
-describe("static placeholder tiles + tile boundary", () => {
+describe("static tiles + tile boundary", () => {
   it.each(["en", "fr"] as const)(
-    "learn and assignment are plainly 'coming soon' (%s)",
+    "the assignment tile has a calm empty state with a way to make a link (%s)",
     (locale) => {
-      const t = text(
-        <>
-          <LearnTile />
-          <AssignmentTile />
-        </>,
-        locale,
+      const html = render(<AssignmentTile />, locale);
+      const t = decode(visibleText(html));
+      expect(t).toContain(
+        locale === "en" ? "When your teacher shares" : "Quand votre professeur",
       );
-      expect(t).toContain(locale === "en" ? "Coming soon" : "Bientôt");
+      expect(html).toContain('href="/class"');
       expect(t).not.toMatch(BROKEN);
-      expect(t).not.toMatch(/\d/); // no invented figures
+      expect(t).not.toContain(locale === "en" ? "Coming soon" : "Bientôt");
+    },
+  );
+  it.each(["en", "fr"] as const)(
+    "the assignment tile links back to the last class link, hide-AI intact (%s)",
+    (locale) => {
+      const link = {
+        tickers: ["KO", "MC.PA"],
+        hideAi: true,
+        title: "Week <b>3</b>",
+      };
+      const html = render(<AssignmentView link={link} />, locale);
+      expect(html).toContain(
+        'href="/class?tickers=KO,MC.PA&amp;hideAI=1&amp;title=Week%20%3Cb%3E3%3C%2Fb%3E"',
+      );
+      // The title is text, never markup.
+      expect(html).not.toContain("<b>");
+      expect(html).toContain("Week &lt;b&gt;3&lt;/b&gt;");
+      const t = decode(visibleText(html));
+      expect(t).toContain("KO · MC.PA");
+      expect(t).toContain(locale === "en" ? "AI hidden" : "IA masquée");
+      expect(t).not.toMatch(BROKEN);
+    },
+  );
+  it.each(["en", "fr"] as const)(
+    "the learn tile shows the term of the day and links to the glossary (%s)",
+    (locale) => {
+      const day = new Date("2026-11-07T12:00:00Z");
+      const html = render(<LearnTile date={day} />, locale);
+      const term = termOfTheDay(day);
+      expect(html).toContain(`href="/learn#${term.id}"`);
+      expect(html).toContain(`href="/learn"`);
+      expect(text(<LearnTile date={day} />, locale)).toContain(
+        term[locale].name,
+      );
+      expect(text(<LearnTile date={day} />, locale)).not.toMatch(BROKEN);
+      expect(text(<LearnTile date={day} />, locale)).not.toContain(
+        locale === "en" ? "Coming soon" : "Bientôt",
+      );
     },
   );
   it("tile frame has a labelled heading", () => {
