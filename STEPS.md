@@ -9,11 +9,11 @@ consistent with the on-page numbers, available in FR and EN, and still works (or
 
 The split follows one dependency: **the Gemini key does not exist yet**, so everything that can be proven without it comes first.
 
-| #   | Part                        | Lead                                                                              | Needs the user?                      | Status                                 |
-| --- | --------------------------- | --------------------------------------------------------------------------------- | ------------------------------------ | -------------------------------------- |
-| 4a  | **AI engine, offline**      | orchestrator (data-engineer's area: `lib/ai`, `app/api`, `lib/contract`, `tests`) | No                                   | **Done 2026-11-06** (see below)        |
-| 4b  | **Live Gemini and quality** | orchestrator                                                                      | Keys added (Gemini, Groq)            | **Mostly done 2026-11-06** (see below) |
-| 4c  | **Thesis UI**               | `frontend-engineer`                                                               | No (can start on fixtures before 4b) | Not started                            |
+| #   | Part                        | Lead                                                                              | Needs the user?                      | Status                          |
+| --- | --------------------------- | --------------------------------------------------------------------------------- | ------------------------------------ | ------------------------------- |
+| 4a  | **AI engine, offline**      | orchestrator (data-engineer's area: `lib/ai`, `app/api`, `lib/contract`, `tests`) | No                                   | **Done 2026-11-06** (see below) |
+| 4b  | **Live Gemini and quality** | orchestrator                                                                      | Keys added (Gemini, Groq)            | **Done 2026-11-07** (see below) |
+| 4c  | **Thesis UI**               | `frontend-engineer`                                                               | No (can start on fixtures before 4b) | **Done** (`5e65608`)            |
 
 ## 4a. AI engine, offline (no key needed)
 
@@ -73,3 +73,30 @@ Tests: 515 green, all with fake transports.
 Still open: live TSM (currency mismatch) FR and EN; the all-providers-exhausted path against the real APIs (covered by unit tests only);
 the pre-warm script for the "start here" tickers; `GEMINI_API_KEY` and `GROQ_API_KEY` on Vercel, redeploy, `/api/health` check; the
 professor's review of the French output. `dailyGenerationBudget` is 150 (Groq adds ~1000/day per model; spent models are skipped).
+
+## 4b close-out (2026-11-07)
+
+- Keys: `GEMINI_API_KEY` and `GROQ_API_KEY` are on Vercel (Production). `/api/health` on https://stocks-lens.vercel.app: Gemini `ok`.
+- Live TSM (currency mismatch) checked in FR and EN on production: both `ready`, integrity gate passed. FR answered by `groq:openai/gpt-oss-120b`,
+  EN by `gemini-3.6-flash`. EN cites the target as `$586.69` and free cash flow as `NT$476.57B`, so the two currencies are kept apart.
+  Cosmetic: one EN bullet starts in lowercase (`profitability is ...`), a model quirk, not worth a rule.
+- All-providers-exhausted path: **not** exhausted against the real APIs on purpose (it would burn the day's quota); it stays covered by the
+  unit tests and by the UI "unavailable" states from 4c.
+- Pre-warm script exists (`npm run ai:prewarm`, default base now the production URL, default tickers AAPL MSFT NVDA TSLA MC.PA 7203.T).
+  **Not run**: it spends quota, and the curated "start here" list (PLAN §10 question 3) is still the user's to give. Run it before class.
+- Still the user's: the professor's review of the French output, Upstash (health stays `degraded` until then), `Assets/` and `next-env.d.ts`.
+
+## Handoff for 4c (written 2026-11-06, end of the 4b session)
+
+- 4a and 4b are committed (`1eee34e`, local only, **not pushed**) and deployed. **Production is https://stocks-lens.vercel.app** (the old
+  `stocklens-beryl.vercel.app` alias redirects there). Deploy by hand: `vercel deploy --prod --yes`.
+- The endpoint the UI consumes: `GET /api/ai/{SYMBOL}?lang=fr|en` (contract v0.4.0, `lib/contract/ai.ts`: `ThesisResponse`). It needs an
+  `Origin`/`Referer` of the site (same-origin from the browser is fine). Result is `ready` (with `thesis`, `meta.stale`) or `unavailable` with
+  `reason` in `no_key | quota_exhausted | model_error | not_applicable_for_type | insufficient_data` (+ optional `retryAfter` seconds).
+- Numbers inside the text are already rendered by the server; the UI shows plain text only (no HTML or markdown).
+- Typical latency is 2-13 s on a cold generation, instant when cached, so the UI needs a loading state that does not block the page.
+- **Do not spend AI quota while building the UI.** Build against fixtures (a fixtures twin of the AI hook, like the stock data). Gemini 3.6 flash
+  allows only 20 requests a day; the user asked to keep live calls to a minimum. One live check at the end is enough.
+- Still open from 4b: Upstash not provisioned (health `degraded`, per-instance cache), live TSM check, professor review of the French,
+  curated "start here" tickers (PLAN §10), `Assets/` changes and `next-env.d.ts` are the user's and must not be committed without asking.
+- Glossary term ids come back in `thesis.glossaryTerms`; the glossary itself is Step 5 (render them as plain chips or skip until then).

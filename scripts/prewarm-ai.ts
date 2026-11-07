@@ -2,7 +2,7 @@
  * Pre-warm the AI cache before class: one generation per (ticker, language), so students only ever hit the cache.
  * Spends provider quota (only for what is not cached yet), so run it once, not in a loop.
  *
- *   npx tsx scripts/prewarm-ai.ts --base https://stocklens-beryl.vercel.app
+ *   npx tsx scripts/prewarm-ai.ts --base https://stocks-lens.vercel.app
  *   npx tsx scripts/prewarm-ai.ts --base http://localhost:3000 AAPL MC.PA --lang fr
  *   options: --delay 25 (seconds between generations: Groq allows ~8000 tokens/minute) --lang fr|en (default both)
  *
