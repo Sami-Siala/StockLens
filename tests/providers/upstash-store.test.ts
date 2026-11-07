@@ -49,6 +49,8 @@ beforeEach(() => {
   setStoreForTests(null);
   delete process.env.UPSTASH_REDIS_REST_URL;
   delete process.env.UPSTASH_REDIS_REST_TOKEN;
+  delete process.env.KV_REST_API_URL;
+  delete process.env.KV_REST_API_TOKEN;
 });
 
 describe("UpstashStore command mapping", () => {
@@ -107,6 +109,11 @@ describe("store selection", () => {
   it("uses Upstash when both vars are present", () => {
     process.env.UPSTASH_REDIS_REST_URL = "https://x.upstash.io";
     process.env.UPSTASH_REDIS_REST_TOKEN = "tok";
+    expect(getStore().kind).toBe("upstash");
+  });
+  it("uses Upstash with the names the Vercel Marketplace integration injects", () => {
+    process.env.KV_REST_API_URL = "https://x.upstash.io";
+    process.env.KV_REST_API_TOKEN = "tok";
     expect(getStore().kind).toBe("upstash");
   });
   it("one var alone is not enough (no half-configured store)", () => {

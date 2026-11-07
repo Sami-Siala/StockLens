@@ -110,7 +110,8 @@
     },
     "start": {
       "title": "Start here",
-      "hint": "A few companies to begin with, each with a reason to take a look."
+      "hint": "A few companies to begin with, each with a reason to take a look.",
+      "more": "Show {count} more"
     },
     "earnings": {
       "title": "Earnings this week",
@@ -181,7 +182,6 @@
     "audience": "StockLens is a classroom tool for adults (18+) of the PMF Investment Society, who the professor has confirmed live outside the EEA, Switzerland and the UK. It is not indexed by search engines and is not meant for the general public or for minors.",
     "termsTitle": "Terms of use",
     "terms": "Use StockLens for learning only, for free and for non-commercial purposes. It is provided as is, with no guarantee that it is accurate, complete, on time or always available, and you use it at your own risk. Do not copy, resell or republish its data, and do not automate requests to it. Nothing is bought or sold here and no real money is involved. For questions or to ask for your data to be removed, contact your professor or the club organiser.",
-    "reviewNote": "Draft wording: to be read and signed off by the professor before launch.",
     "credits": "Charts are drawn with TradingView Lightweight Charts, used under its licence."
   },
   "Stock": {

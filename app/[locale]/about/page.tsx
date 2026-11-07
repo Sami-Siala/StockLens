@@ -6,7 +6,7 @@ import { PageShell } from "@/components/page-shell";
 /**
  * About, Privacy and Terms (Step 6e). Disclaimer, data and AI notes, what is stored, terms, and the
  * Lightweight Charts attribution the licence requires (NOTICE text + link to tradingview.com).
- * The wording still needs the professor's sign-off (see `reviewNote`).
+ * Wording signed off by the professor on 2026-11-07.
  */
 const SECTIONS = [
   ["whatTitle", "what"],
@@ -56,8 +56,6 @@ export default function AboutPage({ params }: PageProps<"/[locale]/about">) {
           </p>
           <p className="text-sm text-muted">{t("credits")}</p>
         </section>
-
-        <p className="text-sm text-muted">{t("reviewNote")}</p>
       </article>
     </PageShell>
   );

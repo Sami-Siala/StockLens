@@ -110,7 +110,8 @@
     },
     "start": {
       "title": "Pour commencer",
-      "hint": "Quelques entreprises pour débuter, chacune avec une raison de s'y intéresser."
+      "hint": "Quelques entreprises pour débuter, chacune avec une raison de s'y intéresser.",
+      "more": "Voir {count} de plus"
     },
     "earnings": {
       "title": "Résultats de la semaine",
@@ -181,7 +182,6 @@
     "audience": "StockLens est un outil de classe destiné à des adultes (18 ans et plus) du PMF Investment Society, dont le professeur a confirmé qu'ils vivent hors de l'EEE, de la Suisse et du Royaume-Uni. Il n'est pas référencé par les moteurs de recherche et n'est pas destiné au grand public ni aux mineurs.",
     "termsTitle": "Conditions d'utilisation",
     "terms": "Utilisez StockLens uniquement pour apprendre, gratuitement et sans but commercial. Il est fourni tel quel, sans garantie d'exactitude, d'exhaustivité, de ponctualité ni de disponibilité, et vous l'utilisez à vos risques. Ne copiez pas, ne revendez pas et ne republiez pas ses données, et n'automatisez pas de requêtes vers le site. Rien n'est acheté ou vendu ici et aucun argent réel n'est en jeu. Pour toute question ou pour demander la suppression de vos données, adressez-vous à votre professeur ou à l'organisateur du club.",
-    "reviewNote": "Texte provisoire : à relire et à valider par le professeur avant le lancement.",
     "credits": "Les graphiques sont dessinés avec TradingView Lightweight Charts, utilisé selon sa licence."
   },
   "Stock": {

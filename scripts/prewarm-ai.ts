@@ -8,7 +8,9 @@
  *
  * Stops at the first "quota_exhausted" (the rest would fail the same way). Exit code 1 if anything failed.
  */
-const DEFAULT_SYMBOLS = ["AAPL", "MSFT", "NVDA", "TSLA", "MC.PA", "7203.T"];
+import { START_HERE } from "../lib/education/start-here";
+
+const DEFAULT_SYMBOLS = START_HERE.map((c) => c.symbol);
 
 const args = process.argv.slice(2);
 const flag = (n: string) => {
