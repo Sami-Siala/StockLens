@@ -121,7 +121,12 @@ export function clubCodeOk(req: Request): boolean {
     .map((c) => c.trim())
     .find((c) => c.startsWith(`${CLUB_COOKIE}=`))
     ?.slice(CLUB_COOKIE.length + 1);
-  const given = cookie ? decodeURIComponent(cookie) : "";
+  let given = "";
+  try {
+    given = cookie ? decodeURIComponent(cookie) : "";
+  } catch {
+    /* a malformed cookie (e.g. "%") is just a wrong code, not a server error */
+  }
   return timingSafeEqual(digest(given), digest(expected));
 }
 

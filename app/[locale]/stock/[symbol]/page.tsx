@@ -17,7 +17,7 @@ export default function StockPage({
   }
   return (
     <PageShell>
-      <StockView symbol={decoded.toUpperCase()} />
+      <StockView key={decoded.toUpperCase()} symbol={decoded.toUpperCase()} />
     </PageShell>
   );
 }

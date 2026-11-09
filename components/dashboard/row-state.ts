@@ -17,7 +17,10 @@ export function rowState(
   const entry = quotes.data.entries.find(
     (e) => e.symbol === symbol.toUpperCase(),
   );
-  if (!entry) return { kind: "missing", reason: "unavailable" };
+  if (!entry)
+    return quotes.updating
+      ? { kind: "loading" }
+      : { kind: "missing", reason: "unavailable" };
   if (entry.status === "ok" && entry.quote.value)
     return { kind: "ok", quote: entry.quote.value, stale: entry.stale };
   return {

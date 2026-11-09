@@ -1,0 +1,30 @@
+name: Weekly live smoke
+
+# PLAN §7: learn that Yahoo (or a deploy) broke BEFORE class, not from a student. Runs the live smoke
+# script over HTTP against production: 8 tickers x 8 chart ranges, the dashboard endpoints and /api/health.
+# The requests go to Vercel, which calls Yahoo, so this runner's IP does not matter. It never calls the AI
+# endpoint, so it spends no AI quota. A failing run emails the repository owner (GitHub's default).
+# Run it by hand any time: Actions > Weekly live smoke > Run workflow.
+
+on:
+  schedule:
+    - cron: "0 6 * * 1" # Mondays 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx tsx scripts/smoke.ts --base https://stocks-lens.vercel.app --delay 500
+        env:
+          CLUB_CODE: ${{ secrets.CLUB_CODE }}

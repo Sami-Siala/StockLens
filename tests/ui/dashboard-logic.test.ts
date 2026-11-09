@@ -6,6 +6,9 @@ import {
   unionSymbols,
 } from "@/lib/data/dashboard";
 import { getMarket, getQuotes } from "@/lib/data";
+import { rowState } from "@/components/dashboard/row-state";
+import type { QuotesResponse } from "@/lib/contract";
+import type { PolledResource } from "@/lib/data/hooks";
 import {
   changeParts,
   directionOf,
@@ -26,9 +29,19 @@ describe("unionSymbols (one batched call for every tile)", () => {
     );
     expect(out).toEqual(["AAPL", "NVDA", "MC.PA", "TSM"]);
   });
-  it("never exceeds the API limit", () => {
+  it("keeps every company, even past the API limit (getQuotes splits the call)", () => {
     const many = Array.from({ length: 40 }, (_, i) => ({ symbol: `S${i}` }));
-    expect(unionSymbols(many)).toHaveLength(QUOTES_MAX);
+    expect(unionSymbols(many)).toHaveLength(40);
+  });
+  it("a full watchlist, all starters and all recents keep the last recents", () => {
+    const watch = Array.from({ length: 12 }, (_, i) => ({ symbol: `W${i}` }));
+    const starters = Array.from({ length: 12 }, (_, i) => ({
+      symbol: `S${i}`,
+    }));
+    const recents = Array.from({ length: 6 }, (_, i) => ({ symbol: `R${i}` }));
+    const out = unionSymbols(watch, starters, recents);
+    expect(out).toContain("R5");
+    expect(out.length).toBeGreaterThan(QUOTES_MAX);
   });
   it("is stable: the same set gives the same key", () => {
     const a = unionSymbols([{ symbol: "A" }], [{ symbol: "B" }]);
@@ -64,6 +77,13 @@ describe("dashboard data layer (fixtures)", () => {
       ["NOPE", "not_found"],
     ]);
     expect(r.meta.stale).toBe(true); // the AAPL fixture is a stale copy
+  });
+  it("quotes: a list longer than the API limit is split into calls and merged in order", async () => {
+    const symbols = ["AAPL", ...Array.from({ length: 29 }, (_, i) => `X${i}`)];
+    const r = await getQuotes(symbols);
+    expect(r.entries.map((e) => e.symbol)).toEqual(symbols);
+    expect(r.entries[0].status).toBe("ok");
+    expect(r.entries[29].status).toBe("not_found");
   });
   it("market: 3 chips and 8 index items", async () => {
     const m = await getMarket();
@@ -193,4 +213,21 @@ describe("earnings dates", () => {
     expect(r.thisWeek).toEqual([]);
     expect(r.upcoming.map((e) => e.symbol)).toEqual(["B", "A"]);
   });
+});
+
+describe("rowState while the symbol set changes (a star was just added)", () => {
+  const data = { meta: {}, entries: [] } as unknown as QuotesResponse;
+  const ready = (updating?: boolean): PolledResource<QuotesResponse> => ({
+    status: "ready",
+    data,
+    refreshedAt: 0,
+    ...(updating ? { updating } : {}),
+  });
+  it("a company missing from the previous answer is loading, not 'price unavailable'", () =>
+    expect(rowState("NVDA", ready(true))).toEqual({ kind: "loading" }));
+  it("a company missing from a current answer is unavailable", () =>
+    expect(rowState("NVDA", ready())).toEqual({
+      kind: "missing",
+      reason: "unavailable",
+    }));
 });

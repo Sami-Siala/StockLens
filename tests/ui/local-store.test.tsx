@@ -78,6 +78,20 @@ describe("list store", () => {
     expect(() => store.write([co("A")])).not.toThrow();
     expect(store.read().map((c) => c.symbol)).toEqual(["A"]);
   });
+  it("a full storage (writes refused, reads fine): the new value is shown, not the old stored one", () => {
+    const s = fake();
+    const store = make({
+      getItem: s.getItem,
+      removeItem: s.removeItem,
+      setItem: () => {
+        throw new Error("QuotaExceededError");
+      },
+    });
+    s.data.set("k", JSON.stringify([co("OLD")]));
+    expect(store.read().map((c) => c.symbol)).toEqual(["OLD"]);
+    store.write([co("NEW")]);
+    expect(store.read().map((c) => c.symbol)).toEqual(["NEW"]);
+  });
   it("no storage at all (SSR): empty list, writes stay in memory", () => {
     const store = make(null);
     expect(store.read()).toEqual([]);

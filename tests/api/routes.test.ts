@@ -285,5 +285,11 @@ describe("optional club code", () => {
       cookie: "stocklens_club=nope",
     });
     expect((await stockGET(wrongCookie, sym("AAPL"))).status).toBe(401);
+    // A malformed percent-escape is a wrong code, not a crash.
+    const malformed = req("/api/stock/AAPL", {
+      origin: ORIGIN,
+      cookie: "stocklens_club=%",
+    });
+    expect((await stockGET(malformed, sym("AAPL"))).status).toBe(401);
   });
 });

@@ -15,8 +15,9 @@ import {
 import { SymbolSchema } from "@/lib/providers/schemas";
 
 export const dynamic = "force-dynamic";
-// The fallback chain (up to ~50 s) plus the stock fetch must fit.
-export const maxDuration = 60;
+// The fallback chain takes up to ~50 s. A waiter may also wait ~50 s for another instance's generation
+// and then generate itself if that instance died, so two chain lengths plus the stock fetch must fit.
+export const maxDuration = 120;
 
 export async function GET(
   request: Request,

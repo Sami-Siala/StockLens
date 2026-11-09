@@ -50,8 +50,11 @@ export function createListStore<T>(opts: ListStoreOptions<T>): ListStore<T> {
   const getStorage = opts.storage ?? browserStorage;
   const listeners = new Set<() => void>();
   let memory = "[]";
+  // True after a write that storage refused (quota): the stored copy is then older than `memory`.
+  let memoryOnly = false;
 
   function snapshot(): string {
+    if (memoryOnly) return memory;
     try {
       const raw = getStorage()?.getItem(opts.key);
       if (typeof raw === "string") return raw;
@@ -91,8 +94,10 @@ export function createListStore<T>(opts: ListStoreOptions<T>): ListStore<T> {
       memory = raw;
       try {
         getStorage()?.setItem(opts.key, raw);
+        memoryOnly = false;
       } catch {
-        /* quota or blocked: memory copy still works for this session */
+        /* quota or blocked: the memory copy is what we read from now on, for this session */
+        memoryOnly = true;
       }
       emit();
     },

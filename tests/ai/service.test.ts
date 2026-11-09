@@ -258,6 +258,22 @@ describe("quota and keys", () => {
     expect(s.calls).toHaveLength(0);
   });
 
+  it("the daily budget tells the user the daily wait, and retries stop spending the budget", async () => {
+    const s = setup(() => okBody(GOOD_REPLY));
+    for (let i = 0; i < AI_CONFIG.dailyGenerationBudget; i++)
+      await s.store.increment("ai:budget:2026-11-06", 3600);
+    const first = await s.service.getThesis("AAPL", "en");
+    expect(first.result).toMatchObject({
+      status: "unavailable",
+      reason: "quota_exhausted",
+      retryAfter: AI_CONFIG.dailyQuotaCooldownSeconds,
+    });
+    // Another language is another cache key, so it reaches generate() again: it must stop at the marker.
+    const before = await s.store.get<number>("ai:budget:2026-11-06");
+    await s.service.getThesis("AAPL", "fr");
+    expect(await s.store.get<number>("ai:budget:2026-11-06")).toBe(before);
+  });
+
   it("no key -> no_key, and the stock page data is untouched", async () => {
     const s = setup(() => okBody(GOOD_REPLY), { key: false });
     expect(reason(await s.service.getThesis("AAPL", "en"))).toBe("no_key");

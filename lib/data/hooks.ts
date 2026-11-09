@@ -124,12 +124,18 @@ export function useSearch(query: string) {
 /** A resource that refreshes politely in the background and never flashes back to "loading". */
 export type PolledResource<T> =
   | { status: "loading" }
-  | { status: "ready"; data: T; refreshedAt: number }
+  | {
+      status: "ready";
+      data: T;
+      refreshedAt: number;
+      /** The key changed (a star, a visit) and the data on screen answers the previous one. */
+      updating?: boolean;
+    }
   | { status: "error"; error: DataError };
 
 type PolledState<T> =
-  | { data: T; at: number; error?: undefined }
-  | { error: DataError; data?: undefined; at: number };
+  | { data: T; at: number; key: string; error?: undefined }
+  | { error: DataError; data?: undefined; at: number; key: string };
 
 /**
  * Stale-while-revalidate fetch for dashboard tiles.
@@ -152,12 +158,14 @@ function usePolledResource<T>(
     const controller = new AbortController();
     lastFetch.current = Date.now();
     fetcher(controller.signal).then(
-      (data) => setState({ data, at: Date.now() }),
+      (data) => setState({ data, at: Date.now(), key }),
       (error: unknown) => {
         if (isAbort(error) || controller.signal.aborted) return;
         const e =
           error instanceof DataError ? error : new DataError("internal");
-        setState((prev) => (prev?.data ? prev : { error: e, at: Date.now() }));
+        setState((prev) =>
+          prev?.data ? prev : { error: e, at: Date.now(), key },
+        );
       },
     );
     return () => controller.abort();
@@ -203,7 +211,12 @@ function usePolledResource<T>(
     ? { status: "loading" }
     : state.error
       ? { status: "error", error: state.error }
-      : { status: "ready", data: state.data as T, refreshedAt: state.at };
+      : {
+          status: "ready",
+          data: state.data as T,
+          refreshedAt: state.at,
+          ...(state.key !== key ? { updating: true } : {}),
+        };
   return [resource, retry, refresh];
 }
 

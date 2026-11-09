@@ -226,7 +226,16 @@ export class AiService {
     const day = new Date(this.now()).toISOString().slice(0, 10);
     // 0 means the store is down: fail open (Google's own limit still protects us).
     const used = await store.increment(`ai:budget:${day}`, 2 * 86400);
-    if (used > AI_CONFIG.dailyGenerationBudget) return fail("quota_exhausted");
+    if (used > AI_CONFIG.dailyGenerationBudget) {
+      // Same marker as a provider-side daily quota, so the UI is told the real wait and the
+      // retries stop counting against the budget until the cooldown ends.
+      await store.set(
+        "ai:quota",
+        { daily: true } satisfies QuotaMarker,
+        AI_CONFIG.dailyQuotaCooldownSeconds,
+      );
+      return fail("quota_exhausted");
+    }
 
     const sheet = buildFacts(stock, language);
     const ids = new Set(Object.keys(sheet.facts));

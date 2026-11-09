@@ -1,5 +1,5 @@
 /** Pure helpers for the home dashboard (no React, no browser APIs): easy to test. */
-/** The batch endpoint takes at most 25 symbols (contract v0.3.0). */
+/** The batch endpoint takes at most 25 symbols (contract v0.3.0); `getQuotes` splits longer lists. */
 export const QUOTES_MAX = 25;
 
 /** Polite refresh: one cached upstream refresh per ~60 s for the whole class (PLAN §4.3). */
@@ -7,8 +7,9 @@ export const REFRESH_MS = 60_000;
 
 /**
  * ONE batched /api/quotes call for every tile: watchlist first, then the curated starters, then
- * recents. De-duplicated, upper-case, capped at the API limit. Order is stable so the request
- * key only changes when the set of companies changes.
+ * recents. De-duplicated and upper-case. Order is stable so the request key only changes when the
+ * set of companies changes. Not capped: a long list is split into API-sized calls by `getQuotes`,
+ * so no row ever loses its price.
  */
 export function unionSymbols(
   ...lists: Array<ReadonlyArray<{ symbol: string }>>
@@ -22,7 +23,7 @@ export function unionSymbols(
       seen.add(s);
       out.push(s);
     }
-  return out.slice(0, QUOTES_MAX);
+  return out;
 }
 
 export function shouldRefresh(input: {

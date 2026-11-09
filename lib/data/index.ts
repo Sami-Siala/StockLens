@@ -20,6 +20,7 @@ import type {
   ThesisResponse,
   TickerResponse,
 } from "@/lib/contract";
+import { QUOTES_MAX } from "./dashboard";
 import { liveSource } from "./live";
 import type { DataSourceApi } from "./source";
 
@@ -53,11 +54,34 @@ export async function getChart(
   return (await source()).chart(symbol, range, signal);
 }
 
+/**
+ * One call per API-sized batch (the endpoint takes at most QUOTES_MAX symbols). A full watchlist,
+ * the starters and the recents add up to more than that, and cutting the list would leave the last
+ * rows without a price. The batches run together and the answers are merged in order.
+ */
 export async function getQuotes(
   symbols: string[],
   signal?: AbortSignal,
 ): Promise<QuotesResponse> {
-  return (await source()).quotes(symbols, signal);
+  const src = await source();
+  if (symbols.length <= QUOTES_MAX) return src.quotes(symbols, signal);
+  const batches: string[][] = [];
+  for (let i = 0; i < symbols.length; i += QUOTES_MAX)
+    batches.push(symbols.slice(i, i + QUOTES_MAX));
+  const parts = await Promise.all(batches.map((b) => src.quotes(b, signal)));
+  const [first] = parts;
+  return {
+    ...first,
+    meta: {
+      ...first.meta,
+      stale: parts.some((p) => p.meta.stale),
+      fetchedAt: parts.reduce(
+        (oldest, p) => (p.meta.fetchedAt < oldest ? p.meta.fetchedAt : oldest),
+        first.meta.fetchedAt,
+      ),
+    },
+    entries: parts.flatMap((p) => p.entries),
+  };
 }
 
 export async function getMarket(signal?: AbortSignal): Promise<MarketResponse> {

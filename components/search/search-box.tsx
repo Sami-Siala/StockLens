@@ -4,6 +4,7 @@ import { Search } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useId, useState, type KeyboardEvent } from "react";
 import type { InstrumentType, SearchHit } from "@/lib/contract";
+import { searchSymbols } from "@/lib/data";
 import { useSearch } from "@/lib/data/hooks";
 import { pushRecent, searchesStore } from "@/lib/data/local/lists";
 import { cn } from "@/lib/utils";
@@ -80,9 +81,25 @@ export function SearchBox({
     if (active >= 0 && hits[active])
       return go(hits[active].symbol, hits[active]);
     if (hits[0]) return go(hits[0].symbol, hits[0]);
-    // Typed a ticker before results arrived: go straight there.
-    if (TICKER_LIKE.test(trimmed)) return go(trimmed.toUpperCase());
-    setOpen(true);
+    const fallback = () => {
+      // No result to pick (or the search failed): a ticker-shaped text may still be a real ticker.
+      if (TICKER_LIKE.test(trimmed)) return go(trimmed.toUpperCase());
+      setOpen(true);
+    };
+    if (loading) {
+      // Enter before the results arrived: "apple" or "lvmh" are names, not tickers. Ask now and
+      // open the first result, instead of guessing that the text is a ticker.
+      searchSymbols(trimmed).then(
+        (r) => {
+          const hit = r.hits.find((h) => SHOWN.includes(h.quoteType));
+          if (hit) go(hit.symbol, hit);
+          else fallback();
+        },
+        () => fallback(),
+      );
+      return;
+    }
+    fallback();
   }
 
   function onKeyDown(e: KeyboardEvent<HTMLInputElement>) {

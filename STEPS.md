@@ -200,15 +200,15 @@ Source: `PLAN.md` §11 Step 6 and §8 "Definition of done". Baseline: `main` at 
 and only when the user says go. Exit: v1 definition of done, **class dry run with 15 simultaneous tabs** (no 429s, AI quota survives),
 soak verdict "pass", Privacy/Terms signed off by the professor, link ready to share.
 
-| #   | Part                                   | Needs the user?                          | Status                                |
-| --- | -------------------------------------- | ---------------------------------------- | ------------------------------------- |
-| 6a  | **Soak verdict and ops sanity**        | No                                       | **Done 2026-11-09**: pass (see below) |
-| 6b  | **Resilience audit (stale mode)**      | No                                       | **Done 2026-11-09** (see below)       |
-| 6c  | **Ticker test matrix**                 | No                                       | **Done 2026-11-09** (see below)       |
-| 6d  | **Accessibility and Lighthouse**       | No                                       | Done 2026-11-07 (see below)           |
-| 6e  | **About / Privacy / Terms and README** | Professor signs the wording              | Page drafted, README not yet          |
-| 6f  | **Code review and final polish**       | No                                       | Not started                           |
-| 6g  | **Deploy and class dry run**           | Upstash, "start here" list, go to deploy | Not started                           |
+| #   | Part                                   | Needs the user?                     | Status                                                  |
+| --- | -------------------------------------- | ----------------------------------- | ------------------------------------------------------- |
+| 6a  | **Soak verdict and ops sanity**        | No                                  | **Done 2026-11-09**: pass (see below)                   |
+| 6b  | **Resilience audit (stale mode)**      | No                                  | **Done 2026-11-09** (see below)                         |
+| 6c  | **Ticker test matrix**                 | No                                  | **Done 2026-11-09** (see below)                         |
+| 6d  | **Accessibility and Lighthouse**       | No                                  | Done 2026-11-07 (see below)                             |
+| 6e  | **About / Privacy / Terms and README** | Professor signs the wording         | **README done 2026-11-09**; professor signs the wording |
+| 6f  | **Code review and final polish**       | No                                  | **Review done 2026-11-09**, final polish left           |
+| 6g  | **Deploy and class dry run**           | Your go to deploy; professor review | **Next** (Upstash and start-here list are ready)        |
 
 ## 6a. Soak verdict (finding, 2026-11-07)
 
@@ -255,4 +255,50 @@ it clears once the delayed feed ticks, but a student opening the site in the fir
   2 to 6 ms), routes still inside their soft TTL stayed fresh, uncached MSFT/KO/search gave 502, `/api/quotes` gave 200 with inline `unavailable` entries, `/api/health` = `down`. Unblocked, everything came
   back fresh with no restart (MSFT included) and health returned to `ok`. In headless Chrome the stock page shows the "Live data is temporarily unavailable... last saved data" banner in EN and FR with
   the last price, chart and cards intact; an uncached company shows "We could not load this company"; the AI panel shows its unavailable state with a retry. The AI hosts were refused by the proxy,
-  so no AI quota was spent. Caveat: this ran on one process with the in-memory store, so it says nothing about Upstash (still to provision, 6g).
+  so no AI quota was spent. Caveat: this ran on one process with the in-memory store, so it says nothing about Upstash. Upstash is provisioned on Vercel (health `ok`, 2026-11-09), so the cross-instance behaviour is for the 6g dry run.
+
+## 6e and 6f status (2026-11-09)
+
+**6e:** README rewritten (what it does, architecture, env vars, scripts, deploy and operate, open licence question). `.env.example` no longer lists the unused Finnhub and Twelve Data keys.
+Added the weekly live smoke workflow PLAN §7 promised and nobody had built (`.github/workflows/smoke.yml`, Mondays 06:00 UTC, no AI quota). Upstash turned out to be provisioned already (`/api/health` ok).
+Still the professor's: sign-off of the About / Privacy / Terms wording.
+
+**6f: `/code-review high` over `app`, `lib`, `components`, `proxy.ts` (read-only agent, Sonnet 5.5): 10 findings, all checked against the code, 9 fixed, 1 documented.**
+
+- Fixed, with a test that fails without the fix: the daily AI budget now sets the quota marker, so the card says the real wait and retries stop counting; a malformed club cookie (`%`) is a 401, not a 500;
+  a full `localStorage` (writes refused, reads fine) no longer drops the edit; a company starred while the dashboard is open is "loading", not "Price not available"; a full watchlist plus starters plus recents
+  is split into API-sized `/api/quotes` calls (`getQuotes`), so no row loses its price (it used to cut the list at 25).
+- Fixed, checked in headless Chrome against the old and the new build: pressing Enter right after typing "apple" or "lvmh" opened `/stock/APPLE` and `/stock/LVMH`; it now waits for the search and opens the
+  first result. Dotted tickers (`/stock/MC.PA`, `7203.T`) had no locale redirect because the matcher skipped any path containing a dot; it now skips only known file extensions.
+  Static files, icons and `/api` verified unaffected.
+- Mitigated, not redesigned: if the instance generating an AI thesis dies, a waiting instance could run past the route's 60 s; `maxDuration` is now 120.
+- Defensive: `StockView` is keyed by symbol so the typed margin-of-safety estimate and quiz position cannot carry over to another company. I could not confirm the carry-over happens (Next may already remount).
+- **Documented, not fixed: the club-code gate has no entry page.** Setting `CLUB_CODE` makes every `/api` call answer 401 and nothing in the UI posts to `/api/club`. Leave it empty (README and `.env.example` say so),
+  or build a small entry page. PLAN §10 Q9 is still open; the plan recommended the gate, so this needs your decision. The cookie also holds the code itself (HttpOnly, but not a hash): fine for a club code, worth knowing.
+- Seen, not touched: `components/search/header-search.tsx` fails `prettier --check` (CI does not run it); `/robots.txt` is a 404 (the site relies on the `noindex` header and meta).
+- Left for the final polish: the `apple-ui` pass in light and dark mode, and folding the quiz and margin cards into `details` on phones (STEPS 5d idea).
+
+## 6g: deploy and class dry run (NEXT, written 2026-11-09 for a fresh session)
+
+**Starting state.** `main` has the 6a to 6f work pushed. **Production is NOT redeployed yet**: it still runs the build from before 6a, so it still serves the old `/api/spike` route and has none of the 6f fixes.
+Upstash is provisioned (`/api/health`: yahoo, upstash, gemini all `ok`). The start-here list exists (`lib/education/start-here.ts`: AAPL MSFT NVDA GOOG AMZN META MC.PA 7203.T TSLA AVGO, 6 shown first; the "why" lines of the
+nine US tech names are not yet reviewed by the professor). The weekly smoke workflow starts running once pushed. The `Assets/` changes and `next-env.d.ts` are the user's: do not commit them without asking.
+
+**Steps, in order (ask before each outward action):**
+
+1. **Deploy**: `vercel deploy --prod --yes` (global `vercel` binary, not `npx`). Then `npx tsx scripts/smoke.ts --base https://stocks-lens.vercel.app` and `/api/health`; `/api/spike` must now 404.
+2. **Pre-warm the AI**: `npm run ai:prewarm` (start-here tickers x FR and EN = 20 generations, 25 s apart, about 9 minutes). It **spends quota**: `gemini-3.6-flash` allows 20 requests a day, so most of it will fall to Groq
+   (about 1000 a day per model) and the Gemini fallbacks. Run it the morning of the class, not the evening before (the cache is per day). It stops at the first `quota_exhausted`.
+3. **Class dry run with 15 simultaneous clients** (no script exists yet: write one, e.g. `scripts/dry-run.ts`, owner orchestrator). Each client does what a student does: open the home dashboard (`/api/ticker`, `/api/market`,
+   `/api/quotes`), then a stock page (`/api/stock`, the chart ranges, `/api/ai/{symbol}`), with the same ticker for all 15, plus one ticker nobody has opened (cold). Pass: no 429 and no 5xx, p95 under about 3 s,
+   AI answers `ready` for pre-warmed tickers. Run it once from one IP (a school shares one IP).
+   Things to measure on purpose: (a) the per-IP rate limit is 300 requests a minute for the data routes but **only 20 a minute for `/api/ai`**, and cached answers count too, so a class behind one school IP opening
+   several stock pages in a minute can hit it: check what the UI shows on a 429 and raise `AI_CONFIG.ratePerMinutePerIp` if the dry run says so; (b) "15 students = one upstream fetch" across serverless instances is only proven
+   unit-wise so far (the cold start test with a mock store): look at the Vercel function logs or health after a cold-ticker burst; (c) the AI budget (150 a day) and the quota marker behave (6f fix).
+4. **Final apple-ui polish** (left over from 6f): light and dark, 390 and 1280 px, and folding the quiz and margin cards into `details` on phones. Needs the `frontend-engineer` agent, only on the user's go. Redeploy afterwards.
+5. **Sign-offs that gate launch** (the user's, not yours): the professor reviews all FR/EN copy (5d list) and the About / Privacy / Terms page (then remove its "draft" line); LICENSE and logo ownership (PLAN §10 Q10);
+   the club-code gate decision (PLAN §10 Q9: it needs an entry page before `CLUB_CODE` can be set).
+6. **Launch**: share https://stocks-lens.vercel.app with the club. Then close Step 6 in `STEPS.md`/`CURRENT.md`. Phase 2 (PLAN §13) starts only after the first class has used v1.
+
+**Useful commands.** `npm run check` (927 tests) and `NEXT_PUBLIC_DATA_MODE=live npm run build` before any deploy. `node scripts/outage-proxy.mjs` for an outage drill. Browser checks: drive local Chrome over the DevTools
+protocol (a subagent cannot use the Chrome extension); keep AI keys blank (`GEMINI_API_KEY= GROQ_API_KEY=`) when running a local server so no quota is spent.
