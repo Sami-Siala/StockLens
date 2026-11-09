@@ -5,8 +5,8 @@ detail and status. This file is only "where are we right now".
 
 ## State
 
-- **Steps 1 to 5 are built, committed and deployed.** `main` = `origin/main` at `dcc8076`, `npm run check` green (906 tests).
-- **Step 6 (hardening, QA, launch) is in progress**, see the bottom of `STEPS.md`.
+- **Steps 1 to 5 are built, committed and deployed.** `npm run check` green (921 tests).
+- **Step 6 (hardening, QA, launch) is in progress**, see the bottom of `STEPS.md`. 6a (soak: **pass**, 270/0, spike removed), 6b (stale mode, incl. a real outage drill) and 6c (ticker matrix) are done as of 2026-11-09. Left: 6e README, 6f code review and final polish, 6g Upstash, "start here" list, deploy and the 15-tab dry run.
 - Production: **https://stocks-lens.vercel.app** (live data mode, region `cdg1`). `stocklens-beryl.vercel.app` is an old alias that
   now 307-redirects to it. Deploy by hand: `vercel deploy --prod --yes` (Vercel-GitHub auto-deploy is not connected).
 - Contract: market data `0.3.1`, AI endpoint `0.4.0`. AI is a multi-provider chain (Gemini, Groq, Gemma), keys are on Vercel.
@@ -20,16 +20,15 @@ detail and status. This file is only "where are we right now".
 - **The professor's review** of all FR/EN copy (list in `STEPS.md` 5d) and sign-off of the Privacy/Terms page.
 - Settle PLAN §10: LICENSE and logo ownership, club-code gate, lectures stay local.
 - `Assets/` changes (original logo moved, `Assets/Animation/`, `Assets/Default.png`) and `next-env.d.ts`: **never commit without asking**.
-- Decide the soak verdict (see Step 6 in `STEPS.md`), then delete `app/api/spike` and `.github/workflows/soak.yml`.
 
 ## Links and accounts
 
 | Thing                | Value                                                                                                          |
 | -------------------- | -------------------------------------------------------------------------------------------------------------- |
 | GitHub repo (public) | https://github.com/Sami-Siala/StockLens (git user `Sami-Siala`, `gh` logged in, https); secret scanning on     |
-| Vercel               | project `stocklens`, scope `stock-lens2`, Hobby, `cdg1` via `vercel.json`; CLI is global (`vercel`, not `npx`)  |
-| `.env.local`         | exists, git-ignored, holds `VERCEL_OIDC_TOKEN` and the AI keys. Never commit, never paste                       |
-| AI limits            | `gemini-3.6-flash` = 20 requests/day free; Groq ~1000/day per model; budget guard 150 (PLAN §3.5)               |
+| Vercel               | project `stocklens`, scope `stock-lens2`, Hobby, `cdg1` via `vercel.json`; CLI is global (`vercel`, not `npx`) |
+| `.env.local`         | exists, git-ignored, holds `VERCEL_OIDC_TOKEN` and the AI keys. Never commit, never paste                      |
+| AI limits            | `gemini-3.6-flash` = 20 requests/day free; Groq ~1000/day per model; budget guard 150 (PLAN §3.5)              |
 
 ## Working method
 

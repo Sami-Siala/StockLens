@@ -533,9 +533,8 @@ All limits live in a **rule set** you create and attach to a cohort, an assignme
 
 ## 14. Next step
 
-Steps 1 to 3 are built and deployed (https://stocklens-beryl.vercel.app). In order:
-1. **Soak verdict** (Yahoo from Vercel's IPs). The scheduled GitHub Action had not fired yet at last check; fall back to a Vercel cron or a local run if it still doesn't.
-2. **Step 3b: home dashboard** (§4.3). No account needed, and it removes the "empty home" problem.
-3. **Step 4: AI layer**. Needs the **Gemini key** (record real RPM/RPD in §3.5).
-4. **Provision Upstash** so the cache is really shared on Vercel; **review the French copy**.
-5. Then Step 5 (education), Step 6 (hardening and class dry run), launch v1. **Phase 2 (§13) only after that.**
+Steps 1 to 5 are built and deployed (https://stocks-lens.vercel.app). The soak verdict is **pass** (270 requests, 0 failures, 2026-11-09). Step 6 (hardening, QA, launch) is in progress; its status is in `STEPS.md`. What is left, in order:
+1. **README rewrite, `/code-review`, final apple-ui polish** (6e, 6f).
+2. **Provision Upstash**, give the "start here" list, run `npm run ai:prewarm`, then the **class dry run with 15 tabs** (6g).
+3. **Professor review** of all FR/EN copy and sign-off of the Privacy/Terms page (5d, 6e).
+4. Launch v1. **Phase 2 (§13) only after that.**

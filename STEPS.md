@@ -117,12 +117,12 @@ Already in place (do not rebuild): watchlist star + dashboard tile + recents (`l
 definition/formula/rule for the 6 key cards (`Stock.cards.*`), `?hideAI=1` already honoured by the stock page (`components/stock/ai-flag.ts`),
 `GlossaryTermId` (13 ids) in `lib/contract/ai.ts` with the thesis rendering them as plain chips, a static `LearnTile` placeholder on the home page.
 
-| #   | Part                                  | Tier | Status          |
-| --- | ------------------------------------- | ---- | --------------- |
-| 5a  | **Glossary and Séance tags**          | P1   | Done 2026-11-07 |
-| 5b  | **Notes, your pick, teacher links**   | P1   | Done 2026-11-07 |
-| 5c  | **Quiz, margin of safety, export**    | P2   | Done 2026-11-07 |
-| 5d  | **Polish pass and professor review**  | P1   | Waiting on the professor |
+| #   | Part                                 | Tier | Status                   |
+| --- | ------------------------------------ | ---- | ------------------------ |
+| 5a  | **Glossary and Séance tags**         | P1   | Done 2026-11-07          |
+| 5b  | **Notes, your pick, teacher links**  | P1   | Done 2026-11-07          |
+| 5c  | **Quiz, margin of safety, export**   | P2   | Done 2026-11-07          |
+| 5d  | **Polish pass and professor review** | P1   | Waiting on the professor |
 
 ## 5a. Glossary and Séance tags
 
@@ -200,15 +200,15 @@ Source: `PLAN.md` §11 Step 6 and §8 "Definition of done". Baseline: `main` at 
 and only when the user says go. Exit: v1 definition of done, **class dry run with 15 simultaneous tabs** (no 429s, AI quota survives),
 soak verdict "pass", Privacy/Terms signed off by the professor, link ready to share.
 
-| #   | Part                                  | Needs the user?                          | Status      |
-| --- | ------------------------------------- | ---------------------------------------- | ----------- |
-| 6a  | **Soak verdict and ops sanity**       | Final call on deleting spike + workflow  | In progress |
-| 6b  | **Resilience audit (stale mode)**     | No                                       | Partly: prod burst OK, see below |
-| 6c  | **Ticker test matrix**                | No                                       | Not started |
-| 6d  | **Accessibility and Lighthouse**      | No                                       | Done 2026-11-07 (see below) |
-| 6e  | **About / Privacy / Terms and README**| Professor signs the wording              | Page drafted, README not yet |
-| 6f  | **Code review and final polish**      | No                                       | Not started |
-| 6g  | **Deploy and class dry run**          | Upstash, "start here" list, go to deploy | Not started |
+| #   | Part                                   | Needs the user?                          | Status                                |
+| --- | -------------------------------------- | ---------------------------------------- | ------------------------------------- |
+| 6a  | **Soak verdict and ops sanity**        | No                                       | **Done 2026-11-09**: pass (see below) |
+| 6b  | **Resilience audit (stale mode)**      | No                                       | **Done 2026-11-09** (see below)       |
+| 6c  | **Ticker test matrix**                 | No                                       | **Done 2026-11-09** (see below)       |
+| 6d  | **Accessibility and Lighthouse**       | No                                       | Done 2026-11-07 (see below)           |
+| 6e  | **About / Privacy / Terms and README** | Professor signs the wording              | Page drafted, README not yet          |
+| 6f  | **Code review and final polish**       | No                                       | Not started                           |
+| 6g  | **Deploy and class dry run**           | Upstash, "start here" list, go to deploy | Not started                           |
 
 ## 6a. Soak verdict (finding, 2026-11-07)
 
@@ -233,3 +233,26 @@ Verified by hand: `/api/spike` answers 200 for AAPL, MC.PA and 7203.T on product
 - Still open in 6e: README is stale ("Step 1 in progress"), to rewrite at close-out.
 - Not done yet: 6c ticker matrix against the live site (US, EU, Asia, ETF, loss-maker, semi-annual, bank), forced-failure test of stale mode, `/code-review`,
   final apple-ui pass, and 6g (needs Upstash and the "start here" list from the user).
+
+## 6a, 6b, 6c status (2026-11-09)
+
+**6a, soak verdict: PASS.** 9 valid runs on GitHub (2026-11-07 12:03Z to 2026-11-09 02:54Z, about 39 hours, the first one a manual dispatch, the rest scheduled), each 10 ticks
+x 3 tickers against the uncached `/api/spike` route (Vercel `cdg1` calling Yahoo directly): **270 requests, 0 non-200** (0 / 270 puts the 95 % upper bound near 1.4 %, under the 2 % bar).
+The six earlier failures were the 307 redirect (ignore). Shorter than the 3 to 5 days PLAN §3.3 asked for, but the statistics and the stable results settle it; Plan B (PLAN §3.6) is not needed.
+Removed: `app/api/spike`, `.github/workflows/soak.yml`, `scripts/soak.ts`, the `soak` npm script. `soak-log.jsonl` (git-ignored) stays local.
+
+**6c, ticker matrix against production** (`npx tsx scripts/smoke.ts --base https://stocks-lens.vercel.app`): smoke OK. AAPL, MC.PA (semi-annual), 7203.T, TSM (ADR), JPM (bank),
+SPY (ETF), RIVN (loss-maker), SHEL.L (pence): all 8 chart ranges return candles for all 8, `stale=false`, health ok, `/api/ticker` 25/25, `/api/market`, `/api/quotes` ok.
+Fields present: 42, 35, 42, 43, 41, 14 (ETF, everything else `n/a (type)`), 38, 40 of 43, and each gap carries its reason code (same as `docs/data-availability.md`).
+Observations, not bugs: (1) just after the Paris open (09:08 local) `^FCHI`, `^FTSE`, `^AEX` and MC.PA showed exactly 0.00 % with `marketState: REGULAR` because Yahoo's `asOf` was still Friday's close;
+it clears once the delayed feed ticks, but a student opening the site in the first minutes sees a flat price; (2) RIVN "All" chart has 62 points (young listing, correct).
+
+**6b, forced Yahoo failure.** Two layers.
+
+- `tests/api/degraded.test.ts` (14 tests): after a good load and a clock jump past the soft TTLs, `/api/stock`, `/api/chart` (all 8 ranges) and `/api/search` keep answering 200 with `meta.stale=true` and
+  the same data; with nothing cached they answer a clean 502 `upstream_unavailable` with no internals (no `429`, no crumb); `/api/health` goes `down` after repeated failures.
+- Black-box on a real production build (`scripts/outage-proxy.mjs`, a CONNECT proxy switched off mid-run): cached stock, chart 1H and 1D, quotes, market and ticker all served stale (200,
+  2 to 6 ms), routes still inside their soft TTL stayed fresh, uncached MSFT/KO/search gave 502, `/api/quotes` gave 200 with inline `unavailable` entries, `/api/health` = `down`. Unblocked, everything came
+  back fresh with no restart (MSFT included) and health returned to `ok`. In headless Chrome the stock page shows the "Live data is temporarily unavailable... last saved data" banner in EN and FR with
+  the last price, chart and cards intact; an uncached company shows "We could not load this company"; the AI panel shows its unavailable state with a retry. The AI hosts were refused by the proxy,
+  so no AI quota was spent. Caveat: this ran on one process with the in-memory store, so it says nothing about Upstash (still to provision, 6g).

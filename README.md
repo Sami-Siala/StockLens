@@ -26,7 +26,6 @@ npm run check                # typecheck + lint + tests
 | ------------------------- | ----------------------------------------------------------------------------- |
 | `npm run fixtures:record` | Re-record raw Yahoo payloads into `tests/fixtures/raw` (manual, rate-limited) |
 | `npm run fixtures:build`  | Rebuild contract-shaped fixtures in `tests/fixtures/contract`                 |
-| `npm run soak`            | Yahoo soak test against a deployed spike endpoint (see `scripts/soak.ts`)     |
 
 ## Layout
 
